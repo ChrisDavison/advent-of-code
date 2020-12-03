@@ -1,7 +1,6 @@
 mod day1;
 mod day2;
 mod day3;
-mod util;
 
 #[derive(Clone, Copy)]
 pub enum Part {
@@ -9,7 +8,7 @@ pub enum Part {
     Two,
 }
 
-type DayFunction = fn(Part) -> anyhow::Result<String>;
+type DayFunction = fn(&String, Part) -> anyhow::Result<String>;
 
 fn main() {
     let args: Vec<String> = std::env::args().skip(1).collect();
@@ -33,11 +32,12 @@ fn main() {
         let func = functions[i];
         let counter = i + 1;
         if counter == day {
-            match func(Part::One) {
+            let data = std::fs::read_to_string(format!("input/day{}.txt", day)).unwrap();
+            match func(&data, Part::One) {
                 Ok(result) => println!("Day {} Part 1: {}", counter, result),
                 Err(e) => eprintln!("ERROR Day {} Part 1: {}", counter, e),
             }
-            match func(Part::Two) {
+            match func(&data, Part::Two) {
                 Ok(result) => println!("Day {} Part 2: {}", counter, result),
                 Err(e) => eprintln!("ERROR Day {} Part 2: {}", counter, e),
             }

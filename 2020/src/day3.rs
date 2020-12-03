@@ -1,5 +1,4 @@
 #![allow(dead_code, unused_imports, unused_variables)]
-use super::util;
 use anyhow::Result;
 
 #[derive(Clone, Copy)]
@@ -19,20 +18,17 @@ fn next_position(current: Position, slope: Slope, width: usize) -> Position {
     Position { x: new_x, y: new_y }
 }
 
-pub fn run(part: super::Part) -> Result<String> {
+pub fn run(data: &String, part: super::Part) -> Result<String> {
     // SAMPLE LINES
     // ..#..#......#..#.......#...#.#.
     // ...##.....##..#..#....#.##.##.#
     // ...#...#.##...##.....#.....#.#.
-    let lines: Vec<String> = std::fs::read_to_string("input/day3.txt")?
-        .split("\n")
-        .map(|x| x.to_string())
-        .collect();
+    let lines: Vec<String> = data.split("\n").map(|x| x.to_string()).collect();
 
     match part {
         super::Part::One => {
             let n_trees = check_slope(&lines, Slope { right: 3, down: 1 });
-            Ok(format!("{} trees hit", n_trees))
+            Ok(format!("{}", n_trees))
         }
         super::Part::Two => {
             let slopes = vec![

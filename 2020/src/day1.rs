@@ -1,13 +1,12 @@
 use super::Part;
 use anyhow::Result;
 
-pub fn run(part: Part) -> Result<String> {
+pub fn run(data: &String, part: Part) -> Result<String> {
     // Part 1
     // Find 2 entries that sum to 2020, and multiply them
     //
     // Part 2
     // Find 3 entries that sum to 2020, and multiply them
-    let data = std::fs::read_to_string("input/day1.txt")?;
     let lines: Vec<i64> = data
         .split("\n")
         .map(|x| x.parse())
