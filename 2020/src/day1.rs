@@ -1,14 +1,14 @@
 use super::Part;
 use anyhow::Result;
 
-pub fn run(data: &String, part: Part) -> Result<String> {
+pub fn day1(data: &[&str], part: Part) -> Result<()> {
     // Part 1
     // Find 2 entries that sum to 2020, and multiply them
     //
     // Part 2
     // Find 3 entries that sum to 2020, and multiply them
     let lines: Vec<i64> = data
-        .split("\n")
+        .iter()
         .map(|x| x.parse())
         .filter_map(|x| x.ok())
         .collect();
@@ -36,5 +36,6 @@ pub fn run(data: &String, part: Part) -> Result<String> {
             }
         }
     }
-    Ok(format!("{}", result))
+    println!("1.{} - {}", part, result);
+    Ok(())
 }

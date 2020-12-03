@@ -1,83 +1,81 @@
+use crate::part::Part;
+
 use anyhow::{bail, Result};
-use std::str::FromStr;
 
 #[derive(Debug)]
-struct PasswordLine {
+struct PasswordLine<'a> {
     lower: usize,
     upper: usize,
     letter: char,
-    password: String,
+    password: &'a str,
     n_letter: usize,
 }
 
-impl FromStr for PasswordLine {
-    type Err = anyhow::Error;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        if s.trim().len() == 0 {
-            bail!("Empty string")
-        }
-        let idx_dash = s.find("-").unwrap();
-        let idx_space_after_dash = s.find(" ").unwrap();
-        let idx_colon = s.find(":").unwrap();
-
-        let lower: usize = s[0..idx_dash].parse()?;
-        let upper: usize = s[idx_dash + 1..idx_space_after_dash].parse()?;
-        let letter: char = s[idx_space_after_dash + 1..idx_space_after_dash + 2].parse()?;
-        let password: String = s[idx_colon + 2..].parse().unwrap();
-        let n_letter = password
-            .chars()
-            .filter(|&c| c == letter)
-            .collect::<Vec<char>>()
-            .len();
-
-        Ok(PasswordLine {
-            lower,
-            upper,
-            letter,
-            password,
-            n_letter,
-        })
-    }
-}
-
-pub fn run(data: &String, part: crate::Part) -> Result<String> {
+pub fn day2(data: &[&str], part: Part) -> Result<()> {
     let mut valid = 0;
 
-    for line in data.split("\n") {
-        if line.trim().len() == 0 {
-            continue;
-        }
-        let pw: PasswordLine = line.parse().unwrap();
-        if is_valid(pw, part) {
+    let valid_rule_func = match part {
+        Part::One => valid_rule_part1,
+        Part::Two => valid_rule_part2,
+    };
+
+    for line in data {
+        if valid_rule_func(parse_password(line)?) {
             valid += 1;
         }
     }
-    Ok(format!("{}", valid))
+    println!("2.{} - {}", part, valid);
+    Ok(())
 }
 
-fn is_valid(pw: PasswordLine, part: crate::Part) -> bool {
-    match part {
-        crate::Part::One => pw.n_letter >= pw.lower && pw.n_letter <= pw.upper,
-        crate::Part::Two => {
-            let chars: Vec<char> = pw.password.chars().collect();
-            let has_char_at_lower = chars
-                .iter()
-                .nth(pw.lower - 1)
-                .and_then(|&c| Some(c == pw.letter))
-                .unwrap_or(false);
-            let has_char_at_upper = chars
-                .iter()
-                .nth(pw.upper - 1)
-                .and_then(|&c| Some(c == pw.letter))
-                .unwrap_or(false);
-            if has_char_at_lower && !has_char_at_upper {
-                true
-            } else if !has_char_at_lower && has_char_at_upper {
-                true
-            } else {
-                false
-            }
-        }
+fn recursive_chunk<'a>(s: &'a str, next_stop: char) -> (&'a str, &'a str) {
+    if let Some(idx) = s.find(next_stop) {
+        (s[0..idx].trim(), s[idx + 1..].trim())
+    } else {
+        (s, "")
+    }
+}
+
+fn parse_password<'a>(s: &str) -> Result<PasswordLine> {
+    if s.trim().len() == 0 {
+        bail!("Empty string")
+    }
+    let (lower, s) = recursive_chunk(s, '-');
+    let (upper, s) = recursive_chunk(s, ' ');
+    let (letter, s) = recursive_chunk(s, ':');
+    let ch = letter.parse()?;
+    let n_letter = s.chars().filter(|&c| c == ch).collect::<Vec<char>>().len();
+
+    Ok(PasswordLine {
+        lower: lower.parse()?,
+        upper: upper.parse()?,
+        letter: ch,
+        password: s,
+        n_letter: n_letter,
+    })
+}
+
+fn valid_rule_part1(pw: PasswordLine) -> bool {
+    pw.n_letter >= pw.lower && pw.n_letter <= pw.upper
+}
+
+fn valid_rule_part2(pw: PasswordLine) -> bool {
+    let chars: Vec<char> = pw.password.chars().collect();
+    let has_char_at_lower = chars
+        .iter()
+        .nth(pw.lower - 1)
+        .and_then(|&c| Some(c == pw.letter))
+        .unwrap_or(false);
+    let has_char_at_upper = chars
+        .iter()
+        .nth(pw.upper - 1)
+        .and_then(|&c| Some(c == pw.letter))
+        .unwrap_or(false);
+    if has_char_at_lower && !has_char_at_upper {
+        true
+    } else if !has_char_at_lower && has_char_at_upper {
+        true
+    } else {
+        false
     }
 }
