@@ -52,11 +52,7 @@ fn main() {
                     continue;
                 }
             };
-            let tidy_data: Vec<&str> = data
-                .split("\n")
-                .map(|x| x.trim())
-                .filter(|x| x.len() != 0)
-                .collect();
+            let tidy_data: Vec<&str> = data.split("\n").map(|x| x.trim()).collect();
             if let Err(e) = func(&tidy_data, Part::One) {
                 eprintln!("ERR {}.{} - {}", i + 1, Part::One, e);
             }

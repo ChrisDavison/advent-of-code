@@ -19,7 +19,7 @@ pub fn day2(data: &[&str], part: Part) -> Result<()> {
         Part::Two => valid_rule_part2,
     };
 
-    for line in data {
+    for line in data.iter().filter(|x| x.len() != 0) {
         if valid_rule_func(parse_password(line)?) {
             valid += 1;
         }
