@@ -25,6 +25,7 @@ fn main() {
         }
         if let Err(e) = run(i + 1, *func) {
             eprintln!("{}", e);
+            break;
         }
         if day.is_none() {
             println!("");
@@ -36,11 +37,8 @@ fn run(day: usize, func: fn(&[&str], Part) -> Result<()>) -> Result<()> {
     let data = std::fs::read_to_string(format!("input/day{}.txt", day))
         .with_context(|| format!("No input file for day {}. Assuming day not released.", day))?;
     let tidy_data: Vec<&str> = data.split("\n").map(|x| x.trim()).collect();
-    if let Err(e) = func(&tidy_data, Part::One) {
-        eprintln!("ERR {}.{} - {}", day, Part::One, e);
-    }
-    if let Err(e) = func(&tidy_data, Part::Two) {
-        eprintln!("ERR {}.{} - {}", day, Part::Two, e);
-    }
+    func(&tidy_data, Part::One).with_context(|| format!("ERR {}.1", day))?;
+    func(&tidy_data, Part::Two).with_context(|| format!("ERR {}.2", day))?;
+
     Ok(())
 }
