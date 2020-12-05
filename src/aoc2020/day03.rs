@@ -25,9 +25,12 @@ pub fn day3(data: &[&str], part: Part) -> Result<()> {
     };
 
     let results: Vec<usize> = slopes.iter().map(|&s| check_slope(&data, s)).collect();
-    let product = |ls: &[usize]| -> usize { ls.iter().skip(1).fold(ls[0], |acc, x| acc * x) };
 
-    println!("3.{} - {}", part, product(&results));
+    println!(
+        "3.{} - {}",
+        part,
+        results.iter().skip(1).fold(results[0], |acc, x| acc * x)
+    );
     Ok(())
 }
 
