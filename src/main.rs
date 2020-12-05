@@ -1,8 +1,8 @@
 #![allow(dead_code, unused_variables)]
-mod days;
+mod aoc2020;
 mod part;
 
-use days::*;
+use aoc2020::*;
 
 use anyhow::{Context, Result};
 use part::Part;
