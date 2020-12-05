@@ -1,4 +1,4 @@
-use super::Part;
+use crate::part::Part;
 use anyhow::Result;
 
 pub fn day1(data: &[&str], part: Part) -> Result<()> {

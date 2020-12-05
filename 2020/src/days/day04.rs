@@ -3,7 +3,6 @@ use anyhow::Result;
 use std::collections::{HashMap, HashSet};
 
 pub fn day4(data: &[&str], part: Part) -> Result<()> {
-    // println!("{:#?}", &data[..10]);
     let mut valid = 0;
     let mut fields: HashMap<&str, &str> = HashMap::new();
     let validator = match part {
