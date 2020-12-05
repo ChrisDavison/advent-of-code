@@ -1,29 +1,29 @@
 #![allow(dead_code, unused_variables)]
 mod day1;
-mod day10;
-mod day11;
-mod day12;
-mod day13;
-mod day14;
-mod day15;
-mod day16;
-mod day17;
-mod day18;
-mod day19;
+// mod day10;
+// mod day11;
+// mod day12;
+// mod day13;
+// mod day14;
+// mod day15;
+// mod day16;
+// mod day17;
+// mod day18;
+// mod day19;
 mod day2;
-mod day20;
-mod day21;
-mod day22;
-mod day23;
-mod day24;
-mod day25;
+// mod day20;
+// mod day21;
+// mod day22;
+// mod day23;
+// mod day24;
+// mod day25;
 mod day3;
 mod day4;
 mod day5;
-mod day6;
-mod day7;
-mod day8;
-mod day9;
+// mod day6;
+// mod day7;
+// mod day8;
+// mod day9;
 mod part;
 
 use anyhow::Result;
@@ -37,7 +37,7 @@ fn main() {
         .parse()
         .unwrap();
     let funcs: Vec<fn(&[&str], Part) -> Result<()>> =
-        vec![day1::day1, day2::day2, day3::day3, day4::day4];
+        vec![day1::day1, day2::day2, day3::day3, day4::day4, day5::day5];
 
     println!("Advent of Code 2020");
     println!("");
