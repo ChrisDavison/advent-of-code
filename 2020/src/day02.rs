@@ -1,6 +1,6 @@
 use crate::part::Part;
 
-use anyhow::{bail, Result};
+use anyhow::Result;
 
 #[derive(Debug)]
 struct PasswordLine<'a> {
@@ -8,7 +8,6 @@ struct PasswordLine<'a> {
     upper: usize,
     letter: char,
     password: &'a str,
-    n_letter: usize,
 }
 
 pub fn day2(data: &[&str], part: Part) -> Result<()> {
@@ -37,26 +36,29 @@ fn recursive_chunk<'a>(s: &'a str, next_stop: char) -> (&'a str, &'a str) {
 }
 
 fn parse_password<'a>(s: &str) -> Result<PasswordLine> {
-    if s.trim().len() == 0 {
-        bail!("Empty string")
-    }
-    let (lower, s) = recursive_chunk(s, '-');
-    let (upper, s) = recursive_chunk(s, ' ');
-    let (letter, s) = recursive_chunk(s, ':');
-    let ch = letter.parse()?;
-    let n_letter = s.chars().filter(|&c| c == ch).collect::<Vec<char>>().len();
+    let split_chars = " :-";
+    let parts: Vec<&str> = s
+        .split(|x| split_chars.contains(x))
+        .map(|x| x.trim())
+        .filter(|x| !x.is_empty())
+        .collect();
 
     Ok(PasswordLine {
-        lower: lower.parse()?,
-        upper: upper.parse()?,
-        letter: ch,
-        password: s,
-        n_letter: n_letter,
+        lower: parts[0].parse()?,
+        upper: parts[1].parse()?,
+        letter: parts[2].parse()?,
+        password: parts[3],
     })
 }
 
 fn valid_rule_part1(pw: PasswordLine) -> bool {
-    pw.n_letter >= pw.lower && pw.n_letter <= pw.upper
+    let n_letter = pw
+        .password
+        .chars()
+        .filter(|&c| c == pw.letter)
+        .collect::<Vec<char>>()
+        .len();
+    n_letter >= pw.lower && n_letter <= pw.upper
 }
 
 fn valid_rule_part2(pw: PasswordLine) -> bool {
@@ -80,6 +82,7 @@ fn valid_rule_part2(pw: PasswordLine) -> bool {
     }
 }
 
+#[allow(dead_code, unused_imports)]
 mod tests {
     use super::*;
 

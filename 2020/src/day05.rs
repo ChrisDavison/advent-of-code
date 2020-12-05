@@ -1,6 +1,6 @@
 use crate::part::Part;
 use anyhow::Result;
-use std::fmt::{Debug, Display};
+use std::fmt::Display;
 
 const ROW_LOWER_CHAR: char = 'F';
 const COL_LOWER_CHAR: char = 'L';
@@ -39,16 +39,16 @@ fn seat_id(row_col: (i64, i64)) -> i64 {
     row_col.0 * 8 + row_col.1
 }
 
-fn binary_partition<T: Clone + Debug + Display, U: Eq>(
-    values: &[T],
-    directions: &[U],
-    low_decider: U,
-) -> T {
+fn binary_partition<T, U>(values: &[T], directions: &[U], low_decider: U) -> T
+where
+    T: Clone + Display,
+    U: Copy + Eq,
+{
     if values.len() == 1 {
         values[0].clone()
     } else {
         let midpoint = (values.len() + 0) / 2;
-        let new_values: &[T] = if directions[0] == low_decider {
+        let new_values = if directions[0] == low_decider {
             &values[0..midpoint]
         } else {
             &values[midpoint..]
@@ -57,6 +57,7 @@ fn binary_partition<T: Clone + Debug + Display, U: Eq>(
     }
 }
 
+#[allow(unused_imports)]
 mod tests {
     use super::*;
 
