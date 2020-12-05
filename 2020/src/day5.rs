@@ -1,44 +1,27 @@
 use crate::part::Part;
-use anyhow::{bail, Result};
+use anyhow::Result;
 use std::fmt::{Debug, Display};
 
 const ROW_LOWER_CHAR: char = 'F';
 const COL_LOWER_CHAR: char = 'L';
 
 pub fn day5(data: &[&str], part: Part) -> Result<()> {
-    let seats: Vec<(i64, i64)> = data
+    let mut seat_ids: Vec<i64> = data
         .iter()
         .filter(|x| x.len() == 10)
-        .map(|&s| seat_location(s))
+        .map(|&s| seat_id(seat_location(s)))
         .collect();
-    let mut seat_and_id: Vec<(i64, i64, i64)> = seats
-        .iter()
-        .map(|&seat| (seat.0, seat.1, seat_id(seat)))
-        .collect();
-    match part {
-        Part::One => {
-            println!(
-                "5.{} - {}",
-                part,
-                seat_and_id.iter().map(|(row, col, id)| id).max().unwrap()
-            );
-        }
-        Part::Two => {
-            seat_and_id.sort_by_key(|x| x.2);
-            let my_seat_id: Vec<i64> = seat_and_id
-                .iter()
-                .cloned()
-                .zip(seat_and_id[1..].iter())
-                .filter(|(a, b)| (b.2 - a.2 == 2))
-                .map(|(a, &b)| a.2 + 1)
-                .collect();
-            if my_seat_id.len() == 1 {
-                println!("5.{} - {}", part, my_seat_id[0]);
-            } else {
-                bail!("Found multiple seat ids: {:#?}", my_seat_id)
-            }
-        }
-    }
+    seat_ids.sort();
+    let id = match part {
+        Part::One => seat_ids[seat_ids.len() - 1],
+        Part::Two => seat_ids
+            .iter()
+            .zip(seat_ids[1..].iter())
+            .filter(|(&a, b)| (*b - a) == 2)
+            .map(|(a, _)| a + 1)
+            .collect::<Vec<i64>>()[0],
+    };
+    println!("5.{} - {}", part, id);
 
     Ok(())
 }
@@ -102,8 +85,8 @@ mod tests {
             ("BBFFBBFRLL", (102, 4), 820),
         ];
         for (rule, seatloc, seatid) in tests {
-            let found_loc = seat_location(rule).unwrap();
-            let calc_id = seat_id(found_loc).unwrap();
+            let found_loc = seat_location(rule);
+            let calc_id = seat_id(found_loc);
             assert_eq!(found_loc, seatloc);
             assert_eq!(calc_id, seatid);
         }
