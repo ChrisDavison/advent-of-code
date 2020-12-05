@@ -79,3 +79,39 @@ fn valid_rule_part2(pw: PasswordLine) -> bool {
         false
     }
 }
+
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_day2_part1_examples() {
+        assert_eq!(
+            valid_rule_part1(parse_password("1-3 a: abcde").unwrap()),
+            true
+        );
+        assert_eq!(
+            valid_rule_part1(parse_password("1-3 b: cdefg").unwrap()),
+            false
+        );
+        assert_eq!(
+            valid_rule_part1(parse_password("2-9 c: ccccccccc").unwrap()),
+            true
+        );
+    }
+
+    #[test]
+    fn test_day2_part2_examples() {
+        assert_eq!(
+            valid_rule_part2(parse_password("1-3 a: abcde").unwrap()),
+            true
+        );
+        assert_eq!(
+            valid_rule_part2(parse_password("1-3 b: cdefg").unwrap()),
+            false
+        );
+        assert_eq!(
+            valid_rule_part2(parse_password("2-9 c: ccccccccc").unwrap()),
+            false
+        );
+    }
+}
