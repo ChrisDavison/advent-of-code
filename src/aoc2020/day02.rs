@@ -1,5 +1,4 @@
 use crate::part::Part;
-
 use anyhow::Result;
 
 #[derive(Debug)]
@@ -11,18 +10,18 @@ struct PasswordLine<'a> {
 }
 
 pub fn day2(data: &[&str], part: Part) -> Result<()> {
-    let mut valid = 0;
-
     let valid_rule_func = match part {
         Part::One => valid_rule_part1,
         Part::Two => valid_rule_part2,
     };
 
-    for line in data.iter().filter(|x| x.len() != 0) {
-        if valid_rule_func(parse_password(line)?) {
-            valid += 1;
-        }
-    }
+    let valid = data
+        .iter()
+        .filter(|x| x.len() > 0)
+        .map(|x| parse_password(x))
+        .filter_map(|x| x.ok())
+        .filter(|x| valid_rule_func(x))
+        .count();
     println!("2.{} - {}", part, valid);
     Ok(())
 }
@@ -51,7 +50,7 @@ fn parse_password<'a>(s: &str) -> Result<PasswordLine> {
     })
 }
 
-fn valid_rule_part1(pw: PasswordLine) -> bool {
+fn valid_rule_part1(pw: &PasswordLine) -> bool {
     let n_letter = pw
         .password
         .chars()
@@ -61,24 +60,20 @@ fn valid_rule_part1(pw: PasswordLine) -> bool {
     n_letter >= pw.lower && n_letter <= pw.upper
 }
 
-fn valid_rule_part2(pw: PasswordLine) -> bool {
+fn valid_rule_part2(pw: &PasswordLine) -> bool {
     let chars: Vec<char> = pw.password.chars().collect();
-    let has_char_at_lower = chars
-        .iter()
-        .nth(pw.lower - 1)
-        .and_then(|&c| Some(c == pw.letter))
-        .unwrap_or(false);
-    let has_char_at_upper = chars
-        .iter()
-        .nth(pw.upper - 1)
-        .and_then(|&c| Some(c == pw.letter))
-        .unwrap_or(false);
-    if has_char_at_lower && !has_char_at_upper {
-        true
-    } else if !has_char_at_lower && has_char_at_upper {
-        true
-    } else {
+    if pw.lower <= 0 || (pw.upper - 1) > pw.password.len() {
         false
+    } else {
+        let has_char_at_lower = chars[pw.lower - 1] == pw.letter;
+        let has_char_at_upper = chars[pw.upper - 1] == pw.letter;
+        if has_char_at_lower && !has_char_at_upper {
+            true
+        } else if !has_char_at_lower && has_char_at_upper {
+            true
+        } else {
+            false
+        }
     }
 }
 
@@ -87,33 +82,33 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_day2_part1_examples() {
+    fn part1_examples() {
         assert_eq!(
-            valid_rule_part1(parse_password("1-3 a: abcde").unwrap()),
+            valid_rule_part1(&parse_password("1-3 a: abcde").unwrap()),
             true
         );
         assert_eq!(
-            valid_rule_part1(parse_password("1-3 b: cdefg").unwrap()),
+            valid_rule_part1(&parse_password("1-3 b: cdefg").unwrap()),
             false
         );
         assert_eq!(
-            valid_rule_part1(parse_password("2-9 c: ccccccccc").unwrap()),
+            valid_rule_part1(&parse_password("2-9 c: ccccccccc").unwrap()),
             true
         );
     }
 
     #[test]
-    fn test_day2_part2_examples() {
+    fn part2_examples() {
         assert_eq!(
-            valid_rule_part2(parse_password("1-3 a: abcde").unwrap()),
+            valid_rule_part2(&parse_password("1-3 a: abcde").unwrap()),
             true
         );
         assert_eq!(
-            valid_rule_part2(parse_password("1-3 b: cdefg").unwrap()),
+            valid_rule_part2(&parse_password("1-3 b: cdefg").unwrap()),
             false
         );
         assert_eq!(
-            valid_rule_part2(parse_password("2-9 c: ccccccccc").unwrap()),
+            valid_rule_part2(&parse_password("2-9 c: ccccccccc").unwrap()),
             false
         );
     }
