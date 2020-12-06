@@ -20,16 +20,19 @@ fn count_answers(s: &str, counter: fn(&str) -> usize) -> Vec<usize> {
 
 fn count_questions_anyone_answered(s: &str) -> usize {
     // Count Nkeys
-    let answer_map: HashSet<char> = s.chars().filter(|&c| c != '\n').collect();
-    answer_map.len()
+    s.chars()
+        .filter(|&c| c != '\n')
+        .collect::<HashSet<char>>()
+        .len()
 }
 
 fn count_questions_everyone_answered(s: &str) -> usize {
     // Count Nentries where value == n_rows
-    let mut c: Vec<char> = s.chars().filter(|&x| x != '\n').collect();
-    c.sort();
     let mut answer_map: HashMap<char, usize> = HashMap::new();
-    for letter in c {
+    for letter in s.chars() {
+        if letter == '\n' {
+            continue;
+        }
         let e = answer_map.entry(letter).or_insert(0);
         *e += 1;
     }
@@ -38,11 +41,7 @@ fn count_questions_everyone_answered(s: &str) -> usize {
 }
 
 fn count_number_of_groups(s: &str) -> usize {
-    if s.len() == 0 {
-        0
-    } else {
-        s.chars().filter(|&c| c == '\n').count() + 1
-    }
+    s.lines().count()
 }
 
 #[allow(unused_imports)]
