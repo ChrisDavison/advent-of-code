@@ -242,7 +242,6 @@ mod day4 {
             ("abc", false),
         ];
         for (input, expected) in tests {
-            println!("{} {}", input, expected);
             assert_eq!(passport_validator::is_valid_height(input), expected);
         }
     }
