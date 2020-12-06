@@ -21,11 +21,11 @@ pub fn main() -> Result<()> {
 
 fn parse_passport(s: &str) -> HashMap<String, String> {
     let mut fields: HashMap<String, String> = HashMap::new();
-    for entry in s.replace("\n", " ").split(" ").into_iter() {
-        if entry.len() == 0 {
+    for entry in s.replace("\n", " ").split(' ').into_iter() {
+        if entry.is_empty() {
             continue;
         }
-        let parts: Vec<&str> = entry.split(":").collect();
+        let parts: Vec<&str> = entry.split(':').collect();
         let field = parts[0];
         let value = parts[1];
         if !field.is_empty() {
@@ -41,19 +41,12 @@ mod passport_validator {
     type FieldValidator = dyn Fn(&str) -> bool;
     const VALIDATORS: &[(&str, &FieldValidator)] = &[
         ("hgt", &is_valid_height),
-        ("pid", &|pid| {
-            pid.chars().filter(|c| c.is_digit(10)).count() == 9
-        }),
-        ("eyr", &|eyr| matches!(eyr.parse::<u64>(), Ok(2010..=2020))),
-        ("byr", &|byr| matches!(byr.parse::<u64>(), Ok(1920..=2002))),
-        ("iyr", &|iyr| matches!(iyr.parse::<u64>(), Ok(2010..=2020))),
-        ("ecl", &|ecl| {
-            matches!(ecl, "amb" | "blu" | "brn" | "gry" | "grn" | "hzl" | "oth")
-        }),
-        ("hcl", &|hcl| match hcl.strip_prefix('#') {
-            Some(hex) => hex.chars().filter(|c| c.is_digit(16)).count() == 6,
-            _ => false,
-        }),
+        ("pid", &is_valid_pid),
+        ("eyr", &is_valid_eyr),
+        ("byr", &is_valid_byr),
+        ("iyr", &is_valid_iyr),
+        ("ecl", &is_valid_ecl),
+        ("hcl", &is_valid_hcl),
     ];
 
     pub fn part1(fields: &HashMap<String, String>) -> bool {
@@ -73,23 +66,6 @@ mod passport_validator {
                 Some(value) => validate_func(value),
                 _ => false,
             })
-        // if !part1(&fields) {
-        //     false
-        // } else {
-        //     [
-        //         eyr(&fields["eyr"]),
-        //         iyr(&fields["iyr"]),
-        //         byr(&fields["byr"]),
-        //         hgt(&fields["hgt"]),
-        //         pid(&fields["pid"]),
-        //         ecl(&fields["ecl"]),
-        //         hcl(&fields["hcl"]),
-        //     ]
-        //     .iter()
-        //     .filter(|&x| !x)
-        //     .count()
-        //         == 0
-        // }
     }
 
     pub fn is_valid_height(f: &str) -> bool {
@@ -100,70 +76,38 @@ mod passport_validator {
             .and_then(|(val, unit)| Some((val.parse::<i64>().ok()?, unit)))
         {
             Some((150..=193, "cm")) => true,
-            Some((150..=193, "cm")) => true,
+            Some((59..=76, "in")) => true,
             _ => false,
         }
-        // let chars: Vec<char> = f.chars().collect();
-        // let mut digits = Vec::new();
-        // let mut letters = Vec::new();
-        // for ch in chars {
-        //     if ch.is_digit(10) {
-        //         digits.push(ch);
-        //     } else {
-        //         letters.push(ch);
-        //     }
-        // }
-        // let unit: String = letters.iter().collect();
-        // let (lower, upper) = match unit.as_str() {
-        //     "cm" => (150, 193),
-        //     "in" => (59, 76),
-        //     _ => return false,
-        // };
-
-        // let num: Option<i64> = digits.iter().collect::<String>().parse().ok();
-        // match num {
-        //     Some(n) => n >= lower && n <= upper,
-        //     None => false,
-        // }
     }
 
-    pub fn pid(f: &str) -> bool {
-        // pid (Passport ID) - 9 digit number, with leading zeros
+    // pid (Passport ID) - 9 digit number, with leading zeros
+    pub fn is_valid_pid(f: &str) -> bool {
         f.chars().filter(|c| c.is_digit(10)).count() == 9
     }
 
-    pub fn eyr(f: &str) -> bool {
-        // eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
-        match f.parse::<i64>().ok() {
-            Some(2020..=2030) => true,
-            _ => false,
-        }
+    // eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
+    pub fn is_valid_eyr(f: &str) -> bool {
+        matches!(f.parse::<i64>().ok(), Some(2020..=2030))
     }
 
-    pub fn iyr(f: &str) -> bool {
-        // iyr (Issue Year) - four digits; at least 2010 and at most 2020.
-        match f.parse::<i64>().ok() {
-            Some(2010..=2020) => true,
-            _ => false,
-        }
+    // iyr (Issue Year) - four digits; at least 2010 and at most 2020.
+    pub fn is_valid_iyr(f: &str) -> bool {
+        matches!(f.parse::<i64>().ok(), Some(2010..=2020))
     }
 
-    pub fn byr(f: &str) -> bool {
-        // byr (Birth Year) - four digits; at least 1920 and at most 2002.
-        // year_check(f, 1920, 2002)
-        match f.parse::<i64>().ok() {
-            Some(1920..=2002) => true,
-            _ => false,
-        }
+    // byr (Birth Year) - four digits; at least 1920 and at most 2002.
+    pub fn is_valid_byr(f: &str) -> bool {
+        matches!(f.parse::<i64>().ok(), Some(1920..=2002))
     }
 
-    pub fn ecl(f: &str) -> bool {
-        // ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
-        matches!(f, "amb" | "blu" | "brn" | "gry" | "grn" | "hzl" | "oth")
+    // ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
+    pub fn is_valid_ecl(f: &str) -> bool {
+        ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].contains(&f)
     }
 
-    pub fn hcl(f: &str) -> bool {
-        // hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
+    // hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
+    pub fn is_valid_hcl(f: &str) -> bool {
         match f.strip_prefix('#') {
             Some(hex) => hex.chars().filter(|c| c.is_digit(16)).count() == 6,
             _ => false,
@@ -188,82 +132,118 @@ mod day4 {
 
     #[test]
     fn hcl() {
-        assert_eq!(passport_validator::hcl("#abcdef"), true);
-        assert_eq!(passport_validator::hcl("#abcdeg"), false);
-        assert_eq!(passport_validator::hcl("#abc123"), true);
-        assert_eq!(passport_validator::hcl("#abcdeff"), false);
+        let tests = vec![
+            ("#abcdef", true),
+            ("#abcdeg", false),
+            ("#abc123", true),
+            ("#abcdeff", false),
+        ];
+        for (input, expected) in tests {
+            assert_eq!(passport_validator::is_valid_hcl(input), expected);
+        }
     }
 
     #[test]
     fn ecl() {
-        assert_eq!(passport_validator::ecl("amb"), true);
-        assert_eq!(passport_validator::ecl("blu"), true);
-        assert_eq!(passport_validator::ecl("brn"), true);
-        assert_eq!(passport_validator::ecl("gry"), true);
-        assert_eq!(passport_validator::ecl("grn"), true);
-        assert_eq!(passport_validator::ecl("hzl"), true);
-        assert_eq!(passport_validator::ecl("oth"), true);
-        assert_eq!(passport_validator::ecl("oth"), true);
-        assert_eq!(passport_validator::ecl("askdjaksjd"), false);
-        assert_eq!(passport_validator::ecl("123"), false);
+        let tests = vec![
+            ("amb", true),
+            ("blu", true),
+            ("brn", true),
+            ("gry", true),
+            ("grn", true),
+            ("hzl", true),
+            ("oth", true),
+            ("oth", true),
+            ("askdjaksjd", false),
+            ("123", false),
+        ];
+        for (input, expected) in tests {
+            println!("{} {}", input, expected);
+            assert_eq!(passport_validator::is_valid_ecl(input), expected);
+        }
     }
 
     #[test]
     fn byr() {
         // byr (Birth Year) - four digits; at least 1920 and at most 2002.
-        assert_eq!(passport_validator::byr("1919"), false);
-        assert_eq!(passport_validator::byr("abc"), false);
-        assert_eq!(passport_validator::byr("1920"), true);
-        assert_eq!(passport_validator::byr("2002"), true);
-        assert_eq!(passport_validator::byr("2003"), false);
+        let tests = vec![
+            ("1919", false),
+            ("abc", false),
+            ("1920", true),
+            ("2002", true),
+            ("2003", false),
+        ];
+        for (input, expected) in tests {
+            assert_eq!(passport_validator::is_valid_byr(input), expected);
+        }
     }
 
     #[test]
     fn eyr() {
         // eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
-        assert_eq!(passport_validator::eyr("2019"), false);
-        assert_eq!(passport_validator::eyr("abc"), false);
-        assert_eq!(passport_validator::eyr("2020"), true);
-        assert_eq!(passport_validator::eyr("2030"), true);
-        assert_eq!(passport_validator::eyr("2031"), false);
+        let tests = vec![
+            ("2019", false),
+            ("abc", false),
+            ("2020", true),
+            ("2030", true),
+            ("2031", false),
+        ];
+        for (input, expected) in tests {
+            assert_eq!(passport_validator::is_valid_eyr(input), expected);
+        }
     }
 
     #[test]
     fn iyr() {
         // iyr (Issue Year) - four digits; at least 2010 and at most 2020.
-        assert_eq!(passport_validator::iyr("2009"), false);
-        assert_eq!(passport_validator::iyr("abc"), false);
-        assert_eq!(passport_validator::iyr("2010"), true);
-        assert_eq!(passport_validator::iyr("2020"), true);
-        assert_eq!(passport_validator::iyr("2021"), false);
+        let tests = vec![
+            ("2009", false),
+            ("abc", false),
+            ("2010", true),
+            ("2020", true),
+            ("2021", false),
+        ];
+        for (input, expected) in tests {
+            assert_eq!(passport_validator::is_valid_iyr(input), expected);
+        }
     }
 
     #[test]
     fn pid() {
-        assert_eq!(passport_validator::pid("123456789"), true);
-        assert_eq!(passport_validator::pid("000456789"), true);
-        assert_eq!(passport_validator::pid("a23456789"), false);
-        assert_eq!(passport_validator::pid("123458"), false);
-        assert_eq!(passport_validator::pid(""), false);
+        let tests = vec![
+            ("123456789", true),
+            ("000456789", true),
+            ("a23456789", false),
+            ("123458", false),
+            ("", false),
+        ];
+        for (input, expected) in tests {
+            assert_eq!(passport_validator::is_valid_pid(input), expected);
+        }
     }
 
     #[test]
     fn hgt() {
-        // Test cm
-        assert_eq!(passport_validator::hgt("149cm"), false);
-        assert_eq!(passport_validator::hgt("150cm"), true);
-        assert_eq!(passport_validator::hgt("193cm"), true);
-        assert_eq!(passport_validator::hgt("194cm"), false);
-        assert_eq!(passport_validator::hgt("194cma"), false);
-        // Test in
-        assert_eq!(passport_validator::hgt("58in"), false);
-        assert_eq!(passport_validator::hgt("59in"), true);
-        assert_eq!(passport_validator::hgt("76in"), true);
-        assert_eq!(passport_validator::hgt("77in"), false);
-        assert_eq!(passport_validator::hgt("77ina"), false);
-        // Test other
-        assert_eq!(passport_validator::hgt("190"), false);
-        assert_eq!(passport_validator::hgt("abc"), false);
-        assert_eq!(passport_validator::hgt(""), false);
+        let tests = vec![
+            // Test cm
+            ("149cm", false),
+            ("150cm", true),
+            ("193cm", true),
+            ("194cm", false),
+            ("194cma", false),
+            // Test in
+            ("58in", false),
+            ("59in", true),
+            ("76in", true),
+            ("77in", false),
+            ("77ina", false),
+            // Test other
+            ("190", false),
+            ("abc", false),
+        ];
+        for (input, expected) in tests {
+            println!("{} {}", input, expected);
+            assert_eq!(passport_validator::is_valid_height(input), expected);
+        }
     }
 }
