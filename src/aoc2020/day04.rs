@@ -1,5 +1,5 @@
 use crate::part::Part;
-use anyhow::Result;
+use anyhow::{Context, Result};
 use std::collections::{HashMap, HashSet};
 
 pub fn day4(data: &[&str], part: Part) -> Result<()> {
@@ -102,12 +102,17 @@ mod passport_validator {
 
     pub fn eyr(f: &str) -> bool {
         // eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
-        year_check(f, 2020, 2030).unwrap_or(false)
+        year_check(f, 2020, 2030)
     }
 
     pub fn iyr(f: &str) -> bool {
         // iyr (Issue Year) - four digits; at least 2010 and at most 2020.
-        year_check(f, 2010, 2020).unwrap_or(false)
+        year_check(f, 2010, 2020)
+    }
+
+    pub fn byr(f: &str) -> bool {
+        // byr (Birth Year) - four digits; at least 1920 and at most 2002.
+        year_check(f, 1920, 2002)
     }
 
     pub fn ecl(f: &str) -> bool {
@@ -125,14 +130,15 @@ mod passport_validator {
         chars[0] == '#' && (chars[1..].iter().filter(|c| c.is_digit(16)).count() == 6)
     }
 
-    pub fn byr(f: &str) -> bool {
-        // byr (Birth Year) - four digits; at least 1920 and at most 2002.
-        year_check(f, 1920, 2002).unwrap_or(false)
+    fn year_check(value: &str, lower: i64, upper: i64) -> bool {
+        value
+            .parse::<i64>()
+            .and_then(|x| Ok(num_in_range(x, lower, upper)))
+            .unwrap_or(false)
     }
 
-    fn year_check(value: &str, lower: i64, upper: i64) -> Result<bool> {
-        let parsed: i64 = value.parse()?;
-        Ok(parsed >= lower && parsed <= upper)
+    fn num_in_range<T: Eq + Ord>(value: T, lower: T, upper: T) -> bool {
+        lower <= value && value <= upper
     }
 }
 
