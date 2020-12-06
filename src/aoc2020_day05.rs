@@ -1,22 +1,23 @@
-use crate::part::Part;
 use anyhow::Result;
 use std::fmt::Display;
 
 const ROW_LOWER_CHAR: char = 'F';
 const COL_LOWER_CHAR: char = 'L';
 
-pub fn day5(data: &[&str], part: Part) -> Result<()> {
-    let seat_ids = sorted_seat_ids(data);
-    let id = match part {
-        Part::One => seat_ids[seat_ids.len() - 1],
-        Part::Two => seat_ids
-            .iter()
-            .zip(seat_ids[1..].iter())
-            .filter(|(&a, b)| (*b - a) == 2)
-            .map(|(a, _)| a + 1)
-            .collect::<Vec<i64>>()[0],
-    };
-    println!("5.{} - {}", part, id);
+fn main() -> Result<()> {
+    let data = std::fs::read_to_string("input/day5.txt")?;
+    let tidy_data: Vec<&str> = data.split("\n").map(|x| x.trim()).collect();
+
+    let seat_ids = sorted_seat_ids(&tidy_data);
+    let id1 = seat_ids[seat_ids.len() - 1];
+    let id2 = seat_ids
+        .iter()
+        .zip(seat_ids[1..].iter())
+        .filter(|(&a, b)| (*b - a) == 2)
+        .map(|(a, _)| a + 1)
+        .collect::<Vec<i64>>()[0];
+    println!("AoC2020 5.1 - {}", id1);
+    println!("AoC2020 5.2 - {}", id2);
 
     Ok(())
 }
@@ -63,7 +64,7 @@ where
 }
 
 #[cfg(test)]
-mod tests {
+mod day5 {
     use super::*;
 
     #[test]

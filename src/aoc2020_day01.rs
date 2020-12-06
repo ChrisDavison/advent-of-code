@@ -1,21 +1,21 @@
-use crate::part::Part;
 use anyhow::Result;
 
-pub fn day1(data: &[&str], part: Part) -> Result<()> {
-    let lines: Vec<i64> = data
+fn main() -> Result<()> {
+    let data = std::fs::read_to_string("input/day1.txt")?;
+    let tidy_data: Vec<&str> = data.split("\n").map(|x| x.trim()).collect();
+
+    let lines: Vec<i64> = tidy_data
         .iter()
         .map(|x| x.parse())
         .filter_map(|x| x.ok())
         .collect();
-    let result = match part {
-        Part::One => part1(&lines),
-        Part::Two => part2(&lines),
-    };
-    println!("1.{} - {}", part, result);
+
+    println!("AoC2020 1.1 - {}", part1(&lines));
+    println!("AoC2020 1.2 - {}", part2(&lines));
     Ok(())
 }
 
-pub fn part1(lines: &[i64]) -> i64 {
+fn part1(lines: &[i64]) -> i64 {
     let mut result = 0;
     'outer: for (i, el_i) in lines.iter().enumerate() {
         for el_j in &lines[i..] {
@@ -28,7 +28,7 @@ pub fn part1(lines: &[i64]) -> i64 {
     result
 }
 
-pub fn part2(lines: &[i64]) -> i64 {
+fn part2(lines: &[i64]) -> i64 {
     let mut result = 0;
     'outer: for (i, el_i) in lines.iter().enumerate() {
         for el_j in &lines[i..] {

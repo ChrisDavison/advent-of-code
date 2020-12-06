@@ -1,5 +1,28 @@
-use crate::part::Part;
 use anyhow::Result;
+
+fn main() -> Result<()> {
+    let data = std::fs::read_to_string("input/day2.txt")?;
+    let tidy_data: Vec<&str> = data.split("\n").map(|x| x.trim()).collect();
+
+    let valid = tidy_data
+        .iter()
+        .cloned()
+        .filter(|x| x.len() > 0)
+        .map(|x| parse_password(x))
+        .filter_map(|x| x.ok())
+        .filter(|x| valid_rule_part1(x))
+        .count();
+    let valid2 = tidy_data
+        .iter()
+        .filter(|x| x.len() > 0)
+        .map(|x| parse_password(x))
+        .filter_map(|x| x.ok())
+        .filter(|x| valid_rule_part2(x))
+        .count();
+    println!("AoC2020 2.1 - {}", valid);
+    println!("AoC2020 2.2 - {}", valid2);
+    Ok(())
+}
 
 #[derive(Debug)]
 struct PasswordLine<'a> {
@@ -7,31 +30,6 @@ struct PasswordLine<'a> {
     upper: usize,
     letter: char,
     password: &'a str,
-}
-
-pub fn day2(data: &[&str], part: Part) -> Result<()> {
-    let valid_rule_func = match part {
-        Part::One => valid_rule_part1,
-        Part::Two => valid_rule_part2,
-    };
-
-    let valid = data
-        .iter()
-        .filter(|x| x.len() > 0)
-        .map(|x| parse_password(x))
-        .filter_map(|x| x.ok())
-        .filter(|x| valid_rule_func(x))
-        .count();
-    println!("2.{} - {}", part, valid);
-    Ok(())
-}
-
-fn recursive_chunk<'a>(s: &'a str, next_stop: char) -> (&'a str, &'a str) {
-    if let Some(idx) = s.find(next_stop) {
-        (s[0..idx].trim(), s[idx + 1..].trim())
-    } else {
-        (s, "")
-    }
 }
 
 fn parse_password<'a>(s: &str) -> Result<PasswordLine> {
@@ -78,7 +76,7 @@ fn valid_rule_part2(pw: &PasswordLine) -> bool {
 }
 
 #[cfg(test)]
-mod tests {
+mod day2 {
     use super::*;
 
     #[test]

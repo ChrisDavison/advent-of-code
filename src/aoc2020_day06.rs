@@ -1,16 +1,17 @@
-use crate::part::Part;
 use anyhow::Result;
 use std::collections::*;
 
-pub fn day6(data: &[&str], part: Part) -> Result<()> {
-    let counter = match part {
-        Part::One => count_questions_anyone_answered,
-        Part::Two => count_questions_everyone_answered,
-    };
-    let result = count_answers(&data.join("\n"), counter)
+fn main() -> Result<()> {
+    let data = std::fs::read_to_string("input/day6.txt")?;
+
+    let result = count_answers(&data, count_questions_anyone_answered)
         .iter()
         .sum::<usize>();
-    println!("6.{} - {}", part, result);
+    let result2 = count_answers(&data, count_questions_everyone_answered)
+        .iter()
+        .sum::<usize>();
+    println!("AoC2020 6.1 - {}", result);
+    println!("AoC2020 6.2 - {}", result2);
     Ok(())
 }
 
@@ -45,7 +46,7 @@ fn count_number_of_groups(s: &str) -> usize {
 }
 
 #[cfg(test)]
-mod tests {
+mod day6 {
     use super::*;
 
     #[test]

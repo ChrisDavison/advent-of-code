@@ -1,19 +1,21 @@
-use crate::part::Part;
 use anyhow::Result;
 use std::collections::{HashMap, HashSet};
 
-pub fn day4(data: &[&str], part: Part) -> Result<()> {
-    let validator = match part {
-        Part::One => passport_validator::part1,
-        Part::Two => passport_validator::part2,
-    };
-    let joined = data.join("\n");
-    let n_valid_passports = joined
+pub fn main() -> Result<()> {
+    let data = std::fs::read_to_string("input/day4.txt")?;
+
+    let n_valid_passports = data
         .split("\n\n")
         .map(parse_passport)
-        .filter(|passport| validator(passport))
+        .filter(|passport| passport_validator::part1(passport))
         .count();
-    println!("4.{} - {}", part, n_valid_passports);
+    let n_valid_passports2 = data
+        .split("\n\n")
+        .map(parse_passport)
+        .filter(|passport| passport_validator::part2(passport))
+        .count();
+    println!("AoC2020 4.1 - {}", n_valid_passports);
+    println!("AoC2020 4.2 - {}", n_valid_passports2);
     Ok(())
 }
 
@@ -143,7 +145,7 @@ mod passport_validator {
 }
 
 #[cfg(test)]
-mod tests {
+mod day4 {
     use super::*;
 
     #[test]
