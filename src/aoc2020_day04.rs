@@ -38,6 +38,23 @@ fn parse_passport(s: &str) -> HashMap<String, String> {
 mod passport_validator {
     use super::*;
     // cid (Country ID) - ignored, missing or not.
+    type FieldValidator = dyn Fn(&str) -> bool;
+    const VALIDATORS: &[(&str, &FieldValidator)] = &[
+        ("hgt", &is_valid_height),
+        ("pid", &|pid| {
+            pid.chars().filter(|c| c.is_digit(10)).count() == 9
+        }),
+        ("eyr", &|eyr| matches!(eyr.parse::<u64>(), Ok(2010..=2020))),
+        ("byr", &|byr| matches!(byr.parse::<u64>(), Ok(1920..=2002))),
+        ("iyr", &|iyr| matches!(iyr.parse::<u64>(), Ok(2010..=2020))),
+        ("ecl", &|ecl| {
+            matches!(ecl, "amb" | "blu" | "brn" | "gry" | "grn" | "hzl" | "oth")
+        }),
+        ("hcl", &|hcl| match hcl.strip_prefix('#') {
+            Some(hex) => hex.chars().filter(|c| c.is_digit(16)).count() == 6,
+            _ => false,
+        }),
+    ];
 
     pub fn part1(fields: &HashMap<String, String>) -> bool {
         let necessary: HashSet<_> = ["hgt", "pid", "eyr", "iyr", "ecl", "hcl", "byr"]
@@ -50,51 +67,64 @@ mod passport_validator {
     }
 
     pub fn part2(fields: &HashMap<String, String>) -> bool {
-        if !part1(&fields) {
-            false
-        } else {
-            [
-                eyr(&fields["eyr"]),
-                iyr(&fields["iyr"]),
-                byr(&fields["byr"]),
-                hgt(&fields["hgt"]),
-                pid(&fields["pid"]),
-                ecl(&fields["ecl"]),
-                hcl(&fields["hcl"]),
-            ]
+        VALIDATORS
             .iter()
-            .filter(|&x| !x)
-            .count()
-                == 0
-        }
+            .all(|(key, validate_func)| match fields.get(*key) {
+                Some(value) => validate_func(value),
+                _ => false,
+            })
+        // if !part1(&fields) {
+        //     false
+        // } else {
+        //     [
+        //         eyr(&fields["eyr"]),
+        //         iyr(&fields["iyr"]),
+        //         byr(&fields["byr"]),
+        //         hgt(&fields["hgt"]),
+        //         pid(&fields["pid"]),
+        //         ecl(&fields["ecl"]),
+        //         hcl(&fields["hcl"]),
+        //     ]
+        //     .iter()
+        //     .filter(|&x| !x)
+        //     .count()
+        //         == 0
+        // }
     }
 
-    pub fn hgt(f: &str) -> bool {
+    pub fn is_valid_height(f: &str) -> bool {
         // hgt (Height) - a number followed by either cm or in:
         //     If cm, the number must be at least 150 and at most 193.
         //     If in, the number must be at least 59 and at most 76.
-        let chars: Vec<char> = f.chars().collect();
-        let mut digits = Vec::new();
-        let mut letters = Vec::new();
-        for ch in chars {
-            if ch.is_digit(10) {
-                digits.push(ch);
-            } else {
-                letters.push(ch);
-            }
+        match Some(f.split_at(f.len() - 2))
+            .and_then(|(val, unit)| Some((val.parse::<i64>().ok()?, unit)))
+        {
+            Some((150..=193, "cm")) => true,
+            Some((150..=193, "cm")) => true,
+            _ => false,
         }
-        let unit: String = letters.iter().collect();
-        let (lower, upper) = match unit.as_str() {
-            "cm" => (150, 193),
-            "in" => (59, 76),
-            _ => return false,
-        };
+        // let chars: Vec<char> = f.chars().collect();
+        // let mut digits = Vec::new();
+        // let mut letters = Vec::new();
+        // for ch in chars {
+        //     if ch.is_digit(10) {
+        //         digits.push(ch);
+        //     } else {
+        //         letters.push(ch);
+        //     }
+        // }
+        // let unit: String = letters.iter().collect();
+        // let (lower, upper) = match unit.as_str() {
+        //     "cm" => (150, 193),
+        //     "in" => (59, 76),
+        //     _ => return false,
+        // };
 
-        let num: Option<i64> = digits.iter().collect::<String>().parse().ok();
-        match num {
-            Some(n) => n >= lower && n <= upper,
-            None => false,
-        }
+        // let num: Option<i64> = digits.iter().collect::<String>().parse().ok();
+        // match num {
+        //     Some(n) => n >= lower && n <= upper,
+        //     None => false,
+        // }
     }
 
     pub fn pid(f: &str) -> bool {
@@ -104,43 +134,40 @@ mod passport_validator {
 
     pub fn eyr(f: &str) -> bool {
         // eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
-        year_check(f, 2020, 2030)
+        match f.parse::<i64>().ok() {
+            Some(2020..=2030) => true,
+            _ => false,
+        }
     }
 
     pub fn iyr(f: &str) -> bool {
         // iyr (Issue Year) - four digits; at least 2010 and at most 2020.
-        year_check(f, 2010, 2020)
+        match f.parse::<i64>().ok() {
+            Some(2010..=2020) => true,
+            _ => false,
+        }
     }
 
     pub fn byr(f: &str) -> bool {
         // byr (Birth Year) - four digits; at least 1920 and at most 2002.
-        year_check(f, 1920, 2002)
+        // year_check(f, 1920, 2002)
+        match f.parse::<i64>().ok() {
+            Some(1920..=2002) => true,
+            _ => false,
+        }
     }
 
     pub fn ecl(f: &str) -> bool {
         // ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
-        let valid: HashSet<&str> = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
-            .iter()
-            .cloned()
-            .collect();
-        valid.contains(f)
+        matches!(f, "amb" | "blu" | "brn" | "gry" | "grn" | "hzl" | "oth")
     }
 
     pub fn hcl(f: &str) -> bool {
         // hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
-        let chars: Vec<char> = f.chars().collect();
-        chars[0] == '#' && (chars[1..].iter().filter(|c| c.is_digit(16)).count() == 6)
-    }
-
-    fn year_check(value: &str, lower: i64, upper: i64) -> bool {
-        value
-            .parse::<i64>()
-            .and_then(|x| Ok(num_in_range(x, lower, upper)))
-            .unwrap_or(false)
-    }
-
-    fn num_in_range<T: Eq + Ord>(value: T, lower: T, upper: T) -> bool {
-        lower <= value && value <= upper
+        match f.strip_prefix('#') {
+            Some(hex) => hex.chars().filter(|c| c.is_digit(16)).count() == 6,
+            _ => false,
+        }
     }
 }
 
