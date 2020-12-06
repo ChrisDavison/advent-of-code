@@ -77,12 +77,12 @@ fn valid_rule_part2(pw: &PasswordLine) -> bool {
     }
 }
 
-#[allow(dead_code, unused_imports)]
+#[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn part1_examples() {
+    fn examples_part1() {
         assert_eq!(
             valid_rule_part1(&parse_password("1-3 a: abcde").unwrap()),
             true
@@ -98,7 +98,7 @@ mod tests {
     }
 
     #[test]
-    fn part2_examples() {
+    fn examples_part2() {
         assert_eq!(
             valid_rule_part2(&parse_password("1-3 a: abcde").unwrap()),
             true

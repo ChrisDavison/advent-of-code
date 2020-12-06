@@ -45,7 +45,7 @@ fn count_number_of_groups(s: &str) -> usize {
     }
 }
 
-#[allow(unused_imports)]
+#[cfg(test)]
 mod tests {
     use super::*;
 
