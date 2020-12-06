@@ -98,18 +98,12 @@ mod passport_rule {
 
     pub fn eyr(f: &str) -> bool {
         // eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
-        match year_check(f, 2020, 2030) {
-            Ok(b) => b,
-            Err(e) => false,
-        }
+        year_check(f, 2020, 2030).unwrap_or(false)
     }
 
     pub fn iyr(f: &str) -> bool {
         // iyr (Issue Year) - four digits; at least 2010 and at most 2020.
-        match year_check(f, 2010, 2020) {
-            Ok(b) => b,
-            Err(e) => false,
-        }
+        year_check(f, 2010, 2020).unwrap_or(false)
     }
 
     pub fn ecl(f: &str) -> bool {
@@ -129,10 +123,7 @@ mod passport_rule {
 
     pub fn byr(f: &str) -> bool {
         // byr (Birth Year) - four digits; at least 1920 and at most 2002.
-        match year_check(f, 1920, 2002) {
-            Ok(b) => b,
-            Err(e) => false,
-        }
+        year_check(f, 1920, 2002).unwrap_or(false)
     }
 
     fn year_check(value: &str, lower: i64, upper: i64) -> Result<bool> {
