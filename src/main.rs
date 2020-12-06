@@ -10,8 +10,10 @@ use part::Part;
 fn main() {
     let day = std::env::args().skip(1).nth(0).and_then(|x| x.parse().ok());
     let funcs: Vec<fn(&[&str], Part) -> Result<()>> = vec![
-        day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12, day13, day14,
-        day15, day16, day17, day18, day19, day20, day21, day22, day23, day24, day25,
+        day1, day2, day3, day4, day5,
+        day6,
+        // day7, day8, day9, day10, day11, day12, day13, day14,
+        // day15, day16, day17, day18, day19, day20, day21, day22, day23, day24, day25,
     ];
 
     println!("Advent of Code 2020");
