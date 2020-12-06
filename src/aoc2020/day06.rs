@@ -21,7 +21,7 @@ fn count_answers(s: &str, counter: fn(&str) -> usize) -> Vec<usize> {
 fn count_questions_anyone_answered(s: &str) -> usize {
     // Count Nkeys
     s.chars()
-        .filter(|&c| c != '\n')
+        .filter(|&c| !c.is_whitespace())
         .collect::<HashSet<char>>()
         .len()
 }

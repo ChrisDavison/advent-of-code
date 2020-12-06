@@ -1,3 +1,4 @@
+#![allow(dead_code, unused_variables)]
 mod aoc2020;
 mod part;
 

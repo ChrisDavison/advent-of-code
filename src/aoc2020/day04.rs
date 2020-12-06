@@ -1,5 +1,5 @@
 use crate::part::Part;
-use anyhow::{Context, Result};
+use anyhow::Result;
 use std::collections::{HashMap, HashSet};
 
 pub fn day4(data: &[&str], part: Part) -> Result<()> {
