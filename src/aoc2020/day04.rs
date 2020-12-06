@@ -146,7 +146,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_day4_hcl() {
+    fn hcl() {
         assert_eq!(passport_rule::hcl("#abcdef"), true);
         assert_eq!(passport_rule::hcl("#abcdeg"), false);
         assert_eq!(passport_rule::hcl("#abc123"), true);
@@ -154,7 +154,7 @@ mod tests {
     }
 
     #[test]
-    fn test_day4_ecl() {
+    fn ecl() {
         assert_eq!(passport_rule::ecl("amb"), true);
         assert_eq!(passport_rule::ecl("blu"), true);
         assert_eq!(passport_rule::ecl("brn"), true);
@@ -168,7 +168,7 @@ mod tests {
     }
 
     #[test]
-    fn test_day4_byr() {
+    fn byr() {
         // byr (Birth Year) - four digits; at least 1920 and at most 2002.
         assert_eq!(passport_rule::byr("1919"), false);
         assert_eq!(passport_rule::byr("abc"), false);
@@ -178,7 +178,7 @@ mod tests {
     }
 
     #[test]
-    fn test_day4_eyr() {
+    fn eyr() {
         // eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
         assert_eq!(passport_rule::eyr("2019"), false);
         assert_eq!(passport_rule::eyr("abc"), false);
@@ -188,7 +188,7 @@ mod tests {
     }
 
     #[test]
-    fn test_day4_iyr() {
+    fn iyr() {
         // iyr (Issue Year) - four digits; at least 2010 and at most 2020.
         assert_eq!(passport_rule::iyr("2009"), false);
         assert_eq!(passport_rule::iyr("abc"), false);
@@ -198,7 +198,7 @@ mod tests {
     }
 
     #[test]
-    fn test_day4_pid() {
+    fn pid() {
         assert_eq!(passport_rule::pid("123456789"), true);
         assert_eq!(passport_rule::pid("000456789"), true);
         assert_eq!(passport_rule::pid("a23456789"), false);
@@ -207,7 +207,7 @@ mod tests {
     }
 
     #[test]
-    fn test_day4_hgt() {
+    fn hgt() {
         // Test cm
         assert_eq!(passport_rule::hgt("149cm"), false);
         assert_eq!(passport_rule::hgt("150cm"), true);
