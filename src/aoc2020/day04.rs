@@ -3,63 +3,67 @@ use anyhow::Result;
 use std::collections::{HashMap, HashSet};
 
 pub fn day4(data: &[&str], part: Part) -> Result<()> {
-    let mut valid = 0;
-    let mut fields: HashMap<&str, &str> = HashMap::new();
     let validator = match part {
-        Part::One => passport_rule::part1,
-        Part::Two => passport_rule::part2,
+        Part::One => passport_validator::part1,
+        Part::Two => passport_validator::part2,
     };
-    for (i, line) in data.iter().enumerate() {
-        let line = line.trim();
-        if line.is_empty() || i == data.len() - 1 {
-            if validator(&fields) {
-                valid += 1;
-            }
-            fields.clear();
-            continue;
-        }
-        for entry in line.trim().split(" ") {
-            let parts: Vec<&str> = entry.split(":").collect();
-            let field = parts[0];
-            let value = parts[1];
-            if !field.is_empty() {
-                fields.insert(field, value);
-            }
-        }
-    }
-    println!("4.{} - {}", part, valid);
+    let joined = data.join("\n");
+    let n_valid_passports = joined
+        .split("\n\n")
+        .map(parse_passport)
+        .filter(|passport| validator(passport))
+        .count();
+    println!("4.{} - {}", part, n_valid_passports);
     Ok(())
 }
 
-mod passport_rule {
+fn parse_passport(s: &str) -> HashMap<String, String> {
+    let mut fields: HashMap<String, String> = HashMap::new();
+    for entry in s.replace("\n", " ").split(" ").into_iter() {
+        if entry.len() == 0 {
+            continue;
+        }
+        let parts: Vec<&str> = entry.split(":").collect();
+        let field = parts[0];
+        let value = parts[1];
+        if !field.is_empty() {
+            fields.insert(field.to_string(), value.to_string());
+        }
+    }
+    fields
+}
+
+mod passport_validator {
     use super::*;
     // cid (Country ID) - ignored, missing or not.
-    pub fn part1(fields: &HashMap<&str, &str>) -> bool {
-        let necessary: HashSet<&str> = ["hgt", "pid", "eyr", "iyr", "ecl", "hcl", "byr"]
+
+    pub fn part1(fields: &HashMap<String, String>) -> bool {
+        let necessary: HashSet<_> = ["hgt", "pid", "eyr", "iyr", "ecl", "hcl", "byr"]
             .iter()
             .cloned()
+            .map(|x| x.to_string())
             .collect();
-        let fields: HashSet<&str> = fields.keys().cloned().collect();
+        let fields = fields.keys().cloned().collect();
         necessary.is_subset(&fields)
     }
 
-    pub fn part2(fields: &HashMap<&str, &str>) -> bool {
-        if !fields.contains_key("eyr") || !eyr(fields["eyr"]) {
-            false
-        } else if !fields.contains_key("iyr") || !iyr(fields["iyr"]) {
-            false
-        } else if !fields.contains_key("byr") || !byr(fields["byr"]) {
-            false
-        } else if !fields.contains_key("hgt") || !hgt(fields["hgt"]) {
-            false
-        } else if !fields.contains_key("pid") || !pid(fields["pid"]) {
-            false
-        } else if !fields.contains_key("ecl") || !ecl(fields["ecl"]) {
-            false
-        } else if !fields.contains_key("hcl") || !hcl(fields["hcl"]) {
+    pub fn part2(fields: &HashMap<String, String>) -> bool {
+        if !part1(&fields) {
             false
         } else {
-            true
+            [
+                eyr(&fields["eyr"]),
+                iyr(&fields["iyr"]),
+                byr(&fields["byr"]),
+                hgt(&fields["hgt"]),
+                pid(&fields["pid"]),
+                ecl(&fields["ecl"]),
+                hcl(&fields["hcl"]),
+            ]
+            .iter()
+            .filter(|&x| !x)
+            .count()
+                == 0
         }
     }
 
@@ -137,83 +141,94 @@ mod tests {
     use super::*;
 
     #[test]
+    fn examples_part1() {
+        let tests = vec![(
+            "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd\nbyr:1937 iyr:2017 cid:147 hgt:183cm",
+            true,
+        )];
+        for (test, expected) in tests {
+            assert_eq!(passport_validator::part1(&parse_passport(test)), expected);
+        }
+    }
+
+    #[test]
     fn hcl() {
-        assert_eq!(passport_rule::hcl("#abcdef"), true);
-        assert_eq!(passport_rule::hcl("#abcdeg"), false);
-        assert_eq!(passport_rule::hcl("#abc123"), true);
-        assert_eq!(passport_rule::hcl("#abcdeff"), false);
+        assert_eq!(passport_validator::hcl("#abcdef"), true);
+        assert_eq!(passport_validator::hcl("#abcdeg"), false);
+        assert_eq!(passport_validator::hcl("#abc123"), true);
+        assert_eq!(passport_validator::hcl("#abcdeff"), false);
     }
 
     #[test]
     fn ecl() {
-        assert_eq!(passport_rule::ecl("amb"), true);
-        assert_eq!(passport_rule::ecl("blu"), true);
-        assert_eq!(passport_rule::ecl("brn"), true);
-        assert_eq!(passport_rule::ecl("gry"), true);
-        assert_eq!(passport_rule::ecl("grn"), true);
-        assert_eq!(passport_rule::ecl("hzl"), true);
-        assert_eq!(passport_rule::ecl("oth"), true);
-        assert_eq!(passport_rule::ecl("oth"), true);
-        assert_eq!(passport_rule::ecl("askdjaksjd"), false);
-        assert_eq!(passport_rule::ecl("123"), false);
+        assert_eq!(passport_validator::ecl("amb"), true);
+        assert_eq!(passport_validator::ecl("blu"), true);
+        assert_eq!(passport_validator::ecl("brn"), true);
+        assert_eq!(passport_validator::ecl("gry"), true);
+        assert_eq!(passport_validator::ecl("grn"), true);
+        assert_eq!(passport_validator::ecl("hzl"), true);
+        assert_eq!(passport_validator::ecl("oth"), true);
+        assert_eq!(passport_validator::ecl("oth"), true);
+        assert_eq!(passport_validator::ecl("askdjaksjd"), false);
+        assert_eq!(passport_validator::ecl("123"), false);
     }
 
     #[test]
     fn byr() {
         // byr (Birth Year) - four digits; at least 1920 and at most 2002.
-        assert_eq!(passport_rule::byr("1919"), false);
-        assert_eq!(passport_rule::byr("abc"), false);
-        assert_eq!(passport_rule::byr("1920"), true);
-        assert_eq!(passport_rule::byr("2002"), true);
-        assert_eq!(passport_rule::byr("2003"), false);
+        assert_eq!(passport_validator::byr("1919"), false);
+        assert_eq!(passport_validator::byr("abc"), false);
+        assert_eq!(passport_validator::byr("1920"), true);
+        assert_eq!(passport_validator::byr("2002"), true);
+        assert_eq!(passport_validator::byr("2003"), false);
     }
 
     #[test]
     fn eyr() {
         // eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
-        assert_eq!(passport_rule::eyr("2019"), false);
-        assert_eq!(passport_rule::eyr("abc"), false);
-        assert_eq!(passport_rule::eyr("2020"), true);
-        assert_eq!(passport_rule::eyr("2030"), true);
-        assert_eq!(passport_rule::eyr("2031"), false);
+        assert_eq!(passport_validator::eyr("2019"), false);
+        assert_eq!(passport_validator::eyr("abc"), false);
+        assert_eq!(passport_validator::eyr("2020"), true);
+        assert_eq!(passport_validator::eyr("2030"), true);
+        assert_eq!(passport_validator::eyr("2031"), false);
     }
 
     #[test]
     fn iyr() {
         // iyr (Issue Year) - four digits; at least 2010 and at most 2020.
-        assert_eq!(passport_rule::iyr("2009"), false);
-        assert_eq!(passport_rule::iyr("abc"), false);
-        assert_eq!(passport_rule::iyr("2010"), true);
-        assert_eq!(passport_rule::iyr("2020"), true);
-        assert_eq!(passport_rule::iyr("2021"), false);
+        assert_eq!(passport_validator::iyr("2009"), false);
+        assert_eq!(passport_validator::iyr("abc"), false);
+        assert_eq!(passport_validator::iyr("2010"), true);
+        assert_eq!(passport_validator::iyr("2020"), true);
+        assert_eq!(passport_validator::iyr("2021"), false);
     }
 
     #[test]
     fn pid() {
-        assert_eq!(passport_rule::pid("123456789"), true);
-        assert_eq!(passport_rule::pid("000456789"), true);
-        assert_eq!(passport_rule::pid("a23456789"), false);
-        assert_eq!(passport_rule::pid("123458"), false);
-        assert_eq!(passport_rule::pid(""), false);
+        assert_eq!(passport_validator::pid("123456789"), true);
+        assert_eq!(passport_validator::pid("000456789"), true);
+        assert_eq!(passport_validator::pid("a23456789"), false);
+        assert_eq!(passport_validator::pid("123458"), false);
+        assert_eq!(passport_validator::pid(""), false);
     }
 
     #[test]
     fn hgt() {
         // Test cm
-        assert_eq!(passport_rule::hgt("149cm"), false);
-        assert_eq!(passport_rule::hgt("150cm"), true);
-        assert_eq!(passport_rule::hgt("193cm"), true);
-        assert_eq!(passport_rule::hgt("194cm"), false);
-        assert_eq!(passport_rule::hgt("194cma"), false);
+        assert_eq!(passport_validator::hgt("149cm"), false);
+        assert_eq!(passport_validator::hgt("150cm"), true);
+        assert_eq!(passport_validator::hgt("193cm"), true);
+        assert_eq!(passport_validator::hgt("194cm"), false);
+        assert_eq!(passport_validator::hgt("194cma"), false);
         // Test in
-        assert_eq!(passport_rule::hgt("58in"), false);
-        assert_eq!(passport_rule::hgt("59in"), true);
-        assert_eq!(passport_rule::hgt("76in"), true);
-        assert_eq!(passport_rule::hgt("77in"), false);
-        assert_eq!(passport_rule::hgt("77ina"), false);
+        assert_eq!(passport_validator::hgt("58in"), false);
+        assert_eq!(passport_validator::hgt("59in"), true);
+        assert_eq!(passport_validator::hgt("76in"), true);
+        assert_eq!(passport_validator::hgt("77in"), false);
+        assert_eq!(passport_validator::hgt("77ina"), false);
         // Test other
-        assert_eq!(passport_rule::hgt("190"), false);
-        assert_eq!(passport_rule::hgt("abc"), false);
-        assert_eq!(passport_rule::hgt(""), false);
+        assert_eq!(passport_validator::hgt("190"), false);
+        assert_eq!(passport_validator::hgt("abc"), false);
+        assert_eq!(passport_validator::hgt(""), false);
     }
 }
