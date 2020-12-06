@@ -6,12 +6,7 @@ const ROW_LOWER_CHAR: char = 'F';
 const COL_LOWER_CHAR: char = 'L';
 
 pub fn day5(data: &[&str], part: Part) -> Result<()> {
-    let mut seat_ids: Vec<i64> = data
-        .iter()
-        .filter(|x| x.len() == 10)
-        .map(|&s| seat_id(seat_location(s)))
-        .collect();
-    seat_ids.sort();
+    let seat_ids = sorted_seat_ids(data);
     let id = match part {
         Part::One => seat_ids[seat_ids.len() - 1],
         Part::Two => seat_ids
@@ -24,6 +19,16 @@ pub fn day5(data: &[&str], part: Part) -> Result<()> {
     println!("5.{} - {}", part, id);
 
     Ok(())
+}
+
+fn sorted_seat_ids(data: &[&str]) -> Vec<i64> {
+    let mut seat_ids: Vec<i64> = data
+        .iter()
+        .filter(|x| x.len() == 10)
+        .map(|&s| seat_id(seat_location(s)))
+        .collect();
+    seat_ids.sort();
+    seat_ids
 }
 
 fn seat_location(s: &str) -> (i64, i64) {
@@ -57,20 +62,24 @@ where
     }
 }
 
-#[allow(unused_imports)]
+#[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn test_day5_binary_partition() {
+    fn binary_partition_rows() {
         let input_127: Vec<i64> = (0..128).map(i64::from).collect();
-        let input_8: Vec<i64> = (0..8).map(i64::from).collect();
         let directions_ex1_rows = ['F', 'B', 'F', 'B', 'B', 'F', 'F'];
-        let directions_ex1_cols = ['R', 'L', 'R'];
         assert_eq!(
             binary_partition(&input_127, &directions_ex1_rows, ROW_LOWER_CHAR),
             44
         );
+    }
+
+    #[test]
+    fn binary_partition_cols() {
+        let input_8: Vec<i64> = (0..8).map(i64::from).collect();
+        let directions_ex1_cols = ['R', 'L', 'R'];
         assert_eq!(
             binary_partition(&input_8, &directions_ex1_cols, COL_LOWER_CHAR),
             5
@@ -78,18 +87,25 @@ mod tests {
     }
 
     #[test]
-    fn test_day5_examples_part1() {
-        let tests = vec![
-            ("FBFBBFFRLR", (44, 5), 357),
-            ("BFFFBBFRRR", (70, 7), 567),
-            ("FFFBBBFRRR", (14, 7), 119),
-            ("BBFFBBFRLL", (102, 4), 820),
-        ];
-        for (rule, seatloc, seatid) in tests {
-            let found_loc = seat_location(rule);
-            let calc_id = seat_id(found_loc);
-            assert_eq!(found_loc, seatloc);
-            assert_eq!(calc_id, seatid);
-        }
+    fn seat_locations() {
+        assert_eq!(seat_location("FBFBBFFRLR"), (44, 5));
+        assert_eq!(seat_location("BFFFBBFRRR"), (70, 7));
+        assert_eq!(seat_location("FFFBBBFRRR"), (14, 7));
+        assert_eq!(seat_location("BBFFBBFRLL"), (102, 4));
+    }
+
+    #[test]
+    fn seat_ids() {
+        assert_eq!(seat_id(seat_location("FBFBBFFRLR")), 357);
+        assert_eq!(seat_id(seat_location("BFFFBBFRRR")), 567);
+        assert_eq!(seat_id(seat_location("FFFBBBFRRR")), 119);
+        assert_eq!(seat_id(seat_location("BBFFBBFRLL")), 820);
+    }
+    #[test]
+    fn examples_part1() {
+        let inputs = vec!["FBFBBFFRLR", "BFFFBBFRRR", "FFFBBBFRRR", "BBFFBBFRLL"];
+        let expected = 820;
+        let sorted_ids = sorted_seat_ids(&inputs);
+        assert_eq!(sorted_ids.last().unwrap(), &expected);
     }
 }
