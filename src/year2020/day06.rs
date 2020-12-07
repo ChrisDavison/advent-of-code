@@ -1,7 +1,7 @@
 use anyhow::Result;
 use std::collections::*;
 
-fn main() -> Result<()> {
+pub fn solve() -> Result<()> {
     let data = std::fs::read_to_string("input/day6.txt")?;
 
     let result = count_answers(&data, count_questions_anyone_answered)
@@ -46,7 +46,7 @@ fn count_number_of_groups(s: &str) -> usize {
 }
 
 #[cfg(test)]
-mod day6 {
+mod tests {
     use super::*;
 
     #[test]

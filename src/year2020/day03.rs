@@ -1,8 +1,8 @@
 use anyhow::Result;
 
-fn main() -> Result<()> {
+pub fn solve() -> Result<()> {
     let data = std::fs::read_to_string("input/day3.txt")?;
-    let tidy_data: Vec<&str> = data.split("\n").map(|x| x.trim()).collect();
+    let tidy_data: Vec<&str> = data.split('\n').map(|x| x.trim()).collect();
 
     let slopes = vec![Slope { right: 3, down: 1 }];
     let slopes2 = vec![

@@ -1,8 +1,8 @@
 use anyhow::Result;
 
-fn main() -> Result<()> {
+pub fn solve() -> Result<()> {
     let data = std::fs::read_to_string("input/day1.txt")?;
-    let tidy_data: Vec<&str> = data.split("\n").map(|x| x.trim()).collect();
+    let tidy_data: Vec<&str> = data.split('\n').map(|x| x.trim()).collect();
 
     let lines: Vec<i64> = tidy_data
         .iter()

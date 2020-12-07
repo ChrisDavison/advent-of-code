@@ -1,7 +1,7 @@
 use anyhow::Result;
 use std::collections::{HashMap, HashSet};
 
-pub fn main() -> Result<()> {
+pub fn solve() -> Result<()> {
     let data = std::fs::read_to_string("input/day4.txt")?;
 
     let n_valid_passports = data
@@ -116,7 +116,7 @@ mod passport_validator {
 }
 
 #[cfg(test)]
-mod day4 {
+mod tests {
     use super::*;
 
     #[test]

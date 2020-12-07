@@ -1,20 +1,20 @@
 use anyhow::Result;
 
-fn main() -> Result<()> {
+pub fn solve() -> Result<()> {
     let data = std::fs::read_to_string("input/day2.txt")?;
-    let tidy_data: Vec<&str> = data.split("\n").map(|x| x.trim()).collect();
+    let tidy_data: Vec<&str> = data.split('\n').map(|x| x.trim()).collect();
 
     let valid = tidy_data
         .iter()
         .cloned()
-        .filter(|x| x.len() > 0)
+        .filter(|x| !x.is_empty())
         .map(|x| parse_password(x))
         .filter_map(|x| x.ok())
         .filter(|x| valid_rule_part1(x))
         .count();
     let valid2 = tidy_data
         .iter()
-        .filter(|x| x.len() > 0)
+        .filter(|x| !x.is_empty())
         .map(|x| parse_password(x))
         .filter_map(|x| x.ok())
         .filter(|x| valid_rule_part2(x))
@@ -32,7 +32,7 @@ struct PasswordLine<'a> {
     password: &'a str,
 }
 
-fn parse_password<'a>(s: &str) -> Result<PasswordLine> {
+fn parse_password(s: &str) -> Result<PasswordLine> {
     let split_chars = " :-";
     let parts: Vec<&str> = s
         .split(|x| split_chars.contains(x))
@@ -49,26 +49,21 @@ fn parse_password<'a>(s: &str) -> Result<PasswordLine> {
 }
 
 fn valid_rule_part1(pw: &PasswordLine) -> bool {
-    let n_letter = pw
-        .password
-        .chars()
-        .filter(|&c| c == pw.letter)
-        .collect::<Vec<char>>()
-        .len();
+    let n_letter = pw.password.chars().filter(|&c| c == pw.letter).count();
     n_letter >= pw.lower && n_letter <= pw.upper
 }
 
 fn valid_rule_part2(pw: &PasswordLine) -> bool {
     let chars: Vec<char> = pw.password.chars().collect();
-    if pw.lower <= 0 || (pw.upper - 1) > pw.password.len() {
+    if pw.lower == 0 || (pw.upper - 1) > pw.password.len() {
         false
     } else {
         let has_char_at_lower = chars[pw.lower - 1] == pw.letter;
         let has_char_at_upper = chars[pw.upper - 1] == pw.letter;
-        if has_char_at_lower && !has_char_at_upper {
-            true
-        } else if !has_char_at_lower && has_char_at_upper {
-            true
+        if has_char_at_lower {
+            !has_char_at_upper
+        } else if has_char_at_upper {
+            !has_char_at_lower
         } else {
             false
         }
@@ -76,7 +71,7 @@ fn valid_rule_part2(pw: &PasswordLine) -> bool {
 }
 
 #[cfg(test)]
-mod day2 {
+mod tests {
     use super::*;
 
     #[test]
