@@ -44,24 +44,23 @@ pub fn solve() -> Result<()> {
 
 fn part1(instructions: &[Instruction]) -> (i64, bool) {
     let mut acc = 0;
-    let mut cur_idx = 0;
+    let mut cur_idx: i64 = 0;
     let mut visited: Vec<bool> = (0..instructions.len()).map(|_| false).collect();
     loop {
-        if cur_idx > instructions.len() - 1 {
+        if cur_idx as usize > instructions.len() - 1 {
             return (acc, true);
         }
-        if visited[cur_idx] {
+        if visited[cur_idx as usize] {
             return (acc, false);
         }
-        visited[cur_idx] = true;
-        match instructions[cur_idx] {
-            Instruction::Acc(n) => {
-                acc += n;
-                cur_idx += 1;
-            }
-            Instruction::Jmp(n) => cur_idx = ((cur_idx as i64) + n) as usize,
-            Instruction::Nop(_) => cur_idx += 1,
-        }
+        visited[cur_idx as usize] = true;
+        let (acc_mod, idx_mod) = match instructions[cur_idx as usize] {
+            Instruction::Acc(n) => (n, 1),
+            Instruction::Jmp(n) => (0, n),
+            Instruction::Nop(_) => (0, 1),
+        };
+        acc += acc_mod;
+        cur_idx += idx_mod;
     }
 }
 
