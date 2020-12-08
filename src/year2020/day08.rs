@@ -1,5 +1,17 @@
 use anyhow::Result;
-use std::num::ParseIntError;
+
+use thiserror::Error;
+
+#[allow(dead_code)]
+#[derive(Error, Debug)]
+pub enum InstructionParseError {
+    #[error("Couldn't parse acc or jmp value")]
+    ParseIntError(#[from] std::num::ParseIntError),
+    #[error("Couldn't parse action")]
+    BadAction,
+    #[error("Unknown error")]
+    Unknown,
+}
 
 const DAY: usize = 8;
 
@@ -11,7 +23,7 @@ enum Instruction {
 }
 
 impl std::str::FromStr for Instruction {
-    type Err = ParseIntError;
+    type Err = InstructionParseError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts: Vec<_> = s.split(' ').collect();
@@ -20,7 +32,7 @@ impl std::str::FromStr for Instruction {
             "acc" => Ok(Instruction::Acc(num)),
             "jmp" => Ok(Instruction::Jmp(num)),
             "nop" => Ok(Instruction::Nop(num)),
-            _ => Ok(Instruction::Nop(num)),
+            _ => Err(InstructionParseError::BadAction),
         }
     }
 }
