@@ -80,12 +80,11 @@ fn part2(instructions: &[Instruction]) -> i64 {
     let mut idx = 0;
     loop {
         let mut local_instructions: Vec<Instruction> = instructions.to_vec();
-        let new_instruction = match instructions[idx] {
+        local_instructions[idx] = match instructions[idx] {
             Instruction::Nop(n) => Instruction::Jmp(n),
             Instruction::Jmp(n) => Instruction::Nop(n),
             Instruction::Acc(n) => Instruction::Acc(n),
         };
-        local_instructions[idx] = new_instruction;
         let (acc, ran_to_end) = part1(&local_instructions);
         if ran_to_end {
             return acc;
