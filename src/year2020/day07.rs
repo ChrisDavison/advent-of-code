@@ -16,8 +16,8 @@ pub fn solve() -> Result<()> {
     let n_containing_gold = bags_containing_gold(&bagmap) - 1;
     let n_inside_gold = total_bags(&bagmap, "shiny gold") - 1;
 
-    println!("AoC2020 {}.1 - {}", DAY, n_containing_gold);
-    println!("AoC2020 {}.2 - {}", DAY, n_inside_gold);
+    println!("2020 {}-1 -> {}", DAY, n_containing_gold);
+    println!("2020 {}-2 -> {}", DAY, n_inside_gold);
     Ok(())
 }
 

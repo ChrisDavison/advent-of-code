@@ -1,7 +1,9 @@
 use anyhow::Result;
 
+const DAY: usize = 3;
+
 pub fn solve() -> Result<()> {
-    let data = std::fs::read_to_string("input/day3.txt")?;
+    let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
     let tidy_data: Vec<&str> = data.split('\n').map(|x| x.trim()).collect();
 
     let slopes = vec![Slope { right: 3, down: 1 }];
@@ -20,8 +22,8 @@ pub fn solve() -> Result<()> {
         .collect();
     let product = |ls: &[usize]| -> usize { ls.iter().skip(1).fold(ls[0], |acc, x| acc * x) };
 
-    println!("AoC2020 3.1 - {}", product(&results));
-    println!("AoC2020 3.2 - {}", product(&results2));
+    println!("2020 {}-1 -> {}", DAY, product(&results));
+    println!("2020 {}-2 -> {}", DAY, product(&results2));
     Ok(())
 }
 

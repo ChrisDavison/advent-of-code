@@ -1,8 +1,10 @@
 use anyhow::Result;
 use std::collections::{HashMap, HashSet};
 
+const DAY: usize = 4;
+
 pub fn solve() -> Result<()> {
-    let data = std::fs::read_to_string("input/day4.txt")?;
+    let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
 
     let n_valid_passports = data
         .split("\n\n")
@@ -14,8 +16,8 @@ pub fn solve() -> Result<()> {
         .map(parse_passport)
         .filter(|passport| passport_validator::part2(passport))
         .count();
-    println!("AoC2020 4.1 - {}", n_valid_passports);
-    println!("AoC2020 4.2 - {}", n_valid_passports2);
+    println!("2020 {}-1 -> {}", DAY, n_valid_passports);
+    println!("2020 {}-2 -> {}", DAY, n_valid_passports2);
     Ok(())
 }
 

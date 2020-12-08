@@ -1,7 +1,9 @@
 use anyhow::Result;
 
+const DAY: usize = 1;
+
 pub fn solve() -> Result<()> {
-    let data = std::fs::read_to_string("input/day1.txt")?;
+    let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
     let tidy_data: Vec<&str> = data.split('\n').map(|x| x.trim()).collect();
 
     let lines: Vec<i64> = tidy_data
@@ -10,8 +12,8 @@ pub fn solve() -> Result<()> {
         .filter_map(|x| x.ok())
         .collect();
 
-    println!("AoC2020 1.1 - {}", part1(&lines));
-    println!("AoC2020 1.2 - {}", part2(&lines));
+    println!("2020 {}-1 -> {}", DAY, part1(&lines));
+    println!("2020 {}-2 -> {}", DAY, part2(&lines));
     Ok(())
 }
 

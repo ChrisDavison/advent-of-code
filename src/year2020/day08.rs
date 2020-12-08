@@ -2,40 +2,7 @@ use anyhow::Result;
 
 use thiserror::Error;
 
-#[allow(dead_code)]
-#[derive(Error, Debug)]
-pub enum InstructionParseError {
-    #[error("Couldn't parse acc or jmp value")]
-    ParseIntError(#[from] std::num::ParseIntError),
-    #[error("Couldn't parse action")]
-    BadAction,
-    #[error("Unknown error")]
-    Unknown,
-}
-
 const DAY: usize = 8;
-
-#[derive(Debug, PartialEq, Clone)]
-enum Instruction {
-    Acc(i64),
-    Jmp(i64),
-    Nop(i64),
-}
-
-impl std::str::FromStr for Instruction {
-    type Err = InstructionParseError;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts: Vec<_> = s.split(' ').collect();
-        let num = parts[1].parse::<i64>()?;
-        match parts[0] {
-            "acc" => Ok(Instruction::Acc(num)),
-            "jmp" => Ok(Instruction::Jmp(num)),
-            "nop" => Ok(Instruction::Nop(num)),
-            _ => Err(InstructionParseError::BadAction),
-        }
-    }
-}
 
 pub fn solve() -> Result<()> {
     let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
@@ -47,10 +14,10 @@ pub fn solve() -> Result<()> {
         .collect();
 
     let (total, _) = part1(&instructions);
-    println!("AoC2020 {}.1 - {}", DAY, total);
+    println!("2020 {}-1 -> {}", DAY, total);
 
     let total2 = part2(&instructions);
-    println!("AoC2020 {}.2 - {}", DAY, total2);
+    println!("2020 {}-2 -> {}", DAY, total2);
     Ok(())
 }
 
@@ -90,6 +57,39 @@ fn part2(instructions: &[Instruction]) -> i64 {
             return acc;
         }
         idx += 1;
+    }
+}
+
+#[allow(dead_code)]
+#[derive(Error, Debug)]
+pub enum InstructionParseError {
+    #[error("Couldn't parse acc or jmp value")]
+    ParseIntError(#[from] std::num::ParseIntError),
+    #[error("Couldn't parse action")]
+    BadAction,
+    #[error("Unknown error")]
+    Unknown,
+}
+
+#[derive(Debug, PartialEq, Clone)]
+enum Instruction {
+    Acc(i64),
+    Jmp(i64),
+    Nop(i64),
+}
+
+impl std::str::FromStr for Instruction {
+    type Err = InstructionParseError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts: Vec<_> = s.split(' ').collect();
+        let num = parts[1].parse::<i64>()?;
+        match parts[0] {
+            "acc" => Ok(Instruction::Acc(num)),
+            "jmp" => Ok(Instruction::Jmp(num)),
+            "nop" => Ok(Instruction::Nop(num)),
+            _ => Err(InstructionParseError::BadAction),
+        }
     }
 }
 

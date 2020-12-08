@@ -1,8 +1,10 @@
 use anyhow::Result;
 use std::collections::*;
 
+const DAY: usize = 6;
+
 pub fn solve() -> Result<()> {
-    let data = std::fs::read_to_string("input/day6.txt")?;
+    let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
 
     let result = count_answers(&data, count_questions_anyone_answered)
         .iter()
@@ -10,8 +12,8 @@ pub fn solve() -> Result<()> {
     let result2 = count_answers(&data, count_questions_everyone_answered)
         .iter()
         .sum::<usize>();
-    println!("AoC2020 6.1 - {}", result);
-    println!("AoC2020 6.2 - {}", result2);
+    println!("2020 {}-1 -> {}", DAY, result);
+    println!("2020 {}-2 -> {}", DAY, result2);
     Ok(())
 }
 

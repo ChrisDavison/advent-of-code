@@ -1,12 +1,14 @@
 use anyhow::Result;
 
+const DAY: usize = 5;
+
 const ROW_LOWER_CHAR: char = 'F';
 const ROW_UPPER_CHAR: char = 'B';
 const COL_LOWER_CHAR: char = 'L';
 const COL_UPPER_CHAR: char = 'R';
 
 pub fn solve() -> Result<()> {
-    let data = std::fs::read_to_string("input/day5.txt")?;
+    let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
     let tidy_data: Vec<&str> = data.split('\n').map(|x| x.trim()).collect();
 
     let seat_ids = sorted_seat_ids(&tidy_data);
@@ -16,8 +18,8 @@ pub fn solve() -> Result<()> {
         .filter(|pair| (pair[1] - pair[0]) == 2)
         .map(|pair| pair[0] + 1)
         .collect::<Vec<i64>>()[0];
-    println!("AoC2020 5.1 - {}", id1);
-    println!("AoC2020 5.2 - {}", id2);
+    println!("2020 {}-1 -> {}", DAY, id1);
+    println!("2020 {}-2 -> {}", DAY, id2);
 
     Ok(())
 }

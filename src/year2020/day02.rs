@@ -1,26 +1,23 @@
 use anyhow::Result;
 
-pub fn solve() -> Result<()> {
-    let data = std::fs::read_to_string("input/day2.txt")?;
-    let tidy_data: Vec<&str> = data.split('\n').map(|x| x.trim()).collect();
+const DAY: usize = 2;
 
-    let valid = tidy_data
+pub fn solve() -> Result<()> {
+    let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
+    let tidy_data: Vec<_> = data.split('\n').map(|x| x.trim()).collect();
+    let passwords: Vec<_> = tidy_data
         .iter()
         .cloned()
         .filter(|x| !x.is_empty())
         .map(|x| parse_password(x))
         .filter_map(|x| x.ok())
-        .filter(|x| valid_rule_part1(x))
-        .count();
-    let valid2 = tidy_data
-        .iter()
-        .filter(|x| !x.is_empty())
-        .map(|x| parse_password(x))
-        .filter_map(|x| x.ok())
-        .filter(|x| valid_rule_part2(x))
-        .count();
-    println!("AoC2020 2.1 - {}", valid);
-    println!("AoC2020 2.2 - {}", valid2);
+        .collect();
+
+    let valid = passwords.iter().filter(|x| valid_rule_part1(x)).count();
+    println!("2020 {}-1 -> {}", DAY, valid);
+
+    let valid2 = passwords.iter().filter(|x| valid_rule_part2(x)).count();
+    println!("2020 {}-2 -> {}", DAY, valid2);
     Ok(())
 }
 
@@ -53,20 +50,26 @@ fn valid_rule_part1(pw: &PasswordLine) -> bool {
     n_letter >= pw.lower && n_letter <= pw.upper
 }
 
+macro_rules! bool_xor {
+    ($x:expr, $y:expr) => {
+        ($x && !$y) || ($y && !$x)
+    };
+}
+
 fn valid_rule_part2(pw: &PasswordLine) -> bool {
-    let chars: Vec<char> = pw.password.chars().collect();
     if pw.lower == 0 || (pw.upper - 1) > pw.password.len() {
         false
     } else {
-        let has_char_at_lower = chars[pw.lower - 1] == pw.letter;
-        let has_char_at_upper = chars[pw.upper - 1] == pw.letter;
-        if has_char_at_lower {
-            !has_char_at_upper
-        } else if has_char_at_upper {
-            !has_char_at_lower
-        } else {
-            false
-        }
+        let chars: Vec<char> = pw.password.chars().collect();
+        let has_char_at_lower = chars
+            .get(pw.lower - 1)
+            .map(|x| *x == pw.letter)
+            .unwrap_or(false);
+        let has_char_at_upper = chars
+            .get(pw.upper - 1)
+            .map(|x| *x == pw.letter)
+            .unwrap_or(false);
+        bool_xor!(has_char_at_lower, has_char_at_upper)
     }
 }
 
