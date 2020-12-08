@@ -9,7 +9,7 @@ const COL_UPPER_CHAR: char = 'R';
 
 pub fn solve() -> Result<()> {
     let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
-    let tidy_data: Vec<&str> = data.split('\n').map(|x| x.trim()).collect();
+    let tidy_data: Vec<&str> = data.lines().map(|x| x.trim()).collect();
 
     let seat_ids = sorted_seat_ids(&tidy_data);
     let id1 = seat_ids[seat_ids.len() - 1];

@@ -7,7 +7,7 @@ const DAY: usize = 8;
 pub fn solve() -> Result<()> {
     let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
     let instructions: Vec<Instruction> = data
-        .split('\n')
+        .lines()
         .map(|x| x.trim())
         .filter(|x| !x.is_empty())
         .filter_map(|x| Some(x.parse().ok()?))
@@ -110,7 +110,7 @@ mod tests {
             acc +6";
         let instructions: Vec<Instruction> = data
             .trim()
-            .split('\n')
+            .lines()
             .map(|x| x.trim())
             .filter_map(|x| Some(x.parse().ok()?))
             .collect();
@@ -130,7 +130,7 @@ mod tests {
             acc +6";
         let instructions: Vec<Instruction> = data
             .trim()
-            .split('\n')
+            .lines()
             .map(|x| x.trim())
             .filter_map(|x| Some(x.parse().ok()?))
             .collect();

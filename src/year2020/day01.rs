@@ -1,46 +1,43 @@
 use anyhow::Result;
+use std::collections::HashSet;
 
 const DAY: usize = 1;
+const TARGET: i32 = 2020;
 
 pub fn solve() -> Result<()> {
     let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
-    let tidy_data: Vec<&str> = data.split('\n').map(|x| x.trim()).collect();
-
-    let lines: Vec<i64> = tidy_data
-        .iter()
-        .map(|x| x.parse())
-        .filter_map(|x| x.ok())
+    let lines: HashSet<i32> = data
+        .lines()
+        .filter_map(|x| Some(x.trim().parse().ok()?))
+        .filter(|&x| x < TARGET)
         .collect();
 
-    println!("2020 {}-1 -> {}", DAY, part1(&lines));
-    println!("2020 {}-2 -> {}", DAY, part2(&lines));
+    let product_of_pair = find_pair_sums_to(TARGET, &lines).map(|(a, b)| a * b);
+    if let Some(prod) = product_of_pair {
+        println!("2020 {}-1 -> {}", DAY, prod);
+    }
+
+    let product_of_triple = find_triple_sums_to(TARGET, &lines).map(|(a, b, c)| a * b * c);
+    if let Some(prod) = product_of_triple {
+        println!("2020 {}-1 -> {}", DAY, prod);
+    }
     Ok(())
 }
 
-fn part1(lines: &[i64]) -> i64 {
-    let mut result = 0;
-    'outer: for (i, el_i) in lines.iter().enumerate() {
-        for el_j in &lines[i..] {
-            if el_i + el_j == 2020 {
-                result = el_i * el_j;
-                break 'outer;
-            }
+fn find_pair_sums_to(target: i32, data: &HashSet<i32>) -> Option<(i32, i32)> {
+    for num in data {
+        if data.contains(&(target - *num)) {
+            return Some((*num, target - *num));
         }
     }
-    result
+    None
 }
 
-fn part2(lines: &[i64]) -> i64 {
-    let mut result = 0;
-    'outer: for (i, el_i) in lines.iter().enumerate() {
-        for el_j in &lines[i..] {
-            for el_k in &lines[i + 1..] {
-                if el_i + el_j + el_k == 2020 {
-                    result = el_i * el_j * el_k;
-                    break 'outer;
-                }
-            }
+fn find_triple_sums_to(target: i32, data: &HashSet<i32>) -> Option<(i32, i32, i32)> {
+    for num in data {
+        if let Some((a, b)) = find_pair_sums_to(target - num, data) {
+            return Some((*num, a, b));
         }
     }
-    result
+    None
 }

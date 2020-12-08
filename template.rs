@@ -4,7 +4,7 @@ const DAY: usize = 0;
 
 fn main() -> Result<()> {
     let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
-    let tidy_data: Vec<&str> = data.split("\n").map(|x| x.trim()).collect();
+    let tidy_data: Vec<&str> = data.lines().map(|x| x.trim()).collect();
 
     let result1 = 0;
     let result2 = 0;

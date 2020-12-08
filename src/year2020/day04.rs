@@ -1,19 +1,31 @@
 use anyhow::Result;
 use std::collections::{HashMap, HashSet};
+use thiserror::Error;
 
 const DAY: usize = 4;
 
+#[allow(dead_code)]
+#[derive(Error, Debug)]
+enum ParsePassportError {
+    #[error("Passport had an empty field")]
+    NoField,
+    #[error("Passport had an empty value")]
+    NoValue,
+}
+
 pub fn solve() -> Result<()> {
     let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
-
-    let n_valid_passports = data
+    let passports: Vec<_> = data
         .split("\n\n")
         .map(parse_passport)
+        .filter_map(|x| Some(x.ok()?))
+        .collect();
+    let n_valid_passports = passports
+        .iter()
         .filter(|passport| passport_validator::part1(passport))
         .count();
-    let n_valid_passports2 = data
-        .split("\n\n")
-        .map(parse_passport)
+    let n_valid_passports2 = passports
+        .iter()
         .filter(|passport| passport_validator::part2(passport))
         .count();
     println!("2020 {}-1 -> {}", DAY, n_valid_passports);
@@ -21,20 +33,17 @@ pub fn solve() -> Result<()> {
     Ok(())
 }
 
-fn parse_passport(s: &str) -> HashMap<String, String> {
-    let mut fields: HashMap<String, String> = HashMap::new();
-    for entry in s.replace("\n", " ").split(' ').into_iter() {
-        if entry.is_empty() {
-            continue;
-        }
-        let parts: Vec<&str> = entry.split(':').collect();
-        let field = parts[0];
-        let value = parts[1];
+fn parse_passport(s: &str) -> Result<HashMap<&str, &str>> {
+    let mut fields: HashMap<&str, &str> = HashMap::new();
+    for entry in s.split_whitespace() {
+        let mut parts = entry.split(':');
+        let field = parts.next().ok_or(ParsePassportError::NoField)?;
+        let value = parts.next().ok_or(ParsePassportError::NoValue)?;
         if !field.is_empty() {
-            fields.insert(field.to_string(), value.to_string());
+            fields.insert(field, value);
         }
     }
-    fields
+    Ok(fields)
 }
 
 mod passport_validator {
@@ -51,17 +60,15 @@ mod passport_validator {
         ("hcl", &is_valid_hcl),
     ];
 
-    pub fn part1(fields: &HashMap<String, String>) -> bool {
+    pub fn part1(fields: &HashMap<&str, &str>) -> bool {
         let necessary: HashSet<_> = ["hgt", "pid", "eyr", "iyr", "ecl", "hcl", "byr"]
             .iter()
             .cloned()
-            .map(|x| x.to_string())
             .collect();
-        let fields = fields.keys().cloned().collect();
-        necessary.is_subset(&fields)
+        necessary.is_subset(&fields.keys().map(|&x| x).collect())
     }
 
-    pub fn part2(fields: &HashMap<String, String>) -> bool {
+    pub fn part2(fields: &HashMap<&str, &str>) -> bool {
         VALIDATORS
             .iter()
             .all(|(key, validate_func)| match fields.get(*key) {
@@ -246,5 +253,10 @@ mod tests {
         for (input, expected) in tests {
             assert_eq!(passport_validator::is_valid_height(input), expected);
         }
+    }
+
+    #[test]
+    fn random() {
+        assert_eq!('\n'.is_whitespace(), true);
     }
 }

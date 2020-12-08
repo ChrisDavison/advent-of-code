@@ -6,7 +6,7 @@ const DAY: usize = 7;
 pub fn solve() -> Result<()> {
     let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
     let tidy_data: Vec<&str> = data
-        .split('\n')
+        .lines()
         .map(|x| x.trim())
         .filter(|x| !x.is_empty())
         .collect();
@@ -78,14 +78,4 @@ fn total_bags(bagmap: &BagMap, bag: &str) -> usize {
         .iter()
         .map(|(bag, count)| count * total_bags(bagmap, bag))
         .sum::<usize>()
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn template_day_was_changed() {
-        assert_ne!(DAY, 0);
-    }
 }
