@@ -1,19 +1,22 @@
 mod year2020;
 use anyhow::anyhow;
+use structopt::StructOpt;
+
+/// Run a solution for a given year and day
+#[derive(StructOpt, Debug)]
+#[structopt(name = "AdventOfCode")]
+struct Opt {
+    /// Year selection for task
+    year: u64,
+    /// Day selection for task
+    day: u64,
+}
 
 fn main() {
     println!("Advent of Code");
-    let args: Vec<String> = std::env::args().skip(1).collect();
-    let year: u64 = args
-        .get(0)
-        .and_then(|x| Some(x.parse::<u64>().ok()?))
-        .unwrap_or(0);
-    let day: u64 = args
-        .get(1)
-        .and_then(|x| Some(x.parse::<u64>().ok()?))
-        .unwrap_or(0);
+    let args = Opt::from_args();
 
-    let result = match (year, day) {
+    let result = match (args.year, args.day) {
         (2020, 1) => year2020::day01::solve(),
         (2020, 2) => year2020::day02::solve(),
         (2020, 3) => year2020::day03::solve(),
