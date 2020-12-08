@@ -1,13 +1,12 @@
-#![allow(dead_code, unused_imports, unused_mut, unused_variables)]
 use anyhow::Result;
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 
 const DAY: usize = 7;
 
 pub fn solve() -> Result<()> {
     let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
     let tidy_data: Vec<&str> = data
-        .split("\n")
+        .split('\n')
         .map(|x| x.trim())
         .filter(|x| !x.is_empty())
         .collect();
@@ -32,7 +31,7 @@ fn create_bagmap(data: &[&str]) -> BagMap {
         let parts: Vec<_> = line.split("contain").take(2).map(|x| x.trim()).collect();
         let source = parts[0].trim().trim_end_matches("bags").trim();
         let inner_bags: Vec<_> = parts[1]
-            .split(",")
+            .split(',')
             .map(parse_bag)
             .filter_map(|x| x.ok())
             .collect();
@@ -45,14 +44,14 @@ fn parse_bag(s: &str) -> Result<(String, usize)> {
     let parts: Vec<_> = s
         .trim_end_matches('.')
         .trim()
-        .split(" ")
+        .split(' ')
         .filter(|x| !["bag", "bags"].contains(x))
         .collect();
     let num = parts[0].parse()?;
     Ok((parts[1..].join(" "), num))
 }
 
-fn contains_gold(bagmap: &BagMap, bag: &String, cache: &mut BagCache) -> bool {
+fn contains_gold(bagmap: &BagMap, bag: &str, cache: &mut BagCache) -> bool {
     if !cache.contains_key(bag) {
         let b = bagmap[bag]
             .iter()
