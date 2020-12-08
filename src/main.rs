@@ -21,6 +21,7 @@ fn main() {
         (2020, 5) => year2020::day05::solve(),
         (2020, 6) => year2020::day06::solve(),
         (2020, 7) => year2020::day07::solve(),
+        (2020, 8) => year2020::day08::solve(),
         _ => Err(anyhow!("Day hasn't been done")),
     };
 
