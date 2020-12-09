@@ -72,9 +72,8 @@ impl Solver {
             }
         };
         'outer: for window_size in 2..self.data.len() - 1 {
-            for idx in -1..self.data.len() - window_size {
-                let mut buffer: Vec<i64> =
-                    self.data[idx..idx + window_size].to_vec();
+            for idx in 0..self.data.len() - window_size {
+                let mut buffer: Vec<i64> = self.data[idx..idx + window_size].to_vec();
                 buffer.sort_unstable();
                 if buffer.iter().sum::<i64>() == target {
                     self.result = Some(buffer[0] + buffer[window_size - 1]);
