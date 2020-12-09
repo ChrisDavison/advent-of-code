@@ -13,8 +13,8 @@ enum ParsePassportError {
     NoValue,
 }
 
-pub fn solve() -> Result<()> {
-    let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
+pub fn day04() -> Result<()> {
+    let data = std::fs::read_to_string(format!("input/day{}.in", DAY))?;
     let passports: Vec<_> = data
         .split("\n\n")
         .map(parse_passport)
@@ -65,7 +65,7 @@ mod passport_validator {
             .iter()
             .cloned()
             .collect();
-        necessary.is_subset(&fields.keys().map(|&x| x).collect())
+        necessary.is_subset(&fields.keys().copied().collect())
     }
 
     pub fn part2(fields: &HashMap<&str, &str>) -> bool {
@@ -135,7 +135,10 @@ mod tests {
             true,
         )];
         for (test, expected) in tests {
-            assert_eq!(passport_validator::part1(&parse_passport(test)), expected);
+            assert_eq!(
+                passport_validator::part1(&parse_passport(test).unwrap()),
+                expected
+            );
         }
     }
 

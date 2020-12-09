@@ -1,12 +1,13 @@
 use anyhow::Result;
-
+use rayon::prelude::*;
 use thiserror::Error;
 
 const DAY: usize = 8;
 
-pub fn solve() -> Result<()> {
-    let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
+pub fn day08() -> Result<()> {
+    let data = std::fs::read_to_string(format!("input/day{}.in", DAY))?;
     let instructions: Vec<Instruction> = data
+        .as_parallel_string()
         .lines()
         .map(|x| x.trim())
         .filter(|x| !x.is_empty())

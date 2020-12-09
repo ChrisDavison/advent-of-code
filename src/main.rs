@@ -20,14 +20,15 @@ fn main() {
     let args = Opt::from_args();
 
     let solutions: Vec<Solution> = vec![
-        (2020, 1, year2020::day01::solve),
-        (2020, 2, year2020::day02::solve),
-        (2020, 3, year2020::day03::solve),
-        (2020, 4, year2020::day04::solve),
-        (2020, 5, year2020::day05::solve),
-        (2020, 6, year2020::day06::solve),
-        (2020, 7, year2020::day07::solve),
-        (2020, 8, year2020::day08::solve),
+        (2020, 1, year2020::day01),
+        (2020, 2, year2020::day02),
+        (2020, 3, year2020::day03),
+        (2020, 4, year2020::day04),
+        (2020, 5, year2020::day05),
+        (2020, 6, year2020::day06),
+        (2020, 7, year2020::day07),
+        (2020, 8, year2020::day08),
+        (2020, 9, year2020::day09),
     ];
 
     for solution in solutions {

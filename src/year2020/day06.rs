@@ -3,8 +3,8 @@ use std::collections::*;
 
 const DAY: usize = 6;
 
-pub fn solve() -> Result<()> {
-    let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
+pub fn day06() -> Result<()> {
+    let data = std::fs::read_to_string(format!("input/day{}.in", DAY))?;
 
     let result = count_answers(&data, count_questions_anyone_answered)
         .iter()
