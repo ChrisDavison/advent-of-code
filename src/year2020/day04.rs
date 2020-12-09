@@ -13,6 +13,54 @@ enum ParsePassportError {
     NoValue,
 }
 
+enum Height {
+    Cm(usize),
+    Inch(usize),
+}
+
+struct Passport<'a> {
+    ecl: &'a str,
+    hcl: &'a str,
+    eyr: usize,
+    byr: usize,
+    iyr: usize,
+    hgt: Height,
+    pid: &'a str,
+    cid: Option<&'a str>,
+}
+
+impl<'a> std::str::FromStr for Passport<'a> {
+    type Err = ParsePassportError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Ok(Passport {
+            ecl: "",
+            hcl: "",
+            eyr: 0,
+            byr: 0,
+            iyr: 0,
+            hgt: Height::Cm(150),
+            pid: "",
+            cid: None,
+        })
+    }
+}
+
+impl<'a> Passport<'a> {
+    fn new(s: &'a str) -> &Passport {
+        &Passport {
+            ecl: "",
+            hcl: "",
+            eyr: 0,
+            byr: 0,
+            iyr: 0,
+            hgt: Height::Cm(150),
+            pid: "",
+            cid: None,
+        }
+    }
+}
+
 pub fn solve() -> Result<()> {
     let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
     let passports: Vec<_> = data
@@ -124,6 +172,18 @@ mod passport_validator {
     }
 }
 
+macro_rules! map(
+    { $($key:expr => $value:expr),+ } => {
+        {
+            let mut m = ::std::collections::HashMap::new();
+            $(
+                m.insert($key, $value);
+            )+
+            m
+        }
+     };
+);
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -135,7 +195,10 @@ mod tests {
             true,
         )];
         for (test, expected) in tests {
-            assert_eq!(passport_validator::part1(&parse_passport(test)), expected);
+            assert_eq!(
+                passport_validator::part1(&parse_passport(test).unwrap()),
+                expected
+            );
         }
     }
 
