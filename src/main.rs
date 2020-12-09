@@ -28,6 +28,7 @@ fn main() {
         (2020, 6, year2020::day06::solve),
         (2020, 7, year2020::day07::solve),
         (2020, 8, year2020::day08::solve),
+        (2020, 9, year2020::day09::solve),
     ];
 
     for solution in solutions {
