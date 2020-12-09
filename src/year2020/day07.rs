@@ -1,11 +1,13 @@
 use anyhow::Result;
+use rayon::prelude::*;
 use std::collections::HashMap;
 
 const DAY: usize = 7;
 
-pub fn solve() -> Result<()> {
-    let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
+pub fn day07() -> Result<()> {
+    let data = std::fs::read_to_string(format!("input/day{}.in", DAY))?;
     let tidy_data: Vec<&str> = data
+        .as_parallel_string()
         .lines()
         .map(|x| x.trim())
         .filter(|x| !x.is_empty())

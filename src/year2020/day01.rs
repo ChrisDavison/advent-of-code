@@ -1,12 +1,14 @@
 use anyhow::Result;
+use rayon::prelude::*;
 use std::collections::HashSet;
 
 const DAY: usize = 1;
 const TARGET: i32 = 2020;
 
-pub fn solve() -> Result<()> {
-    let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
+pub fn day01() -> Result<()> {
+    let data = std::fs::read_to_string(format!("input/day{}.in", DAY))?;
     let lines: HashSet<i32> = data
+        .as_parallel_string()
         .lines()
         .filter_map(|x| Some(x.trim().parse().ok()?))
         .filter(|&x| x < TARGET)

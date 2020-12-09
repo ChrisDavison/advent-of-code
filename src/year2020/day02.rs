@@ -1,10 +1,15 @@
 use anyhow::Result;
+use rayon::prelude::*;
 
 const DAY: usize = 2;
 
-pub fn solve() -> Result<()> {
-    let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
-    let tidy_data: Vec<_> = data.lines().map(|x| x.trim()).collect();
+pub fn day02() -> Result<()> {
+    let data = std::fs::read_to_string(format!("input/day{}.in", DAY))?;
+    let tidy_data: Vec<_> = data
+        .as_parallel_string()
+        .lines()
+        .map(|x| x.trim())
+        .collect();
     let passwords: Vec<_> = tidy_data
         .iter()
         .cloned()
