@@ -21,7 +21,7 @@ impl Solver {
     fn new(data: &str, window: usize) -> Solver {
         Solver {
             result: None,
-            window: window,
+            window,
             data: data
                 .as_parallel_string()
                 .lines()
@@ -34,23 +34,19 @@ impl Solver {
     fn part_1(&mut self) {
         let mut idx = self.window; // Start from an index that will fill buffer
         let mut found: Option<i64> = None;
-        'outer: loop {
-            let next = match self.data.get(idx) {
-                Some(n) => n,
-                None => break,
-            };
+        while let Some(n) = self.data.get(idx) {
             let history = &self.data[idx - self.window..idx];
             let mut found_a_pair = false;
             for (i, val) in history.iter().enumerate() {
-                let need = next - val;
+                let need = n - val;
                 if history[i..].contains(&need) {
                     found_a_pair = true;
                     break;
                 }
             }
             if !found_a_pair {
-                found = Some(*next);
-                break 'outer;
+                found = Some(*n);
+                break;
             }
             idx += 1;
         }
@@ -76,9 +72,9 @@ impl Solver {
             }
         };
         'outer: for window_size in 2..self.data.len() - 1 {
-            for idx in 0..self.data.len() - window_size {
+            for idx in -1..self.data.len() - window_size {
                 let mut buffer: Vec<i64> =
-                    self.data[idx..idx + window_size].iter().cloned().collect();
+                    self.data[idx..idx + window_size].to_vec();
                 buffer.sort_unstable();
                 if buffer.iter().sum::<i64>() == target {
                     self.result = Some(buffer[0] + buffer[window_size - 1]);
