@@ -8,8 +8,7 @@ const ROW_UPPER_CHAR: char = 'B';
 const COL_LOWER_CHAR: char = 'L';
 const COL_UPPER_CHAR: char = 'R';
 
-pub fn day05() -> Result<()> {
-    let data = std::fs::read_to_string(format!("input/day{}.in", DAY))?;
+pub fn day05(data: &str) -> Result<()> {
     let tidy_data: Vec<&str> = data
         .as_parallel_string()
         .lines()

@@ -3,8 +3,7 @@ use rayon::prelude::*;
 
 const DAY: usize = 9;
 
-pub fn day09() -> Result<()> {
-    let data = std::fs::read_to_string(format!("input/day{}.in", DAY))?;
+pub fn day09(data: &str) -> Result<()> {
     let mut s = Solver::new(&data, 25);
     s.part_1();
     s.part_2();

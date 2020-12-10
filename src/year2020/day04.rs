@@ -92,8 +92,7 @@ impl FromStr for Passport {
     }
 }
 
-pub fn day04() -> anyhow::Result<()> {
-    let data = std::fs::read_to_string(format!("input/day{}.txt", DAY))?;
+pub fn day04(data: &str) -> anyhow::Result<()> {
     let n_simple_passports = data
         .split("\n\n")
         .filter(|entry| has_all_fields(entry))
@@ -174,7 +173,7 @@ fn validate_hcl(f: &str) -> Result<String> {
     f.strip_prefix('#')
         .filter(|hex| hex.chars().filter(|c| c.is_digit(16)).count() == 6)
         .map(|x| x.to_string())
-        .ok_or(anyhow!("Bad hair colour"))
+        .ok_or_else(|| anyhow!("Bad hair colour"))
     // match f.strip_prefix('#') {
     //     Some(hex) => {
     //         if hex.chars().filter(|c| c.is_digit(16)).count() == 6 {

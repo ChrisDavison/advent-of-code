@@ -4,8 +4,7 @@ use std::collections::HashMap;
 
 const DAY: usize = 7;
 
-pub fn day07() -> Result<()> {
-    let data = std::fs::read_to_string(format!("input/day{}.in", DAY))?;
+pub fn day07(data: &str) -> Result<()> {
     let tidy_data: Vec<&str> = data
         .as_parallel_string()
         .lines()

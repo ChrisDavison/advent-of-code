@@ -4,8 +4,7 @@ use thiserror::Error;
 
 const DAY: usize = 8;
 
-pub fn day08() -> Result<()> {
-    let data = std::fs::read_to_string(format!("input/day{}.in", DAY))?;
+pub fn day08(data: &str) -> Result<()> {
     let instructions: Vec<Instruction> = data
         .as_parallel_string()
         .lines()

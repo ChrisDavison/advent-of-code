@@ -5,8 +5,7 @@ use std::collections::HashSet;
 const DAY: usize = 1;
 const TARGET: i32 = 2020;
 
-pub fn day01() -> Result<()> {
-    let data = std::fs::read_to_string(format!("input/day{}.in", DAY))?;
+pub fn day01(data: &str) -> Result<()> {
     let lines: HashSet<i32> = data
         .as_parallel_string()
         .lines()

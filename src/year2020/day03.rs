@@ -3,8 +3,7 @@ use rayon::prelude::*;
 
 const DAY: usize = 3;
 
-pub fn day03() -> Result<()> {
-    let data = std::fs::read_to_string(format!("input/day{}.in", DAY))?;
+pub fn day03(data: &str) -> Result<()> {
     let tidy_data: Vec<&str> = data
         .as_parallel_string()
         .lines()
