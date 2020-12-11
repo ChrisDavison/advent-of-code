@@ -1,6 +1,5 @@
 use anyhow::Result;
 use rayon::prelude::*;
-use std::collections::HashMap;
 
 const DAY: usize = 10;
 
@@ -32,9 +31,6 @@ fn part_1(data: &[usize]) -> usize {
 fn part_2(data: &[usize]) -> usize {
     let result = data.windows(2).collect::<Vec<_>>();
     let split = result.split(|n| n[1] - n[0] == 3).collect::<Vec<_>>();
-    for s in &split {
-        println!("{} {:?}", s.len(), s);
-    }
     let product = 2 * split
         .iter()
         .map(|n| match n.len() {

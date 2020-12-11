@@ -5,19 +5,17 @@ use std::collections::HashMap;
 const DAY: usize = 7;
 
 pub fn day07(data: &str) -> Result<()> {
-    let tidy_data: Vec<&str> = data
+    let tidy_data = data
         .as_parallel_string()
         .lines()
         .map(|x| x.trim())
-        .filter(|x| !x.is_empty())
-        .collect();
-
-    let bagmap = create_bagmap(&tidy_data);
+        .filter(|x| !x.is_empty());
+    let bagmap = create_bagmap(tidy_data);
 
     let n_containing_gold = bags_containing_gold(&bagmap) - 1;
-    let n_inside_gold = total_bags(&bagmap, "shiny gold") - 1;
-
     println!("2020 {}-1 -> {}", DAY, n_containing_gold);
+
+    let n_inside_gold = total_bags(&bagmap, "shiny gold") - 1;
     println!("2020 {}-2 -> {}", DAY, n_inside_gold);
     Ok(())
 }
@@ -26,30 +24,31 @@ type BagMap = HashMap<String, Vec<(String, usize)>>;
 
 type BagCache = HashMap<String, bool>;
 
-fn create_bagmap(data: &[&str]) -> BagMap {
+fn create_bagmap<'a>(data: impl Iterator<Item = &'a str>) -> BagMap {
     let mut bagmap: BagMap = HashMap::new();
     for line in data {
-        let parts: Vec<_> = line.split("contain").take(2).map(|x| x.trim()).collect();
-        let source = parts[0].trim().trim_end_matches("bags").trim();
-        let inner_bags: Vec<_> = parts[1]
-            .split(',')
-            .map(parse_bag)
-            .filter_map(|x| x.ok())
-            .collect();
-        bagmap.insert(source.to_string(), inner_bags);
+        let mut parts = line.split("contain").take(2).map(|x| x.trim());
+        let source = parts
+            .next()
+            .map(|x| x.trim().trim_end_matches("bags").trim());
+        let inner_bags = parts.next().map(|x| {
+            x.split(',')
+                .filter_map(|x| Some(parse_bag(x).ok()?))
+                .collect()
+        });
+        bagmap.insert(source.unwrap().to_string(), inner_bags.unwrap());
     }
     bagmap
 }
 
 fn parse_bag(s: &str) -> Result<(String, usize)> {
-    let parts: Vec<_> = s
+    let mut parts = s
         .trim_end_matches('.')
         .trim()
         .split(' ')
-        .filter(|x| !["bag", "bags"].contains(x))
-        .collect();
-    let num = parts[0].parse()?;
-    Ok((parts[1..].join(" "), num))
+        .filter(|x| !["bag", "bags"].contains(x));
+    let num = parts.next().unwrap().parse()?;
+    Ok((parts.collect::<Vec<&str>>().join(" "), num))
 }
 
 fn contains_gold(bagmap: &BagMap, bag: &str, cache: &mut BagCache) -> bool {

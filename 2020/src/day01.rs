@@ -27,8 +27,9 @@ pub fn day01(data: &str) -> Result<()> {
 
 fn find_pair_sums_to(target: i32, data: &HashSet<i32>) -> Option<(i32, i32)> {
     for num in data {
-        if data.contains(&(target - *num)) {
-            return Some((*num, target - *num));
+        let need = target - *num;
+        if data.contains(&need) {
+            return Some((*num, need));
         }
     }
     None
@@ -36,7 +37,8 @@ fn find_pair_sums_to(target: i32, data: &HashSet<i32>) -> Option<(i32, i32)> {
 
 fn find_triple_sums_to(target: i32, data: &HashSet<i32>) -> Option<(i32, i32, i32)> {
     for num in data {
-        if let Some((a, b)) = find_pair_sums_to(target - num, data) {
+        let need = target - num;
+        if let Some((a, b)) = find_pair_sums_to(need, data) {
             return Some((*num, a, b));
         }
     }

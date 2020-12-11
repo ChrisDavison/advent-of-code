@@ -4,6 +4,7 @@ use std::collections::*;
 const DAY: usize = 6;
 
 pub fn day06(data: &str) -> Result<()> {
+    let data: Vec<_> = data.split("\n\n").collect();
     let result = count_answers(&data, count_questions_anyone_answered)
         .iter()
         .sum::<usize>();
@@ -15,11 +16,11 @@ pub fn day06(data: &str) -> Result<()> {
     Ok(())
 }
 
-fn count_answers(s: &str, counter: fn(&str) -> usize) -> Vec<usize> {
-    s.split("\n\n").map(counter).collect()
+fn count_answers(s: &[&str], counter: fn(&&str) -> usize) -> Vec<usize> {
+    s.iter().map(counter).collect()
 }
 
-fn count_questions_anyone_answered(s: &str) -> usize {
+fn count_questions_anyone_answered(s: &&str) -> usize {
     // Count Nkeys
     s.chars()
         .filter(|&c| !c.is_whitespace())
@@ -27,7 +28,7 @@ fn count_questions_anyone_answered(s: &str) -> usize {
         .len()
 }
 
-fn count_questions_everyone_answered(s: &str) -> usize {
+fn count_questions_everyone_answered(s: &&str) -> usize {
     // Count Nentries where value == n_rows
     let mut answer_map: HashMap<char, usize> = HashMap::new();
     for letter in s.chars() {

@@ -43,11 +43,12 @@ fn main() {
         (10, day10::day10),
     ];
 
+    let start = Instant::now();
     for solution in solutions {
         let run = match args.day {
             Some(d) => solution.0 == d,
             None => {
-                println!("");
+                println!();
                 true
             }
         };
@@ -64,8 +65,12 @@ fn main() {
             if let Err(e) = result {
                 eprintln!("{}", e);
             } else {
-                println!("    Time: {}us", now.elapsed().as_micros());
+                println!("    Time: {:.2}ms", (now.elapsed().as_nanos() as f64) / 1E6);
             }
         }
     }
+    println!(
+        "Time for all: {}ms",
+        (start.elapsed().as_nanos() as f64) / 1E6
+    );
 }
