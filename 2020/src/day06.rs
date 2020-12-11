@@ -1,8 +1,6 @@
 use anyhow::Result;
 use std::collections::*;
 
-const DAY: usize = 6;
-
 pub fn day06(data: &str) -> Result<()> {
     let data: Vec<_> = data.split("\n\n").collect();
     let result = count_answers(&data, count_questions_anyone_answered)
@@ -11,8 +9,8 @@ pub fn day06(data: &str) -> Result<()> {
     let result2 = count_answers(&data, count_questions_everyone_answered)
         .iter()
         .sum::<usize>();
-    println!("2020 {}-1 -> {}", DAY, result);
-    println!("2020 {}-2 -> {}", DAY, result2);
+    println!("2020 6-1 -> {}", result);
+    println!("2020 6-2 -> {}", result2);
     Ok(())
 }
 

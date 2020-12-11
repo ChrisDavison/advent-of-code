@@ -1,8 +1,6 @@
 use anyhow::Result;
 use rayon::prelude::*;
 
-const DAY: usize = 3;
-
 pub fn day03(data: &str) -> Result<()> {
     let tidy_data: Vec<&str> = data
         .as_parallel_string()
@@ -26,8 +24,8 @@ pub fn day03(data: &str) -> Result<()> {
         .collect();
     let product = |ls: &[usize]| -> usize { ls.iter().skip(1).fold(ls[0], |acc, x| acc * x) };
 
-    println!("2020 {}-1 -> {}", DAY, product(&results));
-    println!("2020 {}-2 -> {}", DAY, product(&results2));
+    println!("2020 3-1 -> {}", product(&results));
+    println!("2020 3-2 -> {}", product(&results2));
     Ok(())
 }
 

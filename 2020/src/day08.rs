@@ -2,8 +2,6 @@ use anyhow::Result;
 use rayon::prelude::*;
 use thiserror::Error;
 
-const DAY: usize = 8;
-
 pub fn day08(data: &str) -> Result<()> {
     let instructions: Vec<Instruction> = data
         .as_parallel_string()
@@ -14,10 +12,10 @@ pub fn day08(data: &str) -> Result<()> {
         .collect();
 
     let (total, _) = part1(&instructions);
-    println!("2020 {}-1 -> {}", DAY, total);
+    println!("2020 8-1 -> {}", total);
 
     let total2 = part2(&instructions);
-    println!("2020 {}-2 -> {}", DAY, total2);
+    println!("2020 8-2 -> {}", total2);
     Ok(())
 }
 

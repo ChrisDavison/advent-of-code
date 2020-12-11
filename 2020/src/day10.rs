@@ -1,8 +1,6 @@
 use anyhow::Result;
 use rayon::prelude::*;
 
-const DAY: usize = 10;
-
 pub fn day10(data: &str) -> Result<()> {
     let mut data: Vec<usize> = data
         .as_parallel_string()
@@ -24,7 +22,7 @@ fn part_1(data: &[usize]) -> usize {
                 3 => (ones, threes + 1),
                 _ => unreachable!(),
             });
-    println!("AoC2020 {}.1 -> {}", DAY, ones * threes);
+    println!("AoC2020 10.1 -> {}", ones * threes);
     ones * threes
 }
 
@@ -40,6 +38,6 @@ fn part_2(data: &[usize]) -> usize {
             _ => 1,
         })
         .product::<usize>();
-    println!("AoC2020 {}.2 -> {}", DAY, product);
+    println!("AoC2020 10.2 -> {}", product);
     product
 }

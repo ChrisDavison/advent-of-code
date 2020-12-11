@@ -1,8 +1,6 @@
 use anyhow::{anyhow, Result};
 use std::str::FromStr;
 
-const DAY: usize = 4;
-
 enum Height {
     Cm(usize),
     Inch(usize),
@@ -102,8 +100,8 @@ pub fn day04(data: &str) -> anyhow::Result<()> {
         .map(|entry| entry.parse())
         .filter_map(|x| Some(x.ok()?))
         .collect();
-    println!("2020 {}-1 -> {}", DAY, n_simple_passports);
-    println!("2020 {}-2 -> {}", DAY, passports.len());
+    println!("2020 4-1 -> {}", n_simple_passports);
+    println!("2020 4-2 -> {}", passports.len());
     Ok(())
 }
 

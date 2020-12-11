@@ -8,13 +8,13 @@ pub fn dayXX(data: &str) -> Result<()> {
 
 fn part_1(data: &str) -> i32 {
     let result = 0;
-    println!("AoC2020 XX.1 -> {}", result);
+    println!("AoC2020 11.1 -> {}", result);
     unimplemented!()
 }
 
 fn part_2(data: &str) -> i32 {
     let result = 0;
-    println!("AoC2020 XX.2 -> {}", result);
+    println!("AoC2020 11.2 -> {}", result);
     unimplemented!()
 }
 

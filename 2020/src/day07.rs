@@ -2,8 +2,6 @@ use anyhow::Result;
 use rayon::prelude::*;
 use std::collections::HashMap;
 
-const DAY: usize = 7;
-
 pub fn day07(data: &str) -> Result<()> {
     let tidy_data = data
         .as_parallel_string()
@@ -13,10 +11,10 @@ pub fn day07(data: &str) -> Result<()> {
     let bagmap = create_bagmap(tidy_data);
 
     let n_containing_gold = bags_containing_gold(&bagmap) - 1;
-    println!("2020 {}-1 -> {}", DAY, n_containing_gold);
+    println!("2020 7-1 -> {}", n_containing_gold);
 
     let n_inside_gold = total_bags(&bagmap, "shiny gold") - 1;
-    println!("2020 {}-2 -> {}", DAY, n_inside_gold);
+    println!("2020 7-2 -> {}", n_inside_gold);
     Ok(())
 }
 

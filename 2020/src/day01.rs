@@ -2,7 +2,6 @@ use anyhow::Result;
 use rayon::prelude::*;
 use std::collections::HashSet;
 
-const DAY: usize = 1;
 const TARGET: i32 = 2020;
 
 pub fn day01(data: &str) -> Result<()> {
@@ -15,12 +14,12 @@ pub fn day01(data: &str) -> Result<()> {
 
     let product_of_pair = find_pair_sums_to(TARGET, &lines).map(|(a, b)| a * b);
     if let Some(prod) = product_of_pair {
-        println!("2020 {}-1 -> {}", DAY, prod);
+        println!("2020 1-1 -> {}", prod);
     }
 
     let product_of_triple = find_triple_sums_to(TARGET, &lines).map(|(a, b, c)| a * b * c);
     if let Some(prod) = product_of_triple {
-        println!("2020 {}-1 -> {}", DAY, prod);
+        println!("2020 1-1 -> {}", prod);
     }
     Ok(())
 }

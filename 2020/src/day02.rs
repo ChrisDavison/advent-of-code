@@ -1,8 +1,6 @@
 use anyhow::Result;
 use rayon::prelude::*;
 
-const DAY: usize = 2;
-
 pub fn day02(data: &str) -> Result<()> {
     let tidy_data: Vec<_> = data
         .as_parallel_string()
@@ -18,10 +16,10 @@ pub fn day02(data: &str) -> Result<()> {
         .collect();
 
     let valid = passwords.iter().filter(|x| valid_rule_part1(x)).count();
-    println!("2020 {}-1 -> {}", DAY, valid);
+    println!("2020 2-1 -> {}", valid);
 
     let valid2 = passwords.iter().filter(|x| valid_rule_part2(x)).count();
-    println!("2020 {}-2 -> {}", DAY, valid2);
+    println!("2020 2-2 -> {}", valid2);
     Ok(())
 }
 
