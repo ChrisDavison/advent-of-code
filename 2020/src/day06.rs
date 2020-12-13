@@ -50,17 +50,19 @@ mod tests {
 
     #[test]
     fn examples_part1() {
-        let ex1 = "abcx\nabcy\nabcz";
+        let ex1: Vec<_> = "abcx\nabcy\nabcz".split("\n\n").collect();
         assert_eq!(
-            count_answers(ex1, count_questions_anyone_answered)
+            count_answers(&ex1, count_questions_anyone_answered)
                 .iter()
                 .sum::<usize>(),
             6
         );
 
-        let ex2 = "abc\n\na\nb\nc\n\nab\nac\n\na\na\na\na\n\nb";
+        let ex2 = "abc\n\na\nb\nc\n\nab\nac\n\na\na\na\na\n\nb"
+            .split("\n\n")
+            .collect::<Vec<_>>();
         assert_eq!(
-            count_answers(ex2, count_questions_anyone_answered)
+            count_answers(&ex2, count_questions_anyone_answered)
                 .iter()
                 .sum::<usize>(),
             11
@@ -70,8 +72,9 @@ mod tests {
     #[test]
     fn examples_part2() {
         let ex2 = "abc\n\na\nb\nc\n\nab\nac\n\na\na\na\na\n\nb";
+        let data = ex2.split("\n\n").collect::<Vec<_>>();
         assert_eq!(
-            count_answers(ex2, count_questions_everyone_answered)
+            count_answers(&data, count_questions_everyone_answered)
                 .iter()
                 .sum::<usize>(),
             6
@@ -88,7 +91,7 @@ mod tests {
             ("b", 1),
         ];
         for (input, expected) in inputs {
-            assert_eq!(count_questions_anyone_answered(input), expected);
+            assert_eq!(count_questions_anyone_answered(&input), expected);
         }
     }
 
@@ -102,7 +105,7 @@ mod tests {
             ("b", 1),
         ];
         for (input, expected) in inputs {
-            assert_eq!(count_questions_everyone_answered(input), expected);
+            assert_eq!(count_questions_everyone_answered(&input), expected);
         }
     }
 
