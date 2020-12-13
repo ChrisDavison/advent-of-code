@@ -4,15 +4,9 @@ use std::fmt::{self, Display};
 const CARDINALS: [char; 4] = ['N', 'E', 'S', 'W'];
 
 pub fn day12(data: &str) -> Result<()> {
-    let sample = include_str!("../samples/12-1.in");
-    let sample2 = include_str!("../samples/12-2.in");
-    let instructions_s: Vec<(char, usize)> = parse_instructions(sample);
-    let instructions_s2: Vec<(char, usize)> = parse_instructions(sample2);
     let instructions: Vec<(char, usize)> = parse_instructions(data);
 
-    println!("AoC2020 12.1 sample -> {}", part1(&instructions_s));
     println!("AoC2020 12.1 -> {}", part1(&instructions));
-    println!("AoC2020 12.2 sample -> {}", part2(&instructions_s));
     println!("AoC2020 12.2 -> {}", part2(&instructions));
 
     Ok(())

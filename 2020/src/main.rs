@@ -59,10 +59,10 @@ fn main() {
         if run {
             let now = Instant::now();
             let data = if args.sample {
-                std::fs::read_to_string(format!("input/sample{}.in", solution.0))
+                std::fs::read_to_string(format!("input/{:02}.sample", solution.0))
                     .expect("Day doesn't exist")
             } else {
-                std::fs::read_to_string(format!("input/day{}.in", solution.0))
+                std::fs::read_to_string(format!("input/{:02}.in", solution.0))
                     .expect("Day doesn't exist")
             };
             let result = solution.1(&data);
