@@ -1,8 +1,5 @@
-use anyhow::Result;
+use anyhow::{anyhow, Result};
 use rayon::prelude::*;
-use thiserror::Error;
-
-const DAY: usize = 8;
 
 pub fn day08(data: &str) -> Result<()> {
     let instructions: Vec<Instruction> = data
@@ -14,10 +11,10 @@ pub fn day08(data: &str) -> Result<()> {
         .collect();
 
     let (total, _) = part1(&instructions);
-    println!("2020 {}-1 -> {}", DAY, total);
+    println!("2020 8-1 -> {}", total);
 
     let total2 = part2(&instructions);
-    println!("2020 {}-2 -> {}", DAY, total2);
+    println!("2020 8-2 -> {}", total2);
     Ok(())
 }
 
@@ -60,17 +57,6 @@ fn part2(instructions: &[Instruction]) -> i64 {
     }
 }
 
-#[allow(dead_code)]
-#[derive(Error, Debug)]
-pub enum InstructionParseError {
-    #[error("Couldn't parse acc or jmp value")]
-    ParseIntError(#[from] std::num::ParseIntError),
-    #[error("Couldn't parse action")]
-    BadAction,
-    #[error("Unknown error")]
-    Unknown,
-}
-
 #[derive(Debug, PartialEq, Clone)]
 enum Instruction {
     Acc(i64),
@@ -79,7 +65,7 @@ enum Instruction {
 }
 
 impl std::str::FromStr for Instruction {
-    type Err = InstructionParseError;
+    type Err = anyhow::Error;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts: Vec<_> = s.split(' ').collect();
@@ -88,7 +74,7 @@ impl std::str::FromStr for Instruction {
             "acc" => Ok(Instruction::Acc(num)),
             "jmp" => Ok(Instruction::Jmp(num)),
             "nop" => Ok(Instruction::Nop(num)),
-            _ => Err(InstructionParseError::BadAction),
+            x => Err(anyhow!("Unrecognised operation `{}`", x)),
         }
     }
 }

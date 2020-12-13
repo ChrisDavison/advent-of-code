@@ -1,8 +1,6 @@
 use anyhow::Result;
 use rayon::prelude::*;
 
-const DAY: usize = 5;
-
 const ROW_LOWER_CHAR: char = 'F';
 const ROW_UPPER_CHAR: char = 'B';
 const COL_LOWER_CHAR: char = 'L';
@@ -22,8 +20,8 @@ pub fn day05(data: &str) -> Result<()> {
         .filter(|pair| (pair[1] - pair[0]) == 2)
         .map(|pair| pair[0] + 1)
         .collect::<Vec<i64>>()[0];
-    println!("2020 {}-1 -> {}", DAY, id1);
-    println!("2020 {}-2 -> {}", DAY, id2);
+    println!("2020 5-1 -> {}", id1);
+    println!("2020 5-2 -> {}", id2);
 
     Ok(())
 }

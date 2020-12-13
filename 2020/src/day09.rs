@@ -1,8 +1,6 @@
 use anyhow::Result;
 use rayon::prelude::*;
 
-const DAY: usize = 9;
-
 pub fn day09(data: &str) -> Result<()> {
     let mut s = Solver::new(&data, 25);
     s.part_1();
@@ -52,9 +50,9 @@ impl Solver {
         match found {
             Some(num) => {
                 self.result = found;
-                println!("AoC2020 {}.1 -> {}", DAY, num)
+                println!("AoC2020 9.1 -> {}", num);
             }
-            None => eprintln!("AoC2020 {}.1 ERROR. No num found.", DAY),
+            None => eprintln!("AoC2020 9.1 ERROR. No num found."),
         }
     }
 
@@ -81,8 +79,8 @@ impl Solver {
             }
         }
         match self.result {
-            Some(num) => println!("AoC2020 {}.1 -> {}", DAY, num),
-            None => eprintln!("AoC2020 {}.1 ERROR. No num found.", DAY),
+            Some(num) => println!("AoC2020 9.2 -> {}", num),
+            None => eprintln!("AoC2020 9.2 ERROR. No num found."),
         }
     }
 }
@@ -91,10 +89,6 @@ impl Solver {
 mod tests {
     use super::*;
 
-    #[test]
-    fn template_day_was_changed() {
-        assert_ne!(DAY, 0);
-    }
     #[test]
     fn example_part1() {
         let input = "35\n20\n15\n25\n47\n40\n62\n55\n65\n95\n102\n117\n150\n182\n127\n219\n299\n277\n309\n576";
