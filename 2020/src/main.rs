@@ -11,6 +11,7 @@ mod day10;
 mod day11;
 mod day12;
 mod day13;
+mod day14;
 
 use std::time::Instant;
 use structopt::StructOpt;
@@ -22,9 +23,9 @@ struct Opt {
     /// Day selection for task
     #[structopt(short, long)]
     day: Option<usize>,
-    /// Run using the sample input
-    #[structopt(short, long)]
-    sample: bool,
+    /// Pass data to use instead of input/DAY.in
+    #[structopt(long)]
+    data: Option<String>,
 }
 
 type SolutionFunc = fn(&str) -> anyhow::Result<()>;
@@ -47,6 +48,7 @@ fn main() {
         (11, day11::day11),
         (12, day12::day12),
         (13, day13::day13),
+        (14, day14::day14),
     ];
 
     let start = Instant::now();
@@ -60,18 +62,15 @@ fn main() {
         };
         if run {
             let now = Instant::now();
-            let data = if args.sample {
-                std::fs::read_to_string(format!("input/{:02}.sample", solution.0))
-                    .expect("Day doesn't exist")
-            } else {
-                std::fs::read_to_string(format!("input/{:02}.in", solution.0))
-                    .expect("Day doesn't exist")
+            let filename: String = match args.data.clone() {
+                Some(filename) => filename,
+                None => format!("input/{:02}.in", solution.0),
             };
-            let result = solution.1(&data);
-            if let Err(e) = result {
-                eprintln!("{}", e);
-            } else {
-                println!("    Time: {:.2}ms", (now.elapsed().as_nanos() as f64) / 1E6);
+            let data = std::fs::read_to_string(&filename)
+                .unwrap_or_else(|_| panic!("Data file {} doesn't exist", filename));
+            match solution.1(&data) {
+                Ok(_) => println!("    Time: {:.2}ms", (now.elapsed().as_nanos() as f64) / 1E6),
+                Err(e) => eprintln!("D{}: {}", solution.0, e),
             }
         }
     }

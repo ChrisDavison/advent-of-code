@@ -14,7 +14,7 @@ pub fn day12(data: &str) -> Result<()> {
 
 fn parse_instructions(s: &str) -> Vec<(char, usize)> {
     s.lines()
-        .filter_map(|row| Some((row.chars().nth(0).unwrap(), row[1..].parse().ok()?)))
+        .filter_map(|row| Some((row.chars().next().unwrap(), row[1..].parse().ok()?)))
         .collect()
 }
 
@@ -65,11 +65,8 @@ fn rotate(starting: char, direction: char, angle: usize) -> char {
         .iter()
         .position(|&x| x == starting)
         .expect("Cardinal must be N, E, S, or W");
-    let delta = if direction == 'L' {
-        -1 * (angle / 90) as isize
-    } else {
-        (angle / 90) as isize
-    };
+    let angle: isize = angle as isize / 90;
+    let delta = if direction == 'L' { -angle } else { angle };
 
     let next = ((current as isize + delta) + 4) % 4;
     CARDINALS[next as usize]
