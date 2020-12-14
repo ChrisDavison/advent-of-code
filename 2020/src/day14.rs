@@ -75,8 +75,7 @@ pub fn day14(data: &str) -> Result<()> {
 
 fn apply_mask(value: usize, mask: BitMask) -> String {
     format!("{:036b}", value)
-        .chars()
-        .enumerate()
+        .char_indices()
         .map(|(i, x)| match mask[i] {
             Bit::One => '1',
             Bit::Zero => '0',
