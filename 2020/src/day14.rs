@@ -41,8 +41,12 @@ impl FromStr for Op {
 
     fn from_str(instruction: &str) -> anyhow::Result<Self> {
         let mut ins_parts = instruction.split(" = ");
-        let action = ins_parts.next().ok_or(anyhow!("Action missing for op"))?;
-        let value = ins_parts.next().ok_or(anyhow!("Value missing for op"))?;
+        let action = ins_parts
+            .next()
+            .ok_or_else(|| anyhow!("Action missing for op"))?;
+        let value = ins_parts
+            .next()
+            .ok_or_else(|| anyhow!("Value missing for op"))?;
         if action == "mask" {
             let mut bitmask = [Bit::X; 36];
             for (i, c) in value.chars().enumerate() {
@@ -81,16 +85,26 @@ fn apply_mask(value: usize, mask: BitMask) -> String {
         .collect::<String>()
 }
 
-fn apply_mask_v2(value: usize, mask: BitMask) -> String {
+fn apply_mask_v2(value: usize, mask: BitMask) -> Vec<char> {
     format!("{:036b}", value)
-        .chars()
-        .enumerate()
+        .char_indices()
         .map(|(i, x)| match mask[i] {
             Bit::One => '1',
             Bit::Zero => x,
             Bit::X => 'x',
         })
-        .collect::<String>()
+        .collect()
+}
+
+fn bit_permutations(n: usize, perm_cache: &mut HashMap<usize, Vec<Vec<char>>>) -> Vec<Vec<char>> {
+    if !perm_cache.contains_key(&n) {
+        let n_permutations: usize = 2usize.pow(n as u32);
+        let perms = (0..n_permutations)
+            .map(|i| format!("{:0n$b}", i, n = n).chars().collect::<Vec<char>>())
+            .collect();
+        perm_cache.insert(n, perms);
+    }
+    perm_cache[&n].clone()
 }
 
 fn update_memory(
@@ -106,15 +120,9 @@ fn update_memory(
     Ok(())
 }
 
-fn bit_permutations(n: usize) -> Vec<Vec<char>> {
-    let n_permutations: usize = 2usize.pow(n as u32);
-    (0..n_permutations)
-        .map(|i| format!("{:0n$b}", i, n = n).chars().collect::<Vec<char>>())
-        .collect()
-}
-
 fn update_memory_v2(
     mem: &mut HashMap<usize, usize>,
+    mut bit_perm_cache: &mut HashMap<usize, Vec<Vec<char>>>,
     addr: usize,
     value: usize,
     mask: BitMask,
@@ -126,16 +134,14 @@ fn update_memory_v2(
         .map(|(i, _)| i)
         .collect();
 
-    let masked_start_addr: Vec<char> = apply_mask_v2(addr, mask).chars().collect();
-    for perm in bit_permutations(x_locs.len()) {
-        // e.g. vec[0, 0, 0]
+    let masked_start_addr: Vec<char> = apply_mask_v2(addr, mask);
+    for perm in bit_permutations(x_locs.len(), &mut bit_perm_cache) {
         let mut addr_perm = masked_start_addr.clone();
         x_locs
             .iter()
             .zip(perm.iter())
             .for_each(|(&i, &bit)| addr_perm[i] = bit);
-        let actual_addr = addr_perm.iter().collect::<String>();
-        let addr_new = usize::from_str_radix(&actual_addr, 2)
+        let addr_new = usize::from_str_radix(&addr_perm.iter().collect::<String>(), 2)
             .map_err(|e| anyhow!("Failed to convert masked addr from binary: {}", e))?;
         mem.insert(addr_new, value);
     }
@@ -159,10 +165,13 @@ fn part_1(instructions: &[Op]) -> Result<usize> {
 fn part_2(instructions: &[Op]) -> Result<usize> {
     let mut current_mask = [Bit::X; 36];
     let mut memory: HashMap<usize, usize> = HashMap::new();
+    let mut bit_perm_cache: HashMap<usize, Vec<Vec<char>>> = HashMap::new();
     for &op in instructions {
         match op {
             Op::Mask(bitmask) => current_mask = bitmask,
-            Op::Mem(addr, value) => update_memory_v2(&mut memory, addr, value, current_mask)?,
+            Op::Mem(addr, value) => {
+                update_memory_v2(&mut memory, &mut bit_perm_cache, addr, value, current_mask)?
+            }
         }
     }
     let result = memory.iter().map(|(_k, v)| v).sum();
