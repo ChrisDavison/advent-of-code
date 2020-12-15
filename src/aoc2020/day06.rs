@@ -1,7 +1,8 @@
 use anyhow::Result;
 use std::collections::*;
 
-pub fn day06(data: &str) -> Result<()> {
+pub fn day06() -> Result<()> {
+    let data = std::fs::read_to_string("input/06.in")?;
     let data: Vec<_> = data.split("\n\n").collect();
     let result = count_answers(&data, count_questions_anyone_answered)
         .iter()

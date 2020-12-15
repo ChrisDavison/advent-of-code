@@ -3,11 +3,12 @@ use std::fmt::{self, Display};
 
 const CARDINALS: [char; 4] = ['N', 'E', 'S', 'W'];
 
-pub fn day12(data: &str) -> Result<()> {
-    let instructions: Vec<(char, usize)> = parse_instructions(data);
+pub fn day12() -> Result<()> {
+    let data = std::fs::read_to_string("input/12.in")?;
+    let instructions: Vec<(char, usize)> = parse_instructions(&data);
 
-    println!("AoC2020 12.1 -> {}", part1(&instructions));
-    println!("AoC2020 12.2 -> {}", part2(&instructions));
+    println!("2020 12.1 -> {}", part1(&instructions));
+    println!("2020 12.2 -> {}", part2(&instructions));
 
     Ok(())
 }

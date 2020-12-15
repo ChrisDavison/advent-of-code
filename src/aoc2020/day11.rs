@@ -16,7 +16,8 @@ const DIRS: [(isize, isize); 8] = [
     (1, 1),
 ];
 
-pub fn day11(data: &str) -> Result<()> {
+pub fn day11() -> Result<()> {
+    let data = std::fs::read_to_string("input/11.in")?;
     let seats = data
         .split('\n')
         .map(|x| x.bytes().collect())
@@ -28,13 +29,13 @@ pub fn day11(data: &str) -> Result<()> {
 
 fn part_1(seats: &[Vec<u8>]) -> usize {
     let result = iterate_till_stable(seats.to_vec(), &should_swap_p1);
-    println!("AoC2020 11.1 -> {}", result);
+    println!("2020 11.1 -> {}", result);
     result
 }
 
 fn part_2(seats: &[Vec<u8>]) -> usize {
     let result = iterate_till_stable(seats.to_vec(), &should_swap_p2);
-    println!("AoC2020 11.2 -> {}", result);
+    println!("2020 11.2 -> {}", result);
     result
 }
 

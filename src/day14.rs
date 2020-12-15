@@ -66,8 +66,10 @@ impl FromStr for Op {
     }
 }
 
-pub fn day14(data: &str) -> Result<()> {
+pub fn day14() -> Result<()> {
+    let data = std::fs::read_to_string("input/14.in")?;
     let instructions: Vec<Op> = data.lines().filter_map(|l| Some(l.parse().ok()?)).collect();
+
     part_1(&instructions)?;
     part_2(&instructions)?;
     Ok(())
@@ -157,7 +159,7 @@ fn part_1(instructions: &[Op]) -> Result<usize> {
         }
     }
     let result = memory.iter().map(|(_k, v)| v).sum();
-    println!("AoC2020 14.1 -> {}", result);
+    println!("2020 14.1 -> {}", result);
     Ok(result)
 }
 
@@ -174,6 +176,6 @@ fn part_2(instructions: &[Op]) -> Result<usize> {
         }
     }
     let result = memory.iter().map(|(_k, v)| v).sum();
-    println!("AoC2020 14.2 -> {}", result);
+    println!("2020 14.2 -> {}", result);
     Ok(result)
 }

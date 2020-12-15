@@ -1,7 +1,8 @@
 use anyhow::Result;
 use rayon::prelude::*;
 
-pub fn day10(data: &str) -> Result<()> {
+pub fn day10() -> Result<()> {
+    let data = std::fs::read_to_string("input/10.in")?;
     let mut data: Vec<usize> = data
         .as_parallel_string()
         .lines()
@@ -22,7 +23,7 @@ fn part_1(data: &[usize]) -> usize {
                 3 => (ones, threes + 1),
                 _ => unreachable!(),
             });
-    println!("AoC2020 10.1 -> {}", ones * threes);
+    println!("2020 10.1 -> {}", ones * threes);
     ones * threes
 }
 
@@ -38,6 +39,6 @@ fn part_2(data: &[usize]) -> usize {
             _ => 1,
         })
         .product::<usize>();
-    println!("AoC2020 10.2 -> {}", product);
+    println!("2020 10.2 -> {}", product);
     product
 }

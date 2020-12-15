@@ -1,7 +1,8 @@
 use anyhow::Result;
 use rayon::prelude::*;
 
-pub fn day02(data: &str) -> Result<()> {
+pub fn day02() -> Result<()> {
+    let data = std::fs::read_to_string("input/02.in")?;
     let tidy_data: Vec<_> = data
         .as_parallel_string()
         .lines()

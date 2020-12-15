@@ -1,7 +1,8 @@
 use anyhow::Result;
 use rayon::prelude::*;
 
-pub fn day09(data: &str) -> Result<()> {
+pub fn day09() -> Result<()> {
+    let data = std::fs::read_to_string("input/09.in")?;
     let mut s = Solver::new(&data, 25);
     s.part_1();
     s.part_2();
@@ -50,9 +51,9 @@ impl Solver {
         match found {
             Some(num) => {
                 self.result = found;
-                println!("AoC2020 9.1 -> {}", num);
+                println!("2020 9.1 -> {}", num);
             }
-            None => eprintln!("AoC2020 9.1 ERROR. No num found."),
+            None => eprintln!("2020 9.1 ERROR. No num found."),
         }
     }
 
@@ -79,8 +80,8 @@ impl Solver {
             }
         }
         match self.result {
-            Some(num) => println!("AoC2020 9.2 -> {}", num),
-            None => eprintln!("AoC2020 9.2 ERROR. No num found."),
+            Some(num) => println!("2020 9.2 -> {}", num),
+            None => eprintln!("2020 9.2 ERROR. No num found."),
         }
     }
 }

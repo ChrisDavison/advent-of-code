@@ -90,7 +90,8 @@ impl FromStr for Passport {
     }
 }
 
-pub fn day04(data: &str) -> anyhow::Result<()> {
+pub fn day04() -> anyhow::Result<()> {
+    let data = std::fs::read_to_string("input/04.in")?;
     let n_simple_passports = data
         .split("\n\n")
         .filter(|entry| has_all_fields(entry))

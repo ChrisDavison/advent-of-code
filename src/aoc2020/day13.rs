@@ -1,6 +1,7 @@
 use anyhow::Result;
 
-pub fn day13(data: &str) -> Result<()> {
+pub fn day13() -> Result<()> {
+    let data = std::fs::read_to_string("input/13.in")?;
     let lines: Vec<&str> = data.lines().collect();
     let start: usize = lines[0].parse().expect("Failed to parse start time");
     let timetable: Vec<Option<usize>> = parse_bus_timetable(lines[1]);
@@ -34,7 +35,7 @@ fn part_1(start: usize, buses: &[Option<usize>]) {
     next_afters.sort_by(|x, y| x.1.cmp(&y.1));
     let best_bus = next_afters[0];
     let diff = best_bus.1 - start;
-    println!("AoC2020 13.1 -> {}", best_bus.0 * diff);
+    println!("2020 13.1 -> {}", best_bus.0 * diff);
 }
 
 fn part_2(buses: &[Option<usize>]) {
@@ -55,5 +56,5 @@ fn part_2(buses: &[Option<usize>]) {
         }
         step *= **bus_id;
     }
-    println!("AoC2020 13.2 -> {}", timestamp);
+    println!("2020 13.2 -> {}", timestamp);
 }

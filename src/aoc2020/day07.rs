@@ -2,7 +2,8 @@ use anyhow::Result;
 use rayon::prelude::*;
 use std::collections::HashMap;
 
-pub fn day07(data: &str) -> Result<()> {
+pub fn day07() -> Result<()> {
+    let data = std::fs::read_to_string("input/07.in")?;
     let tidy_data = data
         .as_parallel_string()
         .lines()
