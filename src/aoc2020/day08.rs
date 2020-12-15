@@ -1,10 +1,8 @@
 use anyhow::{anyhow, Result};
-use rayon::prelude::*;
 
 pub fn day08() -> Result<()> {
     let data = std::fs::read_to_string("input/08.in")?;
     let instructions: Vec<Instruction> = data
-        .as_parallel_string()
         .lines()
         .map(|x| x.trim())
         .filter(|x| !x.is_empty())

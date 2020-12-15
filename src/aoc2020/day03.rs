@@ -1,13 +1,8 @@
 use anyhow::Result;
-use rayon::prelude::*;
 
 pub fn day03() -> Result<()> {
     let data = std::fs::read_to_string("input/03.in")?;
-    let tidy_data: Vec<&str> = data
-        .as_parallel_string()
-        .lines()
-        .map(|x| x.trim())
-        .collect();
+    let tidy_data: Vec<&str> = data.lines().map(|x| x.trim()).collect();
 
     let slopes = vec![Slope { right: 3, down: 1 }];
     let slopes2 = vec![

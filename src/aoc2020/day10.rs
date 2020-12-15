@@ -1,13 +1,8 @@
 use anyhow::Result;
-use rayon::prelude::*;
 
 pub fn day10() -> Result<()> {
     let data = std::fs::read_to_string("input/10.in")?;
-    let mut data: Vec<usize> = data
-        .as_parallel_string()
-        .lines()
-        .filter_map(|x| Some(x.parse().ok()?))
-        .collect();
+    let mut data: Vec<usize> = data.lines().filter_map(|x| Some(x.parse().ok()?)).collect();
     data.sort_unstable();
     part_1(&data);
     part_2(&data);

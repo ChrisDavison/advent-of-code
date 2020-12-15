@@ -1,5 +1,4 @@
 use anyhow::Result;
-use rayon::prelude::*;
 
 const ROW_LOWER_CHAR: char = 'F';
 const ROW_UPPER_CHAR: char = 'B';
@@ -8,11 +7,7 @@ const COL_UPPER_CHAR: char = 'R';
 
 pub fn day05() -> Result<()> {
     let data = std::fs::read_to_string("input/05.in")?;
-    let tidy_data: Vec<&str> = data
-        .as_parallel_string()
-        .lines()
-        .map(|x| x.trim())
-        .collect();
+    let tidy_data: Vec<&str> = data.lines().map(|x| x.trim()).collect();
 
     let seat_ids = sorted_seat_ids(&tidy_data);
     let id1 = seat_ids[seat_ids.len() - 1];

@@ -1,14 +1,9 @@
 use anyhow::Result;
-use rayon::prelude::*;
 use std::collections::HashMap;
 
 pub fn day07() -> Result<()> {
     let data = std::fs::read_to_string("input/07.in")?;
-    let tidy_data = data
-        .as_parallel_string()
-        .lines()
-        .map(|x| x.trim())
-        .filter(|x| !x.is_empty());
+    let tidy_data = data.lines().map(|x| x.trim()).filter(|x| !x.is_empty());
     let bagmap = create_bagmap(tidy_data);
 
     let n_containing_gold = bags_containing_gold(&bagmap) - 1;

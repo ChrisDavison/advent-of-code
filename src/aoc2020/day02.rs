@@ -1,13 +1,8 @@
 use anyhow::Result;
-use rayon::prelude::*;
 
 pub fn day02() -> Result<()> {
     let data = std::fs::read_to_string("input/02.in")?;
-    let tidy_data: Vec<_> = data
-        .as_parallel_string()
-        .lines()
-        .map(|x| x.trim())
-        .collect();
+    let tidy_data: Vec<_> = data.lines().map(|x| x.trim()).collect();
     let passwords: Vec<_> = tidy_data
         .iter()
         .cloned()

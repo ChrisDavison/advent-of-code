@@ -1,5 +1,4 @@
 use anyhow::Result;
-use rayon::prelude::*;
 use std::collections::HashSet;
 
 const TARGET: i32 = 2020;
@@ -7,7 +6,6 @@ const TARGET: i32 = 2020;
 pub fn day01() -> Result<()> {
     let data = std::fs::read_to_string("input/01.in")?;
     let lines: HashSet<i32> = data
-        .as_parallel_string()
         .lines()
         .filter_map(|x| Some(x.trim().parse().ok()?))
         .filter(|&x| x < TARGET)

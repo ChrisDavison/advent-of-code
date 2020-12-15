@@ -1,5 +1,4 @@
 use anyhow::Result;
-use rayon::prelude::*;
 
 pub fn day09() -> Result<()> {
     let data = std::fs::read_to_string("input/09.in")?;
@@ -21,7 +20,6 @@ impl Solver {
             result: None,
             window,
             data: data
-                .as_parallel_string()
                 .lines()
                 .map(|x| x.trim())
                 .filter_map(|x| Some(x.parse::<i64>().ok()?))
