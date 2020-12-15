@@ -75,7 +75,7 @@ pub fn day14() -> Result<()> {
     Ok(())
 }
 
-fn apply_mask(value: usize, mask: BitMask) -> String {
+fn apply_mask(value: usize, mask: &BitMask) -> String {
     format!("{:036b}", value)
         .char_indices()
         .map(|(i, x)| match mask[i] {
@@ -86,7 +86,7 @@ fn apply_mask(value: usize, mask: BitMask) -> String {
         .collect::<String>()
 }
 
-fn apply_mask_v2(value: usize, mask: BitMask) -> Vec<char> {
+fn apply_mask_v2(value: usize, mask: &BitMask) -> Vec<char> {
     format!("{:036b}", value)
         .char_indices()
         .map(|(i, x)| match mask[i] {
@@ -114,7 +114,7 @@ fn update_memory(
     value: usize,
     mask: BitMask,
 ) -> Result<()> {
-    let valstr_masked = apply_mask(value, mask);
+    let valstr_masked = apply_mask(value, &mask);
     let val = usize::from_str_radix(&valstr_masked, 2).map_err(|e| anyhow!("Apply mask: {}", e))?;
 
     mem.insert(addr, val);
@@ -135,7 +135,7 @@ fn update_memory_v2(
         .map(|(i, _)| i)
         .collect();
 
-    let masked_start_addr: Vec<char> = apply_mask_v2(addr, mask);
+    let masked_start_addr: Vec<char> = apply_mask_v2(addr, &mask);
     for perm in bit_permutations(x_locs.len(), &mut bit_perm_cache) {
         let mut addr_perm = masked_start_addr.clone();
         x_locs
