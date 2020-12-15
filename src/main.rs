@@ -37,6 +37,7 @@ fn main() {
         (12, aoc2020::day12::day12),
         (13, aoc2020::day13::day13),
         (14, aoc2020::day14::day14),
+        (15, aoc2020::day15::day15),
     ];
 
     let start = Instant::now();
