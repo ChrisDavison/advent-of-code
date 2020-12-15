@@ -30,7 +30,7 @@ fn main() {
     println!("==============");
     for (day, function) in SOLUTIONS.iter().enumerate() {
         if let Some(d) = day_wanted {
-            if day != d {
+            if day != d - 1 {
                 continue;
             }
         }

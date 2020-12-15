@@ -39,6 +39,7 @@ fn part_2(seats: &[Vec<u8>]) -> usize {
     result
 }
 
+#[inline(always)]
 fn find_neighbour(
     data: &[Vec<u8>],
     (i, j): (usize, usize),
@@ -57,6 +58,7 @@ fn find_neighbour(
     None
 }
 
+#[inline(always)]
 fn should_swap_p1(data: &[Vec<u8>], i: usize, j: usize) -> bool {
     let mut neighbours = DIRS
         .iter()
@@ -69,6 +71,7 @@ fn should_swap_p1(data: &[Vec<u8>], i: usize, j: usize) -> bool {
     }
 }
 
+#[inline(always)]
 fn should_swap_p2(data: &[Vec<u8>], i: usize, j: usize) -> bool {
     let mut neighbours = DIRS
         .iter()

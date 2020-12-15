@@ -1,14 +1,10 @@
-use anyhow::Result;
+use anyhow::{anyhow, Result};
 
 pub fn day02() -> Result<()> {
     let data = std::fs::read_to_string("input/02.in")?;
-    let tidy_data: Vec<_> = data.lines().map(|x| x.trim()).collect();
-    let passwords: Vec<_> = tidy_data
-        .iter()
-        .cloned()
-        .filter(|x| !x.is_empty())
-        .map(|x| parse_password(x))
-        .filter_map(|x| x.ok())
+    let passwords: Vec<_> = data
+        .lines()
+        .filter_map(|x| Some(parse_password(x.trim()).ok()?))
         .collect();
 
     let valid = passwords.iter().filter(|x| valid_rule_part1(x)).count();
@@ -17,6 +13,12 @@ pub fn day02() -> Result<()> {
     let valid2 = passwords.iter().filter(|x| valid_rule_part2(x)).count();
     println!("2020 2-2 -> {}", valid2);
     Ok(())
+}
+
+macro_rules! bool_xor {
+    ($x:expr, $y:expr) => {
+        ($x && !$y) || ($y && !$x)
+    };
 }
 
 #[derive(Debug)]
@@ -28,30 +30,31 @@ struct PasswordLine<'a> {
 }
 
 fn parse_password(s: &str) -> Result<PasswordLine> {
-    let split_chars = " :-";
-    let parts: Vec<&str> = s
-        .split(|x| split_chars.contains(x))
+    let mut parts = s
+        .split(|x| " :-".contains(x))
         .map(|x| x.trim())
-        .filter(|x| !x.is_empty())
-        .collect();
+        .filter(|x| !x.is_empty());
 
     Ok(PasswordLine {
-        lower: parts[0].parse()?,
-        upper: parts[1].parse()?,
-        letter: parts[2].parse()?,
-        password: parts[3],
+        lower: parts
+            .next()
+            .ok_or_else(|| anyhow!("No lower"))
+            .and_then(|x| x.parse().map_err(|_| anyhow!("Bad lower")))?,
+        upper: parts
+            .next()
+            .ok_or_else(|| anyhow!("No upper"))
+            .and_then(|x| x.parse().map_err(|_| anyhow!("Bad upper")))?,
+        letter: parts
+            .next()
+            .ok_or_else(|| anyhow!("No letter"))
+            .and_then(|x| x.parse().map_err(|_| anyhow!("Bad letter")))?,
+        password: parts.next().ok_or_else(|| anyhow!("No password"))?,
     })
 }
 
 fn valid_rule_part1(pw: &PasswordLine) -> bool {
     let n_letter = pw.password.chars().filter(|&c| c == pw.letter).count();
     n_letter >= pw.lower && n_letter <= pw.upper
-}
-
-macro_rules! bool_xor {
-    ($x:expr, $y:expr) => {
-        ($x && !$y) || ($y && !$x)
-    };
 }
 
 fn valid_rule_part2(pw: &PasswordLine) -> bool {
