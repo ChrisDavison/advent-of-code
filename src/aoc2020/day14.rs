@@ -97,17 +97,6 @@ fn apply_mask_v2(value: usize, mask: &BitMask) -> Vec<char> {
         .collect()
 }
 
-fn bit_permutations(n: usize, perm_cache: &mut HashMap<usize, Vec<Vec<char>>>) -> Vec<Vec<char>> {
-    if !perm_cache.contains_key(&n) {
-        let n_permutations: usize = 2usize.pow(n as u32);
-        let perms = (0..n_permutations)
-            .map(|i| format!("{:0n$b}", i, n = n).chars().collect::<Vec<char>>())
-            .collect();
-        perm_cache.insert(n, perms);
-    }
-    perm_cache[&n].clone()
-}
-
 fn update_memory(
     mem: &mut HashMap<usize, usize>,
     addr: usize,
@@ -123,7 +112,7 @@ fn update_memory(
 
 fn update_memory_v2(
     mem: &mut HashMap<usize, usize>,
-    mut bit_perm_cache: &mut HashMap<usize, Vec<Vec<char>>>,
+    bit_perm_cache: &mut HashMap<usize, Vec<Vec<char>>>,
     addr: usize,
     value: usize,
     mask: BitMask,
@@ -136,11 +125,23 @@ fn update_memory_v2(
         .collect();
 
     let masked_start_addr: Vec<char> = apply_mask_v2(addr, &mask);
-    for perm in bit_permutations(x_locs.len(), &mut bit_perm_cache) {
+
+    let bit_permutations = bit_perm_cache.entry(x_locs.len()).or_insert({
+        let n_permutations: usize = 2usize.pow(x_locs.len() as u32);
+        (0..n_permutations)
+            .map(|i| {
+                format!("{:0n$b}", i, n = x_locs.len())
+                    .chars()
+                    .collect::<Vec<char>>()
+            })
+            .collect()
+    });
+
+    for permutation in bit_permutations {
         let mut addr_perm = masked_start_addr.clone();
         x_locs
             .iter()
-            .zip(perm.iter())
+            .zip(permutation.iter())
             .for_each(|(&i, &bit)| addr_perm[i] = bit);
         let addr_new = usize::from_str_radix(&addr_perm.iter().collect::<String>(), 2)
             .map_err(|e| anyhow!("Failed to convert masked addr from binary: {}", e))?;

@@ -22,8 +22,7 @@ const SOLUTIONS: &[fn() -> anyhow::Result<()>] = &[
 
 fn main() {
     let day_wanted: Option<usize> = std::env::args()
-        .skip(1)
-        .next()
+        .nth(1)
         .map(|x| x.parse::<usize>().ok())
         .unwrap_or(None);
 

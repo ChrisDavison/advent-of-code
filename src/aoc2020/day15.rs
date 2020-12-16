@@ -1,6 +1,4 @@
-#![allow(dead_code, unused_variables, unused_imports, unreachable_code)]
-use anyhow::{anyhow, Result};
-use std::collections::HashMap;
+use anyhow::Result;
 
 pub fn day15() -> Result<()> {
     let data = std::fs::read_to_string("input/15.in")?;

@@ -1,32 +1,25 @@
-#![allow(dead_code, unused_imports, unused_variables, unreachable_code)]
 use anyhow::{anyhow, Result};
-use itertools::Itertools;
 use std::collections::{HashMap, HashSet};
-use std::fmt::{self, Display};
 
 pub fn day16() -> Result<()> {
     let data = std::fs::read_to_string("input/16.in")?;
-    // let data = std::fs::read_to_string("input/16.sample")?;
-    // let data = std::fs::read_to_string("input/16-2.sample")?;
 
     let (rules, my_ticket, other_tickets) = parse_data(&data)?;
     part1(&rules, &other_tickets)?;
-    part2(&rules, &my_ticket, &other_tickets)?;
+    part2(&rules, my_ticket, &other_tickets)?;
     Ok(())
 }
 
 fn part1(rules: &RuleSet, tickets: &[Ticket]) -> Result<()> {
-    let mut sum_invalid = 0;
-    for ticket in tickets {
-        for invalid in invalid_fields(rules, ticket) {
-            sum_invalid += invalid;
-        }
-    }
-    println!("AoC2020 16.1 -> {}", sum_invalid);
+    let result: usize = tickets
+        .iter()
+        .map(|ticket| invalid_fields(rules, ticket).iter().sum::<usize>())
+        .sum();
+    println!("AoC2020 16.1 -> {}", result);
     Ok(())
 }
 
-fn part2(rules: &RuleSet, my: &Ticket, tickets: &[Ticket]) -> Result<()> {
+fn part2(rules: &RuleSet, my: Ticket, tickets: &[Ticket]) -> Result<()> {
     let mut valid_tickets = Vec::new();
     for ticket in tickets {
         if invalid_fields(rules, ticket).is_empty() {
@@ -38,7 +31,7 @@ fn part2(rules: &RuleSet, my: &Ticket, tickets: &[Ticket]) -> Result<()> {
     let product_of_my_departure_columns: usize = my
         .iter()
         .zip(rule_order.iter())
-        .filter(|(v, name)| name.contains("departure"))
+        .filter(|(_v, name)| name.contains("departure"))
         .map(|(v, _)| v)
         .product();
     println!("AoC2020 16.2 -> {}", product_of_my_departure_columns);
@@ -73,11 +66,11 @@ fn find_rule_order(rules: &RuleSet, tickets: &[Ticket]) -> Vec<String> {
             .next()
             .unwrap();
         processed_rules.push(has_1.0);
-        for i in 0..possible.len() {
+        for (i, item) in possible.iter_mut().enumerate() {
             if i == has_1.0 {
                 continue;
             } else {
-                possible[i].remove(&has_1.1);
+                item.remove(&has_1.1);
             }
         }
         if possible.iter().all(|x| x.len() == 1) {
@@ -91,69 +84,11 @@ fn find_rule_order(rules: &RuleSet, tickets: &[Ticket]) -> Vec<String> {
         .collect()
 }
 
-#[derive(Debug)]
-enum SM {
-    ParseRules,
-    ParseMyTicket,
-    ParseOtherTickets,
-    END,
-}
-impl SM {
-    fn next(&mut self) {
-        *self = match &self {
-            SM::ParseRules => SM::ParseMyTicket,
-            SM::ParseMyTicket => SM::ParseOtherTickets,
-            _ => SM::END,
-        }
-    }
-}
-
-type RuleSet = HashMap<String, Rule>;
-type Ticket = Vec<usize>;
-
-#[derive(Debug)]
-struct Rule {
-    name: String,
-    ranges: Vec<(usize, usize)>,
-}
-
-impl Rule {
-    fn is_valid(&self, num: usize) -> bool {
-        for range in &self.ranges {
-            if (range.0..=range.1).contains(&num) {
-                return true;
-            }
-        }
-        false
-    }
-}
-
 fn invalid_fields(rs: &RuleSet, t: &Ticket) -> Vec<usize> {
-    let mut invalid = Vec::new();
-    for value in t {
-        let mut valid = false;
-        for (_, rule) in rs {
-            if rule.is_valid(*value) {
-                valid = true;
-                break;
-            }
-        }
-        if !valid {
-            invalid.push(*value);
-        }
-    }
-    // println!("{:?}", invalid);
-    invalid
-}
-
-impl Display for Rule {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "{}: {}-{}, {}-{}",
-            self.name, self.ranges[0].0, self.ranges[0].1, self.ranges[1].0, self.ranges[1].1
-        )
-    }
+    t.iter()
+        .filter(|v| !rs.values().any(|rule| rule.is_valid(**v)))
+        .copied()
+        .collect()
 }
 
 fn parse_data(data: &str) -> Result<(RuleSet, Ticket, Vec<Ticket>)> {
@@ -223,4 +158,41 @@ fn parse_data(data: &str) -> Result<(RuleSet, Ticket, Vec<Ticket>)> {
     }
 
     Ok((rules, my_ticket, other_tickets))
+}
+
+#[derive(Debug)]
+enum SM {
+    ParseRules,
+    ParseMyTicket,
+    ParseOtherTickets,
+    END,
+}
+impl SM {
+    fn next(&mut self) {
+        *self = match &self {
+            SM::ParseRules => SM::ParseMyTicket,
+            SM::ParseMyTicket => SM::ParseOtherTickets,
+            _ => SM::END,
+        }
+    }
+}
+
+type RuleSet = HashMap<String, Rule>;
+type Ticket = Vec<usize>;
+
+#[derive(Debug)]
+struct Rule {
+    name: String,
+    ranges: Vec<(usize, usize)>,
+}
+
+impl Rule {
+    fn is_valid(&self, num: usize) -> bool {
+        for range in &self.ranges {
+            if (range.0..=range.1).contains(&num) {
+                return true;
+            }
+        }
+        false
+    }
 }
