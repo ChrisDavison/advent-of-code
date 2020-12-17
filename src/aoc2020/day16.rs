@@ -127,50 +127,37 @@ fn parse_data(data: &str) -> Result<(RuleSet, Ticket, Vec<Ticket>)> {
     let mut rules: HashMap<String, Vec<(usize, usize)>> = HashMap::new();
     let mut my_ticket: Ticket = Vec::new();
     let mut other_tickets: Vec<Ticket> = Vec::new();
-    let mut state = SM::ParseRules;
+    let mut sections = data.split("\n\n").map(|sect| sect.lines());
 
-    for line in data.lines() {
-        let line = line.trim();
-        if line == "" {
-            state.next();
-            continue;
-        }
-        if line.contains("ticket") {
-            continue;
-        }
-        match state {
-            SM::ParseRules => {
+    match sections.next() {
+        Some(rule_text) => {
+            for line in rule_text {
                 let (name, values) = parse_rule(line)?;
                 rules.insert(name, values);
             }
-            SM::ParseMyTicket => {
+        }
+        None => return Err(anyhow!("No rule text in input")),
+    }
+
+    match sections.next() {
+        Some(my_ticket_text) => {
+            for line in my_ticket_text {
                 my_ticket = parse_ticket(line);
             }
-            SM::ParseOtherTickets => other_tickets.push(parse_ticket(line)),
-            SM::END => {
-                break;
+        }
+        None => return Err(anyhow!("No ticket for me in input")),
+    }
+
+    match sections.next() {
+        Some(others_ticket_text) => {
+            for line in others_ticket_text {
+                other_tickets.push(parse_ticket(line));
             }
         }
+        None => return Err(anyhow!("No tickets for others in input")),
     }
 
     Ok((rules, my_ticket, other_tickets))
-}
-
-#[derive(Debug)]
-enum SM {
-    ParseRules,
-    ParseMyTicket,
-    ParseOtherTickets,
-    END,
-}
-impl SM {
-    fn next(&mut self) {
-        *self = match &self {
-            SM::ParseRules => SM::ParseMyTicket,
-            SM::ParseMyTicket => SM::ParseOtherTickets,
-            _ => SM::END,
-        }
-    }
 }
 
 #[inline(always)]
