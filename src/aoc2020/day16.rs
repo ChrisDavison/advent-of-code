@@ -1,7 +1,8 @@
 use anyhow::{anyhow, Result};
 use std::collections::{HashMap, HashSet};
 
-pub fn day16() -> Result<()> { let data = std::fs::read_to_string("input/16.in")?;
+pub fn day16() -> Result<()> {
+    let data = std::fs::read_to_string("input/16.in")?;
 
     let (rules, my_ticket, other_tickets) = parse_data(&data)?;
     let (mut bad_fields, mut valid_tickets) = (Vec::new(), Vec::new());
@@ -27,9 +28,8 @@ type RuleSet = HashMap<String, (Range, Range)>;
 type Range = (usize, usize);
 type Ticket = Vec<usize>;
 
-
 fn part1(bad_fields: &[usize]) -> Result<()> {
-    println!("AoC2020 16.1 -> {}", bad_fields.iter().sum::<usize>());
+    println!("AoC2019 16.1 -> {}", bad_fields.iter().sum::<usize>());
     Ok(())
 }
 
@@ -117,7 +117,10 @@ fn parse_rule(s: &str) -> Result<(String, (Range, Range))> {
     // for range in ranges {
     //     values.push((range[0], range[1]));
     // }
-    Ok((name.to_string(), ((ranges[0][0], ranges[0][1]), (ranges[1][0], ranges[1][1]))))
+    Ok((
+        name.to_string(),
+        ((ranges[0][0], ranges[0][1]), (ranges[1][0], ranges[1][1])),
+    ))
 }
 
 fn parse_ticket(s: &str) -> Vec<usize> {
@@ -163,5 +166,7 @@ fn parse_data(data: &str) -> Result<(RuleSet, Ticket, Vec<Ticket>)> {
 
 #[inline(always)]
 fn rule_matches((lower_range, upper_range): (Range, Range), num: usize) -> bool {
-    (lower_range.0..=lower_range.1).chain(upper_range.0..=upper_range.1).any(|x| x == num)
+    (lower_range.0..=lower_range.1)
+        .chain(upper_range.0..=upper_range.1)
+        .any(|x| x == num)
 }
