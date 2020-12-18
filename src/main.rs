@@ -20,6 +20,7 @@ const SOLUTIONS: &[fn() -> anyhow::Result<()>] = &[
     aoc2020::day15,
     aoc2020::day16,
     aoc2020::day17,
+    aoc2020::day18,
 ];
 
 fn main() {
@@ -28,8 +29,6 @@ fn main() {
         .map(|x| x.parse::<usize>().ok())
         .unwrap_or(None);
 
-    println!("Advent of Code");
-    println!("==============");
     for (day, function) in SOLUTIONS.iter().enumerate() {
         if let Some(d) = day_wanted {
             if day != d - 1 {
