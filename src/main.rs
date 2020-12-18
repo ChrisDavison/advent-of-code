@@ -29,8 +29,6 @@ fn main() {
         .map(|x| x.parse::<usize>().ok())
         .unwrap_or(None);
 
-    println!("Advent of Code");
-    println!("==============");
     for (day, function) in SOLUTIONS.iter().enumerate() {
         if let Some(d) = day_wanted {
             if day != d - 1 {

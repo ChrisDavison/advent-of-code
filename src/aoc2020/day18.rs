@@ -4,7 +4,7 @@ pub fn day18() -> Result<()> {
     let data = std::fs::read_to_string("input/18.in")?;
 
     println!("AoC2020 18.1 -> {}", part1(&data)?);
-    // println!("AoC2020 18.2 -> {}", part2(&data)?);
+    println!("AoC2020 18.2 -> {}", part2(&data)?);
     Ok(())
 }
 
@@ -17,78 +17,100 @@ fn part1(data: &str) -> Result<String> {
 }
 
 fn part2(data: &str) -> Result<String> {
-    return Err(anyhow!("Part 2 not implemented"));
-    Ok(format!("{}", 0))
+    let mut sum = 0;
+    for line in data.lines() {
+        sum += calculate2(line)?;
+    }
+    Ok(format!("{}", sum))
 }
 
-fn apply(operation: &str, total: i64, num: i64) -> i64 {
-    if operation == "+" {
-        total + num
+fn find_inner_parens(s: &str) -> (usize, usize) {
+    let end = s.find(')').unwrap_or(s.len());
+    let start = s[..end].rfind('(').unwrap_or(0);
+    (start, end)
+}
+
+/// simplify
+/// Run calculator on each set of inner parens, returning a new equation string
+fn simplify(eqn: impl ToString, calculator: fn(String) -> Result<i64>) -> Result<String> {
+    // Simplify all inner parens
+    let mut eqn = eqn.to_string();
+    while eqn.contains("(") || eqn.contains(")") {
+        let (start, end) = find_inner_parens(&eqn);
+        let sub_eqn = format!("{}", calculator(eqn[start + 1..end].to_string())?);
+        eqn = format!("{}{}{}", &eqn[..start], sub_eqn, &eqn[end + 1..]).to_string();
+    }
+    Ok(eqn.to_string())
+}
+
+/// Elf math
+/// ...+ and * have equal precedence (e.g just L->R)
+/// ...evaluate parentheses first
+fn calculate(eqn: impl ToString) -> Result<i64> {
+    let eqn = simplify(eqn.to_string(), calculate)?;
+
+    let mut parts = eqn.split(" ").map(|x| x.to_string()).collect::<Vec<_>>();
+
+    while parts.contains(&String::from("+")) || parts.contains(&String::from("*")) {
+        let pos_op = parts.iter().position(|x| x == &"+" || x == &"*").unwrap();
+        let new = if parts[pos_op] == "+" {
+            parts[pos_op - 1].parse::<i64>()? + parts[pos_op + 1].parse::<i64>()?
+        } else {
+            parts[pos_op - 1].parse::<i64>()? * parts[pos_op + 1].parse::<i64>()?
+        };
+        parts[pos_op - 1] = format!("{}", new);
+        parts.remove(pos_op + 1);
+        parts.remove(pos_op);
+    }
+    if parts.len() == 1 {
+        parts[0]
+            .parse::<i64>()
+            .map_err(|_| anyhow!("Failed to parse equation"))
     } else {
-        total * num
+        Err(anyhow!(
+            "Should only be 1 part left, so parsing equation failed. Have '{:?}'",
+            parts
+        ))
     }
 }
 
-fn find_matching_paren(s: &str, start: usize) -> usize {
-    let mut count = 1;
-    for (idx, c) in s.char_indices().skip(start) {
-        if c == ')' {
-            count -= 1;
-        }
-        if c == '(' {
-            count += 1;
-        }
-        if count == 0 {
-            return idx;
-        }
+/// Elf math 2.0
+/// ...+ his higher precedence than *
+/// ...BUT evaluate parentheses first
+fn calculate2(eqn: impl ToString) -> Result<i64> {
+    let eqn = simplify(eqn.to_string(), calculate2)?;
+
+    let mut parts: Vec<String> = eqn.split(' ').map(|x| x.to_string()).collect();
+    loop_until_symbol_evaluated(&mut parts, String::from("+"), &std::ops::Add::add)?;
+    loop_until_symbol_evaluated(&mut parts, String::from("*"), &std::ops::Mul::mul)?;
+
+    if parts.len() == 1 {
+        parts[0]
+            .parse::<i64>()
+            .map_err(|_| anyhow!("Failed to parse equation"))
+    } else {
+        Err(anyhow!(
+            "Should only be 1 part left, so parsing equation failed. Have '{:?}'",
+            parts
+        ))
     }
-    return s.len();
 }
 
-fn display_eqn_position(eqn: &str, idx_start: usize, idx_end: usize) {
-    let mut chars = std::iter::repeat(' ').take(eqn.len()).collect::<Vec<_>>();
-    chars[idx_start] = '>';
-    chars[idx_end] = '|';
-    println!("{}", chars.iter().collect::<String>());
-    println!("{}", eqn);
-}
-
-// Elf math.
-// ...+ and * have equal precedence (e.g just L->R)
-// ...evaluate parentheses first
-fn calculate(eqn: &str) -> Result<i64> {
-    let mut total = 0;
-    let mut operation = "+";
-    let mut idx = 0;
-    while idx < eqn.len() {
-        let mut idx2 = eqn[idx..].find(' ').unwrap_or(eqn.len() - 1 - idx) + idx;
-        let mut part = "";
-        if &eqn[idx..idx + 1] == "(" {
-            part = "(";
-            idx2 = find_matching_paren(&eqn[idx..], 1) + idx;
-        } else {
-            part = if idx2 > (eqn.len() - 2) {
-                eqn[idx..].trim()
-            } else {
-                eqn[idx..idx2].trim()
-            };
-        }
-
-        //display_eqn_position(eqn, idx, idx2);
-
-        if part.chars().all(|c| c.is_digit(10)) {
-            total = apply(operation, total, part.parse::<i64>()?);
-        } else if part == "(" {
-            let sub_eqn_val = apply(operation, total, calculate(&eqn[idx + 1..idx2])?);
-            total = sub_eqn_val;
-            idx2 = idx2 + 1;
-        } else {
-            operation = part;
-        }
-
-        idx = idx2 + 1;
+fn loop_until_symbol_evaluated<F>(parts: &mut Vec<String>, symbol: String, op: &F) -> Result<()>
+where
+    F: FnOnce(i64, i64) -> i64 + Copy,
+{
+    while parts.contains(&symbol) {
+        let pos_op = parts.iter().position(|x| x == &symbol).unwrap();
+        let new = op(
+            parts[pos_op - 1].parse::<i64>()?,
+            parts[pos_op + 1].parse::<i64>()?,
+        );
+        parts[pos_op - 1] = format!("{}", new);
+        parts.remove(pos_op + 1);
+        parts.remove(pos_op);
     }
-    Ok(total)
+    Ok(())
 }
 
 #[cfg(test)]
@@ -111,9 +133,22 @@ mod tests {
     }
 
     #[test]
-    fn matching_paren_test() {
-        assert_eq!(find_matching_paren("()", 1), 1);
-        assert_eq!(find_matching_paren("(.)", 1), 2);
-        assert_eq!(find_matching_paren("(5 + 5)", 1), 6);
+    fn part2_examples_test() {
+        let cases = vec![
+            ("1 + (2 * 3) + (4 * (5 + 6))", 51),
+            ("2 * 3 + (4 * 5)", 46),
+            ("5 + (8 * 3 + 9 + 3 * 4 * 3)", 1445),
+            ("5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))", 669060),
+            ("((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2", 23340),
+        ];
+        for (input, want) in cases {
+            assert_eq!(calculate2(input).unwrap(), want);
+        }
+    }
+
+    #[test]
+    fn inner_parens_test() {
+        assert_eq!(find_inner_parens("1 + (2 + 3)"), (4, 10));
+        assert_eq!(find_inner_parens("(2 + 3) + 1"), (0, 6));
     }
 }
