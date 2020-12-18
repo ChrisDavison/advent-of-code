@@ -1,5 +1,6 @@
 mod aoc2020;
 mod time_macro;
+extern crate lazy_static;
 
 const SOLUTIONS: &[fn() -> anyhow::Result<()>] = &[
     aoc2020::day01,
@@ -18,6 +19,7 @@ const SOLUTIONS: &[fn() -> anyhow::Result<()>] = &[
     aoc2020::day14,
     aoc2020::day15,
     aoc2020::day16,
+    aoc2020::day17,
 ];
 
 fn main() {
