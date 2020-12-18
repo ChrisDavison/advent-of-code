@@ -1,5 +1,4 @@
-#![allow(dead_code, unused_variables, unreachable_code)]
-use anyhow::{anyhow, Result};
+use anyhow::Result;
 use itertools::Itertools;
 use std::collections::{HashMap, HashSet};
 
@@ -57,7 +56,6 @@ fn part1(data: &[Vec<u8>]) -> Result<()> {
 
     let mut active = HashSet::new();
     for _ in 0..n_iterations {
-        // display_cube(&cube);
         active = indices
             .iter()
             .filter(|(i, j, k)| cube[*i][*j][*k] == 1)
@@ -84,7 +82,6 @@ fn part1(data: &[Vec<u8>]) -> Result<()> {
                 cube[i][j][k] = 1;
             }
         }
-        //display_cube(&cube);
     }
     println!("AoC2020 17.1 -> {}", active.iter().count());
     Ok(())
@@ -117,7 +114,6 @@ fn part2(data: &[Vec<u8>]) -> Result<()> {
 
     let mut active = HashSet::new();
     for _ in 0..n_iterations {
-        // display_cube(&cube);
         active = indices
             .iter()
             .filter(|(i, j, k, l)| hypercube[*i][*j][*k][*l] == 1)
@@ -147,26 +143,9 @@ fn part2(data: &[Vec<u8>]) -> Result<()> {
                 hypercube[i][j][k][l] = 1;
             }
         }
-        //display_cube(&cube);
     }
     println!("AoC2020 17.2 -> {}", active.iter().count());
     Ok(())
-}
-
-fn display_cube(cube: &[Vec<Vec<u8>>]) {
-    for layer in cube {
-        display_grid(&layer);
-        println!();
-    }
-}
-
-fn display_grid(grid: &[Vec<u8>]) {
-    for row in grid {
-        for cell in row {
-            print!("{}", cell);
-        }
-        println!();
-    }
 }
 
 fn create_cube(n: usize, value: u8) -> Vec<Vec<Vec<u8>>> {
