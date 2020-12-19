@@ -1,4 +1,5 @@
 mod aoc2020;
+mod bool_xor;
 mod time_macro;
 extern crate lazy_static;
 
