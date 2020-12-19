@@ -1,4 +1,5 @@
 mod aoc2020;
+mod bool_xor;
 mod time_macro;
 extern crate lazy_static;
 
@@ -21,6 +22,7 @@ const SOLUTIONS: &[fn() -> anyhow::Result<()>] = &[
     aoc2020::day16,
     aoc2020::day17,
     aoc2020::day18,
+    aoc2020::day19,
 ];
 
 fn main() {

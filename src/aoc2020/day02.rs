@@ -1,3 +1,4 @@
+use crate::bool_xor;
 use anyhow::{anyhow, Result};
 
 pub fn day02() -> Result<()> {
@@ -13,12 +14,6 @@ pub fn day02() -> Result<()> {
     let valid2 = passwords.iter().filter(|x| valid_rule_part2(x)).count();
     println!("2020 2-2 -> {}", valid2);
     Ok(())
-}
-
-macro_rules! bool_xor {
-    ($x:expr, $y:expr) => {
-        ($x && !$y) || ($y && !$x)
-    };
 }
 
 #[derive(Debug)]
