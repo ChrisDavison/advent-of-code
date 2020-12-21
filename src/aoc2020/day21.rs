@@ -1,10 +1,10 @@
 #![allow(dead_code, unused_variables, unused_mut, unreachable_code)]
 use anyhow::{anyhow, Result};
 
-pub fn dayXX() -> Result<()> {
-    let data = std::fs::read_to_string("input/XX.in")?;
-    println!("AoC2020 XX.1 -> {}", part1(&data)?);
-    println!("AoC2020 XX.2 -> {}", part2(&data)?);
+pub fn day21() -> Result<()> {
+    let data = std::fs::read_to_string("input/21.in")?;
+    println!("AoC2020 21.1 -> {}", part1(&data)?);
+    println!("AoC2020 21.2 -> {}", part2(&data)?);
     Ok(())
 }
 
