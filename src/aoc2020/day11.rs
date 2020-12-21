@@ -5,17 +5,6 @@ const EMPTY: u8 = b'L';
 const TAKEN: u8 = b'#';
 const FLOOR: u8 = b'.';
 
-const DIRS: [(isize, isize); 8] = [
-    (-1, -1),
-    (-1, 0),
-    (-1, 1),
-    (0, -1),
-    (0, 1),
-    (1, -1),
-    (1, 0),
-    (1, 1),
-];
-
 pub fn day11() -> Result<()> {
     let data = INPUT; // also SAMPLES[0], [1], or [2]
     let seats = data
@@ -39,13 +28,10 @@ fn part_2(seats: &[Vec<u8>]) -> usize {
     result
 }
 
-#[inline(always)]
-fn find_neighbour(
-    data: &[Vec<u8>],
-    (i, j): (usize, usize),
-    (di, dj): (isize, isize),
-) -> Option<u8> {
-    let (mut i, mut j) = (i as isize, j as isize);
+type Position = (usize, usize);
+
+fn find_neighbour(data: &[Vec<u8>], pos: Position, (di, dj): (isize, isize)) -> Option<u8> {
+    let (mut i, mut j) = (pos.0 as isize, pos.1 as isize);
     loop {
         i += di;
         j += dj;
@@ -58,49 +44,54 @@ fn find_neighbour(
     None
 }
 
-#[inline(always)]
-fn should_swap_p1(data: &[Vec<u8>], i: usize, j: usize) -> bool {
-    let mut neighbours = DIRS
-        .iter()
-        .map(|(di, dj)| (i as isize + di, j as isize + dj))
+fn should_swap_p1(data: &[Vec<u8>], pos: Position) -> bool {
+    let mut neighbours = (-1..=1)
+        .cartesian_product(-1..=1)
+        .filter(|(i, j)| !(*i == 0 && *j == 0))
+        .map(|(di, dj)| (pos.0 as isize + di, pos.1 as isize + dj))
         .filter_map(|(i, j)| data.get(i as usize).and_then(|row| row.get(j as usize)));
-    match data[i][j] {
-        b'L' => neighbours.all(|&c| c != b'#'),
-        b'#' => neighbours.filter(|&c| *c == b'#').count() >= 4,
+    match data[pos.0][pos.1] {
+        b'L' => neighbours.all(|&c| c != TAKEN),
+        b'#' => neighbours.filter(|&c| *c == TAKEN).count() >= 4,
         _ => false,
     }
 }
 
-#[inline(always)]
-fn should_swap_p2(data: &[Vec<u8>], i: usize, j: usize) -> bool {
-    let mut neighbours = DIRS
-        .iter()
-        .filter_map(|&direc| find_neighbour(&data.to_vec(), (i, j), direc));
-    match data[i][j] {
+fn should_swap_p2(data: &[Vec<u8>], pos: Position) -> bool {
+    let mut neighbours = (-1..=1)
+        .cartesian_product(-1..=1)
+        .filter(|(i, j)| !(*i == 0 && *j == 0))
+        .filter_map(|direc| find_neighbour(&data.to_vec(), pos, direc));
+    match data[pos.0][pos.1] {
         EMPTY => neighbours.all(|c| c != TAKEN),
         TAKEN => neighbours.filter(|&c| c == TAKEN).count() >= 5,
         _ => unreachable!(),
     }
 }
 
-fn iterate_till_stable<F: Fn(&[Vec<u8>], usize, usize) -> bool>(
+fn iterate_till_stable<F: Fn(&[Vec<u8>], Position) -> bool>(
     data: Vec<Vec<u8>>,
     swap_checker: F,
 ) -> usize {
     let mut data = data;
     let mut indices_to_swap = Vec::new();
+
     loop {
         indices_to_swap.clear();
-        for (i, j) in (0..data.len()).cartesian_product(0..data[0].len()) {
-            if data[i].is_empty() {
+        for pos in (0..data.len()).cartesian_product(0..data[0].len()) {
+            if data[pos.0].is_empty() {
                 continue;
             }
-            if data[i][j] != FLOOR && swap_checker(&data, i, j) {
-                indices_to_swap.push((i, j));
+            if data[pos.0][pos.1] != FLOOR && swap_checker(&data, pos) {
+                indices_to_swap.push(pos);
             }
         }
-        for &(i, j) in &indices_to_swap {
-            data[i][j] = if data[i][j] == TAKEN { EMPTY } else { TAKEN };
+        for &pos in &indices_to_swap {
+            data[pos.0][pos.1] = if data[pos.0][pos.1] == TAKEN {
+                EMPTY
+            } else {
+                TAKEN
+            };
         }
         if indices_to_swap.is_empty() {
             break;
@@ -109,14 +100,6 @@ fn iterate_till_stable<F: Fn(&[Vec<u8>], usize, usize) -> bool>(
     data.iter()
         .flat_map(|row| row.iter().filter(|&y| *y == TAKEN))
         .count()
-}
-
-#[allow(dead_code)]
-fn bytegrid_to_string(grid: &[Vec<u8>]) -> String {
-    grid.iter()
-        .map(|x| String::from_utf8_lossy(x).to_string())
-        .collect::<Vec<String>>()
-        .join("\n")
 }
 
 const INPUT: &str =
