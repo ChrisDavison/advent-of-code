@@ -7,13 +7,11 @@ const MONSTER: &str = ".*..................#..*
 .*#....##....##....###.*
 .*.#..#..#..#..#..#....*";
 
-const INPUT_INDEX: usize = 0;
-
 pub fn day20() -> Result<()> {
     // let filename: &str = "input/20.in";
     // // let filename: &str = "input/20.sample";
     // let data = std::fs::read_to_string(filename)?;
-    let tiles: Vec<Tile> = INPUTS[INPUT_INDEX]
+    let tiles: Vec<Tile> = INPUT
         .split("\n\n")
         .filter_map(|l| Some(l.parse().ok()?))
         .collect();
@@ -332,7 +330,7 @@ impl std::fmt::Display for Tile {
     }
 }
 
-const INPUTS: [&str; 1] = ["Tile 3557:
+const INPUT: &str = "Tile 3557:
 .#...##.#.
 #.#..#...#
 ##....#..#
@@ -2058,4 +2056,4 @@ Tile 2381:
 ...##....#
 #...#.....
 .#.......#
-#....###.."];
+#....###..";

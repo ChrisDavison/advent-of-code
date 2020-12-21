@@ -1,7 +1,7 @@
 use anyhow::Result;
 
 pub fn day15() -> Result<()> {
-    let data = std::fs::read_to_string("input/15.in")?;
+    let data = INPUT;
     let data = data
         .lines()
         .filter_map(|x| Some(x.parse().ok()?))
@@ -54,3 +54,10 @@ fn d15_1_ex() {
     assert_eq!(part1(&[0, 3, 6]).unwrap(), 436);
     assert_eq!(part2(&[0, 3, 6]).unwrap(), 175594);
 }
+
+const INPUT: &str = "1
+0
+16
+5
+17
+4";

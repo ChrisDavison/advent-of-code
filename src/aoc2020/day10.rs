@@ -1,7 +1,7 @@
 use anyhow::Result;
 
 pub fn day10() -> Result<()> {
-    let data = std::fs::read_to_string("input/10.in")?;
+    let data = INPUT;
     let mut data: Vec<usize> = data.lines().filter_map(|x| Some(x.parse().ok()?)).collect();
     data.sort_unstable();
     part_1(&data);
@@ -37,3 +37,97 @@ fn part_2(data: &[usize]) -> usize {
     println!("2020 10.2 -> {}", product);
     product
 }
+
+const INPUT: &str = "17
+110
+146
+144
+70
+57
+124
+121
+134
+12
+135
+120
+19
+92
+6
+103
+46
+56
+93
+65
+14
+31
+63
+41
+131
+60
+73
+83
+71
+37
+85
+79
+13
+7
+109
+24
+94
+2
+30
+3
+27
+77
+91
+106
+123
+128
+35
+26
+112
+55
+97
+21
+100
+88
+113
+117
+25
+82
+129
+66
+11
+116
+64
+78
+38
+99
+130
+84
+98
+72
+50
+36
+54
+8
+34
+20
+127
+1
+137
+143
+76
+69
+111
+136
+53
+43
+140
+145
+49
+122
+18
+42
+";

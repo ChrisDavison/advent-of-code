@@ -4,9 +4,7 @@ use std::collections::{HashMap, HashSet};
 use std::iter::repeat;
 
 pub fn day17() -> Result<()> {
-    let data = std::fs::read_to_string("input/17.in")?;
-    // let data = std::fs::read_to_string("input/17.sample")?;
-    let data: Vec<Vec<u8>> = data
+    let data: Vec<Vec<u8>> = INPUT
         .lines()
         .map(|x| x.chars().map(|y| if y == '#' { 1 } else { 0 }).collect())
         .collect();
@@ -159,3 +157,12 @@ fn create_cube(n: usize, value: u8) -> Vec<Vec<Vec<u8>>> {
 fn create_hypercube(n: usize, value: u8) -> Vec<Vec<Vec<Vec<u8>>>> {
     repeat(create_cube(n, value)).take(n).collect()
 }
+
+const INPUT: &str = "......##
+####.#..
+.##....#
+.##.#..#
+........
+.#.#.###
+#.##....
+####.#..";

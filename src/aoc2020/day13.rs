@@ -1,7 +1,7 @@
 use anyhow::Result;
 
 pub fn day13() -> Result<()> {
-    let data = std::fs::read_to_string("input/13.in")?;
+    let data = INPUT;
     let lines: Vec<&str> = data.lines().collect();
     let start: usize = lines[0].parse().expect("Failed to parse start time");
     let timetable: Vec<Option<usize>> = parse_bus_timetable(lines[1]);
@@ -58,3 +58,6 @@ fn part_2(buses: &[Option<usize>]) {
     }
     println!("2020 13.2 -> {}", timestamp);
 }
+
+const INPUT: &str = "1000391
+19,x,x,x,x,x,x,x,x,x,x,x,x,37,x,x,x,x,x,383,x,x,x,x,x,x,x,23,x,x,x,x,13,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,29,x,457,x,x,x,x,x,x,x,x,x,41,x,x,x,x,x,x,17";

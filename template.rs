@@ -2,9 +2,8 @@
 use anyhow::{anyhow, Result};
 
 pub fn dayXX() -> Result<()> {
-    let data = std::fs::read_to_string("input/XX.in")?;
-    println!("AoC2020 XX.1 -> {}", part1(&data)?);
-    println!("AoC2020 XX.2 -> {}", part2(&data)?);
+    println!("AoC2020 XX.1 -> {}", part1(&INPUT)?);
+    println!("AoC2020 XX.2 -> {}", part2(&INPUT)?);
     Ok(())
 }
 
@@ -17,3 +16,7 @@ fn part2(data: &str) -> Result<String> {
     Err(anyhow!("Part 2 not implemented"))
     //Ok(format!("{}", 0))
 }
+
+const INPUT: &str = r#"
+
+"#;
