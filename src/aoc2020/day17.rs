@@ -166,3 +166,8 @@ const INPUT: &str = "......##
 .#.#.###
 #.##....
 ####.#..";
+
+#[allow(dead_code)]
+const SAMPLE: &str = ".#.
+..#
+###";

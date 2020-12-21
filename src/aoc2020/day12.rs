@@ -882,3 +882,9 @@ F77
 L90
 S1
 F33";
+
+#[allow(dead_code)]
+const SAMPLES: [&str; 2] = [
+    "F10\nN3\nF7\nR90\nF11",
+    "R90\nL90\nF0\nR180\nL180\nF0\nR270\nL270",
+];

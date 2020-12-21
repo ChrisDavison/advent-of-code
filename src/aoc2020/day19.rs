@@ -1792,3 +1792,41 @@ bbabbbbaaabbbabaababbbaaababaabb
 aabababbbaabbabaaaaaabab
 abaababaabbababaaabbaabbbbbaabbaaaaababa
 aaabbbabaababbbabbbaaaabbabbbbaabaaabaaa"#;
+
+#[allow(dead_code)]
+const SAMPLES: &str = r#"0: 4 1 5
+1: 2 3 | 3 2
+2: 4 4 | 5 5
+3: 4 5 | 5 4
+4: "a"
+5: "b"
+
+ababbb
+bababa
+abbbab
+aaabbb
+aaaabbb"#;
+
+#[allow(dead_code)]
+const SAMPLE2: &str = r#"0: 8 11
+1: "a"
+2: "b"
+8: 9 | 9 8
+9: 2 2
+11: 1 | 1 11
+
+abbbbbabbbaaaababbaabbbbabababbbabbbbbbabaaaa
+bbabbbbaabaabba
+babbbbaabbbbbabbbbbbaabaaabaaa
+aaabbbbbbaaaabaababaabababbabaaabbababababaaa
+bbbbbbbaaaabbbbaaabbabaaa
+bbbababbbbaaaaaaaabbababaaababaabab
+ababaaaaaabaaab
+ababaaaaabbbaba
+baabbaaaabbaaaababbaababb
+abbbbabbbbaaaababbbbbbaaaababb
+aaaaabbaabaaaaababaa
+aaaabbaaaabbaaa
+aaaabbaabbaaaaaaabbbabbbaaabbaabaaa
+babaaabbbaaabaababbaabababaaab
+aabbbbbaabbbaaaaaabbbbbababaaaaabbaaabba"#;

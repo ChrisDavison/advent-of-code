@@ -17,7 +17,7 @@ const DIRS: [(isize, isize); 8] = [
 ];
 
 pub fn day11() -> Result<()> {
-    let data = INPUT;
+    let data = INPUT; // also SAMPLES[0], [1], or [2]
     let seats = data
         .split('\n')
         .map(|x| x.bytes().collect())
@@ -219,3 +219,37 @@ LLLLLLL.LLLLLLLL.LLLLLLLLLLLLLLLLLLLL.LLLLLLLLLLLL.LLLLLLLLLLL.LLL.LLLLLL.LL.LLL
 LLLLLLLLLLLLLLLL.LLLLLL.LLL.L.LLLLLLL.LLLLLLLLLLLL.LLLLLLLLL.LLL.L.LLLLLL.LLLLLLLLLLLLLLLLLL
 LLLLLLL.LLLLL.LL.LL.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL..LLLLLLLLLLLLLLLLLLLLLLLL.LLLLLLLL
 LLL.LLLLLLLLLLLL.LLLLLLLLLLLL.LLLLLLLLLLLLLLLLLLLL.LLLLLL.LLL.LLLLLLLLLLL.LLLLLLLLL.LLLLLLLL";
+
+#[allow(dead_code)]
+const SAMPLES: [&str; 3] = [
+    "L.LL.LL.LL
+LLLLLLL.LL
+L.L.L..L..
+LLLL.LL.LL
+L.LL.LL.LL
+L.LLLLL.LL
+..L.L.....
+LLLLLLLLLL
+L.LLLLLL.L
+L.LLLLL.LL",
+    "#.##.##.##
+#######.##
+#.#.#..#..
+####.##.##
+#.##.##.##
+#.#####.##
+..#.#.....
+##########
+#.######.#
+#.#####.##",
+    "#.LL.L#.##
+#LLLLLL.L#
+L.L.L..L..
+#LLL.LL.L#
+#.LL.LL.LL
+#.LLLL#.##
+..L.L.....
+#LLLLLLLL#
+#.LLLLLL.L
+#.#LLLL.##",
+];
