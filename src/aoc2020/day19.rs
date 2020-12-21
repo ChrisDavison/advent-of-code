@@ -7,13 +7,13 @@ pub fn day19() -> Result<()> {
     let data2 = std::fs::read_to_string("input/19-2.in")?;
     // let data2 = std::fs::read_to_string("input/19-2.sample")?;
 
-    println!("AoC2020 19.1 -> {}", find_matches(&data)?);
-    println!("AoC2020 19.2 -> {}", find_matches(&data2)?);
+    println!("AoC2020 19.1 -> {}", find_matches(&data));
+    println!("AoC2020 19.2 -> {}", find_matches(&data2));
 
     Ok(())
 }
 
-fn find_matches(data: &str) -> Result<String> {
+fn find_matches(data: &str) -> String {
     let (mut rules, messages) = parse_data(&data);
 
     loop {
@@ -30,7 +30,7 @@ fn find_matches(data: &str) -> Result<String> {
         for rulenum in &to_process {
             let rule = rules[rulenum].to_string();
             let mut new: Vec<String> = Vec::new();
-            for part in rule.split(" ") {
+            for part in rule.split(' ') {
                 if let Ok(_n) = part.parse::<i64>() {
                     let s = format!("( {} )", rules[part].to_string());
                     new.push(s);
@@ -44,13 +44,10 @@ fn find_matches(data: &str) -> Result<String> {
 
     let re = Regex::new(&format!("\\b{}\\b", rules["0"].replace(" ", ""))).unwrap();
 
-    Ok(format!(
-        "{}",
-        messages.iter().filter(|m| re.is_match(m)).count()
-    ))
+    format!("{}", messages.iter().filter(|m| re.is_match(m)).count())
 }
 
-fn parse_data<'a>(data: &'a str) -> (HashMap<String, String>, Vec<&'a str>) {
+fn parse_data(data: &str) -> (HashMap<String, String>, Vec<&str>) {
     let mut parts = data.split("\n\n");
 
     let mut rules = HashMap::new();
@@ -63,7 +60,7 @@ fn parse_data<'a>(data: &'a str) -> (HashMap<String, String>, Vec<&'a str>) {
                 .next()
                 .unwrap()
                 .replace("\"", "")
-                .trim_start_matches(" ")
+                .trim_start_matches(' ')
                 .to_string(),
         );
     }

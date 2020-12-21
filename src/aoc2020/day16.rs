@@ -92,6 +92,7 @@ fn find_rule_order(rules: &RuleSet, tickets: &[Ticket]) -> Vec<String> {
         .collect()
 }
 
+#[allow(clippy::ptr_arg)]
 fn invalid_fields(rs: &RuleSet, t: &Ticket) -> Vec<usize> {
     t.iter()
         .filter(|v| !rs.values().any(|&rule| rule_matches(rule, **v)))

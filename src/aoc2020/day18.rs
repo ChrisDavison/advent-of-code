@@ -168,7 +168,7 @@ impl std::fmt::Display for Token {
 fn parse_tokens(s: &str) -> Vec<Token> {
     s.replace("(", "( ")
         .replace(")", " )")
-        .split(" ")
+        .split(' ')
         .map(|w| match w {
             "(" => Token::POpen,
             ")" => Token::PClose,

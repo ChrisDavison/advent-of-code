@@ -1,6 +1,7 @@
 use anyhow::Result;
 use itertools::Itertools;
 use std::collections::{HashMap, HashSet};
+use std::iter::repeat;
 
 pub fn day17() -> Result<()> {
     let data = std::fs::read_to_string("input/17.in")?;
@@ -9,8 +10,8 @@ pub fn day17() -> Result<()> {
         .lines()
         .map(|x| x.chars().map(|y| if y == '#' { 1 } else { 0 }).collect())
         .collect();
-    part1(&data)?;
-    part2(&data)?;
+    part1(&data);
+    part2(&data);
     Ok(())
 }
 
@@ -32,7 +33,7 @@ type Position = (usize, usize, usize);
 type Position4d = (usize, usize, usize, usize);
 
 /// Conway's game of life in 3d -- cellular automata
-fn part1(data: &[Vec<u8>]) -> Result<()> {
+fn part1(data: &[Vec<u8>]) {
     let dirs_3d = (-1..=1)
         .cartesian_product(-1..=1)
         .cartesian_product(-1..=1)
@@ -67,9 +68,9 @@ fn part1(data: &[Vec<u8>]) -> Result<()> {
         let mut neighbours = HashMap::new();
         for &(i, j, k) in &active {
             for (di, dj, dk) in dirs_3d.iter() {
-                let ii = (*i as isize + di) as usize;
-                let jj = (*j as isize + dj) as usize;
-                let kk = (*k as isize + dk) as usize;
+                let ii = delta_idx(*i, *di);
+                let jj = delta_idx(*j, *dj);
+                let kk = delta_idx(*k, *dk);
                 *neighbours.entry((ii, jj, kk)).or_insert(0) += 1;
             }
         }
@@ -84,11 +85,10 @@ fn part1(data: &[Vec<u8>]) -> Result<()> {
         }
     }
     println!("AoC2020 17.1 -> {}", active.iter().count());
-    Ok(())
 }
 
 /// Conway's game of life in 4d -- cellular automata
-fn part2(data: &[Vec<u8>]) -> Result<()> {
+fn part2(data: &[Vec<u8>]) {
     let dirs_4d = (-1..=1)
         .cartesian_product(-1..=1)
         .cartesian_product(-1..=1)
@@ -125,10 +125,10 @@ fn part2(data: &[Vec<u8>]) -> Result<()> {
         let mut neighbours = HashMap::new();
         for &(i, j, k, l) in &active {
             for (di, dj, dk, dl) in dirs_4d.iter() {
-                let ii = (*i as isize + di) as usize;
-                let jj = (*j as isize + dj) as usize;
-                let kk = (*k as isize + dk) as usize;
-                let ll = (*l as isize + dl) as usize;
+                let ii = delta_idx(*i, *di);
+                let jj = delta_idx(*j, *dj);
+                let kk = delta_idx(*k, *dk);
+                let ll = delta_idx(*l, *dl);
                 *neighbours.entry((ii, jj, kk, ll)).or_insert(0) += 1;
             }
         }
@@ -137,7 +137,6 @@ fn part2(data: &[Vec<u8>]) -> Result<()> {
             .iter()
             .for_each(|(i, j, k, l)| hypercube[*i][*j][*k][*l] = 0);
         for ((i, j, k, l), count) in neighbours {
-            //println!("({},{},{}) -> {}", i, j, k, count);
             let cell = if active.contains(&(i, j, k, l)) { 1 } else { 0 };
             if should_be_active(cell, count) {
                 hypercube[i][j][k][l] = 1;
@@ -145,21 +144,18 @@ fn part2(data: &[Vec<u8>]) -> Result<()> {
         }
     }
     println!("AoC2020 17.2 -> {}", active.iter().count());
-    Ok(())
+}
+
+fn delta_idx(idx: usize, delta: isize) -> usize {
+    (idx as isize + delta) as usize
 }
 
 fn create_cube(n: usize, value: u8) -> Vec<Vec<Vec<u8>>> {
-    let mut row: Vec<_> = vec![];
-    row.resize(n, value);
-    let col: Vec<Vec<_>> = std::iter::repeat(row).take(n).collect();
-    let cube: Vec<Vec<Vec<_>>> = std::iter::repeat(col).take(n).collect();
+    let row = repeat(value).take(n).collect();
+    let col = repeat(row).take(n).collect();
+    let cube = repeat(col).take(n).collect();
     cube
 }
 fn create_hypercube(n: usize, value: u8) -> Vec<Vec<Vec<Vec<u8>>>> {
-    let mut row: Vec<_> = vec![];
-    row.resize(n, value);
-    let col: Vec<Vec<_>> = std::iter::repeat(row).take(n).collect();
-    let cube: Vec<Vec<Vec<_>>> = std::iter::repeat(col).take(n).collect();
-    let hypercube: Vec<Vec<Vec<Vec<_>>>> = std::iter::repeat(cube).take(n).collect();
-    hypercube
+    repeat(create_cube(n, value)).take(n).collect()
 }
