@@ -25,6 +25,7 @@ const SOLUTIONS: &[fn() -> anyhow::Result<()>] = &[
     aoc2020::day19,
     aoc2020::day20,
     aoc2020::day21,
+    aoc2020::day22,
 ];
 
 fn main() {
