@@ -17,6 +17,12 @@ fn part2(data: &str) -> Result<String> {
     //Ok(format!("{}", 0))
 }
 
+#[allow(dead_code)]
 const INPUT: &str = r#"
+
+"#;
+
+#[allow(dead_code)]
+const SAMPLE: &str = r#"
 
 "#;
