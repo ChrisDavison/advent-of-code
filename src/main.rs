@@ -1,5 +1,8 @@
+#![feature(core_intrinsics)]
 mod aoc2020;
 mod bool_xor;
+mod dict;
+mod strides;
 mod time_macro;
 extern crate lazy_static;
 
@@ -25,6 +28,7 @@ const SOLUTIONS: &[fn() -> anyhow::Result<()>] = &[
     aoc2020::day19,
     aoc2020::day20,
     aoc2020::day21,
+    aoc2020::day22,
 ];
 
 fn main() {

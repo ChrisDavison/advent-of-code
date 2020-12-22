@@ -1,21 +1,17 @@
-use anyhow::{anyhow, Result};
+use crate::strides::Strides;
+use anyhow::Result;
 use itertools::Itertools;
-use regex::Regex;
 use std::collections::HashMap;
 
-const MONSTER: &str = ".*..................#..*
-.*#....##....##....###.*
-.*.#..#..#..#..#..#....*";
+const MONSTER: &str = "..................#.#....##....##....###.#..#..#..#..#..#...";
 
 pub fn day20() -> Result<()> {
-    // let filename: &str = "input/20.in";
-    // // let filename: &str = "input/20.sample";
-    // let data = std::fs::read_to_string(filename)?;
     let tiles: Vec<Tile> = INPUT
         .split("\n\n")
         .filter_map(|l| Some(l.parse().ok()?))
         .collect();
     let aligned = align_tiles(&tiles);
+
     println!("AoC2020 20.1 -> {}", part1(&aligned));
     println!("AoC2020 20.2 -> {}", part2(&aligned)?);
 
@@ -49,7 +45,6 @@ fn part2(tile_grid: &[Vec<Tile>]) -> Result<String> {
     let img_str = format!("Tile 0:\n{}", img.join("\n"));
 
     let t: Tile = img_str.parse()?;
-    let t = Tile::rotate_till_contains_monster(t)?;
 
     let mut n_monster = 0;
     for orientation in t.orientations() {
@@ -125,46 +120,17 @@ fn align_tiles(tiles: &[Tile]) -> Vec<Vec<Tile>> {
 }
 
 fn count_monsters(t: &Tile) -> usize {
-    let monster_str = "..................#.#....##....##....###.#..#..#..#..#..#...";
-    let monster_idx: Vec<usize> = monster_str
+    let monster_idx: Vec<usize> = MONSTER
         .char_indices()
         .filter(|(_i, c)| *c == '#')
         .map(|(i, _)| i)
         .collect();
 
-    let data = t.grid.clone();
-
-    let width = 20;
-    let height = 3;
-    let (nrows, ncols) = (data.len(), data[0].len());
-    let lim = ncols - width - 1;
-    let lim2 = nrows - height - 1;
     let mut matches = 0;
-    for i in 0..lim {
-        for j in 0..lim2 {
-            let mut s = String::new();
-            for k in 0..height {
-                let row = data.get(j + k);
-                if row.is_none() {
-                    println!("NO ROW");
-                    continue;
-                }
-                let sub = row.unwrap().get(i..i + width);
-                if sub.is_none() {
-                    println!("NO SUBSTR");
-                    continue;
-                }
-                sub.unwrap();
-                s.push_str(&sub.unwrap().iter().collect::<String>());
-            }
-            let sc: Vec<char> = s.chars().collect();
-            if s.len() < monster_str.len() {
-                panic!();
-            }
-
-            if monster_idx.iter().all(|i| sc[*i] == '#') {
-                matches += 1;
-            }
+    for stride in t.strides(20, 3) {
+        let s = stride.iter().flatten().map(|x| *x).collect::<Vec<char>>();
+        if monster_idx.iter().all(|i| s[*i] == '#') {
+            matches += 1;
         }
     }
     matches
@@ -216,7 +182,6 @@ impl std::iter::Iterator for TileOrientations {
             t
         };
         // Don't need to do EW, as EW is just NS flip with rotation
-
         t.rotate_n(self.iteration % 4);
 
         self.iteration += 1;
@@ -304,17 +269,8 @@ impl Tile {
         }
     }
 
-    fn rotate_till_contains_monster(t: Tile) -> Result<Tile> {
-        let monster = Regex::new(MONSTER).unwrap();
-        for orient in t.orientations() {
-            let map = format!("{}", orient);
-            if monster.is_match(&map) {
-                return Ok(orient);
-            }
-        }
-        Err(anyhow!(
-            "MONSTER NOT FOUND AFTER 360 ROTATION. Wrong grid config."
-        ))
+    fn strides(&self, width: usize, height: usize) -> Strides<char> {
+        Strides::new(&self.grid, width, height)
     }
 }
 
@@ -330,6 +286,7 @@ impl std::fmt::Display for Tile {
     }
 }
 
+#[allow(dead_code)]
 const INPUT: &str = "Tile 3557:
 .#...##.#.
 #.#..#...#
@@ -2166,3 +2123,11 @@ Tile 3079:
 ..#.###...
 ..#.......
 ..#.###..."#;
+
+#[allow(dead_code)]
+const SAMPLE2: &str = r"Tile 1:
+1abc
+.,:;
+wxyz
+.,:;
+";

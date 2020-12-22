@@ -36,7 +36,7 @@ fn part2(allergens: &HashMap<&str, &str>) -> Result<String> {
     Ok(format!("{}", ingredients))
 }
 
-fn split_ingredient_allergen(s: &str) -> (HashSet<&str>, Vec<&str>) {
+fn split_ingredient_allergen(s: &str) -> (HashSet<&str>, HashSet<&str>) {
     let mut parts = s.split(" (contains ");
     let ingredients: HashSet<_> = parts
         .next()
@@ -44,7 +44,7 @@ fn split_ingredient_allergen(s: &str) -> (HashSet<&str>, Vec<&str>) {
         .split_whitespace()
         .filter(|x| x != &"")
         .collect();
-    let allergens: Vec<_> = parts
+    let allergens: HashSet<_> = parts
         .next()
         .unwrap_or("")
         .trim_end_matches(")")
