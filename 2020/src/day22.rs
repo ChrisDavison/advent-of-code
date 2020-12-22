@@ -1,12 +1,12 @@
 use anyhow::Result;
-use std::collections::HashSet;
+use std::collections::{HashSet, VecDeque};
 
-type Deck = Vec<usize>;
+type Deck = VecDeque<usize>;
 
 pub fn day22() -> Result<()> {
-    let (a, b) = parse(&INPUT);
+    let (mut a, mut b) = parse(&INPUT);
     println!("2020 22.1 -> {}", part1(&mut a.clone(), &mut b.clone())?);
-    println!("2020 22.2 -> {}", part2(&mut a.clone(), &mut b.clone())?);
+    println!("2020 22.2 -> {}", part2(&mut a, &mut b)?);
     Ok(())
 }
 
@@ -17,10 +17,10 @@ fn score(deck: &Deck) -> usize {
         .sum::<usize>()
 }
 
-fn part1(a: &mut Deck, b: &mut Deck) -> Result<String> {
+fn part1<'a>(a: &'a mut Deck, b: &'a mut Deck) -> Result<String> {
     while !(a.is_empty() || b.is_empty()) {
-        let top_a = a.remove(0);
-        let top_b = b.remove(0);
+        let top_a = a.pop_front().unwrap();
+        let top_b = b.pop_front().unwrap();
         if top_a > top_b {
             a.extend(&[top_a, top_b]);
         } else {
@@ -37,20 +37,20 @@ fn part2(mut a: &mut Deck, mut b: &mut Deck) -> Result<String> {
     Ok(format!("{}", score(&winners_deck)))
 }
 
-fn play_recursive_game(a: &mut Deck, b: &mut Deck) -> (Deck, bool) {
+fn play_recursive_game<'a>(a: &'a mut Deck, b: &'a mut Deck) -> (&'a Deck, bool) {
     let mut history: HashSet<String> = HashSet::new();
 
     while !a.is_empty() && !b.is_empty() {
-        if history.contains(&stringify_decks(&a, &b)) {
-            return (a.to_vec(), true);
+        if !history.insert(stringify_decks(&a, &b)) {
+            return (a, true);
         }
-        history.insert(stringify_decks(&a, &b));
-        let top_a = a.remove(0);
-        let top_b = b.remove(0);
+        let top_a = a.pop_front().unwrap();
+        let top_b = b.pop_front().unwrap();
         let a_won = if top_a <= a.len() && top_b <= b.len() {
-            let mut new_a = a.iter().take(top_a).copied().collect();
-            let mut new_b = b.iter().take(top_b).copied().collect();
-            let (_, a_won) = play_recursive_game(&mut new_a, &mut new_b);
+            let (_, a_won) = play_recursive_game(
+                &mut a.clone().iter().take(top_a).copied().collect(),
+                &mut b.clone().iter().take(top_b).copied().collect(),
+            );
             a_won
         } else {
             top_a > top_b
@@ -62,9 +62,9 @@ fn play_recursive_game(a: &mut Deck, b: &mut Deck) -> (Deck, bool) {
         }
     }
     if b.is_empty() {
-        (a.to_vec(), true)
+        (a, true)
     } else {
-        (b.to_vec(), false)
+        (b, false)
     }
 }
 
@@ -72,7 +72,7 @@ fn stringify_decks(a: &Deck, b: &Deck) -> String {
     format!("{:?}|{:?}", &a, &b)
 }
 
-fn parse(data: &str) -> (Vec<usize>, Vec<usize>) {
+fn parse(data: &str) -> (VecDeque<usize>, VecDeque<usize>) {
     let mut parts = data.split("\n\n");
     let a = parts
         .next()
