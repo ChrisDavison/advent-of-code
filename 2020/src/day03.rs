@@ -1,63 +1,23 @@
 use anyhow::Result;
 
 pub fn day03() -> Result<()> {
-    let data = INPUT;
-    let tidy_data: Vec<&str> = data.lines().map(|x| x.trim()).collect();
+    let data: Vec<Vec<char>> = INPUT.lines().map(|x| x.trim().chars().collect()).collect();
 
-    let slopes = vec![Slope { right: 3, down: 1 }];
-    let slopes2 = vec![
-        Slope { right: 1, down: 1 },
-        Slope { right: 3, down: 1 },
-        Slope { right: 5, down: 1 },
-        Slope { right: 7, down: 1 },
-        Slope { right: 1, down: 2 },
-    ];
+    println!("2020 3-1 -> {}", check_slope(&data, (3, 1)));
 
-    let results: Vec<usize> = slopes.iter().map(|&s| check_slope(&tidy_data, s)).collect();
-    let results2: Vec<usize> = slopes2
+    let product = [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]
         .iter()
-        .map(|&s| check_slope(&tidy_data, s))
-        .collect();
-    let product = |ls: &[usize]| -> usize { ls.iter().skip(1).fold(ls[0], |acc, x| acc * x) };
-
-    println!("2020 03.1 -> {}", product(&results));
-    println!("2020 03.2 -> {}", product(&results2));
+        .map(|&s| check_slope(&data, s))
+        .product::<usize>();
+    println!("2020 3-2 -> {}", product);
     Ok(())
 }
 
-#[derive(Clone, Copy)]
-struct Slope {
-    right: usize,
-    down: usize,
-}
-
-struct Position {
-    x: usize,
-    y: usize,
-}
-
-fn next_position(current: Position, slope: Slope, width: usize) -> Position {
-    let new_x = (current.x + slope.right) % width;
-    let new_y = current.y + slope.down;
-    Position { x: new_x, y: new_y }
-}
-
-fn check_slope(lines: &[&str], slope: Slope) -> usize {
-    let mut current = Position { x: 0, y: 0 };
-    let mut n_trees = 0;
-    let width = lines[0].len();
-    loop {
-        current = next_position(current, slope, width);
-        if current.y >= lines.len() {
-            break;
-        }
-        if let Some(c) = lines[current.y].chars().nth(current.x) {
-            if c == '#' {
-                n_trees += 1;
-            }
-        }
-    }
-    n_trees
+fn check_slope(lines: &[Vec<char>], (dx, dy): (usize, usize)) -> usize {
+    (0..lines.len() / dy + 1)
+        .map(|i| (i * dx % lines[0].len(), i * dy))
+        .filter(|(col, row)| lines.get(*row).and_then(|y| y.get(*col)) == Some(&'#'))
+        .count()
 }
 
 const INPUT: &str = "..#..#......#..#.......#...#.#.
