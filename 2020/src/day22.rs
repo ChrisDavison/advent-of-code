@@ -4,11 +4,9 @@ use std::collections::HashSet;
 type Deck = Vec<usize>;
 
 pub fn day22() -> Result<()> {
-    let (mut a, mut b) = parse(&INPUT);
-    println!("AoC2020 22.1 -> {}", part1(&mut a, &mut b)?);
-
-    let (mut a, mut b) = parse(&INPUT);
-    println!("AoC2020 22.2 -> {}", part2(&mut a, &mut b)?);
+    let (a, b) = parse(&INPUT);
+    println!("AoC2020 22.1 -> {}", part1(&mut a.clone(), &mut b.clone())?);
+    println!("AoC2020 22.2 -> {}", part2(&mut a.clone(), &mut b.clone())?);
     Ok(())
 }
 
@@ -24,11 +22,9 @@ fn part1(a: &mut Deck, b: &mut Deck) -> Result<String> {
         let top_a = a.remove(0);
         let top_b = b.remove(0);
         if top_a > top_b {
-            a.push(top_a);
-            a.push(top_b);
+            a.extend(&[top_a, top_b]);
         } else {
-            b.push(top_b);
-            b.push(top_a);
+            b.extend(&[top_b, top_a]);
         }
     }
 
@@ -43,7 +39,6 @@ fn part2(mut a: &mut Deck, mut b: &mut Deck) -> Result<String> {
 
 fn play_recursive_game(a: &mut Deck, b: &mut Deck) -> (Deck, bool) {
     let mut history: HashSet<String> = HashSet::new();
-    // panic!("Part 2 not implemented");
 
     while !a.is_empty() && !b.is_empty() {
         if history.contains(&stringify_decks(&a, &b)) {
@@ -52,26 +47,18 @@ fn play_recursive_game(a: &mut Deck, b: &mut Deck) -> (Deck, bool) {
         history.insert(stringify_decks(&a, &b));
         let top_a = a.remove(0);
         let top_b = b.remove(0);
-        if top_a <= a.len() && top_b <= b.len() {
+        let a_won = if top_a <= a.len() && top_b <= b.len() {
             let mut new_a = a.iter().take(top_a).copied().collect();
             let mut new_b = b.iter().take(top_b).copied().collect();
             let (_, a_won) = play_recursive_game(&mut new_a, &mut new_b);
-            if a_won {
-                a.push(top_a);
-                a.push(top_b);
-            } else {
-                b.push(top_b);
-                b.push(top_a);
-            }
-            // println!();
+            a_won
         } else {
-            if top_a > top_b {
-                a.push(top_a);
-                a.push(top_b);
-            } else {
-                b.push(top_b);
-                b.push(top_a);
-            }
+            top_a > top_b
+        };
+        if a_won {
+            a.extend(&[top_a, top_b]);
+        } else {
+            b.extend(&[top_b, top_a]);
         }
     }
     if b.is_empty() {
@@ -82,7 +69,7 @@ fn play_recursive_game(a: &mut Deck, b: &mut Deck) -> (Deck, bool) {
 }
 
 fn stringify_decks(a: &Deck, b: &Deck) -> String {
-    format!("{:?}|{:?}", &a, &b).replace(" ", "")
+    format!("{:?}|{:?}", &a, &b)
 }
 
 fn parse(data: &str) -> (Vec<usize>, Vec<usize>) {
