@@ -3,8 +3,8 @@ use regex::Regex;
 use std::collections::{HashMap, HashSet};
 
 pub fn day19() -> Result<()> {
-    println!("AoC2020 19.1 -> {}", find_matches(&INPUT));
-    println!("AoC2020 19.2 -> {}", find_matches(&INPUT2));
+    println!("2020 19.1 -> {}", find_matches(&INPUT));
+    println!("2020 19.2 -> {}", find_matches(&INPUT2));
 
     Ok(())
 }

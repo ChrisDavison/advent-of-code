@@ -56,11 +56,10 @@ const SOLUTIONS: &[fn() -> anyhow::Result<()>] = &[
 ];
 
 fn main() {
-    let day_wanted: Option<usize> = std::env::args()
+    let day_wanted = std::env::args()
         .nth(1)
         .map(|x| x.parse::<usize>().ok())
-        .unwrap_or(None);
-
+        .flatten();
     for (day, function) in SOLUTIONS.iter().enumerate() {
         if let Some(d) = day_wanted {
             if day != d - 1 {

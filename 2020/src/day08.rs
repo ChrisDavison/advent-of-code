@@ -10,10 +10,10 @@ pub fn day08() -> Result<()> {
         .collect();
 
     let (total, _) = part1(&instructions);
-    println!("2020 8-1 -> {}", total);
+    println!("2020 08.1 -> {}", total);
 
     let total2 = part2(&instructions);
-    println!("2020 8-2 -> {}", total2);
+    println!("2020 08.2 -> {}", total2);
     Ok(())
 }
 

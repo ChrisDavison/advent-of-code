@@ -33,13 +33,13 @@ fn solve(data: &[usize], target: usize) -> Result<usize> {
 
 fn part1(data: &[usize]) -> Result<usize> {
     let last_spoken = solve(data, 2020)?;
-    println!("AoC2020 15.1 -> {}", last_spoken);
+    println!("2020 15.1 -> {}", last_spoken);
     Ok(last_spoken)
 }
 
 fn part2(data: &[usize]) -> Result<usize> {
     let last_spoken = solve(data, 30_000_000)?;
-    println!("AoC2020 15.1 -> {}", last_spoken);
+    println!("2020 15.1 -> {}", last_spoken);
     Ok(last_spoken)
 }
 

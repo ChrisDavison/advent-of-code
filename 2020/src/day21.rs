@@ -4,8 +4,8 @@ use std::collections::{HashMap, HashSet};
 pub fn day21() -> Result<()> {
     let (ingredients, allergen_map) = parse_data(&INPUT);
 
-    println!("AoC2020 21.1 -> {}", part1(&ingredients, &allergen_map)?);
-    println!("AoC2020 21.2 -> {}", part2(&allergen_map)?);
+    println!("2020 21.1 -> {}", part1(&ingredients, &allergen_map)?);
+    println!("2020 21.2 -> {}", part2(&allergen_map)?);
     Ok(())
 }
 

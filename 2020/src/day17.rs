@@ -82,7 +82,7 @@ fn part1(data: &[Vec<u8>]) {
             }
         }
     }
-    println!("AoC2020 17.1 -> {}", active.iter().count());
+    println!("2020 17.1 -> {}", active.iter().count());
 }
 
 /// Conway's game of life in 4d -- cellular automata
@@ -141,7 +141,7 @@ fn part2(data: &[Vec<u8>]) {
             }
         }
     }
-    println!("AoC2020 17.2 -> {}", active.iter().count());
+    println!("2020 17.2 -> {}", active.iter().count());
 }
 
 fn delta_idx(idx: usize, delta: isize) -> usize {

@@ -20,8 +20,8 @@ pub fn day03() -> Result<()> {
         .collect();
     let product = |ls: &[usize]| -> usize { ls.iter().skip(1).fold(ls[0], |acc, x| acc * x) };
 
-    println!("2020 3-1 -> {}", product(&results));
-    println!("2020 3-2 -> {}", product(&results2));
+    println!("2020 03.1 -> {}", product(&results));
+    println!("2020 03.2 -> {}", product(&results2));
     Ok(())
 }
 

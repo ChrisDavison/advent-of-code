@@ -5,8 +5,8 @@ type Deck = Vec<usize>;
 
 pub fn day22() -> Result<()> {
     let (a, b) = parse(&INPUT);
-    println!("AoC2020 22.1 -> {}", part1(&mut a.clone(), &mut b.clone())?);
-    println!("AoC2020 22.2 -> {}", part2(&mut a.clone(), &mut b.clone())?);
+    println!("2020 22.1 -> {}", part1(&mut a.clone(), &mut b.clone())?);
+    println!("2020 22.2 -> {}", part2(&mut a.clone(), &mut b.clone())?);
     Ok(())
 }
 

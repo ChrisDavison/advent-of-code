@@ -16,8 +16,8 @@ pub fn day05() -> Result<()> {
         .filter(|pair| (pair[1] - pair[0]) == 2)
         .map(|pair| pair[0] + 1)
         .collect::<Vec<i64>>()[0];
-    println!("2020 5-1 -> {}", id1);
-    println!("2020 5-2 -> {}", id2);
+    println!("2020 05.1 -> {}", id1);
+    println!("2020 05.2 -> {}", id2);
 
     Ok(())
 }

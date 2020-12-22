@@ -7,10 +7,10 @@ pub fn day07() -> Result<()> {
     let bagmap = create_bagmap(tidy_data);
 
     let n_containing_gold = bags_containing_gold(&bagmap) - 1;
-    println!("2020 7-1 -> {}", n_containing_gold);
+    println!("2020 07.1 -> {}", n_containing_gold);
 
     let n_inside_gold = total_bags(&bagmap, "shiny gold") - 1;
-    println!("2020 7-2 -> {}", n_inside_gold);
+    println!("2020 07.2 -> {}", n_inside_gold);
     Ok(())
 }
 

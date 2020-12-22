@@ -2,8 +2,8 @@
 use anyhow::{anyhow, Result};
 
 pub fn day23() -> Result<()> {
-    println!("AoC2020 23.1 -> {}", part1(&INPUT)?);
-    println!("AoC2020 23.2 -> {}", part2(&INPUT)?);
+    println!("2020 23.1 -> {}", part1(&INPUT)?);
+    println!("2020 23.2 -> {}", part2(&INPUT)?);
     Ok(())
 }
 
