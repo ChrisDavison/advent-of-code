@@ -1,4 +1,4 @@
-use anyhow::{anyhow, Result};
+use crate::prelude::*;
 
 pub fn day08() -> Result<()> {
     let data = INPUT;

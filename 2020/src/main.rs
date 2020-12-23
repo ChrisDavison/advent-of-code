@@ -26,6 +26,7 @@ mod day24;
 
 mod bool_xor;
 mod dict;
+mod prelude;
 mod strides;
 mod time_macro;
 extern crate lazy_static;

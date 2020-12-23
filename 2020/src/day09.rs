@@ -1,4 +1,4 @@
-use anyhow::{anyhow, Result};
+use crate::prelude::*;
 
 pub fn day09() -> Result<()> {
     let lines: Vec<i64> = INPUT

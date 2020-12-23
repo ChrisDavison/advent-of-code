@@ -1,5 +1,4 @@
-use anyhow::Result;
-use itertools::Itertools;
+use crate::prelude::*;
 
 const EMPTY: u8 = b'L';
 const TAKEN: u8 = b'#';

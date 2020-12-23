@@ -1,5 +1,4 @@
-use anyhow::{anyhow, Result};
-use std::collections::HashSet;
+use crate::prelude::*;
 
 const TARGET: i32 = 2020;
 

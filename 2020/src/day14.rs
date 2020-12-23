@@ -1,6 +1,4 @@
-use anyhow::{anyhow, Result};
-use std::collections::HashMap;
-use std::str::FromStr;
+use crate::prelude::*;
 
 pub fn day14() -> Result<()> {
     let data = INPUT;

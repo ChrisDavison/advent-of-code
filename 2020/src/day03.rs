@@ -1,4 +1,4 @@
-use anyhow::Result;
+use crate::prelude::*;
 
 pub fn day03() -> Result<()> {
     let data: Vec<Vec<char>> = INPUT.lines().map(|x| x.trim().chars().collect()).collect();

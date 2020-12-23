@@ -1,5 +1,4 @@
-use anyhow::Result;
-use std::collections::*;
+use crate::prelude::*;
 
 pub fn day06() -> Result<()> {
     let data = INPUT;

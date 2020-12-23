@@ -1,5 +1,4 @@
-use anyhow::{anyhow, Result};
-use std::str::FromStr;
+use crate::prelude::*;
 
 pub fn day04() -> anyhow::Result<()> {
     let data = INPUT;

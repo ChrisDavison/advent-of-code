@@ -1,4 +1,4 @@
-use anyhow::Result;
+use crate::prelude::*;
 
 const N_ITER_P1: usize = 100;
 const N_ITER_P2: usize = 10_000_000;
@@ -53,6 +53,7 @@ impl CupGame {
         current
     }
 
+    #[allow(dead_code)]
     fn display_ring(&self) -> String {
         let mut c = self.current;
         c = self.pointed_at_by[c];

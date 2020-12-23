@@ -1,7 +1,4 @@
-use anyhow::Result;
-use itertools::Itertools;
-use std::collections::{HashMap, HashSet};
-use std::iter::repeat;
+use crate::prelude::*;
 
 pub fn day17() -> Result<()> {
     let data: Vec<Vec<u8>> = INPUT

@@ -1,7 +1,4 @@
-use crate::strides::Strides;
-use anyhow::Result;
-use itertools::Itertools;
-use std::collections::HashMap;
+use crate::prelude::*;
 
 const MONSTER: &str = "..................#.#....##....##....###.#..#..#..#..#..#...";
 
