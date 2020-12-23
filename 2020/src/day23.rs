@@ -1,142 +1,138 @@
-#![allow(dead_code, unused_variables, unused_mut, unreachable_code)]
-use anyhow::{anyhow, Result};
+use anyhow::Result;
+
+const N_ITER_P1: usize = 100;
+const N_ITER_P2: usize = 10_000_000;
 
 pub fn day23() -> Result<()> {
     let data = INPUT;
-    let n_iter = 100;
-    println!("2020 23.1 -> {}", part1(&data, n_iter)?);
-    println!("2020 23.2 -> {}", part2(&data)?);
+    println!("2020 23.1 -> {}", part1(&data, N_ITER_P1)?);
+    println!("2020 23.2 -> {}", part2(&data, N_ITER_P2)?);
     Ok(())
 }
 
 #[derive(Debug, Clone, PartialEq)]
 struct CupGame {
     current: usize,
-    cups: Vec<usize>,
-    destination: usize,
-    picks: [usize; 3],
+    pointed_at_by: Vec<usize>,
+    min: usize,
+    max: usize,
 }
 
 impl CupGame {
     fn new(data: &[usize]) -> Self {
+        let mut rotated = data.to_vec();
+        rotated.rotate_left(1);
+        let mut ring = vec![0; data.len() + 1];
+        for (idx, after) in data.iter().zip(rotated.iter()) {
+            ring[*idx] = *after;
+        }
         Self {
             current: data[0],
-            cups: data.to_vec(),
-            destination: 0,
-            picks: [0; 3],
+            pointed_at_by: ring,
+            min: *data.iter().min().unwrap(),
+            max: *data.iter().max().unwrap(),
         }
     }
 
-    fn find_destination_idx(&mut self) -> usize {
-        let mut found: usize;
-        let mut current = self.current;
-        loop {
-            // current = (current + self.cups.len() - 1) % self.cups.len();
-            // println!("{:?}", self.cups);
-            current = if current > *self.cups.iter().min().unwrap() {
+    fn find_destination(&mut self) -> usize {
+        let dec_wrap = |current| {
+            if current > self.min {
                 current - 1
             } else {
-                *self.cups.iter().max().unwrap()
-            };
-            if self.cups.contains(&current) {
-                found = current;
+                self.max
+            }
+        };
+
+        let n = self.pointed_at_by[self.current];
+        let nn = self.pointed_at_by[n];
+        let nnn = self.pointed_at_by[nn];
+        let mut current = dec_wrap(self.current);
+        while [n, nn, nnn].contains(&current) {
+            current = dec_wrap(current);
+        }
+        current
+    }
+
+    fn display_ring(&self) -> String {
+        let mut c = self.current;
+        c = self.pointed_at_by[c];
+        let mut picks = vec![];
+        for _ in 0..3 {
+            picks.push(c);
+            c = self.pointed_at_by[c];
+        }
+        let mut rest = vec![];
+        loop {
+            if c == self.current {
                 break;
             }
+            rest.push(c);
+            c = self.pointed_at_by[c];
         }
-        self.destination = found;
-        self.cups.iter().position(|d| *d == found).unwrap()
-    }
+        let s = picks
+            .iter()
+            .map(|x| format!("{}", x))
+            .collect::<Vec<String>>()
+            .join(" ");
+        let s2 = rest
+            .iter()
+            .map(|x| format!("{}", x))
+            .collect::<Vec<String>>()
+            .join(" ");
 
-    fn start(&self) -> usize {
-        self.cups.iter().position(|c| *c == self.current).unwrap()
-    }
-
-    fn position_of(&self, other: usize) -> usize {
-        self.cups.iter().position(|c| *c == other).unwrap()
+        format!("{} [{}] [{}]", self.current, s, s2)
     }
 
     fn iterate(&mut self) {
-        let start_idx = self.start();
-        let n = self.cups.len();
-        let pick1 = self.cups[(start_idx + 1) % n];
-        let pick2 = self.cups[(start_idx + 2) % n];
-        let pick3 = self.cups[(start_idx + 3) % n];
-        self.picks = [pick1, pick2, pick3];
-        for pick in &self.picks {
-            self.cups
-                .remove(self.cups.iter().position(|d| d == pick).unwrap());
+        let destination = self.find_destination();
+        let n = self.pointed_at_by[self.current];
+        let nn = self.pointed_at_by[n];
+        let nnn = self.pointed_at_by[nn];
+        let after_destination = self.pointed_at_by[destination];
+
+        self.pointed_at_by[self.current] = self.pointed_at_by[nnn];
+        self.pointed_at_by[destination] = n;
+        self.pointed_at_by[nnn] = after_destination;
+        self.current = self.pointed_at_by[self.current];
+    }
+
+    fn score_p1(&self) -> String {
+        let mut c = 1;
+        let mut out = vec![];
+        loop {
+            c = self.pointed_at_by[c];
+            if c == 1 {
+                break;
+            }
+            out.push(format!("{}", c));
         }
-        let dest_idx = self.find_destination_idx();
-        self.cups.insert(dest_idx + 1, pick1);
-        self.cups.insert(dest_idx + 2, pick2);
-        self.cups.insert(dest_idx + 3, pick3);
-
-        self.current = self.cups[(self.start() + 1) % n];
+        out.join("")
     }
 
-    fn cupstr(&self) -> String {
-        self.cups
-            .iter()
-            .map(|x| {
-                if *x == self.current {
-                    format!("({})", x)
-                } else {
-                    format!("{}", x)
-                }
-            })
-            .collect::<Vec<String>>()
-            .join(" ")
-    }
-
-    fn pickstr(&self) -> String {
-        self.picks
-            .iter()
-            .map(|p| format!("{}", p))
-            .collect::<Vec<String>>()
-            .join(", ")
-    }
-
-    fn from_1(&self) -> String {
-        let start = self.cups.iter().position(|c| *c == 1).unwrap();
-        (0..self.cups.len() - 1)
-            .map(|i| self.cups[(start + i + 1) % self.cups.len()])
-            .map(|x| format!("{}", x))
-            .collect::<String>()
-    }
-
-    fn two_after_1(&self) -> (usize, usize) {
-        let start = self.cups.iter().position(|c| *c == 1).unwrap();
-        (
-            self.cups[(start + 2) % self.cups.len()],
-            self.cups[(start + 3) % self.cups.len()],
-        )
+    fn score_p2(&self) -> usize {
+        let after_1 = self.pointed_at_by[1];
+        let after_after_1 = self.pointed_at_by[after_1];
+        after_1 * after_after_1
     }
 }
 
 fn part1(data: &[usize], n: usize) -> Result<String> {
     let mut game = CupGame::new(&data);
-
-    for i in 0..n {
+    for _ in 0..n {
         game.iterate();
     }
-    Ok(format!("{}", game.from_1()))
+    Ok(format!("{}", game.score_p1()))
 }
 
-fn part2(data: &[usize]) -> Result<String> {
-    let max = data.iter().max().unwrap();
-    let n = data.len();
-    let need = 1E6 as usize - n;
-    let mut data2: Vec<usize> = (0..1e6 as usize).collect();
-    for (i, d) in data.iter().enumerate() {
-        data2[i] = *d;
-    }
-    let mut game = CupGame::new(&data2);
-    let n_iter = 10E6 as usize;
-    for _ in 0..n_iter {
+fn part2(data: &[usize], n: usize) -> Result<String> {
+    let mut data = data.to_vec();
+    data.extend(data.len() + 1..=1E6 as usize);
+    let mut game = CupGame::new(&data);
+    for _ in 0..n {
         game.iterate();
     }
 
-    Ok(format!("{:?}", game.two_after_1()))
+    Ok(format!("{:?}", game.score_p2()))
 }
 
 #[allow(dead_code)]
@@ -144,3 +140,6 @@ const INPUT: [usize; 9] = [3, 1, 5, 6, 7, 9, 8, 2, 4];
 
 #[allow(dead_code)]
 const SAMPLE: [usize; 9] = [3, 8, 9, 1, 2, 5, 4, 6, 7];
+
+#[allow(dead_code)]
+const SAMPLE2: [usize; 5] = [5, 4, 3, 2, 1];
