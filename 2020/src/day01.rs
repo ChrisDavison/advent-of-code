@@ -1,4 +1,4 @@
-use anyhow::Result;
+use anyhow::{anyhow, Result};
 use std::collections::HashSet;
 
 const TARGET: i32 = 2020;
@@ -11,16 +11,28 @@ pub fn day01() -> Result<()> {
         .filter(|&x| x < TARGET)
         .collect();
 
-    let product_of_pair = find_pair_sums_to(TARGET, &lines).map(|(a, b)| a * b);
-    if let Some(prod) = product_of_pair {
-        println!("2020 1-1 -> {}", prod);
-    }
+    println!("2020 01.1 -> {}", part1(&lines)?);
+    println!("2020 01.2 -> {}", part2(&lines)?);
 
-    let product_of_triple = find_triple_sums_to(TARGET, &lines).map(|(a, b, c)| a * b * c);
-    if let Some(prod) = product_of_triple {
-        println!("2020 1-1 -> {}", prod);
-    }
     Ok(())
+}
+
+fn part1(data: &HashSet<i32>) -> Result<String> {
+    let product_of_pair = find_pair_sums_to(TARGET, &data).map(|(a, b)| a * b);
+    if let Some(prod) = product_of_pair {
+        Ok(format!("{}", prod))
+    } else {
+        Err(anyhow!("Failed to find pair"))
+    }
+}
+
+fn part2(data: &HashSet<i32>) -> Result<String> {
+    let product_of_triple = find_triple_sums_to(TARGET, &data).map(|(a, b, c)| a * b * c);
+    if let Some(prod) = product_of_triple {
+        Ok(format!("{}", prod))
+    } else {
+        Err(anyhow!("Failed to find triple"))
+    }
 }
 
 fn find_pair_sums_to(target: i32, data: &HashSet<i32>) -> Option<(i32, i32)> {

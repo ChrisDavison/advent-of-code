@@ -42,7 +42,7 @@ fn should_swap_p1(data: &[Vec<u8>], pos: Position, directions: &[(isize, isize)]
 }
 
 fn should_swap_p2(data: &[Vec<u8>], pos: Position, directions: &[(isize, isize)]) -> bool {
-    // x, y, dx, dy, FINISHED
+    // (finished?, char found)
     let mut finished_and_found: Vec<(bool, u8)> = std::iter::repeat((false, b' '))
         .take(directions.len())
         .collect();

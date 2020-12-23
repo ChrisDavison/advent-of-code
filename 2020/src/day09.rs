@@ -1,111 +1,85 @@
-use anyhow::Result;
+use anyhow::{anyhow, Result};
 
 pub fn day09() -> Result<()> {
-    let data = INPUT;
-    let mut s = Solver::new(&data, 25);
-    s.part_1();
-    s.part_2();
+    let lines: Vec<i64> = INPUT
+        .split("\n")
+        .filter_map(|x| Some(x.parse::<i64>().ok()?))
+        .collect();
+
+    let window = 25;
+    println!("2020 09.1 -> {}", part1(&lines, window)?);
+    println!("2020 09.2 -> {}", part2(&lines, window)?);
     Ok(())
 }
 
-struct Solver {
-    result: Option<i64>,
-    window: usize,
-    data: Vec<i64>,
-}
-
-impl Solver {
-    fn new(data: &str, window: usize) -> Solver {
-        Solver {
-            result: None,
-            window,
-            data: data
-                .lines()
-                .map(|x| x.trim())
-                .filter_map(|x| Some(x.parse::<i64>().ok()?))
-                .collect(),
-        }
-    }
-
-    fn part_1(&mut self) {
-        let mut idx = self.window; // Start from an index that will fill buffer
-        let mut found: Option<i64> = None;
-        while let Some(n) = self.data.get(idx) {
-            let history = &self.data[idx - self.window..idx];
-            let mut found_a_pair = false;
-            for (i, val) in history.iter().enumerate() {
-                let need = n - val;
-                if history[i..].contains(&need) {
-                    found_a_pair = true;
-                    break;
-                }
-            }
-            if !found_a_pair {
-                found = Some(*n);
+fn part1(lines: &[i64], window: usize) -> Result<String> {
+    let mut idx = window; // Start from an index that will fill buffer
+    let mut found: Option<i64> = None;
+    while let Some(n) = lines.get(idx) {
+        let history = &lines[idx - window..idx];
+        let mut found_a_pair = false;
+        for (i, val) in history.iter().enumerate() {
+            let need = n - val;
+            if history[i..].contains(&need) {
+                found_a_pair = true;
                 break;
             }
-            idx += 1;
         }
-        match found {
-            Some(num) => {
-                self.result = found;
-                println!("2020 9.1 -> {}", num);
-            }
-            None => eprintln!("2020 9.1 ERROR. No num found."),
+        if !found_a_pair {
+            found = Some(*n);
+            break;
         }
+        idx += 1;
     }
-
-    fn part_2(&mut self) {
-        if self.result.is_none() {
-            self.part_1();
-        }
-
-        let target = match self.result {
-            Some(t) => t,
-            None => {
-                eprintln!("Exiting, as part 1 unsuccessful.");
-                return;
-            }
-        };
-        'outer: for window_size in 2..self.data.len() - 1 {
-            for idx in 0..self.data.len() - window_size {
-                let mut buffer: Vec<i64> = self.data[idx..idx + window_size].to_vec();
-                buffer.sort_unstable();
-                if buffer.iter().sum::<i64>() == target {
-                    self.result = Some(buffer[0] + buffer[window_size - 1]);
-                    break 'outer;
-                }
-            }
-        }
-        match self.result {
-            Some(num) => println!("2020 9.2 -> {}", num),
-            None => eprintln!("2020 9.2 ERROR. No num found."),
-        }
-    }
+    found
+        .map(|x| format!("{}", x))
+        .ok_or_else(|| anyhow!("No number found."))
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+fn part2(lines: &[i64], window: usize) -> Result<String> {
+    let target: i64 = part1(&lines, window)?.parse()?;
 
-    #[test]
-    fn example_part1() {
-        let input = "35\n20\n15\n25\n47\n40\n62\n55\n65\n95\n102\n117\n150\n182\n127\n219\n299\n277\n309\n576";
-        dbg!(input);
-        let mut s = Solver::new(input, 5);
-        s.part_1();
-        assert_eq!(s.result, Some(127));
+    let mut output = None;
+    'outer: for window_size in 2..lines.len() - 1 {
+        for idx in 0..lines.len() - window_size {
+            let mut buffer: Vec<i64> = lines[idx..idx + window_size].to_vec();
+            buffer.sort_unstable();
+            if buffer.iter().sum::<i64>() == target {
+                output = Some(buffer[0] + buffer[window_size - 1]);
+                break 'outer;
+            }
+        }
     }
-
-    #[test]
-    fn example_part2() {
-        let input = "35\n20\n15\n25\n47\n40\n62\n55\n65\n95\n102\n117\n150\n182\n127\n219\n299\n277\n309\n576";
-        dbg!(input);
-        let mut s = Solver::new(input, 5);
-        s.part_2();
-        assert_eq!(s.result, Some(62));
-    }
+    output
+        .map(|x| format!("{}", x))
+        .ok_or_else(|| anyhow!("No num found"))
 }
+
+#[test]
+fn p1_example() {
+    let lines: Vec<i64> = SAMPLE
+        .split("\n")
+        .filter_map(|x| Some(x.parse::<i64>().ok()?))
+        .collect();
+
+    let window = 5;
+    assert_eq!(part1(&lines, window).unwrap(), "127");
+}
+
+#[test]
+fn p2_example() {
+    let lines: Vec<i64> = SAMPLE
+        .split("\n")
+        .filter_map(|x| Some(x.parse::<i64>().ok()?))
+        .collect();
+
+    let window = 5;
+    assert_eq!(part2(&lines, window).unwrap(), "62");
+}
+
+#[allow(dead_code)]
+const SAMPLE: &str =
+    "35\n20\n15\n25\n47\n40\n62\n55\n65\n95\n102\n117\n150\n182\n127\n219\n299\n277\n309\n576";
 
 const INPUT: &str = "3
 48

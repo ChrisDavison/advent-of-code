@@ -9,10 +9,10 @@ pub fn day02() -> Result<()> {
         .collect();
 
     let valid = passwords.iter().filter(|x| valid_rule_part1(x)).count();
-    println!("2020 2-1 -> {}", valid);
+    println!("2020 02.1 -> {}", valid);
 
     let valid2 = passwords.iter().filter(|x| valid_rule_part2(x)).count();
-    println!("2020 2-2 -> {}", valid2);
+    println!("2020 02.2 -> {}", valid2);
     Ok(())
 }
 

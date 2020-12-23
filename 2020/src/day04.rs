@@ -12,8 +12,8 @@ pub fn day04() -> anyhow::Result<()> {
         .map(|entry| entry.parse())
         .filter_map(|x| Some(x.ok()?))
         .collect();
-    println!("2020 4-1 -> {}", n_simple_passports);
-    println!("2020 4-2 -> {}", passports.len());
+    println!("2020 04.1 -> {}", n_simple_passports);
+    println!("2020 04.2 -> {}", passports.len());
     Ok(())
 }
 

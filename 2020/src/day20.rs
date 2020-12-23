@@ -12,8 +12,8 @@ pub fn day20() -> Result<()> {
         .collect();
     let aligned = align_tiles(&tiles);
 
-    println!("AoC2020 20.1 -> {}", part1(&aligned));
-    println!("AoC2020 20.2 -> {}", part2(&aligned)?);
+    println!("2020 20.1 -> {}", part1(&aligned));
+    println!("2020 20.2 -> {}", part2(&aligned)?);
 
     Ok(())
 }

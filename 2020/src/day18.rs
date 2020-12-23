@@ -1,8 +1,8 @@
 use anyhow::{anyhow, Result};
 
 pub fn day18() -> Result<()> {
-    println!("AoC2020 18.1 -> {}", part1(&INPUT)?);
-    println!("AoC2020 18.2 -> {}", part2(&INPUT)?);
+    println!("2020 18.1 -> {}", part1(&INPUT)?);
+    println!("2020 18.2 -> {}", part2(&INPUT)?);
     Ok(())
 }
 
@@ -192,7 +192,7 @@ mod tests {
             ("((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2", 13632),
         ];
         for (input, want) in cases {
-            assert_eq!(calculate(input).unwrap(), want);
+            assert_eq!(calculate(&mut parse_tokens(&input)).unwrap(), want);
         }
     }
 
@@ -221,14 +221,14 @@ mod tests {
             ("((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2", 23340),
         ];
         for (input, want) in cases {
-            assert_eq!(calculate2(input).unwrap(), want);
+            assert_eq!(calculate2(&mut parse_tokens(input)).unwrap(), want);
         }
     }
 
     #[test]
     fn inner_parens_test() {
-        assert_eq!(find_inner_parens("1 + (2 + 3)"), (4, 10));
-        assert_eq!(find_inner_parens("(2 + 3) + 1"), (0, 6));
+        assert_eq!(find_inner_parens(&mut parse_tokens("1 + (2 + 3)")), (4, 10));
+        assert_eq!(find_inner_parens(&mut parse_tokens("(2 + 3) + 1")), (0, 6));
     }
 }
 

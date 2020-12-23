@@ -40,7 +40,7 @@ fn part2(rules: &RuleSet, my: Ticket, tickets: &[Ticket]) -> Result<()> {
         .filter(|(_v, name)| name.contains("departure"))
         .map(|(v, _)| v)
         .product();
-    println!("AoC2020 16.2 -> {}", product_of_my_departure_columns);
+    println!("2020 16.2 -> {}", product_of_my_departure_columns);
     Ok(())
 }
 
