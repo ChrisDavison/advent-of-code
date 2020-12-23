@@ -6,7 +6,7 @@ const FLOOR: u8 = b'.';
 
 pub fn day11() -> Result<()> {
     let seats = INPUT
-        .split('\n')
+        .lines()
         .map(|x| x.bytes().collect())
         .collect::<Vec<Vec<_>>>();
     part_1(&seats);

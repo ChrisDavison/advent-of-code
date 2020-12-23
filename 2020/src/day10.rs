@@ -1,8 +1,7 @@
 use crate::prelude::*;
 
 pub fn day10() -> Result<()> {
-    let data = INPUT;
-    let mut data: Vec<usize> = data.lines().filter_map(|x| Some(x.parse().ok()?)).collect();
+    let mut data = parse_each(INPUT.lines());
     data.sort_unstable();
     part_1(&data);
     part_2(&data);

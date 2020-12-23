@@ -6,11 +6,7 @@ pub fn day04() -> anyhow::Result<()> {
         .split("\n\n")
         .filter(|entry| has_all_fields(entry))
         .count();
-    let passports: Vec<Passport> = data
-        .split("\n\n")
-        .map(|entry| entry.parse())
-        .filter_map(|x| Some(x.ok()?))
-        .collect();
+    let passports: Vec<Passport> = parse_each(data.split("\n\n"));
     println!("2020 04.1 -> {}", n_simple_passports);
     println!("2020 04.2 -> {}", passports.len());
     Ok(())

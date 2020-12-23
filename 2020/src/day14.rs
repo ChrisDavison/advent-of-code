@@ -1,9 +1,7 @@
 use crate::prelude::*;
 
 pub fn day14() -> Result<()> {
-    let data = INPUT;
-    let instructions: Vec<Op> = data.lines().filter_map(|l| Some(l.parse().ok()?)).collect();
-
+    let instructions: Vec<Op> = parse_each(INPUT.lines());
     part_1(&instructions)?;
     part_2(&instructions)?;
     Ok(())
