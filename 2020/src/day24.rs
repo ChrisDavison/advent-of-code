@@ -32,35 +32,22 @@ fn part2(mut state: &mut HashMap<Hex, bool>) -> Result<String> {
     fill_grid(&mut state, 50);
 
     for i in 0..100 {
-        // Start assuming nothing needs flipped
         hexes_to_flip.clear();
 
-        // Go through every tile seen so far, and make sure we're
-        // basically 1 wider, to ensure that the outer edge can flip
-        // if necessary.
         add_neighbours(&mut state);
 
-        // For every hex so far, check if it should should flip
-        // if so, add it to the lisp
-        for (tile, _) in &state.clone() {
-            if should_flip(&tile, &mut state) {
+        for (tile, _) in state.iter() {
+            if should_flip(&tile, &state) {
                 hexes_to_flip.push(*tile);
             }
         }
 
-        // ========================================
-        // Flip hexes that match the rules
         for hex in &hexes_to_flip {
             if let Some(e) = state.get_mut(hex) {
                 *e = !*e;
             }
         }
-
-        // =====================================================
-        // Status message. How many black facing up on each day
-        println!("Day {}: {}", i + 1, count_black(&state));
     }
-    // Err(anyhow!("Part 2 not implemented"))
     Ok(format!("{}", count_black(&state)))
 }
 
@@ -77,14 +64,14 @@ fn fill_grid(mut state: &mut HashMap<Hex, bool>, n: usize) {
     }
 }
 
-fn should_flip(tile: &Hex, history: &mut HashMap<Hex, bool>) -> bool {
+fn should_flip(tile: &Hex, history: &HashMap<Hex, bool>) -> bool {
     let n_black = NEIGHBOUR_DIRS
         .iter()
         .map(|(n, e)| Hex {
             north: tile.north + n,
             east: tile.east + e,
         })
-        .filter(|n| history.entry(*n).or_insert(false).clone())
+        .filter(|n| *history.get(n).unwrap_or(&false))
         .count();
 
     let tile_is_black = history.get(tile).unwrap();
