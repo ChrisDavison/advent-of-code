@@ -1,4 +1,3 @@
-#![allow(dead_code, unused_variables, unused_mut, unreachable_code)]
 use crate::prelude::*;
 
 const NEIGHBOUR_DIRS: [(f32, f32); 6] = [
@@ -19,7 +18,7 @@ pub fn day24() -> Result<()> {
 }
 
 fn count_black(floor: &HashMap<Hex, bool>) -> usize {
-    floor.iter().filter(|(k, v)| **v).count()
+    floor.values().filter(|v| **v).count()
 }
 
 fn part1(state: &HashMap<Hex, bool>) -> Result<String> {
@@ -29,14 +28,12 @@ fn part1(state: &HashMap<Hex, bool>) -> Result<String> {
 fn part2(mut state: &mut HashMap<Hex, bool>) -> Result<String> {
     let mut hexes_to_flip: Vec<Hex> = vec![];
 
-    fill_grid(&mut state, 50);
-
-    for i in 0..100 {
+    for _ in 0..100 {
         hexes_to_flip.clear();
 
         add_neighbours(&mut state);
 
-        for (tile, _) in state.iter() {
+        for tile in state.keys() {
             if should_flip(&tile, &state) {
                 hexes_to_flip.push(*tile);
             }
@@ -51,19 +48,6 @@ fn part2(mut state: &mut HashMap<Hex, bool>) -> Result<String> {
     Ok(format!("{}", count_black(&state)))
 }
 
-fn fill_grid(mut state: &mut HashMap<Hex, bool>, n: usize) {
-    let mut offset = 0f32;
-    for i in 0..2 * n {
-        for j in 0..2 * n {
-            let north = (i as f32 - n as f32) + offset;
-            let east = (j as f32 - n as f32) + offset;
-            let h = Hex { north, east };
-            let _ = state.entry(h).or_insert(false);
-        }
-        offset = if offset == 0f32 { 0.5 } else { 0f32 };
-    }
-}
-
 fn should_flip(tile: &Hex, history: &HashMap<Hex, bool>) -> bool {
     let n_black = NEIGHBOUR_DIRS
         .iter()
@@ -74,29 +58,25 @@ fn should_flip(tile: &Hex, history: &HashMap<Hex, bool>) -> bool {
         .filter(|n| *history.get(n).unwrap_or(&false))
         .count();
 
-    let tile_is_black = history.get(tile).unwrap();
-    if *tile_is_black {
+    if *history.get(tile).unwrap() {
+        // TILE is black
         n_black == 0 || n_black > 2
     } else {
         n_black == 2
     }
 }
 
-fn add_neighbours(mut state: &mut HashMap<Hex, bool>) {
-    let mut to_add = HashSet::new();
-    for tile in state.keys() {
+fn add_neighbours(state: &mut HashMap<Hex, bool>) {
+    let keys: Vec<Hex> = state.keys().cloned().collect();
+    for tile in keys {
         for dir in &NEIGHBOUR_DIRS {
-            let neighbour = Hex {
-                north: tile.north + dir.0,
-                east: tile.east + dir.1,
-            };
-            if !state.contains_key(&neighbour) {
-                to_add.insert(neighbour);
-            }
+            let _ = state
+                .entry(Hex {
+                    north: tile.north + dir.0,
+                    east: tile.east + dir.1,
+                })
+                .or_insert(false);
         }
-    }
-    for neighbour in to_add {
-        state.insert(neighbour, false);
     }
 }
 
@@ -113,40 +93,6 @@ fn get_starting_floor_state(coords: &[Hex]) -> HashMap<Hex, bool> {
 struct Hex {
     north: f32,
     east: f32,
-}
-
-impl Hex {
-    fn print_neighbours(&self) {
-        let nw = Hex {
-            north: self.north + 0.5,
-            east: self.east - 0.5,
-        };
-        let ne = Hex {
-            north: self.north + 0.5,
-            east: self.east + 0.5,
-        };
-        let sw = Hex {
-            north: self.north - 0.5,
-            east: self.east - 0.5,
-        };
-        let se = Hex {
-            north: self.north - 0.5,
-            east: self.east + 0.5,
-        };
-        let w = Hex {
-            north: self.north,
-            east: self.east - 1.0,
-        };
-        let e = Hex {
-            north: self.north,
-            east: self.east + 1.0,
-        };
-
-        let row0 = format!("\t{}\t{}", nw, ne);
-        let row1 = format!("{}\t{}\t{}", w, self, e);
-        let row2 = format!("\t{}\t{}", sw, se);
-        println!("{}\n{}\n{}\n", row0, row1, row2);
-    }
 }
 
 impl std::fmt::Display for Hex {
