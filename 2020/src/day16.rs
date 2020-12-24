@@ -1,5 +1,4 @@
-use anyhow::{anyhow, Result};
-use std::collections::{HashMap, HashSet};
+use crate::prelude::*;
 
 pub fn day16() -> Result<()> {
     let data = INPUT;

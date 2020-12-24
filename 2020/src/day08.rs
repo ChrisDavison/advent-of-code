@@ -1,13 +1,8 @@
-use anyhow::{anyhow, Result};
+use crate::prelude::*;
 
 pub fn day08() -> Result<()> {
     let data = INPUT;
-    let instructions: Vec<Instruction> = data
-        .lines()
-        .map(|x| x.trim())
-        .filter(|x| !x.is_empty())
-        .filter_map(|x| Some(x.parse().ok()?))
-        .collect();
+    let instructions: Vec<Instruction> = parse_each(data.lines());
 
     let (total, _) = part1(&instructions);
     println!("2020 08.1 -> {}", total);

@@ -1,6 +1,4 @@
-use anyhow::Result;
-use regex::Regex;
-use std::collections::{HashMap, HashSet};
+use crate::prelude::*;
 
 pub fn day19() -> Result<()> {
     println!("2020 19.1 -> {}", find_matches(&INPUT));

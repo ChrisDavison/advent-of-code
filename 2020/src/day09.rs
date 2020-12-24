@@ -1,11 +1,7 @@
-use anyhow::{anyhow, Result};
+use crate::prelude::*;
 
 pub fn day09() -> Result<()> {
-    let lines: Vec<i64> = INPUT
-        .split("\n")
-        .filter_map(|x| Some(x.parse::<i64>().ok()?))
-        .collect();
-
+    let lines: Vec<i64> = parse_each(INPUT.lines());
     let window = 25;
     println!("2020 09.1 -> {}", part1(&lines, window)?);
     println!("2020 09.2 -> {}", part2(&lines, window)?);

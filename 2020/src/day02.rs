@@ -1,5 +1,4 @@
-use crate::bool_xor;
-use anyhow::{anyhow, Result};
+use crate::prelude::*;
 
 pub fn day02() -> Result<()> {
     let data = INPUT;

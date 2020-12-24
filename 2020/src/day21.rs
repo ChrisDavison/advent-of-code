@@ -1,5 +1,4 @@
-use anyhow::Result;
-use std::collections::{HashMap, HashSet};
+use crate::prelude::*;
 
 pub fn day21() -> Result<()> {
     let (ingredients, allergen_map) = parse_data(&INPUT);

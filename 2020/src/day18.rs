@@ -1,4 +1,4 @@
-use anyhow::{anyhow, Result};
+use crate::prelude::*;
 
 pub fn day18() -> Result<()> {
     println!("2020 18.1 -> {}", part1(&INPUT)?);

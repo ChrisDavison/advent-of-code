@@ -1,15 +1,9 @@
-use crate::strides::Strides;
-use anyhow::Result;
-use itertools::Itertools;
-use std::collections::HashMap;
+use crate::prelude::*;
 
 const MONSTER: &str = "..................#.#....##....##....###.#..#..#..#..#..#...";
 
 pub fn day20() -> Result<()> {
-    let tiles: Vec<Tile> = INPUT
-        .split("\n\n")
-        .filter_map(|l| Some(l.parse().ok()?))
-        .collect();
+    let tiles: Vec<Tile> = parse_each(INPUT.split("\n\n"));
     let aligned = align_tiles(&tiles);
 
     println!("2020 20.1 -> {}", part1(&aligned));

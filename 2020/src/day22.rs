@@ -1,5 +1,4 @@
-use anyhow::Result;
-use std::collections::{HashSet, VecDeque};
+use crate::prelude::*;
 
 type Deck = VecDeque<usize>;
 

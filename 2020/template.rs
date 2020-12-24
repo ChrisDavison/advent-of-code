@@ -1,5 +1,5 @@
 #![allow(dead_code, unused_variables, unused_mut, unreachable_code)]
-use anyhow::{anyhow, Result};
+use crate::prelude::*;
 
 pub fn dayXX() -> Result<()> {
     println!("AoC2020 XX.1 -> {}", part1(&INPUT)?);

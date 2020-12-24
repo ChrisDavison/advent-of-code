@@ -22,9 +22,11 @@ mod day20;
 mod day21;
 mod day22;
 mod day23;
+mod day24;
 
 mod bool_xor;
 mod dict;
+mod prelude;
 mod strides;
 mod time_macro;
 extern crate lazy_static;
@@ -53,6 +55,7 @@ const SOLUTIONS: &[fn() -> anyhow::Result<()>] = &[
     day21::day21,
     day22::day22,
     day23::day23,
+    day24::day24,
 ];
 
 fn main() {

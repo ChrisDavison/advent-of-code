@@ -1,4 +1,4 @@
-use anyhow::Result;
+use crate::prelude::*;
 
 const ROW_LOWER_CHAR: char = 'F';
 const ROW_UPPER_CHAR: char = 'B';

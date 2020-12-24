@@ -1,11 +1,7 @@
-use anyhow::Result;
+use crate::prelude::*;
 
 pub fn day15() -> Result<()> {
-    let data = INPUT;
-    let data = data
-        .lines()
-        .filter_map(|x| Some(x.parse().ok()?))
-        .collect::<Vec<_>>();
+    let data = parse_each(INPUT.lines());
 
     part1(&data)?;
     part2(&data)?;

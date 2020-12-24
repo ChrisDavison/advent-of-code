@@ -1,5 +1,4 @@
-use anyhow::Result;
-use std::fmt::{self, Display};
+use crate::prelude::*;
 
 const CARDINALS: [char; 4] = ['N', 'E', 'S', 'W'];
 
