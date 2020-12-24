@@ -4,7 +4,7 @@ macro_rules! time_solution {
         let now = std::time::Instant::now();
         let res = $body;
         match res {
-            Ok(_) => println!("    Time: {:.2}ms", now.elapsed().as_nanos() as f64 / 1e6),
+            Ok(_) => println!("    Time: {:.2}ms", now.elapsed().as_nanos() / 1_000_000),
             Err(e) => eprintln!("D{}: {}", $day + 1, e),
         }
     };

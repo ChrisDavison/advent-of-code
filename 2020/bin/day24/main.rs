@@ -1,4 +1,4 @@
-use crate::prelude::*;
+use aoc::prelude::*;
 
 const NEIGHBOUR_DIRS: [(isize, isize); 6] = [
     (0, 1),  // east
@@ -11,11 +11,17 @@ const NEIGHBOUR_DIRS: [(isize, isize); 6] = [
 
 const WIDTH: usize = 150;
 
-pub fn day24() -> Result<()> {
+fn main() -> Result<()> {
+    let now = Instant::now();
     let tiles: Vec<Hex> = parse_each(INPUT.lines());
     let renovated = get_starting_floor_state(&tiles);
-    println!("2020 24.1 -> {}", part1(&renovated)?);
-    println!("2020 24.2 -> {}", part2(&renovated)?);
+    let p1 = part1(&renovated)?;
+    let after_1 = Instant::now();
+    println!("2020 24.1 -> {} ({}ms)", p1, as_ms(after_1 - now));
+    let p2 = part2(&renovated)?;
+    let after_2 = Instant::now();
+    println!("2020 24.2 -> {} ({}ms)", p2, as_ms(after_2 - after_1));
+
     Ok(())
 }
 

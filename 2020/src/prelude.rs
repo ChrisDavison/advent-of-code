@@ -8,6 +8,7 @@ pub use std::fmt::{self, Display};
 pub use std::hash::{Hash, Hasher};
 pub use std::iter::repeat;
 pub use std::str::FromStr;
+pub use std::time::Instant;
 
 #[allow(dead_code)]
 pub fn parse_each<T: FromStr, U: Iterator<Item = impl ToString>>(data: U) -> Vec<T> {
@@ -15,3 +16,7 @@ pub fn parse_each<T: FromStr, U: Iterator<Item = impl ToString>>(data: U) -> Vec
         .collect()
 }
 
+#[allow(dead_code)]
+pub fn as_ms(delta: std::time::Duration) -> u128 {
+    delta.as_nanos() / 1_000_000
+}
