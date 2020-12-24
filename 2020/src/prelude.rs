@@ -5,6 +5,7 @@ pub use itertools::Itertools;
 pub use regex::Regex;
 pub use std::collections::{HashMap, HashSet, VecDeque};
 pub use std::fmt::{self, Display};
+pub use std::hash::{Hash, Hasher};
 pub use std::iter::repeat;
 pub use std::str::FromStr;
 
@@ -13,3 +14,4 @@ pub fn parse_each<T: FromStr, U: Iterator<Item = impl ToString>>(data: U) -> Vec
     data.filter_map(|x| Some(x.to_string().parse().ok()?))
         .collect()
 }
+
