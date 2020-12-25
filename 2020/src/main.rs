@@ -25,12 +25,11 @@ mod day23;
 mod day24;
 mod day25;
 
-mod bool_xor;
-mod dict;
 mod prelude;
 mod strides;
-mod time_macro;
 extern crate lazy_static;
+
+use prelude::*;
 
 const SOLUTIONS: &[fn() -> anyhow::Result<()>] = &[
     day01::day01,
@@ -65,6 +64,7 @@ fn main() {
         .nth(1)
         .map(|x| x.parse::<usize>().ok())
         .flatten();
+    let started = Instant::now();
     for (day, function) in SOLUTIONS.iter().enumerate() {
         if let Some(d) = day_wanted {
             if day != d - 1 {
@@ -73,4 +73,5 @@ fn main() {
         }
         time_solution!(day, function());
     }
+    println!("Total: {}ms", as_ms(started.elapsed()));
 }

@@ -18,5 +18,37 @@ pub fn parse_each<T: FromStr, U: Iterator<Item = impl ToString>>(data: U) -> Vec
 
 #[allow(dead_code)]
 pub fn as_ms(delta: std::time::Duration) -> u128 {
-    delta.as_nanos() / 1_000_000
+    delta.as_millis()
+}
+
+#[macro_export]
+macro_rules! dict {
+    ( $($name:expr => $value:expr),+ ) => {
+        {
+        let mut hm = HashMap::new();
+        $(
+            hm.insert($name, $value);
+        )*
+        hm
+        }
+    }
+}
+
+#[macro_export]
+macro_rules! time_solution {
+    ($day:ident, $body:expr) => {
+        let now = std::time::Instant::now();
+        let res = $body;
+        match res {
+            Ok(_) => println!("    Time: {:.2}ms", now.elapsed().as_nanos() / 1_000_000),
+            Err(e) => eprintln!("D{}: {}", $day + 1, e),
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! bool_xor {
+    ($x:expr, $y:expr) => {
+        ($x && !$y) || ($y && !$x)
+    };
 }
