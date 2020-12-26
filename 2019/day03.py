@@ -1,4 +1,5 @@
 from prelude import *
+import numpy as np
 
 sample = """
 R75,D30,R83,U83,L12,D49,R71,U7,L72
@@ -18,24 +19,24 @@ U98,R91,D20,R16,D67,R40,U7,R15,U6,R7
 
 
 def get_path(instructions):
-    origin = (0, 0)
+    origin = np.complex(0, 0)
     path = set()
     total = 0
     for ins in instructions:
         dir = ins[0]
         num = int(ins[1:])
-        step = (0, 0)
+        step = np.complex(0, 0)
         if dir == 'R':
-            step = (1, 0)
+            step = np.complex(1, 0)
         elif dir == "L":
-            step = (-1, 0)
+            step = np.complex(-1, 0)
         elif dir == "U":
-            step = (0, 1)
+            step = np.complex(0, 1)
         else:
-            step = (0, -1)
+            step = np.complex(0, -1)
         for i in range(num):
             total += 1
-            origin = (origin[0] + step[0], origin[1] + step[1])
+            origin += step
             path.add((total, origin))
     return path
 
@@ -52,7 +53,7 @@ def part1(paths):
     intersect = set(points[0])
     for s in points[1:]:
         intersect &= set(s)
-    manh = min([int(np.abs(x) + np.abs(y)) for (x, y) in intersect])
+    manh = min([int(np.abs(c.real) + np.abs(c.imag)) for c in intersect])
     print(manh)
     clip.copy(manh)
 
