@@ -1,12 +1,13 @@
-use aoc::prelude::*;
+use aoc2020::*;
 
 const N_ITER_P1: usize = 100;
 const N_ITER_P2: usize = 10_000_000;
 
 fn main() -> Result<()> {
-    let data = INPUT;
-    println!("2020 23.1 -> {}", part1(&data, N_ITER_P1)?);
-    println!("2020 23.2 -> {}", part2(&data, N_ITER_P2)?);
+    let input = include_str!("input");
+    let input = parse_each(input.lines());
+    println!("2020 23.1 -> {}", part1(&input, N_ITER_P1)?);
+    println!("2020 23.2 -> {}", part2(&input, N_ITER_P2)?);
     Ok(())
 }
 
@@ -135,9 +136,6 @@ fn part2(data: &[usize], n: usize) -> Result<String> {
 
     Ok(format!("{:?}", game.score_p2()))
 }
-
-#[allow(dead_code)]
-const INPUT: [usize; 9] = [3, 1, 5, 6, 7, 9, 8, 2, 4];
 
 #[allow(dead_code)]
 const SAMPLE: [usize; 9] = [3, 8, 9, 1, 2, 5, 4, 6, 7];
