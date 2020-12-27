@@ -19,11 +19,9 @@ def req_rec(mass):
     return total
 
 p1 = sum([required(m) for m in data])
-print(p1)
+print(f"2019 1.1 -> {p1}")
 clip.copy(p1)
 
 p2 = sum([req_rec(m) for m in data])
-print(int(p2))
+print(f"2019 1.2 -> {p2}")
 clip.copy(int(p2))
-
-req_rec(100756)
