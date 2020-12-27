@@ -55,7 +55,7 @@ def part1(paths):
     for s in points[1:]:
         intersect &= set(s)
     manh = min([int(np.abs(c.real) + np.abs(c.imag)) for c in intersect])
-    print(manh)
+    print(f"2019 3.1 -> {manh}")
     clip.copy(manh)
 
 
@@ -73,7 +73,7 @@ def part2(paths):
                     i_total += s[0]
         if not min_total or i_total < min_total:
             min_total = i_total
-    print(min_total)
+    print(f"2019 3.2 -> {min_total}")
     clip.copy(min_total)
 
 

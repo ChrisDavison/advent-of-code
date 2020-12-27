@@ -13,7 +13,7 @@ def run_with_replace(data, a, b):
 
 def part1(data):
     ans = run_with_replace(data.copy(), 12, 2)
-    print(ans)
+    print(f"2019 2.1 ->", ans)
     clip.copy(ans)
     
 
@@ -23,7 +23,7 @@ def part2(data, target=19690720):
             out = run_with_replace(data.copy(), i, j)
             if out == target:
                 p2 = 100 * i + j
-                print(f"{p2}")
+                print(f"2019 2.2 -> {p2}")
                 clip.copy(f"{p2}")
                 return 
 

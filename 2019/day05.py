@@ -9,11 +9,11 @@ if __name__ == "__main__":
 
     data = [l for l in open('input/05').read().split(',')]
 
-    m = IntCode(data.copy(), inputs=[1], level=logging.WARNING)
+    m = IntCode(data, inputs=[1], level=logging.WARNING)
     m.run()
-    print("2019 5.1 ->", m.last_output())
+    print(f"2019 5.1 -> {m.last_output()}")
 
-    m = IntCode(data.copy(), inputs=[5], level=logging.WARNING)
+    m = IntCode(data, inputs=[5], level=logging.WARNING)
     m.run()
-    print("2019 5.2 ->", m.last_output())
+    print(f"2019 5.2 -> {m.last_output()}")
 
