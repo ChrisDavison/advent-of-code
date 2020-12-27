@@ -1,12 +1,14 @@
+#!/usr/bin/env python3
 from prelude import *
-from machine import Machine
+from intcode import IntCode
+import logging
 
 def run_with_replace(data, a, b):
     data[1] = a
     data[2] = b
-    m = Machine(data)
-    ans = m.run()
-    return ans
+    m = IntCode(data, level=logging.WARNING)
+    m.run()
+    return m.ops[0]
 
 
 def part1(data):

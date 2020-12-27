@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from prelude import *
 
 data = [int(l) for l in open('input/01').read().splitlines()]

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from prelude import *
 from collections import defaultdict
 
