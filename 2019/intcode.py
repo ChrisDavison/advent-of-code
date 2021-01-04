@@ -12,6 +12,18 @@ logging.basicConfig(
 class IntCode:
     """Represents an IntCode machine"""
     def __init__(self, opcodes, **kwargs):
+        """
+        Create a new IntCode machine with opcodes.
+
+        Keyword Arguments
+        -----------------
+        inputs : list [int]
+            Inputs to send to the machine for Opcode 3
+
+        level : logging level
+            What logging to use for the IntCode machine's debug messages
+
+        """
         self.ops = [int(i) for i in opcodes]
         self.ptr = 0
         self.halted = False
@@ -24,21 +36,31 @@ class IntCode:
         self.logger.debug("INPUTS %s", self.inputs)
 
     def run(self):
+        """
+        Run the IntCode machine until it halts or errors.
+        """
         while not self.halted:
             self.logger.debug("STEP: %s", self.ops[self.ptr:self.ptr+4])
             self.one_step()
         return self.ops[0]
 
     def parse_instr(self, s):
+        """
+        Read an opcode into list of params and codes.
+
+        Non-existent params are given value 0.
+        """
         s = str(s).rjust(5, "0")
         return [int(i) for i in str(s).rjust(5, "0")]
 
     def one_step(self):
+        """
+        Read and evaluate the next opcode.
+        """
         if self.halted:
             return self.ops[0]
         intcode = self.parse_instr(self.ops[self.ptr])
         self.ptr += 1
-        
 
         instrs = {
             1: self.add,
@@ -69,13 +91,18 @@ class IntCode:
         """
         if mode == 0:
             return int(self.ops[self.ops[self.ptr + offset]])
-        else:
-            return int(self.ops[self.ptr + offset])
+        return int(self.ops[self.ptr + offset])
     
     def set(self, offset, value):
+        """
+        Set a memory address to a value.
+        """
         self.ops[self.ops[self.ptr + offset]] = value
 
     def jump_true(self, intcode):
+        """
+        Jump the opcode pointer if a value is non-zero.
+        """
         first = self.get(0, intcode[2])
         second = self.get(1, intcode[1])
         if first != 0:
@@ -84,6 +111,9 @@ class IntCode:
             self.ptr += 2
 
     def jump_false(self, intcode):
+        """
+        Jump the opcode pointer if a value is zero.
+        """
         first = self.get(0, intcode[2])
         second = self.get(1, intcode[1])
         if first == 0:
@@ -92,12 +122,18 @@ class IntCode:
             self.ptr += 2
 
     def less_than(self, intcode):
+        """
+        Set a memory value to 1 or 0 based on <.
+        """
         first = self.get(0, intcode[2])
         second = self.get(1, intcode[1])
         self.set(2, 1 if first < second else 0)
         self.ptr += 3
 
     def equals(self, intcode):
+        """
+        Set a memory address to 1 or 0 based on equals.
+        """
         first = self.get(0, intcode[2])
         second = self.get(1, intcode[1])
         self.set(2, 1 if first == second else 0)
@@ -130,7 +166,7 @@ class IntCode:
         ops[first] = ...input...
         """
         store_at = int(self.ops[self.ptr])
-        popped = self.inputs.pop()
+        popped = self.inputs.pop(0)
         self.logger.debug("SAVE %s => ops[%s]", popped, store_at)
         self.logger.info("IN %s", popped)
         self.set(0, popped)
@@ -148,6 +184,9 @@ class IntCode:
         self.ptr += 1
 
     def last_output(self):
+        """
+        Return the last output the program transmitted.
+        """
         return self.outputs[-1]
 
     def halt(self, _intcode):
