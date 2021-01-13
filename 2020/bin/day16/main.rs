@@ -28,7 +28,7 @@ type Range = (usize, usize);
 type Ticket = Vec<usize>;
 
 fn part1(bad_fields: &[usize]) -> Result<()> {
-    println!("AoC2019 16.1 -> {}", bad_fields.iter().sum::<usize>());
+    println!("2020 16.1 -> {}", bad_fields.iter().sum::<usize>());
     Ok(())
 }
 
