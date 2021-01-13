@@ -13,7 +13,7 @@ const WIDTH: usize = 150;
 
 fn main() -> Result<()> {
     let input = include_str!("input");
-    let tiles: Vec<Hex> = parse_each(INPUT.lines());
+    let tiles: Vec<Hex> = parse_each(input.lines());
     let renovated = get_starting_floor_state(&tiles);
     println!("2020 24.1 -> {}", part1(&renovated)?);
     println!("2020 24.2 -> {}", part2(&renovated)?);
