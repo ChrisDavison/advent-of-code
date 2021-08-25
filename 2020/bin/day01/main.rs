@@ -10,6 +10,9 @@ fn main() -> Result<()> {
         .filter(|&x| x < TARGET)
         .collect();
 
+    let test = dict!("a" => 1, "b" => 2);
+    dbg!(test);
+
     println!("2020 01.1 -> {}", part1(&lines)?);
     println!("2020 01.2 -> {}", part2(&lines)?);
 
