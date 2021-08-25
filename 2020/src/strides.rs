@@ -4,7 +4,7 @@ use std::fmt;
 ///
 /// e.g. with array
 ///
-/// ````
+/// ```markdown
 /// [[1, 2, 3]
 ///  [4, 5, 6]
 ///  [7, 8, 9]]
@@ -12,7 +12,7 @@ use std::fmt;
 ///
 ///  and stride of width 2, height 2, an iteration would provide
 ///
-///  ```
+///  ```markdown
 ///  [[1, 2]
 ///   [4, 5]]
 ///

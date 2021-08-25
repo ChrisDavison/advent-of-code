@@ -228,7 +228,11 @@ mod tests {
 
     #[test]
     fn inner_parens_test() {
-        assert_eq!(find_inner_parens(&mut parse_tokens("1 + (2 + 3)")), (4, 10));
-        assert_eq!(find_inner_parens(&mut parse_tokens("(2 + 3) + 1")), (0, 6));
+        // parens are counted as 'objects'
+        // so the found parens are as the resulting vector of enum, not
+        // a string index
+        // e.g. [1, +, (, 2, +, 3, )] => (2, 6)
+        assert_eq!(find_inner_parens(&mut parse_tokens("1 + (2 + 3)")), (2, 6));
+        assert_eq!(find_inner_parens(&mut parse_tokens("(2 + 3) + 1")), (0, 4));
     }
 }
