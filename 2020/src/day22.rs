@@ -4,9 +4,9 @@ type Deck = VecDeque<usize>;
 
 pub fn day22() -> Result<()> {
     let input = include_str!("../input/day22");
-    let (mut a, mut b) = parse(input);
-    println!("2020 22.1 -> {}", part1(&mut a.clone(), &mut b.clone())?);
-    println!("2020 22.2 -> {}", part2(&mut a, &mut b)?);
+    let (a, b) = parse(input);
+    println!("2020 22.1 -> {}", part1(&a, &b)?);
+    println!("2020 22.2 -> {}", part2(&a, &b)?);
     Ok(())
 }
 
@@ -17,7 +17,9 @@ fn score(deck: &Deck) -> usize {
         .sum::<usize>()
 }
 
-fn part1<'a>(a: &'a mut Deck, b: &'a mut Deck) -> Result<String> {
+fn part1<'a>(a: &Deck, b: &Deck) -> Result<String> {
+    let mut a = a.clone();
+    let mut b = b.clone();
     while !(a.is_empty() || b.is_empty()) {
         let top_a = a.pop_front().unwrap();
         let top_b = b.pop_front().unwrap();
@@ -29,19 +31,22 @@ fn part1<'a>(a: &'a mut Deck, b: &'a mut Deck) -> Result<String> {
     }
 
     let winner = if a.is_empty() { b } else { a };
-    Ok(format!("{}", score(winner)))
+    Ok(format!("{}", score(&winner)))
 }
 
-fn part2(mut a: &mut Deck, mut b: &mut Deck) -> Result<String> {
-    let (winners_deck, _a_won) = play_recursive_game(&mut a, &mut b);
-    Ok(format!("{}", score(winners_deck)))
+fn part2(a: &Deck, b: &Deck) -> Result<String> {
+    let (winners_deck, _a_won) = play_recursive_game(&a, &b);
+    Ok(format!("{}", score(&winners_deck)))
 }
 
-fn play_recursive_game<'a>(a: &'a mut Deck, b: &'a mut Deck) -> (&'a Deck, bool) {
+fn play_recursive_game<'a>(a: &Deck, b: &Deck) -> (Deck, bool) {
+    let mut a = a.clone();
+    let mut b = b.clone();
+
     let mut history: HashSet<String> = HashSet::new();
 
     while !a.is_empty() && !b.is_empty() {
-        if !history.insert(stringify_decks(a, b)) {
+        if !history.insert(stringify_decks(&a, &b)) {
             return (a, true);
         }
         let top_a = a.pop_front().unwrap();
