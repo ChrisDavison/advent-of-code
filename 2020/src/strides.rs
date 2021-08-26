@@ -30,16 +30,16 @@ pub struct Strides<'a, T> {
     pub height: usize,
 }
 
-#[allow(dead_code)]
+#[allow(dead_code,clippy::ptr_arg)]
 impl<'a, T> Strides<'a, T>
 where
     T: Clone,
 {
     pub fn new(data: &'a Vec<Vec<T>>, width: usize, height: usize) -> Strides<T> {
         Strides {
-            data: data,
-            width: width,
-            height: height,
+            data,
+            width,
+            height,
             row_lim: data.len() - height,
             col_lim: data[0].len() - width + 1,
             row: 0,

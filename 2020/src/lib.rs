@@ -23,12 +23,11 @@ pub fn as_ms(delta: std::time::Duration) -> u128 {
 
 #[macro_export]
 macro_rules! time_solution {
-    ($day:ident, $body:expr) => {
+    ($daynum:literal, $day:ident) => {
         let now = std::time::Instant::now();
-        let res = $body;
-        match res {
+        match $day::$day() {
             Ok(_) => println!("    Time: {:.2}ms", now.elapsed().as_nanos() / 1_000_000),
-            Err(e) => eprintln!("D{}: {}", $day + 1, e),
+            Err(e) => eprintln!("D{}: {}", $daynum + 1, e),
         }
     };
 }
