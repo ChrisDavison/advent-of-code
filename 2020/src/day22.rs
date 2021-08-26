@@ -17,7 +17,7 @@ fn score(deck: &Deck) -> usize {
         .sum::<usize>()
 }
 
-fn part1<'a>(a: &Deck, b: &Deck) -> Result<String> {
+fn part1(a: &Deck, b: &Deck) -> Result<String> {
     let mut a = a.clone();
     let mut b = b.clone();
     while !(a.is_empty() || b.is_empty()) {
@@ -35,11 +35,11 @@ fn part1<'a>(a: &Deck, b: &Deck) -> Result<String> {
 }
 
 fn part2(a: &Deck, b: &Deck) -> Result<String> {
-    let (winners_deck, _a_won) = play_recursive_game(&a, &b);
+    let (winners_deck, _a_won) = play_recursive_game(a, b);
     Ok(format!("{}", score(&winners_deck)))
 }
 
-fn play_recursive_game<'a>(a: &Deck, b: &Deck) -> (Deck, bool) {
+fn play_recursive_game(a: &Deck, b: &Deck) -> (Deck, bool) {
     let mut a = a.clone();
     let mut b = b.clone();
 
@@ -53,8 +53,8 @@ fn play_recursive_game<'a>(a: &Deck, b: &Deck) -> (Deck, bool) {
         let top_b = b.pop_front().unwrap();
         let a_won = if top_a <= a.len() && top_b <= b.len() {
             let (_, a_won) = play_recursive_game(
-                &mut a.clone().iter().take(top_a).copied().collect(),
-                &mut b.clone().iter().take(top_b).copied().collect(),
+                &a.clone().iter().take(top_a).copied().collect(),
+                &b.clone().iter().take(top_b).copied().collect(),
             );
             a_won
         } else {
