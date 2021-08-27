@@ -4,27 +4,27 @@ const EMPTY: u8 = b'L';
 const TAKEN: u8 = b'#';
 const FLOOR: u8 = b'.';
 
-pub fn day11() -> Result<()> {
+pub fn day11() -> Result<String> {
     let input = include_str!("../input/day11");
     let seats = input
         .lines()
         .map(|x| x.bytes().collect())
         .collect::<Vec<Vec<_>>>();
-    part_1(&seats);
-    part_2(&seats);
-    Ok(())
+
+    let output = format!(
+        "2020 11.1 -> {}\n2020 11.1 -> {}",
+        part_1(&seats),
+        part_2(&seats)
+    );
+    Ok(output)
 }
 
 fn part_1(seats: &[Vec<u8>]) -> usize {
-    let result = iterate_till_stable(seats.to_vec(), &should_swap_p1);
-    println!("2020 11.1 -> {}", result);
-    result
+    iterate_till_stable(seats.to_vec(), &should_swap_p1)
 }
 
 fn part_2(seats: &[Vec<u8>]) -> usize {
-    let result = iterate_till_stable(seats.to_vec(), &should_swap_p2);
-    println!("2020 11.2 -> {}", result);
-    result
+    iterate_till_stable(seats.to_vec(), &should_swap_p2)
 }
 
 type Position = (usize, usize);

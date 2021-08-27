@@ -2,15 +2,16 @@ use aoc2020::*;
 
 const MONSTER: &str = "..................#.#....##....##....###.#..#..#..#..#..#...";
 
-pub fn day20() -> Result<()> {
+pub fn day20() -> Result<String> {
     let input = include_str!("../input/day20");
     let tiles: Vec<Tile> = parse_each(input.split("\n\n"));
     let aligned = align_tiles(&tiles);
 
-    println!("2020 20.1 -> {}", part1(&aligned));
-    println!("2020 20.2 -> {}", part2(&aligned)?);
-
-    Ok(())
+    Ok(format!(
+        "2020 20.1 -> {}\n2020 20.2 -> {}",
+        part1(&aligned),
+        part2(&aligned)?
+    ))
 }
 
 fn part1(tile_grid: &[Vec<Tile>]) -> String {

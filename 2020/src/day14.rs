@@ -1,11 +1,14 @@
 use aoc2020::*;
 
-pub fn day14() -> Result<()> {
+pub fn day14() -> Result<String> {
     let input = include_str!("../input/day14");
     let instructions: Vec<Op> = parse_each(input.lines());
-    part_1(&instructions)?;
-    part_2(&instructions)?;
-    Ok(())
+    let output = format!(
+        "2020 14.1 -> {}\n2020 14.2 -> {}",
+        part_1(&instructions)?,
+        part_2(&instructions)?
+    );
+    Ok(output)
 }
 
 #[derive(Debug, Copy, Clone, PartialEq)]
@@ -156,7 +159,6 @@ fn part_1(instructions: &[Op]) -> Result<usize> {
         }
     }
     let result = memory.iter().map(|(_k, v)| v).sum();
-    println!("2020 14.1 -> {}", result);
     Ok(result)
 }
 
@@ -173,7 +175,6 @@ fn part_2(instructions: &[Op]) -> Result<usize> {
         }
     }
     let result = memory.iter().map(|(_k, v)| v).sum();
-    println!("2020 14.2 -> {}", result);
     Ok(result)
 }
 

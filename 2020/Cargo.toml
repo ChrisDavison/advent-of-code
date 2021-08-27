@@ -19,3 +19,12 @@ path="src/lib.rs"
 [[bin]]
 name="aoc2020"
 path="src/main.rs"
+
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[bench]]
+name = "my_benchmark"
+harness = false
+path="src/my_benchmark.rs"

@@ -1,12 +1,14 @@
 use aoc2020::*;
 
-pub fn day21() -> Result<()> {
+pub fn day21() -> Result<String> {
     let input = include_str!("../input/day21");
     let (ingredients, allergen_map) = parse_data(input);
 
-    println!("2020 21.1 -> {}", part1(&ingredients, &allergen_map)?);
-    println!("2020 21.2 -> {}", part2(&allergen_map)?);
-    Ok(())
+    Ok(format!(
+        "2020 21.1 -> {}\n2020 21.2 -> {}",
+        part1(&ingredients, &allergen_map)?,
+        part2(&allergen_map)?
+    ))
 }
 
 fn part1(ingredients: &[HashSet<&str>], allergens: &HashMap<&str, &str>) -> Result<String> {

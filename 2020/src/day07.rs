@@ -1,16 +1,17 @@
 use aoc2020::*;
 
-pub fn day07() -> Result<()> {
+pub fn day07() -> Result<String> {
     let data = include_str!("../input/day07");
     let tidy_data = data.lines().map(|x| x.trim()).filter(|x| !x.is_empty());
     let bagmap = create_bagmap(tidy_data);
 
     let n_containing_gold = bags_containing_gold(&bagmap) - 1;
-    println!("2020 07.1 -> {}", n_containing_gold);
-
     let n_inside_gold = total_bags(&bagmap, "shiny gold") - 1;
-    println!("2020 07.2 -> {}", n_inside_gold);
-    Ok(())
+    let output = format!(
+        "2020 07.1 -> {}\n2020 07.2 -> {}",
+        n_containing_gold, n_inside_gold
+    );
+    Ok(output)
 }
 
 type BagMap = HashMap<String, Vec<(String, usize)>>;
@@ -24,11 +25,9 @@ fn create_bagmap<'a>(data: impl Iterator<Item = &'a str>) -> BagMap {
         let source = parts
             .next()
             .map(|x| x.trim().trim_end_matches("bags").trim());
-        let inner_bags = parts.next().map(|x| {
-            x.split(',')
-                .filter_map(|x| parse_bag(x).ok())
-                .collect()
-        });
+        let inner_bags = parts
+            .next()
+            .map(|x| x.split(',').filter_map(|x| parse_bag(x).ok()).collect());
         bagmap.insert(source.unwrap().to_string(), inner_bags.unwrap());
     }
     bagmap

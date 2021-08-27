@@ -1,12 +1,11 @@
 use aoc2020::*;
 
-pub fn day25() -> Result<()> {
+pub fn day25() -> Result<String> {
     // let (card, door) = SAMPLE;
     let input = include_str!("../input/day25");
     let input = parse_each(input.lines());
     let (card, door) = (input[0], input[1]);
-    println!("2020 25 -> {}", run(card, door)?);
-    Ok(())
+    Ok(format!("2020 25 -> {}", run(card, door)?))
 }
 
 fn run(card: usize, door: usize) -> Result<String> {

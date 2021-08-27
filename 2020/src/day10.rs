@@ -1,12 +1,16 @@
 use aoc2020::*;
 
-pub fn day10() -> Result<()> {
+pub fn day10() -> Result<String> {
     let data = include_str!("../input/day10");
     let mut data = parse_each(data.lines());
     data.sort_unstable();
-    part_1(&data);
-    part_2(&data);
-    Ok(())
+    let output = format!(
+        "2020 10.1 -> {}\n2020 10.2 -> {}",
+        part_1(&data),
+        part_2(&data)
+    );
+
+    Ok(output)
 }
 
 fn part_1(data: &[usize]) -> usize {
@@ -18,7 +22,6 @@ fn part_1(data: &[usize]) -> usize {
                 3 => (ones, threes + 1),
                 _ => unreachable!(),
             });
-    println!("2020 10.1 -> {}", ones * threes);
     ones * threes
 }
 
@@ -34,7 +37,6 @@ fn part_2(data: &[usize]) -> usize {
             _ => 1,
         })
         .product::<usize>();
-    println!("2020 10.2 -> {}", product);
     product
 }
 

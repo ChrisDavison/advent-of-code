@@ -1,14 +1,16 @@
 use aoc2020::*;
 
-pub fn day17() -> Result<()> {
+pub fn day17() -> Result<String> {
     let input = include_str!("../input/day17");
     let data: Vec<Vec<u8>> = input
         .lines()
         .map(|x| x.chars().map(|y| if y == '#' { 1 } else { 0 }).collect())
         .collect();
-    part1(&data);
-    part2(&data);
-    Ok(())
+    Ok(format!(
+        "2020 17.1 -> {}\n2020 17.2 -> {}",
+        part1(&data)?,
+        part2(&data)?
+    ))
 }
 
 /// Toggle rule
@@ -29,7 +31,7 @@ type Position = (usize, usize, usize);
 type Position4d = (usize, usize, usize, usize);
 
 /// Conway's game of life in 3d -- cellular automata
-fn part1(data: &[Vec<u8>]) {
+fn part1(data: &[Vec<u8>]) -> Result<usize> {
     let dirs_3d = (-1..=1)
         .cartesian_product(-1..=1)
         .cartesian_product(-1..=1)
@@ -80,11 +82,11 @@ fn part1(data: &[Vec<u8>]) {
             }
         }
     }
-    println!("2020 17.1 -> {}", active.len());
+    Ok(active.len())
 }
 
 /// Conway's game of life in 4d -- cellular automata
-fn part2(data: &[Vec<u8>]) {
+fn part2(data: &[Vec<u8>]) -> Result<usize> {
     let dirs_4d = (-1..=1)
         .cartesian_product(-1..=1)
         .cartesian_product(-1..=1)
@@ -139,7 +141,7 @@ fn part2(data: &[Vec<u8>]) {
             }
         }
     }
-    println!("2020 17.2 -> {}", active.len());
+    Ok(active.len())
 }
 
 fn delta_idx(idx: usize, delta: isize) -> usize {

@@ -2,12 +2,14 @@ use aoc2020::*;
 
 type Deck = VecDeque<usize>;
 
-pub fn day22() -> Result<()> {
+pub fn day22() -> Result<String> {
     let input = include_str!("../input/day22");
     let (a, b) = parse(input);
-    println!("2020 22.1 -> {}", part1(&a, &b)?);
-    println!("2020 22.2 -> {}", part2(&a, &b)?);
-    Ok(())
+    Ok(format!(
+        "2020 22.1 -> {}\n2020 22.2 -> {}",
+        part1(&a, &b)?,
+        part2(&a, &b)?
+    ))
 }
 
 fn score(deck: &Deck) -> usize {

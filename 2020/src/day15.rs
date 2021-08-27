@@ -1,12 +1,16 @@
 use aoc2020::*;
 
-pub fn day15() -> Result<()> {
+pub fn day15() -> Result<String> {
     let input = include_str!("../input/day15");
     let data = parse_each(input.lines());
 
-    part1(&data)?;
-    part2(&data)?;
-    Ok(())
+    let output = format!(
+        "2020 15.1 -> {}\n2020 15.2 -> {}",
+        part1(&data)?,
+        part2(&data)?
+    );
+
+    Ok(output)
 }
 
 fn solve(data: &[usize], target: usize) -> Result<usize> {
@@ -30,13 +34,11 @@ fn solve(data: &[usize], target: usize) -> Result<usize> {
 
 fn part1(data: &[usize]) -> Result<usize> {
     let last_spoken = solve(data, 2020)?;
-    println!("2020 15.1 -> {}", last_spoken);
     Ok(last_spoken)
 }
 
 fn part2(data: &[usize]) -> Result<usize> {
     let last_spoken = solve(data, 30_000_000)?;
-    println!("2020 15.1 -> {}", last_spoken);
     Ok(last_spoken)
 }
 

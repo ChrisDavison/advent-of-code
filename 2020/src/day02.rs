@@ -1,18 +1,25 @@
 use aoc2020::*;
 
-pub fn day02() -> Result<()> {
+pub fn day02() -> Result<String> {
     let data = include_str!("../input/day02");
     let passwords: Vec<_> = data
         .lines()
         .filter_map(|x| parse_password(x.trim()).ok())
         .collect();
 
-    let valid = passwords.iter().filter(|x| valid_rule_part1(x)).count();
-    println!("2020 02.1 -> {}", valid);
+    let valid = part1(&passwords);
+    let valid2 = part2(&passwords);
 
-    let valid2 = passwords.iter().filter(|x| valid_rule_part2(x)).count();
-    println!("2020 02.2 -> {}", valid2);
-    Ok(())
+    let output = format!("2020 02.1 -> {}\n2020 02.2 -> {}", valid, valid2);
+    Ok(output)
+}
+
+fn part1(passwords: &[PasswordLine]) -> usize {
+    passwords.iter().filter(|x| valid_rule_part1(x)).count()
+}
+
+fn part2(passwords: &[PasswordLine]) -> usize {
+    passwords.iter().filter(|x| valid_rule_part2(x)).count()
 }
 
 #[derive(Debug)]
@@ -69,6 +76,7 @@ fn valid_rule_part2(pw: &PasswordLine) -> bool {
 }
 
 #[cfg(test)]
+#[allow(unused_imports)]
 mod tests {
     use super::*;
 

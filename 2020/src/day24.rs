@@ -11,13 +11,15 @@ const NEIGHBOUR_DIRS: [(isize, isize); 6] = [
 
 const WIDTH: usize = 150;
 
-pub fn day24() -> Result<()> {
+pub fn day24() -> Result<String> {
     let input = include_str!("../input/day24");
     let tiles: Vec<Hex> = parse_each(input.lines());
     let renovated = get_starting_floor_state(&tiles);
-    println!("2020 24.1 -> {}", part1(&renovated)?);
-    println!("2020 24.2 -> {}", part2(&renovated)?);
-    Ok(())
+    Ok(format!(
+        "2020 24.1 -> {}\n2020 24.2 -> {}",
+        part1(&renovated)?,
+        part2(&renovated)?
+    ))
 }
 
 fn count_black(floor: &HashMap<Hex, bool>) -> usize {
@@ -117,7 +119,6 @@ impl PartialEq for Hex {
         self.north == other.north && self.east == other.east
     }
 }
-
 
 impl Eq for Hex {}
 

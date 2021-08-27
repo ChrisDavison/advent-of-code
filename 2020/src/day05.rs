@@ -5,7 +5,7 @@ const ROW_UPPER_CHAR: char = 'B';
 const COL_LOWER_CHAR: char = 'L';
 const COL_UPPER_CHAR: char = 'R';
 
-pub fn day05() -> Result<()> {
+pub fn day05() -> Result<String> {
     let data = include_str!("../input/day05");
     let tidy_data: Vec<&str> = data.lines().map(|x| x.trim()).collect();
 
@@ -16,10 +16,8 @@ pub fn day05() -> Result<()> {
         .filter(|pair| (pair[1] - pair[0]) == 2)
         .map(|pair| pair[0] + 1)
         .collect::<Vec<i64>>()[0];
-    println!("2020 05.1 -> {}", id1);
-    println!("2020 05.2 -> {}", id2);
-
-    Ok(())
+    let output = format!("2020 05.1 -> {}\n2020 05.2 -> {}", id1, id2);
+    Ok(output)
 }
 
 fn sorted_seat_ids(data: &[&str]) -> Vec<i64> {

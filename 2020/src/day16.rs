@@ -1,6 +1,6 @@
 use aoc2020::*;
 
-pub fn day16() -> Result<()> {
+pub fn day16() -> Result<String> {
     let data = include_str!("../input/day16");
 
     let (rules, my_ticket, other_tickets) = parse_data(data)?;
@@ -18,29 +18,30 @@ pub fn day16() -> Result<()> {
             }
         });
 
-    part1(&bad_fields)?;
-    part2(&rules, my_ticket, &valid_tickets)?;
-    Ok(())
+    let output = format!(
+        "2020 16.1 -> {}\n2020 16.2 -> {}",
+        part1(&bad_fields)?,
+        part2(&rules, my_ticket, &valid_tickets)?
+    );
+    Ok(output)
 }
 
 type RuleSet = HashMap<String, (Range, Range)>;
 type Range = (usize, usize);
 type Ticket = Vec<usize>;
 
-fn part1(bad_fields: &[usize]) -> Result<()> {
-    println!("2020 16.1 -> {}", bad_fields.iter().sum::<usize>());
-    Ok(())
+fn part1(bad_fields: &[usize]) -> Result<usize> {
+    Ok(bad_fields.iter().sum::<usize>())
 }
 
-fn part2(rules: &RuleSet, my: Ticket, tickets: &[Ticket]) -> Result<()> {
+fn part2(rules: &RuleSet, my: Ticket, tickets: &[Ticket]) -> Result<usize> {
     let product_of_my_departure_columns: usize = my
         .iter()
         .zip(find_rule_order(rules, tickets).iter())
         .filter(|(_v, name)| name.contains("departure"))
         .map(|(v, _)| v)
         .product();
-    println!("2020 16.2 -> {}", product_of_my_departure_columns);
-    Ok(())
+    Ok(product_of_my_departure_columns)
 }
 
 fn find_rule_order(rules: &RuleSet, tickets: &[Ticket]) -> Vec<String> {
