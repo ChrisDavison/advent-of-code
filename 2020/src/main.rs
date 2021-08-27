@@ -28,6 +28,7 @@ mod day25;
 
 fn main() {
     let start = std::time::Instant::now();
+
     time_solution! {1, day01};
     time_solution! {2, day02};
     time_solution! {3, day03};
@@ -53,6 +54,7 @@ fn main() {
     time_solution! {23, day23};
     time_solution! {24, day24};
     time_solution! {25, day25};
+
     println!(
         "TOTAL TIME: {:.2}ms",
         start.elapsed().as_nanos() / 1_000_000

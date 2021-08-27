@@ -3,12 +3,14 @@ use aoc2020::*;
 const N_ITER_P1: usize = 100;
 const N_ITER_P2: usize = 10_000_000;
 
-pub fn day23() -> Result<()> {
+pub fn day23() -> Result<String> {
     let input = include_str!("../input/day23");
     let input = parse_each(input.lines());
-    println!("2020 23.1 -> {}", part1(&input, N_ITER_P1)?);
-    println!("2020 23.2 -> {}", part2(&input, N_ITER_P2)?);
-    Ok(())
+    Ok(format!(
+        "2020 23.1 -> {}\n2020 23.2 -> {}",
+        part1(&input, N_ITER_P1)?,
+        part2(&input, N_ITER_P2)?
+    ))
 }
 
 #[derive(Debug, Clone, PartialEq)]

@@ -1,6 +1,6 @@
 use aoc2020::*;
 
-pub fn day06() -> Result<()> {
+pub fn day06() -> Result<String> {
     let data = include_str!("../input/day06");
     let data: Vec<_> = data.split("\n\n").collect();
     let result = count_answers(&data, count_questions_anyone_answered)
@@ -9,9 +9,8 @@ pub fn day06() -> Result<()> {
     let result2 = count_answers(&data, count_questions_everyone_answered)
         .iter()
         .sum::<usize>();
-    println!("2020 06.1 -> {}", result);
-    println!("2020 06.2 -> {}", result2);
-    Ok(())
+    let output = format!("2020 06.1 -> {}\n2020 06.2 -> {}", result, result2);
+    Ok(output)
 }
 
 fn count_answers(s: &[&str], counter: fn(&&str) -> usize) -> Vec<usize> {

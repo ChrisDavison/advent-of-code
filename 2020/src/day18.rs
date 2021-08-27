@@ -1,10 +1,12 @@
 use aoc2020::*;
 
-pub fn day18() -> Result<()> {
+pub fn day18() -> Result<String> {
     let input = include_str!("../input/day18");
-    println!("2020 18.1 -> {}", part1(input)?);
-    println!("2020 18.2 -> {}", part2(input)?);
-    Ok(())
+    Ok(format!(
+        "2020 18.1 -> {}\n2020 18.2 -> {}",
+        part1(input)?,
+        part2(input)?
+    ))
 }
 
 fn part1(data: &str) -> Result<String> {

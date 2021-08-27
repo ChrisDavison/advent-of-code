@@ -30,7 +30,7 @@ pub struct Strides<'a, T> {
     pub height: usize,
 }
 
-#[allow(dead_code,clippy::ptr_arg)]
+#[allow(dead_code, clippy::ptr_arg)]
 impl<'a, T> Strides<'a, T>
 where
     T: Clone,

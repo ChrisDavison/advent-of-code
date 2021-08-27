@@ -1,15 +1,13 @@
 use aoc2020::*;
 
-pub fn day08() -> Result<()> {
+pub fn day08() -> Result<String> {
     let data = include_str!("../input/day08");
     let instructions: Vec<Instruction> = parse_each(data.lines());
 
     let (total, _) = part1(&instructions);
-    println!("2020 08.1 -> {}", total);
-
     let total2 = part2(&instructions);
-    println!("2020 08.2 -> {}", total2);
-    Ok(())
+    let output = format!("2020 08.1 -> {}\n2020 08.2 -> {}", total, total2);
+    Ok(output)
 }
 
 fn part1(instructions: &[Instruction]) -> (i64, bool) {

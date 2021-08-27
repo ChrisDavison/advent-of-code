@@ -2,14 +2,16 @@ use aoc2020::*;
 
 const CARDINALS: [char; 4] = ['N', 'E', 'S', 'W'];
 
-pub fn day12() -> Result<()> {
+pub fn day12() -> Result<String> {
     let data = include_str!("../input/day12");
     let instructions: Vec<(char, usize)> = parse_instructions(data);
 
-    println!("2020 12.1 -> {}", part1(&instructions));
-    println!("2020 12.2 -> {}", part2(&instructions));
-
-    Ok(())
+    let output = format!(
+        "2020 12.1 -> {}\n2020 12.2 -> {}",
+        part1(&instructions),
+        part2(&instructions)
+    );
+    Ok(output)
 }
 
 fn parse_instructions(s: &str) -> Vec<(char, usize)> {

@@ -1,12 +1,13 @@
 use aoc2020::*;
 
-pub fn day19() -> Result<()> {
+pub fn day19() -> Result<String> {
     let input = include_str!("../input/day19");
-    println!("2020 19.1 -> {}", find_matches(input));
     let input2 = include_str!("../input/day19_2");
-    println!("2020 19.2 -> {}", find_matches(input2));
-
-    Ok(())
+    Ok(format!(
+        "2020 19.1 -> {}\n2020 19.2 -> {}",
+        find_matches(input),
+        find_matches(input2)
+    ))
 }
 
 fn find_matches(data: &str) -> String {

@@ -26,7 +26,11 @@ macro_rules! time_solution {
     ($daynum:literal, $day:ident) => {
         let now = std::time::Instant::now();
         match $day::$day() {
-            Ok(_) => println!("    Time: {:.2}ms", now.elapsed().as_nanos() / 1_000_000),
+            Ok(s) => println!(
+                "{}\n    Time: {:.2}ms",
+                s,
+                now.elapsed().as_nanos() / 1_000_000
+            ),
             Err(e) => eprintln!("D{}: {}", $daynum + 1, e),
         }
     };

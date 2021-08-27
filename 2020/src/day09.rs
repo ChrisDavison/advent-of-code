@@ -1,12 +1,15 @@
 use aoc2020::*;
 
-pub fn day09() -> Result<()> {
+pub fn day09() -> Result<String> {
     let data = include_str!("../input/day09");
     let lines: Vec<i64> = parse_each(data.lines());
     let window = 25;
-    println!("2020 09.1 -> {}", part1(&lines, window)?);
-    println!("2020 09.2 -> {}", part2(&lines, window)?);
-    Ok(())
+    let output = format!(
+        "2020 09.1 -> {}\n2020 09.2 -> {}",
+        part1(&lines, window)?,
+        part2(&lines, window)?
+    );
+    Ok(output)
 }
 
 fn part1(lines: &[i64], window: usize) -> Result<String> {

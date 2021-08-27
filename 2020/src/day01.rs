@@ -2,7 +2,7 @@ use aoc2020::*;
 
 const TARGET: i32 = 2020;
 
-pub fn day01() -> Result<()> {
+pub fn day01() -> Result<String> {
     let data = include_str!("../input/day01");
     let lines: HashSet<i32> = data
         .lines()
@@ -10,10 +10,12 @@ pub fn day01() -> Result<()> {
         .filter(|&x| x < TARGET)
         .collect();
 
-    println!("2020 01.1 -> {}", part1(&lines)?);
-    println!("2020 01.2 -> {}", part2(&lines)?);
-
-    Ok(())
+    let output = format!(
+        "2020 01.1 -> {}\n2020 01.2 -> {}",
+        part1(&lines)?,
+        part2(&lines)?
+    );
+    Ok(output)
 }
 
 fn part1(data: &HashSet<i32>) -> Result<String> {

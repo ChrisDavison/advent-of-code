@@ -1,15 +1,18 @@
 use aoc2020::*;
 
-pub fn day04() -> anyhow::Result<()> {
+pub fn day04() -> anyhow::Result<String> {
     let data = include_str!("../input/day04");
     let n_simple_passports = data
         .split("\n\n")
         .filter(|entry| has_all_fields(entry))
         .count();
     let passports: Vec<Passport> = parse_each(data.split("\n\n"));
-    println!("2020 04.1 -> {}", n_simple_passports);
-    println!("2020 04.2 -> {}", passports.len());
-    Ok(())
+    let output = format!(
+        "2020 04.1 -> {}\n2020 04.2 -> {}",
+        n_simple_passports,
+        passports.len()
+    );
+    Ok(output)
 }
 
 enum Height {
