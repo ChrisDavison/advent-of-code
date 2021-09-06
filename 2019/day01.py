@@ -3,7 +3,7 @@ from prelude import *
 
 data = [int(l) for l in open('input/01').read().splitlines()]
 
-print(data[:5])
+# print(data[:5])
 
 def required(mass):
     return np.floor(mass / 3) - 2
@@ -11,7 +11,7 @@ def required(mass):
 def req_rec(mass):
     total = 0
     while mass > 0:
-        print(mass, total)
+        # print(mass, total)
         mass = required(mass)
         if mass < 0:
             break
