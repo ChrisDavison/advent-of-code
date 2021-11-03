@@ -1,0 +1,663 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/davison/code/advent-of-code/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	/1ed3fb28/
+0	2020/target/.rustc_info.json	/^{"rustc_fingerprint":1907800068433887222,"outputs":{"4476964694761187371":["___\\nlib___.rlib\\n/;"	s	array:outputs.1164083562126845933
+0	2020/target/.rustc_info.json	/^{"rustc_fingerprint":1907800068433887222,"outputs":{"4476964694761187371":["___\\nlib___.rlib\\n/;"	s	array:outputs.16929990295604814582
+0	2020/target/.rustc_info.json	/^{"rustc_fingerprint":1907800068433887222,"outputs":{"4476964694761187371":["___\\nlib___.rlib\\n/;"	s	array:outputs.4476964694761187371
+0	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	a	array:deps
+0	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	n	array:deps.0
+0	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	o	array:local
+0	2020/target/release/.fingerprint/anyhow-075cd8313d57d00e/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[142231931794/;"	a	array:deps
+0	2020/target/release/.fingerprint/anyhow-075cd8313d57d00e/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[142231931794/;"	n	array:deps.0
+0	2020/target/release/.fingerprint/anyhow-075cd8313d57d00e/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[142231931794/;"	o	array:local
+0	2020/target/release/.fingerprint/anyhow-c4fbccab1d48c9a4/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	o	array:local
+0	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	a	array:deps
+0	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	n	array:deps.0
+0	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	o	array:local
+0	2020/target/release/.fingerprint/either-2fd2192c7ceb2021/lib-either.json	/^{"rustc":7210524046684111384,"features":"[]","target":308832794540006558,"profile":4339006351771/;"	o	array:local
+0	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	a	array:deps
+0	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	n	array:deps.0
+0	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	o	array:local
+0	2020/target/release/.fingerprint/lazy_static-59e9f7d6f71f09f6/lib-lazy_static.json	/^{"rustc":7210524046684111384,"features":"[]","target":3310758268438181623,"profile":433900635177/;"	o	array:local
+0	2020/target/release/.fingerprint/memchr-75657146e08f52c9/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[386048284104/;"	a	array:deps
+0	2020/target/release/.fingerprint/memchr-75657146e08f52c9/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[386048284104/;"	n	array:deps.0
+0	2020/target/release/.fingerprint/memchr-75657146e08f52c9/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[386048284104/;"	o	array:local
+0	2020/target/release/.fingerprint/memchr-7fece086357723de/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	o	array:local
+0	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	a	array:deps
+0	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	n	array:deps.0
+0	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	o	array:local
+0	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	a	array:deps
+0	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	n	array:deps.0
+0	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	n	array:deps.1
+0	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	n	array:deps.2
+0	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	o	array:local
+0	2020/target/release/.fingerprint/regex-syntax-afdb66daa1b66d14/lib-regex-syntax.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"unicode\\", \\"unicode-age\\", \\"un/;"	o	array:local
+1	2020/target/.rustc_info.json	/^{"rustc_fingerprint":1907800068433887222,"outputs":{"4476964694761187371":["___\\nlib___.rlib\\n/;"	s	array:outputs.1164083562126845933
+1	2020/target/.rustc_info.json	/^{"rustc_fingerprint":1907800068433887222,"outputs":{"4476964694761187371":["___\\nlib___.rlib\\n/;"	s	array:outputs.16929990295604814582
+1	2020/target/.rustc_info.json	/^{"rustc_fingerprint":1907800068433887222,"outputs":{"4476964694761187371":["___\\nlib___.rlib\\n/;"	s	array:outputs.4476964694761187371
+1	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	s	array:deps.0
+1	2020/target/release/.fingerprint/anyhow-075cd8313d57d00e/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[142231931794/;"	s	array:deps.0
+1	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	s	array:deps.0
+1	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	s	array:deps.0
+1	2020/target/release/.fingerprint/memchr-75657146e08f52c9/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[386048284104/;"	s	array:deps.0
+1	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	s	array:deps.0
+1	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	a	array:deps
+1	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	s	array:deps.0
+1	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	s	array:deps.1
+1	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	s	array:deps.2
+1164083562126845933	2020/target/.rustc_info.json	/^{"rustc_fingerprint":1907800068433887222,"outputs":{"4476964694761187371":["___\\nlib___.rlib\\n/;"	a	object:outputs
+16929990295604814582	2020/target/.rustc_info.json	/^{"rustc_fingerprint":1907800068433887222,"outputs":{"4476964694761187371":["___\\nlib___.rlib\\n/;"	a	object:outputs
+2	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	b	array:deps.0
+2	2020/target/release/.fingerprint/anyhow-075cd8313d57d00e/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[142231931794/;"	b	array:deps.0
+2	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	b	array:deps.0
+2	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	b	array:deps.0
+2	2020/target/release/.fingerprint/memchr-75657146e08f52c9/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[386048284104/;"	b	array:deps.0
+2	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	b	array:deps.0
+2	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	a	array:deps
+2	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	b	array:deps.0
+2	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	b	array:deps.1
+2	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	b	array:deps.2
+3	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	n	array:deps.0
+3	2020/target/release/.fingerprint/anyhow-075cd8313d57d00e/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[142231931794/;"	n	array:deps.0
+3	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	n	array:deps.0
+3	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	n	array:deps.0
+3	2020/target/release/.fingerprint/memchr-75657146e08f52c9/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[386048284104/;"	n	array:deps.0
+3	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	n	array:deps.0
+3	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	n	array:deps.0
+3	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	n	array:deps.1
+3	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	n	array:deps.2
+4476964694761187371	2020/target/.rustc_info.json	/^{"rustc_fingerprint":1907800068433887222,"outputs":{"4476964694761187371":["___\\nlib___.rlib\\n/;"	a	object:outputs
+Acc	2020/src/day08.rs	/^    Acc(i64),$/;"	e	enum:Instruction
+Advent of Code	README.md	/^# Advent of Code$/;"	c
+AocDay01	2019/adventofcode.ex	/^defmodule AocDay01 do$/;"	m
+AocDay02	2019/adventofcode.ex	/^defmodule AocDay02 do$/;"	m
+BagCache	2020/src/day07.rs	/^type BagCache = HashMap<String, bool>;$/;"	t
+BagMap	2020/src/day07.rs	/^type BagMap = HashMap<String, Vec<(String, usize)>>;$/;"	t
+Bit	2020/src/day14.rs	/^enum Bit {$/;"	g
+BitMask	2020/src/day14.rs	/^type BitMask = [Bit; 36];$/;"	t
+CheckDepInfo	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	o	object:local.0
+CheckDepInfo	2020/target/release/.fingerprint/anyhow-c4fbccab1d48c9a4/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	o	object:local.0
+CheckDepInfo	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	o	object:local.0
+CheckDepInfo	2020/target/release/.fingerprint/either-2fd2192c7ceb2021/lib-either.json	/^{"rustc":7210524046684111384,"features":"[]","target":308832794540006558,"profile":4339006351771/;"	o	object:local.0
+CheckDepInfo	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	o	object:local.0
+CheckDepInfo	2020/target/release/.fingerprint/lazy_static-59e9f7d6f71f09f6/lib-lazy_static.json	/^{"rustc":7210524046684111384,"features":"[]","target":3310758268438181623,"profile":433900635177/;"	o	object:local.0
+CheckDepInfo	2020/target/release/.fingerprint/memchr-7fece086357723de/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	o	object:local.0
+CheckDepInfo	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	o	object:local.0
+CheckDepInfo	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	o	object:local.0
+CheckDepInfo	2020/target/release/.fingerprint/regex-syntax-afdb66daa1b66d14/lib-regex-syntax.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"unicode\\", \\"unicode-age\\", \\"un/;"	o	object:local.0
+Cm	2020/src/day04.rs	/^    Cm(usize),$/;"	e	enum:Height
+CupGame	2020/src/day23.rs	/^impl CupGame {$/;"	c
+CupGame	2020/src/day23.rs	/^struct CupGame {$/;"	s
+Deck	2020/src/day22.rs	/^type Deck = VecDeque<usize>;$/;"	t
+Direction	2020/src/day20.rs	/^enum Direction {$/;"	g
+E	2020/target/release/build/anyhow-075cd8313d57d00e/out/probe.rs	/^    impl Display for E {$/;"	c
+E	2020/target/release/build/anyhow-075cd8313d57d00e/out/probe.rs	/^    impl Error for E {$/;"	c
+E	2020/target/release/build/anyhow-075cd8313d57d00e/out/probe.rs	/^    struct E;$/;"	s
+East	2020/src/day20.rs	/^    East,$/;"	e	enum:Direction
+Err	2020/src/day04.rs	/^    type Err = anyhow::Error;$/;"	t	implementation:Height
+Err	2020/src/day04.rs	/^    type Err = anyhow::Error;$/;"	t	implementation:Passport
+Err	2020/src/day08.rs	/^    type Err = anyhow::Error;$/;"	t	implementation:Instruction
+Err	2020/src/day14.rs	/^    type Err = anyhow::Error;$/;"	t	implementation:Op
+Err	2020/src/day20.rs	/^    type Err = anyhow::Error;$/;"	t	implementation:Tile
+Err	2020/src/day24.rs	/^    type Err = anyhow::Error;$/;"	t	implementation:Hex
+Height	2020/src/day04.rs	/^enum Height {$/;"	g
+Height	2020/src/day04.rs	/^impl FromStr for Height {$/;"	c
+Height	2020/src/day04.rs	/^impl std::fmt::Debug for Height {$/;"	c
+Height	2020/src/day04.rs	/^impl std::fmt::Display for Height {$/;"	c
+Hex	2020/src/day24.rs	/^impl Eq for Hex {}$/;"	c
+Hex	2020/src/day24.rs	/^impl PartialEq for Hex {$/;"	c
+Hex	2020/src/day24.rs	/^impl std::fmt::Display for Hex {$/;"	c
+Hex	2020/src/day24.rs	/^impl std::hash::Hash for Hex {$/;"	c
+Hex	2020/src/day24.rs	/^impl std::str::FromStr for Hex {$/;"	c
+Hex	2020/src/day24.rs	/^struct Hex {$/;"	s
+Inch	2020/src/day04.rs	/^    Inch(usize),$/;"	e	enum:Height
+Instruction	2020/src/day08.rs	/^enum Instruction {$/;"	g
+Instruction	2020/src/day08.rs	/^impl std::str::FromStr for Instruction {$/;"	c
+IntCode	2019/intcode.py	/^class IntCode:$/;"	c
+Item	2020/src/day20.rs	/^    type Item = Tile;$/;"	t	implementation:TileOrientations
+Item	2020/src/strides.rs	/^    type Item = Vec<Vec<T>>;$/;"	t
+Jmp	2020/src/day08.rs	/^    Jmp(i64),$/;"	e	enum:Instruction
+Mask	2020/src/day14.rs	/^    Mask(BitMask),$/;"	e	enum:Op
+Mem	2020/src/day14.rs	/^    Mem(usize, usize),$/;"	e	enum:Op
+Mul	2020/src/day18.rs	/^    Mul,$/;"	e	enum:Token
+Nop	2020/src/day08.rs	/^    Nop(i64),$/;"	e	enum:Instruction
+North	2020/src/day20.rs	/^    North,$/;"	e	enum:Direction
+Num	2020/src/day18.rs	/^    Num(i64),$/;"	e	enum:Token
+One	2020/src/day14.rs	/^    One,$/;"	e	enum:Bit
+Op	2020/src/day14.rs	/^enum Op {$/;"	g
+Op	2020/src/day14.rs	/^impl FromStr for Op {$/;"	c
+Op	2020/src/day14.rs	/^impl std::fmt::Display for Op {$/;"	c
+PClose	2020/src/day18.rs	/^    PClose,$/;"	e	enum:Token
+POpen	2020/src/day18.rs	/^    POpen,$/;"	e	enum:Token
+Passport	2020/src/day04.rs	/^impl FromStr for Passport {$/;"	c
+Passport	2020/src/day04.rs	/^struct Passport {$/;"	s
+PasswordLine	2020/src/day02.rs	/^struct PasswordLine<'a> {$/;"	s
+Plus	2020/src/day18.rs	/^    Plus,$/;"	e	enum:Token
+Position	2020/src/day11.rs	/^type Position = (usize, usize);$/;"	t
+Position	2020/src/day12.rs	/^impl Display for Position {$/;"	c
+Position	2020/src/day12.rs	/^impl Position {$/;"	c
+Position	2020/src/day12.rs	/^impl std::fmt::Debug for Position {$/;"	c
+Position	2020/src/day12.rs	/^struct Position {$/;"	s
+Position	2020/src/day17.rs	/^type Position = (usize, usize, usize);$/;"	t
+Position4d	2020/src/day17.rs	/^type Position4d = (usize, usize, usize, usize);$/;"	t
+Precalculated	2020/target/release/.fingerprint/anyhow-075cd8313d57d00e/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[142231931794/;"	s	object:local.0
+Precalculated	2020/target/release/.fingerprint/memchr-75657146e08f52c9/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[386048284104/;"	s	object:local.0
+Range	2020/src/day16.rs	/^type Range = (usize, usize);$/;"	t
+RuleSet	2020/src/day16.rs	/^type RuleSet = HashMap<String, (Range, Range)>;$/;"	t
+SAMPLE	2019/day07.py	/^SAMPLE = "3,15,3,16,1002,16,10,16,1,16,15,15,4,15,99,0,0"$/;"	v
+South	2020/src/day20.rs	/^    South,$/;"	e	enum:Direction
+Strides	2020/src/strides.rs	/^impl<'a, T> Strides<'a, T>$/;"	c
+Strides	2020/src/strides.rs	/^impl<'a, T> std::fmt::Debug for Strides<'a, T> {$/;"	c
+Strides	2020/src/strides.rs	/^impl<'a, T> std::fmt::Display for Strides<'a, T> {$/;"	c
+Strides	2020/src/strides.rs	/^impl<'a, T> std::iter::Iterator for Strides<'a, T>$/;"	c
+Strides	2020/src/strides.rs	/^pub struct Strides<'a, T> {$/;"	s
+Ticket	2020/src/day16.rs	/^type Ticket = Vec<usize>;$/;"	t
+Tile	2020/src/day20.rs	/^impl Tile {$/;"	c
+Tile	2020/src/day20.rs	/^impl std::fmt::Display for Tile {$/;"	c
+Tile	2020/src/day20.rs	/^impl std::str::FromStr for Tile {$/;"	c
+Tile	2020/src/day20.rs	/^struct Tile {$/;"	s
+TileOrientations	2020/src/day20.rs	/^impl std::iter::Iterator for TileOrientations {$/;"	c
+TileOrientations	2020/src/day20.rs	/^struct TileOrientations {$/;"	s
+Token	2020/src/day18.rs	/^enum Token {$/;"	g
+Token	2020/src/day18.rs	/^impl std::fmt::Display for Token {$/;"	c
+West	2020/src/day20.rs	/^    West,$/;"	e	enum:Direction
+X	2020/src/day14.rs	/^    X,$/;"	e	enum:Bit
+Zero	2020/src/day14.rs	/^    Zero,$/;"	e	enum:Bit
+__init__	2019/intcode.py	/^    def __init__(self, opcodes, **kwargs):$/;"	m	class:IntCode
+add	2019/intcode.py	/^    def add(self, intcode):$/;"	m	class:IntCode
+align_tiles	2020/src/day20.rs	/^fn align_tiles(tiles: &[Tile]) -> Vec<Vec<Tile>> {$/;"	f
+ancest	2019/day06.py	/^    ancest = nx.lowest_common_ancestor(g, 'YOU', 'SAN')$/;"	v
+apply_mask	2020/src/day14.rs	/^fn apply_mask(value: usize, mask: &BitMask) -> String {$/;"	f
+apply_mask_v2	2020/src/day14.rs	/^fn apply_mask_v2(value: usize, mask: &BitMask) -> Vec<char> {$/;"	f
+as_ms	2020/src/lib.rs	/^pub fn as_ms(delta: std::time::Duration) -> u128 {$/;"	f
+backtrace	2020/target/release/build/anyhow-075cd8313d57d00e/out/probe.rs	/^        fn backtrace(&self) -> Option<&Backtrace> {$/;"	P	implementation:E
+bags_containing_gold	2020/src/day07.rs	/^fn bags_containing_gold(bagmap: &BagMap) -> usize {$/;"	f
+bool_xor	2020/src/bool_xor.rs	/^macro_rules! bool_xor {$/;"	M
+bool_xor	2020/src/lib.rs	/^mod bool_xor;$/;"	n
+byr	2020/src/day04.rs	/^    byr: usize,$/;"	m	struct:Passport
+calculate	2020/src/day18.rs	/^fn calculate(eqn: &mut Vec<Token>) -> Result<i64> {$/;"	f
+calculate2	2020/src/day18.rs	/^fn calculate2(eqn: &mut Vec<Token>) -> Result<i64> {$/;"	f
+can_match	2020/src/day20.rs	/^    fn can_match(&self, other: &Tile) -> Option<(Tile, Tile, Direction)> {$/;"	P	implementation:Tile
+check_slope	2020/src/day03.rs	/^fn check_slope(lines: &[Vec<char>], (dx, dy): (usize, usize)) -> usize {$/;"	f
+cid	2020/src/day04.rs	/^    cid: Option<String>,$/;"	m	struct:Passport
+clip	2019/day06.py	/^import pyperclip as clip$/;"	I	nameref:module:pyperclip
+clip	2019/day07.py	/^import pyperclip as clip$/;"	I	nameref:module:pyperclip
+clip	2019/intcode.py	/^import pyperclip as clip$/;"	I	nameref:module:pyperclip
+clip	2019/prelude.py	/^import pyperclip as clip$/;"	I	nameref:module:pyperclip
+col	2020/src/strides.rs	/^    pub col: usize,$/;"	m	struct:Strides
+col_lim	2020/src/strides.rs	/^    pub col_lim: usize,$/;"	m	struct:Strides
+config	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	n
+config	2020/target/release/.fingerprint/anyhow-075cd8313d57d00e/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[142231931794/;"	n
+config	2020/target/release/.fingerprint/anyhow-c4fbccab1d48c9a4/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	n
+config	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	n
+config	2020/target/release/.fingerprint/either-2fd2192c7ceb2021/lib-either.json	/^{"rustc":7210524046684111384,"features":"[]","target":308832794540006558,"profile":4339006351771/;"	n
+config	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	n
+config	2020/target/release/.fingerprint/lazy_static-59e9f7d6f71f09f6/lib-lazy_static.json	/^{"rustc":7210524046684111384,"features":"[]","target":3310758268438181623,"profile":433900635177/;"	n
+config	2020/target/release/.fingerprint/memchr-75657146e08f52c9/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[386048284104/;"	n
+config	2020/target/release/.fingerprint/memchr-7fece086357723de/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	n
+config	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	n
+config	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	n
+config	2020/target/release/.fingerprint/regex-syntax-afdb66daa1b66d14/lib-regex-syntax.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"unicode\\", \\"unicode-age\\", \\"un/;"	n
+contains_gold	2020/src/day07.rs	/^fn contains_gold(bagmap: &BagMap, bag: &str, cache: &mut BagCache) -> bool {$/;"	f
+count_answers	2020/src/day06.rs	/^fn count_answers(s: &[&str], counter: fn(&&str) -> usize) -> Vec<usize> {$/;"	f
+count_black	2020/src/day24.rs	/^fn count_black(floor: &HashMap<Hex, bool>) -> usize {$/;"	f
+count_black_2	2020/src/day24.rs	/^fn count_black_2(floor: &[Vec<bool>]) -> usize {$/;"	f
+count_groups	2020/src/day06.rs	/^    fn count_groups() {$/;"	f	module:tests
+count_monsters	2020/src/day20.rs	/^fn count_monsters(t: &Tile) -> usize {$/;"	f
+count_number_of_groups	2020/src/day06.rs	/^fn count_number_of_groups(s: &str) -> usize {$/;"	f
+count_questions_anyone_answered	2020/src/day06.rs	/^fn count_questions_anyone_answered(s: &&str) -> usize {$/;"	f
+count_questions_everyone_answered	2020/src/day06.rs	/^fn count_questions_everyone_answered(s: &&str) -> usize {$/;"	f
+create_bagmap	2020/src/day07.rs	/^fn create_bagmap<'a>(data: impl Iterator<Item = &'a str>) -> BagMap {$/;"	f
+create_cube	2020/src/day17.rs	/^fn create_cube(n: usize, value: u8) -> Vec<Vec<Vec<u8>>> {$/;"	f
+create_hypercube	2020/src/day17.rs	/^fn create_hypercube(n: usize, value: u8) -> Vec<Vec<Vec<Vec<u8>>>> {$/;"	f
+criterion_benchmark	2020/src/my_benchmark.rs	/^fn criterion_benchmark(c: &mut Criterion) {$/;"	f
+current	2020/src/day23.rs	/^    current: usize,$/;"	m	struct:CupGame
+d15_1_ex	2020/src/day15.rs	/^fn d15_1_ex() {$/;"	f
+data	2019/day01.py	/^data = [int(l) for l in open('input\/01').read().splitlines()]$/;"	v
+data	2019/day02.py	/^    data = [int(d) for d in open('input\/02').read().split(',')]$/;"	v
+data	2019/day03.py	/^data = [l for l in open('input\/03').read().splitlines()]$/;"	v
+data	2019/day04.py	/^data = "136760-595730"$/;"	v
+data	2019/day05.py	/^    data = [l for l in open('input\/05').read().split(',')]$/;"	v
+data	2020/src/strides.rs	/^    pub data: &'a Vec<Vec<T>>,$/;"	m	struct:Strides
+day01	2020/src/day01.rs	/^pub fn day01() -> Result<String> {$/;"	f
+day01	2020/src/main.rs	/^mod day01;$/;"	n
+day01	2020/src/my_benchmark.rs	/^mod day01;$/;"	n
+day02	2020/src/day02.rs	/^pub fn day02() -> Result<String> {$/;"	f
+day02	2020/src/main.rs	/^mod day02;$/;"	n
+day02	2020/src/my_benchmark.rs	/^mod day02;$/;"	n
+day03	2020/src/day03.rs	/^pub fn day03() -> Result<String> {$/;"	f
+day03	2020/src/main.rs	/^mod day03;$/;"	n
+day03	2020/src/my_benchmark.rs	/^mod day03;$/;"	n
+day04	2020/src/day04.rs	/^pub fn day04() -> anyhow::Result<String> {$/;"	f
+day04	2020/src/main.rs	/^mod day04;$/;"	n
+day04	2020/src/my_benchmark.rs	/^mod day04;$/;"	n
+day05	2020/src/day05.rs	/^pub fn day05() -> Result<String> {$/;"	f
+day05	2020/src/main.rs	/^mod day05;$/;"	n
+day05	2020/src/my_benchmark.rs	/^mod day05;$/;"	n
+day06	2020/src/day06.rs	/^pub fn day06() -> Result<String> {$/;"	f
+day06	2020/src/main.rs	/^mod day06;$/;"	n
+day06	2020/src/my_benchmark.rs	/^mod day06;$/;"	n
+day07	2020/src/day07.rs	/^pub fn day07() -> Result<String> {$/;"	f
+day07	2020/src/main.rs	/^mod day07;$/;"	n
+day07	2020/src/my_benchmark.rs	/^mod day07;$/;"	n
+day08	2020/src/day08.rs	/^pub fn day08() -> Result<String> {$/;"	f
+day08	2020/src/main.rs	/^mod day08;$/;"	n
+day08	2020/src/my_benchmark.rs	/^mod day08;$/;"	n
+day09	2020/src/day09.rs	/^pub fn day09() -> Result<String> {$/;"	f
+day09	2020/src/main.rs	/^mod day09;$/;"	n
+day09	2020/src/my_benchmark.rs	/^mod day09;$/;"	n
+day10	2020/src/day10.rs	/^pub fn day10() -> Result<String> {$/;"	f
+day10	2020/src/main.rs	/^mod day10;$/;"	n
+day10	2020/src/my_benchmark.rs	/^mod day10;$/;"	n
+day11	2020/src/day11.rs	/^pub fn day11() -> Result<String> {$/;"	f
+day11	2020/src/main.rs	/^mod day11;$/;"	n
+day11	2020/src/my_benchmark.rs	/^mod day11;$/;"	n
+day12	2020/src/day12.rs	/^pub fn day12() -> Result<String> {$/;"	f
+day12	2020/src/main.rs	/^mod day12;$/;"	n
+day12	2020/src/my_benchmark.rs	/^mod day12;$/;"	n
+day13	2020/src/day13.rs	/^pub fn day13() -> Result<String> {$/;"	f
+day13	2020/src/main.rs	/^mod day13;$/;"	n
+day13	2020/src/my_benchmark.rs	/^mod day13;$/;"	n
+day14	2020/src/day14.rs	/^pub fn day14() -> Result<String> {$/;"	f
+day14	2020/src/main.rs	/^mod day14;$/;"	n
+day14	2020/src/my_benchmark.rs	/^mod day14;$/;"	n
+day15	2020/src/day15.rs	/^pub fn day15() -> Result<String> {$/;"	f
+day15	2020/src/main.rs	/^mod day15;$/;"	n
+day15	2020/src/my_benchmark.rs	/^mod day15;$/;"	n
+day16	2020/src/day16.rs	/^pub fn day16() -> Result<String> {$/;"	f
+day16	2020/src/main.rs	/^mod day16;$/;"	n
+day16	2020/src/my_benchmark.rs	/^mod day16;$/;"	n
+day17	2020/src/day17.rs	/^pub fn day17() -> Result<String> {$/;"	f
+day17	2020/src/main.rs	/^mod day17;$/;"	n
+day17	2020/src/my_benchmark.rs	/^mod day17;$/;"	n
+day18	2020/src/day18.rs	/^pub fn day18() -> Result<String> {$/;"	f
+day18	2020/src/main.rs	/^mod day18;$/;"	n
+day18	2020/src/my_benchmark.rs	/^mod day18;$/;"	n
+day19	2020/src/day19.rs	/^pub fn day19() -> Result<String> {$/;"	f
+day19	2020/src/main.rs	/^mod day19;$/;"	n
+day19	2020/src/my_benchmark.rs	/^mod day19;$/;"	n
+day20	2020/src/day20.rs	/^pub fn day20() -> Result<String> {$/;"	f
+day20	2020/src/main.rs	/^mod day20;$/;"	n
+day20	2020/src/my_benchmark.rs	/^mod day20;$/;"	n
+day21	2020/src/day21.rs	/^pub fn day21() -> Result<String> {$/;"	f
+day21	2020/src/main.rs	/^mod day21;$/;"	n
+day21	2020/src/my_benchmark.rs	/^mod day21;$/;"	n
+day22	2020/src/day22.rs	/^pub fn day22() -> Result<String> {$/;"	f
+day22	2020/src/main.rs	/^mod day22;$/;"	n
+day22	2020/src/my_benchmark.rs	/^mod day22;$/;"	n
+day23	2020/src/day23.rs	/^pub fn day23() -> Result<String> {$/;"	f
+day23	2020/src/main.rs	/^mod day23;$/;"	n
+day23	2020/src/my_benchmark.rs	/^mod day23;$/;"	n
+day24	2020/src/day24.rs	/^pub fn day24() -> Result<String> {$/;"	f
+day24	2020/src/main.rs	/^mod day24;$/;"	n
+day24	2020/src/my_benchmark.rs	/^mod day24;$/;"	n
+day25	2020/src/day25.rs	/^pub fn day25() -> Result<String> {$/;"	f
+day25	2020/src/main.rs	/^mod day25;$/;"	n
+day25	2020/src/my_benchmark.rs	/^mod day25;$/;"	n
+delta_idx	2020/src/day17.rs	/^fn delta_idx(idx: usize, delta: isize) -> usize {$/;"	f
+dep_info	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	s	object:local.0.CheckDepInfo
+dep_info	2020/target/release/.fingerprint/anyhow-c4fbccab1d48c9a4/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	s	object:local.0.CheckDepInfo
+dep_info	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	s	object:local.0.CheckDepInfo
+dep_info	2020/target/release/.fingerprint/either-2fd2192c7ceb2021/lib-either.json	/^{"rustc":7210524046684111384,"features":"[]","target":308832794540006558,"profile":4339006351771/;"	s	object:local.0.CheckDepInfo
+dep_info	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	s	object:local.0.CheckDepInfo
+dep_info	2020/target/release/.fingerprint/lazy_static-59e9f7d6f71f09f6/lib-lazy_static.json	/^{"rustc":7210524046684111384,"features":"[]","target":3310758268438181623,"profile":433900635177/;"	s	object:local.0.CheckDepInfo
+dep_info	2020/target/release/.fingerprint/memchr-7fece086357723de/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	s	object:local.0.CheckDepInfo
+dep_info	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	s	object:local.0.CheckDepInfo
+dep_info	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	s	object:local.0.CheckDepInfo
+dep_info	2020/target/release/.fingerprint/regex-syntax-afdb66daa1b66d14/lib-regex-syntax.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"unicode\\", \\"unicode-age\\", \\"un/;"	s	object:local.0.CheckDepInfo
+deps	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	a
+deps	2020/target/release/.fingerprint/anyhow-075cd8313d57d00e/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[142231931794/;"	a
+deps	2020/target/release/.fingerprint/anyhow-c4fbccab1d48c9a4/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	a
+deps	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	a
+deps	2020/target/release/.fingerprint/either-2fd2192c7ceb2021/lib-either.json	/^{"rustc":7210524046684111384,"features":"[]","target":308832794540006558,"profile":4339006351771/;"	a
+deps	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	a
+deps	2020/target/release/.fingerprint/lazy_static-59e9f7d6f71f09f6/lib-lazy_static.json	/^{"rustc":7210524046684111384,"features":"[]","target":3310758268438181623,"profile":433900635177/;"	a
+deps	2020/target/release/.fingerprint/memchr-75657146e08f52c9/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[386048284104/;"	a
+deps	2020/target/release/.fingerprint/memchr-7fece086357723de/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	a
+deps	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	a
+deps	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	a
+deps	2020/target/release/.fingerprint/regex-syntax-afdb66daa1b66d14/lib-regex-syntax.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"unicode\\", \\"unicode-age\\", \\"un/;"	a
+dict	2020/src/quick_dict.rs	/^macro_rules! dict {$/;"	M
+display_ring	2020/src/day23.rs	/^    fn display_ring(&self) -> String {$/;"	P	implementation:CupGame
+east	2020/src/day12.rs	/^    east: isize,$/;"	m	struct:Position
+east	2020/src/day24.rs	/^    east: isize,$/;"	m	struct:Hex
+ecl	2020/src/day04.rs	/^    ecl: String,$/;"	m	struct:Passport
+edges	2020/src/day20.rs	/^    fn edges(&self) -> (Vec<char>, Vec<char>, Vec<char>, Vec<char>) {$/;"	P	implementation:Tile
+eq	2020/src/day24.rs	/^    fn eq(&self, other: &Hex) -> bool {$/;"	P	implementation:Hex
+equals	2019/intcode.py	/^    def equals(self, intcode):$/;"	m	class:IntCode
+example_part1	2020/src/day08.rs	/^    fn example_part1() {$/;"	f	module:tests
+example_part2	2020/src/day08.rs	/^    fn example_part2() {$/;"	f	module:tests
+example_questions_anyone_answered	2020/src/day06.rs	/^    fn example_questions_anyone_answered() {$/;"	f	module:tests
+example_questions_everyone_answered	2020/src/day06.rs	/^    fn example_questions_everyone_answered() {$/;"	f	module:tests
+examples_part1	2020/src/day02.rs	/^    fn examples_part1() {$/;"	f	module:tests
+examples_part1	2020/src/day05.rs	/^    fn examples_part1() {$/;"	f	module:tests
+examples_part1	2020/src/day06.rs	/^    fn examples_part1() {$/;"	f	module:tests
+examples_part2	2020/src/day02.rs	/^    fn examples_part2() {$/;"	f	module:tests
+examples_part2	2020/src/day06.rs	/^    fn examples_part2() {$/;"	f	module:tests
+eyr	2020/src/day04.rs	/^    eyr: usize,$/;"	m	struct:Passport
+features	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	s
+features	2020/target/release/.fingerprint/anyhow-075cd8313d57d00e/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[142231931794/;"	s
+features	2020/target/release/.fingerprint/anyhow-c4fbccab1d48c9a4/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	s
+features	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	s
+features	2020/target/release/.fingerprint/either-2fd2192c7ceb2021/lib-either.json	/^{"rustc":7210524046684111384,"features":"[]","target":308832794540006558,"profile":4339006351771/;"	s
+features	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	s
+features	2020/target/release/.fingerprint/lazy_static-59e9f7d6f71f09f6/lib-lazy_static.json	/^{"rustc":7210524046684111384,"features":"[]","target":3310758268438181623,"profile":433900635177/;"	s
+features	2020/target/release/.fingerprint/memchr-75657146e08f52c9/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[386048284104/;"	s
+features	2020/target/release/.fingerprint/memchr-7fece086357723de/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	s
+features	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	s
+features	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	s
+features	2020/target/release/.fingerprint/regex-syntax-afdb66daa1b66d14/lib-regex-syntax.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"unicode\\", \\"unicode-age\\", \\"un/;"	s
+find_destination	2020/src/day23.rs	/^    fn find_destination(&mut self) -> usize {$/;"	P	implementation:CupGame
+find_inner_parens	2020/src/day18.rs	/^fn find_inner_parens(s: &[Token]) -> (usize, usize) {$/;"	f
+find_matches	2020/src/day19.rs	/^fn find_matches(data: &str) -> String {$/;"	f
+find_pair_sums_to	2020/src/day01.rs	/^fn find_pair_sums_to(target: i32, data: &HashSet<i32>) -> Option<(i32, i32)> {$/;"	f
+find_rule_order	2020/src/day16.rs	/^fn find_rule_order(rules: &RuleSet, tickets: &[Ticket]) -> Vec<String> {$/;"	f
+find_triple_sums_to	2020/src/day01.rs	/^fn find_triple_sums_to(target: i32, data: &HashSet<i32>) -> Option<(i32, i32, i32)> {$/;"	f
+flip_top_bottom	2020/src/day20.rs	/^    fn flip_top_bottom(&mut self) {$/;"	P	implementation:Tile
+fmt	2020/src/day04.rs	/^    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {$/;"	P	implementation:Height
+fmt	2020/src/day12.rs	/^    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {$/;"	P	implementation:Position
+fmt	2020/src/day14.rs	/^    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {$/;"	P	implementation:Op
+fmt	2020/src/day18.rs	/^    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {$/;"	P	implementation:Token
+fmt	2020/src/day20.rs	/^    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {$/;"	P	implementation:Tile
+fmt	2020/src/day24.rs	/^    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {$/;"	P	implementation:Hex
+fmt	2020/src/strides.rs	/^    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> std::fmt::Result {$/;"	P	implementation:Strides
+fmt	2020/src/strides.rs	/^    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {$/;"	P	implementation:Strides
+fmt	2020/target/release/build/anyhow-075cd8313d57d00e/out/probe.rs	/^        fn fmt(&self, _formatter: &mut fmt::Formatter) -> fmt::Result {$/;"	P	implementation:E
+from_str	2020/src/day04.rs	/^    fn from_str(s: &str) -> Result<Self> {$/;"	P	implementation:Height
+from_str	2020/src/day04.rs	/^    fn from_str(s: &str) -> Result<Self> {$/;"	P	implementation:Passport
+from_str	2020/src/day08.rs	/^    fn from_str(s: &str) -> Result<Self, Self::Err> {$/;"	P	implementation:Instruction
+from_str	2020/src/day14.rs	/^    fn from_str(instruction: &str) -> anyhow::Result<Self> {$/;"	P	implementation:Op
+from_str	2020/src/day20.rs	/^    fn from_str(s: &str) -> Result<Self, Self::Err> {$/;"	P	implementation:Tile
+from_str	2020/src/day24.rs	/^    fn from_str(s: &str) -> Result<Self, Self::Err> {$/;"	P	implementation:Hex
+g	2019/day06.py	/^    g = make_graph(open('input\/06').read().splitlines())$/;"	v
+get	2019/intcode.py	/^    def get(self, offset, mode=0):$/;"	m	class:IntCode
+get_path	2019/day03.py	/^def get_path(instructions):$/;"	f
+get_starting_floor_state	2020/src/day24.rs	/^fn get_starting_floor_state(coords: &[Hex]) -> HashMap<Hex, bool> {$/;"	f
+grid	2020/src/day20.rs	/^    grid: Vec<Vec<char>>,$/;"	m	struct:Tile
+halt	2019/intcode.py	/^    def halt(self, _intcode):$/;"	m	class:IntCode
+has_all_fields	2020/src/day04.rs	/^fn has_all_fields(entry: &str) -> bool {$/;"	f
+hash	2020/src/day24.rs	/^    fn hash<H: Hasher>(&self, state: &mut H) {$/;"	P	implementation:Hex
+hcl	2020/src/day04.rs	/^    hcl: String,$/;"	m	struct:Passport
+height	2020/src/strides.rs	/^    pub height: usize,$/;"	m	struct:Strides
+hgt	2020/src/day04.rs	/^    hgt: Height,$/;"	m	struct:Passport
+id	2020/src/day20.rs	/^    id: usize,$/;"	m	struct:Tile
+inner_parens_test	2020/src/day18.rs	/^    fn inner_parens_test() {$/;"	f	module:tests
+invalid_fields	2020/src/day16.rs	/^fn invalid_fields(rs: &RuleSet, t: &Ticket) -> Vec<usize> {$/;"	f
+iterate	2020/src/day23.rs	/^    fn iterate(&mut self) {$/;"	P	implementation:CupGame
+iterate_till_stable	2020/src/day11.rs	/^fn iterate_till_stable<F: Fn(&[Vec<u8>], Position, &[(isize, isize)]) -> bool>($/;"	f
+iteration	2020/src/day20.rs	/^    iteration: usize,$/;"	m	struct:TileOrientations
+iyr	2020/src/day04.rs	/^    iyr: usize,$/;"	m	struct:Passport
+jump_false	2019/intcode.py	/^    def jump_false(self, intcode):$/;"	m	class:IntCode
+jump_true	2019/intcode.py	/^    def jump_true(self, intcode):$/;"	m	class:IntCode
+last_output	2019/intcode.py	/^    def last_output(self):$/;"	m	class:IntCode
+less_than	2019/intcode.py	/^    def less_than(self, intcode):$/;"	m	class:IntCode
+letter	2020/src/day02.rs	/^    letter: char,$/;"	m	struct:PasswordLine
+local	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	a
+local	2020/target/release/.fingerprint/anyhow-075cd8313d57d00e/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[142231931794/;"	a
+local	2020/target/release/.fingerprint/anyhow-c4fbccab1d48c9a4/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	a
+local	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	a
+local	2020/target/release/.fingerprint/either-2fd2192c7ceb2021/lib-either.json	/^{"rustc":7210524046684111384,"features":"[]","target":308832794540006558,"profile":4339006351771/;"	a
+local	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	a
+local	2020/target/release/.fingerprint/lazy_static-59e9f7d6f71f09f6/lib-lazy_static.json	/^{"rustc":7210524046684111384,"features":"[]","target":3310758268438181623,"profile":433900635177/;"	a
+local	2020/target/release/.fingerprint/memchr-75657146e08f52c9/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[386048284104/;"	a
+local	2020/target/release/.fingerprint/memchr-7fece086357723de/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	a
+local	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	a
+local	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	a
+local	2020/target/release/.fingerprint/regex-syntax-afdb66daa1b66d14/lib-regex-syntax.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"unicode\\", \\"unicode-age\\", \\"un/;"	a
+loop_until_symbol_evaluated	2020/src/day18.rs	/^fn loop_until_symbol_evaluated<F>($/;"	f
+lower	2019/day04.py	/^lower, upper = [int(i) for i in data.split("-")[:2]]$/;"	v
+lower	2020/src/day02.rs	/^    lower: usize,$/;"	m	struct:PasswordLine
+m	2019/day05.py	/^    m = IntCode(data, inputs=[1], level=logging.WARNING)$/;"	v
+m	2019/day05.py	/^    m = IntCode(data, inputs=[5], level=logging.WARNING)$/;"	v
+m	2019/day07.py	/^    m = IntCode(SAMPLE.split(","), inputs=[4])$/;"	v
+m0	2019/day07.py	/^    m0 = IntCode(SAMPLE.split(","), inputs=[0])$/;"	v
+main	2020/src/main.rs	/^fn main() {$/;"	f
+main	2020/template.rs	/^fn main() -> Result<()> {$/;"	f
+make_graph	2019/day06.py	/^def make_graph(lines):$/;"	f
+manhattan	2020/src/day12.rs	/^    fn manhattan(&self) -> isize {$/;"	P	implementation:Position
+matching_edge	2020/src/day20.rs	/^    fn matching_edge(a: &Tile, b: &Tile) -> Option<Direction> {$/;"	P	implementation:Tile
+max	2020/src/day23.rs	/^    max: usize,$/;"	m	struct:CupGame
+me_to_ancest	2019/day06.py	/^    me_to_ancest = next(nx.shortest_simple_paths(g, ancest, 'YOU'))[1:-1]$/;"	v
+metadata	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	n
+metadata	2020/target/release/.fingerprint/anyhow-075cd8313d57d00e/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[142231931794/;"	n
+metadata	2020/target/release/.fingerprint/anyhow-c4fbccab1d48c9a4/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	n
+metadata	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	n
+metadata	2020/target/release/.fingerprint/either-2fd2192c7ceb2021/lib-either.json	/^{"rustc":7210524046684111384,"features":"[]","target":308832794540006558,"profile":4339006351771/;"	n
+metadata	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	n
+metadata	2020/target/release/.fingerprint/lazy_static-59e9f7d6f71f09f6/lib-lazy_static.json	/^{"rustc":7210524046684111384,"features":"[]","target":3310758268438181623,"profile":433900635177/;"	n
+metadata	2020/target/release/.fingerprint/memchr-75657146e08f52c9/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[386048284104/;"	n
+metadata	2020/target/release/.fingerprint/memchr-7fece086357723de/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	n
+metadata	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	n
+metadata	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	n
+metadata	2020/target/release/.fingerprint/regex-syntax-afdb66daa1b66d14/lib-regex-syntax.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"unicode\\", \\"unicode-age\\", \\"un/;"	n
+min	2020/src/day23.rs	/^    min: usize,$/;"	m	struct:CupGame
+move_by	2020/src/day12.rs	/^fn move_by(current: &mut Position, direction: char, distance: usize) {$/;"	f
+mul	2019/intcode.py	/^    def mul(self, intcode):$/;"	m	class:IntCode
+n_transfers	2019/day06.py	/^    n_transfers = len(me_to_ancest) + len(san_to_ancest)$/;"	v
+new	2020/src/day23.rs	/^    fn new(data: &[usize]) -> Self {$/;"	P	implementation:CupGame
+new	2020/src/strides.rs	/^    pub fn new(data: &'a Vec<Vec<T>>, width: usize, height: usize) -> Strides<T> {$/;"	f
+next	2020/src/day20.rs	/^    fn next(&mut self) -> Option<Self::Item> {$/;"	P	implementation:TileOrientations
+next	2020/src/strides.rs	/^    fn next(&mut self) -> Option<Self::Item> {$/;"	f
+north	2020/src/day12.rs	/^    north: isize,$/;"	m	struct:Position
+north	2020/src/day24.rs	/^    north: isize,$/;"	m	struct:Hex
+np	2019/day03.py	/^import numpy as np$/;"	I	nameref:module:numpy
+np	2019/prelude.py	/^import numpy as np$/;"	I	nameref:module:numpy
+nx	2019/day06.py	/^import networkx as nx$/;"	I	nameref:module:networkx
+nx	2019/day07.py	/^import networkx as nx$/;"	I	nameref:module:networkx
+one_step	2019/intcode.py	/^    def one_step(self):$/;"	m	class:IntCode
+orbits_of	2019/day06.py	/^def orbits_of(node, graph):$/;"	f
+orientations	2020/src/day20.rs	/^    fn orientations(&self) -> TileOrientations {$/;"	P	implementation:Tile
+outputs	2020/target/.rustc_info.json	/^{"rustc_fingerprint":1907800068433887222,"outputs":{"4476964694761187371":["___\\nlib___.rlib\\n/;"	o
+p1	2019/day01.py	/^p1 = sum([required(m) for m in data])$/;"	v
+p1	2019/day07.py	/^    p1 = m.last_output()$/;"	v
+p1_example	2020/src/day09.rs	/^fn p1_example() {$/;"	f
+p1_valid	2019/day04.py	/^def p1_valid(pw):$/;"	f
+p2	2019/day01.py	/^p2 = sum([req_rec(m) for m in data])$/;"	v
+p2	2019/day07.py	/^    p2 = None$/;"	v
+p2_example	2020/src/day09.rs	/^fn p2_example() {$/;"	f
+p2_valid	2019/day04.py	/^def p2_valid(pw):$/;"	f
+parse	2020/src/day22.rs	/^fn parse(data: &str) -> (VecDeque<usize>, VecDeque<usize>) {$/;"	f
+parse_bag	2020/src/day07.rs	/^fn parse_bag(s: &str) -> Result<(String, usize)> {$/;"	f
+parse_bus_timetable	2020/src/day13.rs	/^fn parse_bus_timetable(s: &str) -> Vec<Option<usize>> {$/;"	f
+parse_data	2020/src/day16.rs	/^fn parse_data(data: &str) -> Result<(RuleSet, Ticket, Vec<Ticket>)> {$/;"	f
+parse_data	2020/src/day19.rs	/^fn parse_data(data: &str) -> (HashMap<String, String>, Vec<&str>) {$/;"	f
+parse_data	2020/src/day21.rs	/^fn parse_data(s: &str) -> (Vec<HashSet<&str>>, HashMap<&str, &str>) {$/;"	f
+parse_each	2020/src/lib.rs	/^mod parse_each;$/;"	n
+parse_each	2020/src/parse_each.rs	/^pub fn parse_each<T: FromStr, U: Iterator<Item = impl ToString>>(data: U) -> Vec<T> {$/;"	f
+parse_instr	2019/intcode.py	/^    def parse_instr(self, s):$/;"	m	class:IntCode
+parse_instructions	2020/src/day12.rs	/^fn parse_instructions(s: &str) -> Vec<(char, usize)> {$/;"	f
+parse_password	2020/src/day02.rs	/^fn parse_password(s: &str) -> Result<PasswordLine> {$/;"	f
+parse_rule	2020/src/day16.rs	/^fn parse_rule(s: &str) -> Result<(String, (Range, Range))> {$/;"	f
+parse_ticket	2020/src/day16.rs	/^fn parse_ticket(s: &str) -> Vec<usize> {$/;"	f
+parse_tokens	2020/src/day18.rs	/^fn parse_tokens(s: &str) -> Vec<Token> {$/;"	f
+part1	2019/day02.py	/^def part1(data):$/;"	f
+part1	2019/day03.py	/^def part1(paths):$/;"	f
+part1	2019/day04.py	/^def part1(lower, upper):$/;"	f
+part1	2020/src/day01.rs	/^fn part1(data: &HashSet<i32>) -> Result<String> {$/;"	f
+part1	2020/src/day02.rs	/^fn part1(passwords: &[PasswordLine]) -> usize {$/;"	f
+part1	2020/src/day08.rs	/^fn part1(instructions: &[Instruction]) -> (i64, bool) {$/;"	f
+part1	2020/src/day09.rs	/^fn part1(lines: &[i64], window: usize) -> Result<String> {$/;"	f
+part1	2020/src/day12.rs	/^fn part1(instructions: &[(char, usize)]) -> isize {$/;"	f
+part1	2020/src/day15.rs	/^fn part1(data: &[usize]) -> Result<usize> {$/;"	f
+part1	2020/src/day16.rs	/^fn part1(bad_fields: &[usize]) -> Result<usize> {$/;"	f
+part1	2020/src/day17.rs	/^fn part1(data: &[Vec<u8>]) -> Result<usize> {$/;"	f
+part1	2020/src/day18.rs	/^fn part1(data: &str) -> Result<String> {$/;"	f
+part1	2020/src/day20.rs	/^fn part1(tile_grid: &[Vec<Tile>]) -> String {$/;"	f
+part1	2020/src/day21.rs	/^fn part1(ingredients: &[HashSet<&str>], allergens: &HashMap<&str, &str>) -> Result<String> {$/;"	f
+part1	2020/src/day22.rs	/^fn part1(a: &Deck, b: &Deck) -> Result<String> {$/;"	f
+part1	2020/src/day23.rs	/^fn part1(data: &[usize], n: usize) -> Result<String> {$/;"	f
+part1	2020/src/day24.rs	/^fn part1(state: &HashMap<Hex, bool>) -> Result<String> {$/;"	f
+part1	2020/template.rs	/^fn part1(data: &str) -> Result<String> {$/;"	f
+part1_examples_test	2020/src/day18.rs	/^    fn part1_examples_test() {$/;"	f	module:tests
+part2	2019/day02.py	/^def part2(data, target=19690720):$/;"	f
+part2	2019/day03.py	/^def part2(paths):$/;"	f
+part2	2019/day04.py	/^def part2(lower, upper):$/;"	f
+part2	2020/src/day01.rs	/^fn part2(data: &HashSet<i32>) -> Result<String> {$/;"	f
+part2	2020/src/day02.rs	/^fn part2(passwords: &[PasswordLine]) -> usize {$/;"	f
+part2	2020/src/day08.rs	/^fn part2(instructions: &[Instruction]) -> i64 {$/;"	f
+part2	2020/src/day09.rs	/^fn part2(lines: &[i64], window: usize) -> Result<String> {$/;"	f
+part2	2020/src/day12.rs	/^fn part2(instructions: &[(char, usize)]) -> isize {$/;"	f
+part2	2020/src/day15.rs	/^fn part2(data: &[usize]) -> Result<usize> {$/;"	f
+part2	2020/src/day16.rs	/^fn part2(rules: &RuleSet, my: Ticket, tickets: &[Ticket]) -> Result<usize> {$/;"	f
+part2	2020/src/day17.rs	/^fn part2(data: &[Vec<u8>]) -> Result<usize> {$/;"	f
+part2	2020/src/day18.rs	/^fn part2(data: &str) -> Result<String> {$/;"	f
+part2	2020/src/day20.rs	/^fn part2(tile_grid: &[Vec<Tile>]) -> Result<String> {$/;"	f
+part2	2020/src/day21.rs	/^fn part2(allergens: &HashMap<&str, &str>) -> Result<String> {$/;"	f
+part2	2020/src/day22.rs	/^fn part2(a: &Deck, b: &Deck) -> Result<String> {$/;"	f
+part2	2020/src/day23.rs	/^fn part2(data: &[usize], n: usize) -> Result<String> {$/;"	f
+part2	2020/src/day24.rs	/^fn part2(state: &HashMap<Hex, bool>) -> Result<String> {$/;"	f
+part2	2020/template.rs	/^fn part2(data: &str) -> Result<String> {$/;"	f
+part2_examples_test	2020/src/day18.rs	/^    fn part2_examples_test() {$/;"	f	module:tests
+part_1	2020/src/day10.rs	/^fn part_1(data: &[usize]) -> usize {$/;"	f
+part_1	2020/src/day11.rs	/^fn part_1(seats: &[Vec<u8>]) -> usize {$/;"	f
+part_1	2020/src/day13.rs	/^fn part_1(start: usize, buses: &[Option<usize>]) -> usize {$/;"	f
+part_1	2020/src/day14.rs	/^fn part_1(instructions: &[Op]) -> Result<usize> {$/;"	f
+part_2	2020/src/day10.rs	/^fn part_2(data: &[usize]) -> usize {$/;"	f
+part_2	2020/src/day11.rs	/^fn part_2(seats: &[Vec<u8>]) -> usize {$/;"	f
+part_2	2020/src/day13.rs	/^fn part_2(buses: &[Option<usize>]) -> usize {$/;"	f
+part_2	2020/src/day14.rs	/^fn part_2(instructions: &[Op]) -> Result<usize> {$/;"	f
+password	2020/src/day02.rs	/^    password: &'a str,$/;"	m	struct:PasswordLine
+path	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	n
+path	2020/target/release/.fingerprint/anyhow-075cd8313d57d00e/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[142231931794/;"	n
+path	2020/target/release/.fingerprint/anyhow-c4fbccab1d48c9a4/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	n
+path	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	n
+path	2020/target/release/.fingerprint/either-2fd2192c7ceb2021/lib-either.json	/^{"rustc":7210524046684111384,"features":"[]","target":308832794540006558,"profile":4339006351771/;"	n
+path	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	n
+path	2020/target/release/.fingerprint/lazy_static-59e9f7d6f71f09f6/lib-lazy_static.json	/^{"rustc":7210524046684111384,"features":"[]","target":3310758268438181623,"profile":433900635177/;"	n
+path	2020/target/release/.fingerprint/memchr-75657146e08f52c9/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[386048284104/;"	n
+path	2020/target/release/.fingerprint/memchr-7fece086357723de/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	n
+path	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	n
+path	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	n
+path	2020/target/release/.fingerprint/regex-syntax-afdb66daa1b66d14/lib-regex-syntax.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"unicode\\", \\"unicode-age\\", \\"un/;"	n
+paths	2019/day03.py	/^paths = walk_paths(data)$/;"	v
+pid	2020/src/day04.rs	/^    pid: String,$/;"	m	struct:Passport
+play_recursive_game	2020/src/day22.rs	/^fn play_recursive_game(a: &Deck, b: &Deck) -> (Deck, bool) {$/;"	f
+pointed_at_by	2020/src/day23.rs	/^    pointed_at_by: Vec<usize>,$/;"	m	struct:CupGame
+profile	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	n
+profile	2020/target/release/.fingerprint/anyhow-075cd8313d57d00e/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[142231931794/;"	n
+profile	2020/target/release/.fingerprint/anyhow-c4fbccab1d48c9a4/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	n
+profile	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	n
+profile	2020/target/release/.fingerprint/either-2fd2192c7ceb2021/lib-either.json	/^{"rustc":7210524046684111384,"features":"[]","target":308832794540006558,"profile":4339006351771/;"	n
+profile	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	n
+profile	2020/target/release/.fingerprint/lazy_static-59e9f7d6f71f09f6/lib-lazy_static.json	/^{"rustc":7210524046684111384,"features":"[]","target":3310758268438181623,"profile":433900635177/;"	n
+profile	2020/target/release/.fingerprint/memchr-75657146e08f52c9/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[386048284104/;"	n
+profile	2020/target/release/.fingerprint/memchr-7fece086357723de/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	n
+profile	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	n
+profile	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	n
+profile	2020/target/release/.fingerprint/regex-syntax-afdb66daa1b66d14/lib-regex-syntax.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"unicode\\", \\"unicode-age\\", \\"un/;"	n
+quick_dict	2020/src/lib.rs	/^mod quick_dict;$/;"	n
+read	2019/intcode.py	/^    def read(self, intcode):$/;"	m	class:IntCode
+req_rec	2019/day01.py	/^def req_rec(mass):$/;"	f
+required	2019/day01.py	/^def required(mass):$/;"	f
+required_mass_of_fuel	2019/adventofcode.ex	/^  def required_mass_of_fuel(fuel) do$/;"	f	module:AocDay01	access:public
+required_mass_of_fuel_recursive	2019/adventofcode.ex	/^  def required_mass_of_fuel_recursive(fuel) do$/;"	f	module:AocDay01	access:public
+rotate	2020/src/day12.rs	/^fn rotate(starting: char, direction: char, angle: usize) -> char {$/;"	f
+rotate	2020/src/day20.rs	/^    fn rotate(&mut self) {$/;"	P	implementation:Tile
+rotate_n	2020/src/day20.rs	/^    fn rotate_n(&mut self, n: usize) {$/;"	P	implementation:Tile
+rotate_waypoint	2020/src/day12.rs	/^fn rotate_waypoint(current: &mut Position, direction: char, angle: usize) {$/;"	f
+row	2020/src/strides.rs	/^    pub row: usize,$/;"	m	struct:Strides
+row_lim	2020/src/strides.rs	/^    pub row_lim: usize,$/;"	m	struct:Strides
+rule_matches	2020/src/day16.rs	/^fn rule_matches((lower_range, upper_range): (Range, Range), num: usize) -> bool {$/;"	f
+run	2019/adventofcode.ex	/^  def run() do$/;"	f	module:AocDay01	access:public
+run	2019/adventofcode.ex	/^  def run() do$/;"	f	module:AocDay02	access:public
+run	2019/intcode.py	/^    def run(self):$/;"	m	class:IntCode
+run	2020/src/day25.rs	/^fn run(card: usize, door: usize) -> Result<String> {$/;"	f
+run_with_replace	2019/day02.py	/^def run_with_replace(data, a, b):$/;"	f
+rustc	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	n
+rustc	2020/target/release/.fingerprint/anyhow-075cd8313d57d00e/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[142231931794/;"	n
+rustc	2020/target/release/.fingerprint/anyhow-c4fbccab1d48c9a4/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	n
+rustc	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	n
+rustc	2020/target/release/.fingerprint/either-2fd2192c7ceb2021/lib-either.json	/^{"rustc":7210524046684111384,"features":"[]","target":308832794540006558,"profile":4339006351771/;"	n
+rustc	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	n
+rustc	2020/target/release/.fingerprint/lazy_static-59e9f7d6f71f09f6/lib-lazy_static.json	/^{"rustc":7210524046684111384,"features":"[]","target":3310758268438181623,"profile":433900635177/;"	n
+rustc	2020/target/release/.fingerprint/memchr-75657146e08f52c9/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[386048284104/;"	n
+rustc	2020/target/release/.fingerprint/memchr-7fece086357723de/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	n
+rustc	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	n
+rustc	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	n
+rustc	2020/target/release/.fingerprint/regex-syntax-afdb66daa1b66d14/lib-regex-syntax.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"unicode\\", \\"unicode-age\\", \\"un/;"	n
+rustc_fingerprint	2020/target/.rustc_info.json	/^{"rustc_fingerprint":1907800068433887222,"outputs":{"4476964694761187371":["___\\nlib___.rlib\\n/;"	n
+rustflags	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	a
+rustflags	2020/target/release/.fingerprint/anyhow-075cd8313d57d00e/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[142231931794/;"	a
+rustflags	2020/target/release/.fingerprint/anyhow-c4fbccab1d48c9a4/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	a
+rustflags	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	a
+rustflags	2020/target/release/.fingerprint/either-2fd2192c7ceb2021/lib-either.json	/^{"rustc":7210524046684111384,"features":"[]","target":308832794540006558,"profile":4339006351771/;"	a
+rustflags	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	a
+rustflags	2020/target/release/.fingerprint/lazy_static-59e9f7d6f71f09f6/lib-lazy_static.json	/^{"rustc":7210524046684111384,"features":"[]","target":3310758268438181623,"profile":433900635177/;"	a
+rustflags	2020/target/release/.fingerprint/memchr-75657146e08f52c9/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[386048284104/;"	a
+rustflags	2020/target/release/.fingerprint/memchr-7fece086357723de/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	a
+rustflags	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	a
+rustflags	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	a
+rustflags	2020/target/release/.fingerprint/regex-syntax-afdb66daa1b66d14/lib-regex-syntax.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"unicode\\", \\"unicode-age\\", \\"un/;"	a
+sample	2019/day03.py	/^sample = """$/;"	v
+sample2	2019/day03.py	/^sample2 = """$/;"	v
+sample3	2019/day03.py	/^sample3 = """$/;"	v
+san_to_ancest	2019/day06.py	/^    san_to_ancest = next(nx.shortest_simple_paths(g, ancest, 'SAN'))[1:-1]$/;"	v
+save	2019/intcode.py	/^    def save(self, intcode):$/;"	m	class:IntCode
+score	2020/src/day22.rs	/^fn score(deck: &Deck) -> usize {$/;"	f
+score_p1	2020/src/day23.rs	/^    fn score_p1(&self) -> String {$/;"	P	implementation:CupGame
+score_p2	2020/src/day23.rs	/^    fn score_p2(&self) -> usize {$/;"	P	implementation:CupGame
+seat_location	2020/src/day05.rs	/^fn seat_location(s: &str) -> (i64, i64) {$/;"	f
+seat_locations	2020/src/day05.rs	/^    fn seat_locations() {$/;"	f	module:tests
+set	2019/intcode.py	/^    def set(self, offset, value):$/;"	m	class:IntCode
+setup_logger	2019/logger.py	/^def setup_logger(name, level=logging.INFO):$/;"	f
+should_be_active	2020/src/day17.rs	/^fn should_be_active(cell: u8, n_neighbours_alive: u8) -> bool {$/;"	f
+should_flip_2	2020/src/day24.rs	/^fn should_flip_2((i, j): (usize, usize), grid: &[Vec<bool>]) -> bool {$/;"	f
+should_swap_p1	2020/src/day11.rs	/^fn should_swap_p1(data: &[Vec<u8>], pos: Position, directions: &[(isize, isize)]) -> bool {$/;"	f
+should_swap_p2	2020/src/day11.rs	/^fn should_swap_p2(data: &[Vec<u8>], pos: Position, directions: &[(isize, isize)]) -> bool {$/;"	f
+simplify	2020/src/day18.rs	/^fn simplify($/;"	f
+size	2020/src/day20.rs	/^    size: usize,$/;"	m	struct:Tile
+solve	2020/src/day15.rs	/^fn solve(data: &[usize], target: usize) -> Result<usize> {$/;"	f
+sorted_seat_ids	2020/src/day05.rs	/^fn sorted_seat_ids(data: &[&str]) -> Vec<i64> {$/;"	f
+split_ingredient_allergen	2020/src/day21.rs	/^fn split_ingredient_allergen(s: &str) -> (HashSet<&str>, HashSet<&str>) {$/;"	f
+strides	2020/src/day20.rs	/^    fn strides(&self, width: usize, height: usize) -> Strides<char> {$/;"	P	implementation:Tile
+strides	2020/src/lib.rs	/^mod strides;$/;"	n
+stringify_decks	2020/src/day22.rs	/^fn stringify_decks(a: &Deck, b: &Deck) -> String {$/;"	f
+successes	2020/target/.rustc_info.json	/^{"rustc_fingerprint":1907800068433887222,"outputs":{"4476964694761187371":["___\\nlib___.rlib\\n/;"	o
+t	2020/src/day20.rs	/^    t: Tile,$/;"	m	struct:TileOrientations
+target	2020/target/release/.fingerprint/aho-corasick-c2ce83a84628001d/lib-aho_corasick.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":646814864038932724/;"	n
+target	2020/target/release/.fingerprint/anyhow-075cd8313d57d00e/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[142231931794/;"	n
+target	2020/target/release/.fingerprint/anyhow-c4fbccab1d48c9a4/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	n
+target	2020/target/release/.fingerprint/anyhow-dc84c06a4e56b91d/lib-anyhow.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":490545314319948007/;"	n
+target	2020/target/release/.fingerprint/either-2fd2192c7ceb2021/lib-either.json	/^{"rustc":7210524046684111384,"features":"[]","target":308832794540006558,"profile":4339006351771/;"	n
+target	2020/target/release/.fingerprint/itertools-050f42b531f6da3f/lib-itertools.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"use_std\\"]","target":11384075933534/;"	n
+target	2020/target/release/.fingerprint/lazy_static-59e9f7d6f71f09f6/lib-lazy_static.json	/^{"rustc":7210524046684111384,"features":"[]","target":3310758268438181623,"profile":433900635177/;"	n
+target	2020/target/release/.fingerprint/memchr-75657146e08f52c9/run-build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"","target":0,"profile":0,"path":0,"deps":[[386048284104/;"	n
+target	2020/target/release/.fingerprint/memchr-7fece086357723de/build-script-build-script-build.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":104295141974573850/;"	n
+target	2020/target/release/.fingerprint/memchr-8b26558c314dda05/lib-memchr.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"std\\"]","target":165879830658677289/;"	n
+target	2020/target/release/.fingerprint/regex-ea6fa34d3723605e/lib-regex.json	/^{"rustc":7210524046684111384,"features":"[\\"aho-corasick\\", \\"default\\", \\"memchr\\", \\"pe/;"	n
+target	2020/target/release/.fingerprint/regex-syntax-afdb66daa1b66d14/lib-regex-syntax.json	/^{"rustc":7210524046684111384,"features":"[\\"default\\", \\"unicode\\", \\"unicode-age\\", \\"un/;"	n
+terminates	2020/src/day19.rs	/^fn terminates(pattern: &str) -> bool {$/;"	f
+tests	2020/src/day02.rs	/^mod tests {$/;"	n
+tests	2020/src/day05.rs	/^mod tests {$/;"	n
+tests	2020/src/day06.rs	/^mod tests {$/;"	n
+tests	2020/src/day08.rs	/^mod tests {$/;"	n
+tests	2020/src/day18.rs	/^mod tests {$/;"	n
+time_solution	2020/src/lib.rs	/^macro_rules! time_solution {$/;"	M
+token_part1_test	2020/src/day18.rs	/^    fn token_part1_test() {$/;"	f	module:tests
+tot	2019/day06.py	/^    tot = 0$/;"	v
+tot1	2019/day04.py	/^tot1, tot2 = 0, 0$/;"	v
+tot2	2019/day04.py	/^tot1, tot2 = 0, 0$/;"	v
+total_bags	2020/src/day07.rs	/^fn total_bags(bagmap: &BagMap, bag: &str) -> usize {$/;"	f
+update_memory	2020/src/day14.rs	/^fn update_memory($/;"	f
+update_memory_v2	2020/src/day14.rs	/^fn update_memory_v2($/;"	f
+upper	2019/day04.py	/^lower, upper = [int(i) for i in data.split("-")[:2]]$/;"	v
+upper	2020/src/day02.rs	/^    upper: usize,$/;"	m	struct:PasswordLine
+valid_rule_part1	2020/src/day02.rs	/^fn valid_rule_part1(pw: &PasswordLine) -> bool {$/;"	f
+valid_rule_part2	2020/src/day02.rs	/^fn valid_rule_part2(pw: &PasswordLine) -> bool {$/;"	f
+validate_byr	2020/src/day04.rs	/^fn validate_byr(f: &str) -> Result<usize> {$/;"	f
+validate_ecl	2020/src/day04.rs	/^fn validate_ecl(f: &str) -> Result<String> {$/;"	f
+validate_eyr	2020/src/day04.rs	/^fn validate_eyr(f: &str) -> Result<usize> {$/;"	f
+validate_hcl	2020/src/day04.rs	/^fn validate_hcl(f: &str) -> Result<String> {$/;"	f
+validate_hgt	2020/src/day04.rs	/^fn validate_hgt(f: &str) -> Result<Height> {$/;"	f
+validate_iyr	2020/src/day04.rs	/^fn validate_iyr(f: &str) -> Result<usize> {$/;"	f
+validate_pid	2020/src/day04.rs	/^fn validate_pid(f: &str) -> Result<String> {$/;"	f
+walk_paths	2019/day03.py	/^def walk_paths(data):$/;"	f
+width	2020/src/strides.rs	/^    pub width: usize,$/;"	m	struct:Strides
