@@ -2,7 +2,6 @@
 from prelude import *
 from collections import defaultdict, Counter
 from intcode import IntCode
-import pyperclip as clip
 import logging
 import networkx as nx
 
@@ -25,10 +24,8 @@ if __name__ == "__main__":
     # m5.run()
     p1 = m.last_output()
     print(f"2019 7.1 -> {p1}")
-    clip.copy(str(p1))
 
     # part2
     p2 = None
     print(f"2019 7.2 -> {p2}")
-    clip.copy(str(p2))
 

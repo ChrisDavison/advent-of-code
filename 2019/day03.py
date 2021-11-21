@@ -20,21 +20,21 @@ U98,R91,D20,R16,D67,R40,U7,R15,U6,R7
 
 
 def get_path(instructions):
-    origin = np.complex(0, 0)
+    origin = 0 + 0j
     path = set()
     total = 0
     for ins in instructions:
         dir = ins[0]
         num = int(ins[1:])
-        step = np.complex(0, 0)
+        step = 0 + 0j
         if dir == 'R':
-            step = np.complex(1, 0)
+            step = 1 + 0j
         elif dir == "L":
-            step = np.complex(-1, 0)
+            step = -1 + 0j
         elif dir == "U":
-            step = np.complex(0, 1)
+            step = 0 + 1j
         else:
-            step = np.complex(0, -1)
+            step = 0 + -1j
         for i in range(num):
             total += 1
             origin += step
@@ -55,8 +55,7 @@ def part1(paths):
     for s in points[1:]:
         intersect &= set(s)
     manh = min([int(np.abs(c.real) + np.abs(c.imag)) for c in intersect])
-    print(f"2019 3.1 -> {manh}")
-    clip.copy(manh)
+    return manh
 
 
 def part2(paths):
@@ -73,11 +72,12 @@ def part2(paths):
                     i_total += s[0]
         if not min_total or i_total < min_total:
             min_total = i_total
-    print(f"2019 3.2 -> {min_total}")
-    clip.copy(min_total)
+    return min_total
 
 
 data = [l for l in open('input/03').read().splitlines()]
 paths = walk_paths(data)
-part1(paths)
-part2(paths)
+timed("2019 3.1", part1, paths)
+timed("2019 3.2", part2, paths)
+# part1(paths)
+# part2(paths)
