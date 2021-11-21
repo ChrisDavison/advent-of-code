@@ -34,19 +34,17 @@ def p2_valid(pw):
 
 def part1(lower, upper):
     tot = sum([1 for poss in range(lower, upper) if p1_valid(poss)])
-    print(f"2019 4.1 -> {tot}")
-    clip.copy(tot)
+    return tot
 
 def part2(lower, upper):
     tot = sum([1 for poss in range(lower, upper) if p2_valid(poss)])
-    print(f"2019 4.2 -> {tot}")
-    clip.copy(tot)
+    return tot
 
 
 data = "136760-595730"
 lower, upper = [int(i) for i in data.split("-")[:2]]
 tot1, tot2 = 0, 0
 
-part1(lower, upper)
-part2(lower, upper)
+timed("2019 4.1", part1, lower, upper)
+timed("2019 4.2", part2, lower, upper)
 

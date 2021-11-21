@@ -18,10 +18,6 @@ def req_rec(mass):
         total += mass
     return total
 
-p1 = sum([required(m) for m in data])
-print(f"2019 1.1 -> {p1}")
-clip.copy(p1)
 
-p2 = sum([req_rec(m) for m in data])
-print(f"2019 1.2 -> {p2}")
-clip.copy(int(p2))
+timed("2019 1.1", lambda: sum([required(m) for m in data]))
+timed("2019 1.2", lambda: sum([req_rec(m) for m in data]))

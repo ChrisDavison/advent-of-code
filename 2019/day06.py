@@ -2,7 +2,6 @@
 from prelude import *
 from collections import defaultdict, Counter
 from intcode import IntCode
-import pyperclip as clip
 import logging
 import networkx as nx
 
@@ -21,21 +20,22 @@ def make_graph(lines):
     return g
 
 
-if __name__ == "__main__":
-    # part1
-    g = make_graph(open('input/06').read().splitlines())
+def part1(graph):
     tot = 0
     for node in g.nodes():
         tot += orbits_of(node, g)
-    print(f"2019 6.1 -> {tot}")
-    clip.copy(tot)
+    return tot
 
-    # part2
+
+def part2(graph):
     ancest = nx.lowest_common_ancestor(g, 'YOU', 'SAN')
     me_to_ancest = next(nx.shortest_simple_paths(g, ancest, 'YOU'))[1:-1]
     san_to_ancest = next(nx.shortest_simple_paths(g, ancest, 'SAN'))[1:-1]
     n_transfers = len(me_to_ancest) + len(san_to_ancest)
+    return n_transfers
 
-    print(f"2019 6.2 -> {n_transfers}")
-    clip.copy(n_transfers)
 
+if __name__ == "__main__":
+    g = make_graph(open('input/06').read().splitlines())
+    timed("2019 6.1", part1, g)
+    timed("2019 6.2", part2, g)
