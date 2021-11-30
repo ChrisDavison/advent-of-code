@@ -78,6 +78,7 @@ class IntCode:
         try:
             op = instrs[opkey](intcode)
         except Exception as E:
+            print(instrs[opkey], intcode)
             raise Exception(f"BAD OP CODE `{opkey}` - ops {self.ops[self.ptr:self.ptr+5]}")
         if self.ptr >= len(self.ops):
             raise Exception("Pointer past end of operations")
