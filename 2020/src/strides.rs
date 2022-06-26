@@ -87,7 +87,7 @@ impl<'a, T> std::fmt::Debug for Strides<'a, T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> std::fmt::Result {
         let grid_width = self.data[0].len();
         let grid_height = self.data.len();
-        let t = std::intrinsics::type_name::<T>();
+        let t = core::any::type_name::<T>();
         write!(
             f,
             "Stride<{}> {{ {}x{} over {}x{} }}",
