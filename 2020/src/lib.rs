@@ -1,4 +1,3 @@
-#![feature(core_intrinsics)]
 mod bool_xor;
 mod parse_each;
 mod quick_dict;
