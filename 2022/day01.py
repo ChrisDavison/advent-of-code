@@ -21,9 +21,12 @@ def part2(data):
     sums = [sum(row) for row in data]
     return sum(sorted(sums)[-3:])
 
+def parse(data):
+    return [[int(n) for n in row.split()]
+            for row in data.split("\n\n")]
 
-elves_ex = [[int(n) for n in row.split()] for row in example.split("\n\n")]
-elves_data = [[int(n) for n in row.split()] for row in open("inputs/01").read().split("\n\n")]
+elves_ex = parse(example)
+elves_data = parse(open("inputs/01").read())
 
 print(part1(elves_ex))
 print(part1(elves_data))
