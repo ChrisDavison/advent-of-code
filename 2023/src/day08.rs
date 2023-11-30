@@ -1,6 +1,5 @@
 use aoc2023::*;
 
-const TARGET: i32 = 2023;
 
 pub fn day08() -> Result<String> {
     // let data = include_str!("../input/day08");
