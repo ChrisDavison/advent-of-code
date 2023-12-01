@@ -1,6 +1,5 @@
 use aoc2023::*;
 
-
 pub fn day20() -> Result<String> {
     // let data = include_str!("../input/day20");
     let data = TEST_INPUT;

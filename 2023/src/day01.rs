@@ -1,8 +1,13 @@
 use aoc2023::*;
+use lazy_static::lazy_static;
+
+lazy_static! {
+    static ref RE: Regex = Regex::new("(one|two|three|four|five|six|seven|eight|nine|[0-9])")
+        .expect("Failed to construct regex");
+}
 
 pub fn day01() -> Result<String> {
     let data = include_str!("../input/day01");
-    let testdata = TEST_INPUT_2;
 
     let output = format!(
         "2023 01.1 -> {}\n2023 01.2 -> {}",
@@ -12,39 +17,50 @@ pub fn day01() -> Result<String> {
     Ok(output)
 }
 
-fn part1(data: &str) -> Result<String> {
-    let mut sum = 0;
-    for line in data.lines() {
-        let nums: Vec<u32> = line
-            .chars()
-            .filter(|&x| (x >= '0' && x <= '9'))
-            .map(|x| x.to_digit(10).unwrap())
-            .collect();
-        let first = nums[0];
-        let last = nums[nums.len() - 1];
-        let num = 10 * first + last;
-        sum += num;
-    }
-    Ok(format!("{}", sum))
+type DigitFinder = fn(&str) -> Vec<u32>;
+
+fn digits_in_line(line: &str) -> Vec<u32> {
+    line.chars()
+        .filter(|&x| (x >= '0' && x <= '9'))
+        .map(|x| x.to_digit(10).unwrap())
+        .collect()
 }
 
-fn part2(data: &str) -> Result<String> {
-    let mut sum = 0;
-    let re = Regex::new("(one|two|three|four|five|six|seven|eight|nine|[0-9])")?;
-    for line in data.lines() {
-        let mut nums = vec![];
-        for i in 0..line.len() {
-            if let Some(m) = re.find(&line[i..]) {
+fn digits_and_worddigits_in_line(line: &str) -> Vec<u32> {
+    let mut nums = vec![];
+    let mut ranges_seen: HashSet<(usize, usize)> = HashSet::new();
+    for i in 0..line.len() {
+        if let Some(m) = RE.find(&line[i..]) {
+            let r = (m.start() + i, m.end() + i);
+            let unseen = ranges_seen.insert(r);
+            if unseen {
                 nums.push(word_to_num(m.as_str()));
             }
         }
-        let first = nums[0];
-        let last = nums[nums.len() - 1];
-        // eprintln!("line = {:#?}, {first}, {last}", line);
-        let num = 10 * first + last;
-        sum += num;
     }
-    Ok(format!("{}", sum))
+    nums
+}
+
+fn part1(data: &str) -> Result<String> {
+    Ok(format!(
+        "{}",
+        sum_of_combined_first_last_digit(data, digits_in_line)
+    ))
+}
+
+fn part2(data: &str) -> Result<String> {
+    Ok(format!(
+        "{}",
+        sum_of_combined_first_last_digit(data, digits_and_worddigits_in_line)
+    ))
+}
+
+fn sum_of_combined_first_last_digit(data: &str, finder: DigitFinder) -> u32 {
+    data.lines()
+        .map(|line| finder(line))
+        .filter(|nums| !nums.is_empty())
+        .map(|nums| nums[0] * 10 + nums[nums.len() - 1])
+        .sum()
 }
 
 fn word_to_num(s: &str) -> u32 {
@@ -77,3 +93,41 @@ xtwone3four
 4nineeightseven2
 zoneight234
 7pqrstsixteen";
+
+mod test {
+    #[allow(unused_imports)]
+    use super::*;
+
+    #[test]
+    fn test_digits_in_line() {
+        assert_eq!(digits_in_line("abc123"), [1, 2, 3]);
+        assert_eq!(digits_in_line("a1bc13"), [1, 1, 3]);
+        assert_eq!(digits_in_line("abc"), []);
+        assert_eq!(digits_in_line("ab1c"), [1]);
+        assert_eq!(digits_and_worddigits_in_line("ab1ctwo"), [1, 2]);
+    }
+
+    #[test]
+    fn test_part1() {
+        assert_eq!(
+            sum_of_combined_first_last_digit(TEST_INPUT, digits_in_line),
+            142
+        );
+        assert_eq!(
+            sum_of_combined_first_last_digit(TEST_INPUT_2, digits_in_line),
+            209
+        );
+    }
+
+    #[test]
+    fn test_part2() {
+        assert_eq!(
+            sum_of_combined_first_last_digit(TEST_INPUT, digits_and_worddigits_in_line),
+            142
+        );
+        assert_eq!(
+            sum_of_combined_first_last_digit(TEST_INPUT_2, digits_and_worddigits_in_line),
+            281
+        );
+    }
+}
