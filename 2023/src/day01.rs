@@ -1,5 +1,3 @@
-use std::fmt::format;
-
 use aoc2023::*;
 
 pub fn day01() -> Result<String> {
@@ -50,7 +48,7 @@ fn part2(data: &str) -> Result<String> {
 }
 
 fn word_to_num(s: &str) -> u32 {
-    match s{
+    match s {
         "one" | "1" => 1,
         "two" | "2" => 2,
         "three" | "3" => 3,
@@ -61,7 +59,7 @@ fn word_to_num(s: &str) -> u32 {
         "eight" | "8" => 8,
         "nine" | "9" => 9,
         "zero" | "0" => 0,
-        _ => 0
+        _ => 0,
     }
 }
 
