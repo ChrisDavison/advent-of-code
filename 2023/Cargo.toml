@@ -1,6 +1,6 @@
 [package]
 name = "aoc2023"
-version = "2023.25.1"
+version = "2023.2.2"
 authors = ["Chris Davison <c.jr.davison@gmail.com>"]
 edition = "2018"
 
@@ -19,11 +19,3 @@ path="src/lib.rs"
 [[bin]]
 name="aoc2023"
 path="src/main.rs"
-
-[dev-dependencies]
-criterion = "0.3"
-
-[[bench]]
-name = "my_benchmark"
-harness = false
-path="src/my_benchmark.rs"
