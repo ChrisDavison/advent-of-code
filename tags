@@ -139,7 +139,6 @@ create_bagmap	2020/src/day07.rs	/^fn create_bagmap<'a>(data: impl Iterator<Item 
 create_cube	2020/src/day17.rs	/^fn create_cube(n: usize, value: u8) -> Vec<Vec<Vec<u8>>> {$/;"	f
 create_hypercube	2020/src/day17.rs	/^fn create_hypercube(n: usize, value: u8) -> Vec<Vec<Vec<Vec<u8>>>> {$/;"	f
 criterion_benchmark	2020/src/my_benchmark.rs	/^fn criterion_benchmark(c: &mut Criterion) {$/;"	f
-criterion_benchmark	2023/src/my_benchmark.rs	/^fn criterion_benchmark(c: &mut Criterion) {$/;"	f
 cubes	2023/src/day02.rs	/^    cubes: HashMap<&'a str, i32>,$/;"	m	struct:Game
 current	2020/src/day23.rs	/^    current: usize,$/;"	m	struct:CupGame
 d15_1_ex	2020/src/day15.rs	/^fn d15_1_ex() {$/;"	f
@@ -180,7 +179,6 @@ day01	2020/src/main.rs	/^mod day01;$/;"	n
 day01	2020/src/my_benchmark.rs	/^mod day01;$/;"	n
 day01	2023/src/day01.rs	/^pub fn day01() -> Result<String> {$/;"	f
 day01	2023/src/main.rs	/^mod day01;$/;"	n
-day01	2023/src/my_benchmark.rs	/^mod day01;$/;"	n
 day01p1	2018/day01.py	/^def day01p1(diffs, start):$/;"	f
 day01p2	2018/day01.py	/^def day01p2(diffs, start):$/;"	f
 day02	2020/src/day02.rs	/^pub fn day02() -> Result<String> {$/;"	f
@@ -188,7 +186,6 @@ day02	2020/src/main.rs	/^mod day02;$/;"	n
 day02	2020/src/my_benchmark.rs	/^mod day02;$/;"	n
 day02	2023/src/day02.rs	/^pub fn day02() -> Result<String> {$/;"	f
 day02	2023/src/main.rs	/^mod day02;$/;"	n
-day02	2023/src/my_benchmark.rs	/^mod day02;$/;"	n
 day02p1	2018/day02.py	/^def day02p1(inputs):$/;"	f
 day02p2	2018/day02.py	/^def day02p2(inputs):$/;"	f
 day03	2020/src/day03.rs	/^pub fn day03() -> Result<String> {$/;"	f
