@@ -6,21 +6,20 @@ lazy_static! {
 }
 
 pub fn day02() -> Result<String> {
-    let data = include_str!("../input/day02");
+    let data = parse(include_str!("../input/day02"));
 
     let output = format!(
         "2023 02.1 -> {}\n2023 02.2 -> {}",
-        part1(data)?,
-        part2(data)?
+        part1(&data)?,
+        part2(&data)?
     );
     Ok(output)
 }
 
 #[derive(Debug, Clone, PartialEq)]
-struct Game<'a> {
+struct Game {
     id: usize,
-    cubes: HashMap<&'a str, i32>,
-    possible: bool,
+    cubes: (i32, i32, i32),
 }
 
 fn parse_cube(s: &str) -> (&str, i32) {
@@ -32,7 +31,7 @@ fn parse_cubeset(s: &str) -> Vec<(&str, i32)> {
     s.split(',').map(parse_cube).collect()
 }
 
-fn parse_line<'a>(line: &'a str, limits: &HashMap<&'a str, i32>) -> Game<'a> {
+fn parse_line(line: &str) -> Game {
     // The game wants the MAXIMUM number of any particular cube seen
     // (the cubes get put into the back between each set within a game)
     let colon = line.find(':').unwrap();
@@ -41,68 +40,59 @@ fn parse_line<'a>(line: &'a str, limits: &HashMap<&'a str, i32>) -> Game<'a> {
         &line[colon + 2..],
     );
     let mut max_seen = HashMap::new();
+    let mut max_seen_tuple = (0, 0, 0);
     for cubeset in cubestr.split(';').map(parse_cubeset) {
         for (colour, number) in cubeset {
+            match colour {
+                "red" => max_seen_tuple.0 = max_seen_tuple.0.max(number),
+                "green" => max_seen_tuple.1 = max_seen_tuple.1.max(number),
+                "blue" => max_seen_tuple.2 = max_seen_tuple.2.max(number),
+                x => unreachable!("Unexpected colour {}", x),
+            }
             let e = max_seen.entry(colour).or_insert(0);
             if number > *e {
                 *e = number;
             }
         }
     }
-    let valid = is_possible(&max_seen, limits);
     Game {
         id: idstr.parse().unwrap(),
-        cubes: max_seen,
-        possible: valid,
+        cubes: max_seen_tuple,
     }
 }
 
-impl<'a> std::fmt::Display for Game<'a> {
+impl std::fmt::Display for Game {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
             "<{}: R{} G{} B{}>",
-            self.id, self.cubes["red"], self.cubes["green"], self.cubes["blue"]
+            self.id, self.cubes.0, self.cubes.1, self.cubes.2
         )
     }
 }
 
-fn is_possible(cubes: &HashMap<&str, i32>, limits: &HashMap<&str, i32>) -> bool {
-    for (&colour, &limit) in limits.iter() {
-        if cubes.contains_key(colour) && cubes[&colour] > limit {
-            return false;
-        }
-    }
-    true
+fn is_possible(game: &Game, limits: &(i32, i32, i32)) -> bool {
+    game.cubes.0 <= limits.0 && game.cubes.1 <= limits.1 && game.cubes.2 <= limits.2
 }
 
-fn part1(data: &str) -> Result<usize> {
-    let mut limits = HashMap::new();
-    limits.insert("red", 12);
-    limits.insert("green", 13);
-    limits.insert("blue", 14);
-    let mut sum_possible = 0;
-    for line in data.lines() {
-        let g = parse_line(line, &limits);
-        if g.possible {
-            sum_possible += g.id;
-        }
-    }
-    Ok(sum_possible)
+fn parse(data: &str) -> Vec<Game> {
+    data.lines().map(parse_line).collect()
 }
 
-fn part2(data: &str) -> Result<i32> {
-    let mut limits = HashMap::new();
-    limits.insert("red", 12);
-    limits.insert("green", 13);
-    limits.insert("blue", 14);
-    let mut prod = 0;
-    for line in data.lines() {
-        let g = parse_line(line, &limits);
-        let power = g.cubes.values().product::<i32>();
-        prod += power;
-    }
-    Ok(prod)
+fn part1(games: &[Game]) -> Result<usize> {
+    let limits = (12, 13, 14);
+    Ok(games
+        .iter()
+        .filter(|g| is_possible(g, &limits))
+        .map(|g| g.id)
+        .sum())
+}
+
+fn part2(games: &[Game]) -> Result<i32> {
+    Ok(games
+        .iter()
+        .map(|game| game.cubes.0 * game.cubes.1 * game.cubes.2)
+        .sum())
 }
 
 #[allow(dead_code)]
@@ -125,11 +115,11 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        assert_eq!(part1(TEST_INPUT).unwrap(), 8);
+        assert_eq!(part1(&parse(TEST_INPUT)).unwrap(), 8);
     }
 
     #[test]
     fn test_part2() {
-        assert_eq!(part2(TEST_INPUT).unwrap(), 2286);
+        assert_eq!(part2(&parse(TEST_INPUT)).unwrap(), 2286);
     }
 }
