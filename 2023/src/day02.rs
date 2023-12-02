@@ -1,9 +1,4 @@
-#![allow(dead_code, unused_variables)]
 use aoc2023::*;
-
-lazy_static! {
-    static ref RE_CUBE: Regex = Regex::new(r"(\d+ red|\d+ green|\d+ blue)").unwrap();
-}
 
 pub fn day02() -> Result<String> {
     let data = parse(include_str!("../input/day02"));
@@ -16,63 +11,61 @@ pub fn day02() -> Result<String> {
     Ok(output)
 }
 
+impl Game {
+    fn power(&self) -> i32 {
+        self.cubes.0 * self.cubes.1 * self.cubes.2
+    }
+
+    fn is_possible(&self, limits: &Tuple3<i32>) -> bool {
+        self.cubes.0 <= limits.0 && self.cubes.1 <= limits.1 && self.cubes.2 <= limits.2
+    }
+}
+
+type Tuple3<T> = (T, T, T);
+
+fn elementwise_max_assign<T: std::cmp::Ord + Copy>(a: &mut Tuple3<T>, b: &Tuple3<T>) {
+    a.0 = a.0.max(b.0);
+    a.1 = a.1.max(b.1);
+    a.2 = a.2.max(b.2);
+}
+
 #[derive(Debug, Clone, PartialEq)]
 struct Game {
     id: usize,
-    cubes: (i32, i32, i32),
+    cubes: Tuple3<i32>,
 }
 
-fn parse_cube(s: &str) -> (&str, i32) {
+fn parse_cube_tuple(s: &str) -> Tuple3<i32> {
     let (number, colour) = s.trim().split_once(' ').unwrap();
-    (colour, number.parse().unwrap())
+    let number = number.parse().unwrap_or(0);
+    match colour {
+        "red" => (number, 0, 0),
+        "green" => (0, number, 0),
+        "blue" => (0, 0, number),
+        x => unreachable!("Unexpected colour {}", x),
+    }
+    // (colour, number.parse().unwrap())
 }
 
-fn parse_cubeset(s: &str) -> Vec<(&str, i32)> {
-    s.split(',').map(parse_cube).collect()
+fn parse_cubeset_tuple(s: &str) -> Vec<Tuple3<i32>> {
+    s.split(',').map(parse_cube_tuple).collect()
 }
 
 fn parse_line(line: &str) -> Game {
     // The game wants the MAXIMUM number of any particular cube seen
     // (the cubes get put into the back between each set within a game)
-    let colon = line.find(':').unwrap();
-    let (idstr, cubestr) = (
-        &line[..colon].trim_start_matches("Game "),
-        &line[colon + 2..],
-    );
-    let mut max_seen = HashMap::new();
+    let (idstr, cubestr) = line.split_once(':').expect("Unexpected line format");
+
     let mut max_seen_tuple = (0, 0, 0);
-    for cubeset in cubestr.split(';').map(parse_cubeset) {
-        for (colour, number) in cubeset {
-            match colour {
-                "red" => max_seen_tuple.0 = max_seen_tuple.0.max(number),
-                "green" => max_seen_tuple.1 = max_seen_tuple.1.max(number),
-                "blue" => max_seen_tuple.2 = max_seen_tuple.2.max(number),
-                x => unreachable!("Unexpected colour {}", x),
-            }
-            let e = max_seen.entry(colour).or_insert(0);
-            if number > *e {
-                *e = number;
-            }
+    for cubesets in cubestr.split(';').map(parse_cubeset_tuple) {
+        for cubeset in cubesets {
+            elementwise_max_assign(&mut max_seen_tuple, &cubeset);
         }
     }
     Game {
-        id: idstr.parse().unwrap(),
+        id: idstr.trim_start_matches("Game ").parse().unwrap(),
         cubes: max_seen_tuple,
     }
-}
-
-impl std::fmt::Display for Game {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "<{}: R{} G{} B{}>",
-            self.id, self.cubes.0, self.cubes.1, self.cubes.2
-        )
-    }
-}
-
-fn is_possible(game: &Game, limits: &(i32, i32, i32)) -> bool {
-    game.cubes.0 <= limits.0 && game.cubes.1 <= limits.1 && game.cubes.2 <= limits.2
 }
 
 fn parse(data: &str) -> Vec<Game> {
@@ -83,16 +76,13 @@ fn part1(games: &[Game]) -> Result<usize> {
     let limits = (12, 13, 14);
     Ok(games
         .iter()
-        .filter(|g| is_possible(g, &limits))
+        .filter(|g| g.is_possible(&limits))
         .map(|g| g.id)
         .sum())
 }
 
 fn part2(games: &[Game]) -> Result<i32> {
-    Ok(games
-        .iter()
-        .map(|game| game.cubes.0 * game.cubes.1 * game.cubes.2)
-        .sum())
+    Ok(games.iter().map(|game| game.power()).sum())
 }
 
 #[allow(dead_code)]
@@ -105,13 +95,6 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
 mod tests {
     #[allow(unused_imports)]
     use super::*;
-
-    #[test]
-    fn test_parse_cube() {
-        assert_eq!(parse_cube("3 blue"), ("blue", 3));
-        assert_eq!(parse_cube("6 red"), ("red", 6));
-        assert_eq!(parse_cube("0 green"), ("green", 0));
-    }
 
     #[test]
     fn test_part1() {
