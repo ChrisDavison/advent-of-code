@@ -7,6 +7,7 @@ pub use crate::parse_each::parse_each;
 pub use crate::strides::Strides;
 pub use anyhow::{anyhow, Result};
 pub use itertools::Itertools;
+pub use lazy_static::lazy_static;
 pub use regex::Regex;
 pub use std::collections::{HashMap, HashSet, VecDeque};
 pub use std::fmt::{self, Display};

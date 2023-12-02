@@ -1,5 +1,4 @@
 use aoc2023::*;
-use lazy_static::lazy_static;
 
 lazy_static! {
     static ref RE: Regex = Regex::new("(one|two|three|four|five|six|seven|eight|nine|[0-9])")
@@ -20,10 +19,7 @@ pub fn day01() -> Result<String> {
 type DigitFinder = fn(&str) -> Vec<u32>;
 
 fn digits_in_line(line: &str) -> Vec<u32> {
-    line.chars()
-        .filter(|&x| (x >= '0' && x <= '9'))
-        .map(|x| x.to_digit(10).unwrap())
-        .collect()
+    line.chars().filter_map(|x| x.to_digit(10)).collect()
 }
 
 fn digits_and_worddigits_in_line(line: &str) -> Vec<u32> {
@@ -41,23 +37,20 @@ fn digits_and_worddigits_in_line(line: &str) -> Vec<u32> {
     nums
 }
 
-fn part1(data: &str) -> Result<String> {
-    Ok(format!(
-        "{}",
-        sum_of_combined_first_last_digit(data, digits_in_line)
-    ))
+fn part1(data: &str) -> Result<u32> {
+    Ok(sum_of_combined_first_last_digit(data, digits_in_line))
 }
 
-fn part2(data: &str) -> Result<String> {
-    Ok(format!(
-        "{}",
-        sum_of_combined_first_last_digit(data, digits_and_worddigits_in_line)
+fn part2(data: &str) -> Result<u32> {
+    Ok(sum_of_combined_first_last_digit(
+        data,
+        digits_and_worddigits_in_line,
     ))
 }
 
 fn sum_of_combined_first_last_digit(data: &str, finder: DigitFinder) -> u32 {
     data.lines()
-        .map(|line| finder(line))
+        .map(finder)
         .filter(|nums| !nums.is_empty())
         .map(|nums| nums[0] * 10 + nums[nums.len() - 1])
         .sum()
