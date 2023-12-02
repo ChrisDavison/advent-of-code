@@ -31,8 +31,6 @@ Err	2020/src/day08.rs	/^    type Err = anyhow::Error;$/;"	t	implementation:Instr
 Err	2020/src/day14.rs	/^    type Err = anyhow::Error;$/;"	t	implementation:Op
 Err	2020/src/day20.rs	/^    type Err = anyhow::Error;$/;"	t	implementation:Tile
 Err	2020/src/day24.rs	/^    type Err = anyhow::Error;$/;"	t	implementation:Hex
-Game	2023/src/day02.rs	/^impl Game {$/;"	c
-Game	2023/src/day02.rs	/^struct Game {$/;"	s
 Height	2020/src/day04.rs	/^enum Height {$/;"	g
 Height	2020/src/day04.rs	/^impl FromStr for Height {$/;"	c
 Height	2020/src/day04.rs	/^impl std::fmt::Debug for Height {$/;"	c
@@ -97,7 +95,7 @@ TileOrientations	2020/src/day20.rs	/^impl std::iter::Iterator for TileOrientatio
 TileOrientations	2020/src/day20.rs	/^struct TileOrientations {$/;"	s
 Token	2020/src/day18.rs	/^enum Token {$/;"	g
 Token	2020/src/day18.rs	/^impl std::fmt::Display for Token {$/;"	c
-Tuple3	2023/src/day02.rs	/^type Tuple3<T> = (T, T, T);$/;"	t
+Triple	2023/src/day02.rs	/^type Triple = (i32, i32, i32);$/;"	t
 West	2020/src/day20.rs	/^    West,$/;"	e	enum:Direction
 X	2020/src/day14.rs	/^    X,$/;"	e	enum:Bit
 Zero	2020/src/day14.rs	/^    Zero,$/;"	e	enum:Bit
@@ -140,7 +138,6 @@ create_bagmap	2020/src/day07.rs	/^fn create_bagmap<'a>(data: impl Iterator<Item 
 create_cube	2020/src/day17.rs	/^fn create_cube(n: usize, value: u8) -> Vec<Vec<Vec<u8>>> {$/;"	f
 create_hypercube	2020/src/day17.rs	/^fn create_hypercube(n: usize, value: u8) -> Vec<Vec<Vec<Vec<u8>>>> {$/;"	f
 criterion_benchmark	2020/src/my_benchmark.rs	/^fn criterion_benchmark(c: &mut Criterion) {$/;"	f
-cubes	2023/src/day02.rs	/^    cubes: Tuple3<i32>,$/;"	m	struct:Game
 current	2020/src/day23.rs	/^    current: usize,$/;"	m	struct:CupGame
 d15_1_ex	2020/src/day15.rs	/^fn d15_1_ex() {$/;"	f
 data	2019/day01.py	/^data = [int(l) for l in open('input\/01').read().splitlines()]$/;"	v
@@ -273,7 +270,7 @@ east	2020/src/day12.rs	/^    east: isize,$/;"	m	struct:Position
 east	2020/src/day24.rs	/^    east: isize,$/;"	m	struct:Hex
 ecl	2020/src/day04.rs	/^    ecl: String,$/;"	m	struct:Passport
 edges	2020/src/day20.rs	/^    fn edges(&self) -> (Vec<char>, Vec<char>, Vec<char>, Vec<char>) {$/;"	P	implementation:Tile
-elementwise_max_assign	2023/src/day02.rs	/^fn elementwise_max_assign<T: std::cmp::Ord + Copy>(a: &mut Tuple3<T>, b: &Tuple3<T>) {$/;"	f
+elementwise_max_assign	2023/src/day02.rs	/^fn elementwise_max_assign(a: &mut Triple, b: &Triple) {$/;"	f
 elves_data	2022/day01.py	/^elves_data = parse(open("inputs\/01").read())$/;"	v
 elves_ex	2022/day01.py	/^elves_ex = parse(example)$/;"	v
 eq	2020/src/day24.rs	/^    fn eq(&self, other: &Hex) -> bool {$/;"	P	implementation:Hex
@@ -339,11 +336,10 @@ height	2020/src/strides.rs	/^    pub height: usize,$/;"	m	struct:Strides
 height	2023/src/strides.rs	/^    pub height: usize,$/;"	m	struct:Strides
 hgt	2020/src/day04.rs	/^    hgt: Height,$/;"	m	struct:Passport
 id	2020/src/day20.rs	/^    id: usize,$/;"	m	struct:Tile
-id	2023/src/day02.rs	/^    id: usize,$/;"	m	struct:Game
 inner_parens_test	2020/src/day18.rs	/^    fn inner_parens_test() {$/;"	f	module:tests
 invalid_fields	2020/src/day16.rs	/^fn invalid_fields(rs: &RuleSet, t: &Ticket) -> Vec<usize> {$/;"	f
 is_overlap	2022/day04.py	/^def is_overlap(l, r):$/;"	f
-is_possible	2023/src/day02.rs	/^    fn is_possible(&self, limits: &Tuple3<i32>) -> bool {$/;"	P	implementation:Game
+is_possible	2023/src/day02.rs	/^fn is_possible(tuple: Triple, limits: &Triple) -> bool {$/;"	f
 iterate	2020/src/day23.rs	/^    fn iterate(&mut self) {$/;"	P	implementation:CupGame
 iterate_till_stable	2020/src/day11.rs	/^fn iterate_till_stable<F: Fn(&[Vec<u8>], Position, &[(isize, isize)]) -> bool>($/;"	f
 iteration	2020/src/day20.rs	/^    iteration: usize,$/;"	m	struct:TileOrientations
@@ -398,12 +394,11 @@ parse	2022/day01.py	/^def parse(data):$/;"	f
 parse	2022/day02.py	/^def parse(data: str):$/;"	f
 parse	2022/day05.py	/^def parse(data):$/;"	f
 parse	2022/day07.py	/^def parse(data: str) -> defaultdict[str, Set[str]]:$/;"	f	typeref:typename:defaultdict[str,Set[str]]
-parse	2023/src/day02.rs	/^fn parse(data: &str) -> Vec<Game> {$/;"	f
 parse_bag	2020/src/day07.rs	/^fn parse_bag(s: &str) -> Result<(String, usize)> {$/;"	f
 parse_bus_timetable	2020/src/day13.rs	/^fn parse_bus_timetable(s: &str) -> Vec<Option<usize>> {$/;"	f
 parse_claim	2018/day03.py	/^def parse_claim(claim):$/;"	f
-parse_cube_tuple	2023/src/day02.rs	/^fn parse_cube_tuple(s: &str) -> Tuple3<i32> {$/;"	f
-parse_cubeset_tuple	2023/src/day02.rs	/^fn parse_cubeset_tuple(s: &str) -> Vec<Tuple3<i32>> {$/;"	f
+parse_cube_tuple	2023/src/day02.rs	/^fn parse_cube_tuple(s: &str) -> Triple {$/;"	f
+parse_cubeset_tuple	2023/src/day02.rs	/^fn parse_cubeset_tuple(s: &str) -> Vec<Triple> {$/;"	f
 parse_data	2020/src/day16.rs	/^fn parse_data(data: &str) -> Result<(RuleSet, Ticket, Vec<Ticket>)> {$/;"	f
 parse_data	2020/src/day19.rs	/^fn parse_data(data: &str) -> (HashMap<String, String>, Vec<&str>) {$/;"	f
 parse_data	2020/src/day21.rs	/^fn parse_data(s: &str) -> (Vec<HashSet<&str>>, HashMap<&str, &str>) {$/;"	f
@@ -416,7 +411,8 @@ parse_example_day1	2018/test_all_days.py	/^    def parse_example_day1(inputstr):
 parse_guard_record	2018/day04.py	/^def parse_guard_record(record):$/;"	f
 parse_instr	2019/intcode.py	/^    def parse_instr(self, s):$/;"	m	class:IntCode
 parse_instructions	2020/src/day12.rs	/^fn parse_instructions(s: &str) -> Vec<(char, usize)> {$/;"	f
-parse_line	2023/src/day02.rs	/^fn parse_line(line: &str) -> Game {$/;"	f
+parse_iter	2023/src/day02.rs	/^fn parse_iter(data: &str) -> impl Iterator<Item = (i32, (i32, i32, i32))> + '_ {$/;"	f
+parse_line	2023/src/day02.rs	/^fn parse_line(line: &str) -> (i32, Triple) {$/;"	f
 parse_password	2020/src/day02.rs	/^fn parse_password(s: &str) -> Result<PasswordLine> {$/;"	f
 parse_rule	2020/src/day16.rs	/^fn parse_rule(s: &str) -> Result<(String, (Range, Range))> {$/;"	f
 parse_ticket	2020/src/day16.rs	/^fn parse_ticket(s: &str) -> Vec<usize> {$/;"	f
@@ -474,7 +470,6 @@ part1	2022/day05.py	/^def part1(data):$/;"	f
 part1	2022/day06.py	/^def part1(data):$/;"	f
 part1	2022/day07.py	/^def part1(data):$/;"	f
 part1	2023/src/day01.rs	/^fn part1(data: &str) -> Result<u32> {$/;"	f
-part1	2023/src/day02.rs	/^fn part1(games: &[Game]) -> Result<usize> {$/;"	f
 part1_examples_test	2020/src/day18.rs	/^    fn part1_examples_test() {$/;"	f	module:tests
 part2	2019/day02.py	/^def part2(data, target=19690720):$/;"	f
 part2	2019/day03.py	/^def part2(paths):$/;"	f
@@ -529,7 +524,6 @@ part2	2022/day05.py	/^def part2(data):$/;"	f
 part2	2022/day06.py	/^def part2(data):$/;"	f
 part2	2022/day07.py	/^def part2():$/;"	f
 part2	2023/src/day01.rs	/^fn part2(data: &str) -> Result<u32> {$/;"	f
-part2	2023/src/day02.rs	/^fn part2(games: &[Game]) -> Result<i32> {$/;"	f
 part2_examples_test	2020/src/day18.rs	/^    fn part2_examples_test() {$/;"	f	module:tests
 part_1	2020/src/day10.rs	/^fn part_1(data: &[usize]) -> usize {$/;"	f
 part_1	2020/src/day11.rs	/^fn part_1(seats: &[Vec<u8>]) -> usize {$/;"	f
@@ -544,8 +538,8 @@ paths	2019/day03.py	/^paths = walk_paths(data)$/;"	v
 pid	2020/src/day04.rs	/^    pid: String,$/;"	m	struct:Passport
 play_recursive_game	2020/src/day22.rs	/^fn play_recursive_game(a: &Deck, b: &Deck) -> (Deck, bool) {$/;"	f
 pointed_at_by	2020/src/day23.rs	/^    pointed_at_by: Vec<usize>,$/;"	m	struct:CupGame
-power	2023/src/day02.rs	/^    fn power(&self) -> i32 {$/;"	P	implementation:Game
 priority	2022/day03.py	/^def priority(letter):$/;"	f
+product	2023/src/day02.rs	/^fn product(tuple: Triple) -> i32 {$/;"	f
 quick_dict	2020/src/lib.rs	/^mod quick_dict;$/;"	n
 quick_dict	2023/src/lib.rs	/^mod quick_dict;$/;"	n
 read	2019/intcode.py	/^    def read(self, intcode):$/;"	m	class:IntCode
@@ -661,15 +655,12 @@ test_day04part1	2018/test_all_days.py	/^def test_day04part1():$/;"	f
 test_day07p1e1	2019/test_day07.py	/^def test_day07p1e1():$/;"	f
 test_digits_in_line	2023/src/day01.rs	/^    fn test_digits_in_line() {$/;"	f	module:test
 test_part1	2023/src/day01.rs	/^    fn test_part1() {$/;"	f	module:test
-test_part1	2023/src/day02.rs	/^    fn test_part1() {$/;"	f	module:tests
 test_part2	2023/src/day01.rs	/^    fn test_part2() {$/;"	f	module:test
-test_part2	2023/src/day02.rs	/^    fn test_part2() {$/;"	f	module:tests
 tests	2020/src/day02.rs	/^mod tests {$/;"	n
 tests	2020/src/day05.rs	/^mod tests {$/;"	n
 tests	2020/src/day06.rs	/^mod tests {$/;"	n
 tests	2020/src/day08.rs	/^mod tests {$/;"	n
 tests	2020/src/day18.rs	/^mod tests {$/;"	n
-tests	2023/src/day02.rs	/^mod tests {$/;"	n
 time_solution	2020/src/lib.rs	/^macro_rules! time_solution {$/;"	M
 time_solution	2023/src/lib.rs	/^macro_rules! time_solution {$/;"	M
 timed	2019/prelude.py	/^def timed(funcname, f, *args, **kwargs):$/;"	f
