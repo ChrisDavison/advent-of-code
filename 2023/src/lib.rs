@@ -1,15 +1,17 @@
 mod bool_xor;
 mod parse_each;
+mod point2d;
 mod quick_dict;
 mod strides;
 
 pub use crate::parse_each::parse_each;
+pub use crate::point2d::Point2D;
 pub use crate::strides::Strides;
 pub use anyhow::{anyhow, Result};
 pub use itertools::Itertools;
 pub use lazy_static::lazy_static;
 pub use regex::Regex;
-pub use std::collections::{HashMap, HashSet, VecDeque};
+pub use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet, VecDeque};
 pub use std::fmt::{self, Display};
 pub use std::hash::{Hash, Hasher};
 pub use std::iter::repeat;
