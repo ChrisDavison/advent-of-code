@@ -1,9 +1,5 @@
 use aoc2023::*;
 
-lazy_static! {
-    static ref RE: Regex = Regex::new(r"(\d+)").expect("Failed to crate regex");
-}
-
 #[allow(dead_code)]
 const SAMPLE: &str = r"467..114..
 ...*......
@@ -26,25 +22,16 @@ pub fn day03() -> Result<String> {
     ))
 }
 
-fn points_surrounding_region(region: &[Point2D]) -> BTreeSet<Point2D> {
-    let mut out = BTreeSet::new();
-    for point in region {
-        for surround in point.surrounding() {
-            out.insert(surround);
-        }
-    }
-    out
+fn points_surrounding_region(region: &[Point2D]) -> impl Iterator<Item = Point2D> + '_ {
+    region.iter().flat_map(|point| point.surrounding())
 }
 
 fn part1(data: &str) -> Result<usize> {
     let (number_map, symbol_locations) = parse(data);
 
-    let symbol_keys = &symbol_locations.keys().cloned().collect::<BTreeSet<_>>();
     let mut parts = Vec::new();
     for (number, region) in number_map {
-        let surround = points_surrounding_region(&region);
-        let both: BTreeSet<_> = surround.intersection(symbol_keys).collect();
-        if !both.is_empty() {
+        if points_surrounding_region(&region).any(|s| symbol_locations.contains_key(&s)) {
             parts.push(number);
         }
     }
@@ -55,57 +42,66 @@ fn part1(data: &str) -> Result<usize> {
 fn part2(data: &str) -> Result<usize> {
     let (number_map, symbol_locations) = parse(data);
 
+    let mut point_to_idx_of_partnum = HashMap::new();
+    let mut partnums = Vec::new();
+
+    for (number, region) in &number_map {
+        partnums.push(number);
+        for p in region {
+            point_to_idx_of_partnum.insert(p, partnums.len() - 1);
+        }
+    }
+
     let mut ratios = Vec::new();
     for (location, ch) in symbol_locations {
         if ch != '*' {
             continue;
         }
-        let mut candidates = Vec::new();
-        let mut regions_seen = HashSet::new();
+        let mut candidates = HashSet::new();
         for p in points_surrounding_region(&[location]) {
-            for (number, region) in &number_map {
-                if region.contains(&p) && !regions_seen.contains(region) {
-                    candidates.push(number);
-                    regions_seen.insert(region);
-                }
+            if let Some(partnum_idx) = point_to_idx_of_partnum.get(&p) {
+                candidates.insert(partnums[*partnum_idx]);
             }
-            // find any number that has p in it's region
         }
         if candidates.len() == 2 {
-            ratios.push(candidates[0] * candidates[1]);
+            ratios.push(candidates.iter().copied().product::<usize>());
         }
     }
 
     Ok(ratios.iter().sum())
 }
 
-fn is_symbol(ch: char) -> bool {
-    !"0123456789.".contains(ch)
-}
+type SymbolLocations = BTreeMap<Point2D, char>;
+type Region = Vec<Point2D>;
 
-fn parse(data: &str) -> (Vec<(usize, Vec<Point2D>)>, BTreeMap<Point2D, char>) {
+fn parse(data: &str) -> (Vec<(usize, Region)>, SymbolLocations) {
+    lazy_static! {
+        static ref RE: Regex =
+            Regex::new(r"(?<digit>\d+)|(?<sym>[^0-9.])").expect("Failed to crate regex");
+    }
+
     let mut possible = Vec::new();
     let mut symbolmap = BTreeMap::new();
 
     for (row, line) in data.lines().enumerate() {
-        for m in RE.find_iter(line) {
-            let number_locations = (m.start()..m.end())
-                .map(|col| Point2D {
-                    row: row as isize,
-                    col: col as isize,
-                })
-                .collect();
-            possible.push((m.as_str().parse().unwrap(), number_locations));
-        }
-        for (col, c) in line.chars().enumerate() {
-            if is_symbol(c) {
+        for m in RE.captures_iter(line) {
+            if let Some(m) = m.name("sym") {
                 symbolmap.insert(
                     Point2D {
-                        col: col as isize,
+                        col: m.start() as isize,
                         row: row as isize,
                     },
-                    c,
+                    m.as_str().chars().next().unwrap(),
                 );
+            }
+            if let Some(m) = m.name("digit") {
+                let number_locations = (m.start()..m.end())
+                    .map(|col| Point2D {
+                        row: row as isize,
+                        col: col as isize,
+                    })
+                    .collect();
+                possible.push((m.as_str().parse().unwrap(), number_locations));
             }
         }
     }
