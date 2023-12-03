@@ -48,6 +48,7 @@ IntCode	2019/intcode.py	/^class IntCode:$/;"	c
 Item	2020/src/day20.rs	/^    type Item = Tile;$/;"	t	implementation:TileOrientations
 Item	2020/src/strides.rs	/^    type Item = Vec<Vec<T>>;$/;"	t
 Item	2023/src/strides.rs	/^    type Item = Vec<Vec<T>>;$/;"	t
+Iterate over a string and get a number from a sequence *in one pass*	README.md	/^### Iterate over a string and get a number from a sequence *in one pass*$/;"	S	section:Advent of Code""Tips
 Jmp	2020/src/day08.rs	/^    Jmp(i64),$/;"	e	enum:Instruction
 Mask	2020/src/day14.rs	/^    Mask(BitMask),$/;"	e	enum:Op
 Mem	2020/src/day14.rs	/^    Mem(usize, usize),$/;"	e	enum:Op
@@ -98,6 +99,7 @@ Tile	2020/src/day20.rs	/^impl std::str::FromStr for Tile {$/;"	c
 Tile	2020/src/day20.rs	/^struct Tile {$/;"	s
 TileOrientations	2020/src/day20.rs	/^impl std::iter::Iterator for TileOrientations {$/;"	c
 TileOrientations	2020/src/day20.rs	/^struct TileOrientations {$/;"	s
+Tips	README.md	/^## Tips$/;"	s	chapter:Advent of Code
 Token	2020/src/day18.rs	/^enum Token {$/;"	g
 Token	2020/src/day18.rs	/^impl std::fmt::Display for Token {$/;"	c
 Triple	2023/src/day02.rs	/^type Triple = (i32, i32, i32);$/;"	t
