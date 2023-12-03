@@ -1,6 +1,3 @@
-#![allow(dead_code)]
-use itertools::iproduct;
-
 #[derive(Debug, Clone, PartialEq, Hash, Eq, PartialOrd, Ord)]
 pub struct Point2D {
     pub row: isize,
