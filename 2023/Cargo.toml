@@ -1,6 +1,6 @@
 [package]
 name = "aoc2023"
-version = "2023.2.2"
+version = "2023.3.2"
 authors = ["Chris Davison <c.jr.davison@gmail.com>"]
 edition = "2018"
 
@@ -13,6 +13,7 @@ regex = "1.4.2"
 lazy_static = "1.4.0"
 derive_more = "0.99.17"
 rayon = "1.8.0"
+num = "0.4.1"
 
 [lib]
 name="aoc2023"
