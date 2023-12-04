@@ -208,6 +208,8 @@ day03p2	2018/day03.py	/^def day03p2(claims):$/;"	f
 day04	2020/src/day04.rs	/^pub fn day04() -> anyhow::Result<String> {$/;"	f
 day04	2020/src/main.rs	/^mod day04;$/;"	n
 day04	2020/src/my_benchmark.rs	/^mod day04;$/;"	n
+day04	2023/src/day04.rs	/^pub fn day04() -> Result<String> {$/;"	f
+day04	2023/src/main.rs	/^mod day04;$/;"	n
 day05	2020/src/day05.rs	/^pub fn day05() -> Result<String> {$/;"	f
 day05	2020/src/main.rs	/^mod day05;$/;"	n
 day05	2020/src/my_benchmark.rs	/^mod day05;$/;"	n
@@ -490,6 +492,7 @@ part1	2022/day07.py	/^def part1(data):$/;"	f
 part1	2023/blah.py	/^    def part1(self):$/;"	m	class:Solution
 part1	2023/src/day01.rs	/^fn part1(data: &str) -> Result<u32> {$/;"	f
 part1	2023/src/day03.rs	/^fn part1(data: &str) -> Result<usize> {$/;"	f
+part1	2023/src/day04.rs	/^fn part1(data: &str) -> Result<i32> {$/;"	f
 part1_examples_test	2020/src/day18.rs	/^    fn part1_examples_test() {$/;"	f	module:tests
 part2	2019/day02.py	/^def part2(data, target=19690720):$/;"	f
 part2	2019/day03.py	/^def part2(paths):$/;"	f
@@ -546,6 +549,7 @@ part2	2022/day07.py	/^def part2():$/;"	f
 part2	2023/blah.py	/^    def part2(self):$/;"	m	class:Solution
 part2	2023/src/day01.rs	/^fn part2(data: &str) -> Result<u32> {$/;"	f
 part2	2023/src/day03.rs	/^fn part2(data: &str) -> Result<usize> {$/;"	f
+part2	2023/src/day04.rs	/^fn part2(data: &str) -> Result<i32> {$/;"	f
 part2_examples_test	2020/src/day18.rs	/^    fn part2_examples_test() {$/;"	f	module:tests
 part_1	2020/src/day10.rs	/^fn part_1(data: &[usize]) -> usize {$/;"	f
 part_1	2020/src/day11.rs	/^fn part_1(seats: &[Vec<u8>]) -> usize {$/;"	f
