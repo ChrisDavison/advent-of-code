@@ -15,7 +15,7 @@ pub fn day04() -> Result<(String, String)> {
 
     let s = "Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1";
     // println!("{:?}", s.split_whitespace().collect::<Vec<_>>());
-    let parsed = parse(&input);
+    let parsed = parse(input);
     Ok((part1(&parsed)?.to_string(), part2(&parsed)?.to_string()))
 }
 
@@ -41,43 +41,6 @@ impl Game {
             winning: numbers(m.get(2).unwrap().as_str()),
             have: numbers(m.get(3).unwrap().as_str()),
         })
-    }
-
-    fn new2(line: &str) -> Option<Game> {
-        let mut id = 0;
-        let mut winning = Vec::new();
-        let mut have = Vec::new();
-        let mut n = 0 as usize;
-        let mut fill_winning = true;
-        for ch in line.trim_start_matches("Card").trim().chars() {
-            if ch.is_ascii_digit() {
-                n += n * 10 + ch.to_digit(10).unwrap() as usize;
-                continue;
-            } else if ch == ':' {
-                id = n;
-                n = 0;
-            } else if ch == ' ' {
-                if fill_winning {
-                    winning.push(n);
-                } else {
-                    have.push(n);
-                }
-                n = 0;
-            } else if ch == '|' {
-                fill_winning = false;
-                winning.push(n);
-                n = 0;
-            }
-        }
-        Some(Game { id, winning, have })
-        // lazy_static! {
-        //     static ref RE: Regex = Regex::new(r"Card\s+(\d+): (.*) \| (.*)").unwrap();
-        // }
-        // RE.captures(line).map(|m| Game {
-        //     id: m.get(1).unwrap().as_str().parse().unwrap(),
-        //     winning: numbers(m.get(2).unwrap().as_str()),
-        //     have: numbers(m.get(3).unwrap().as_str()),
-        // })
     }
 }
 

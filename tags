@@ -385,7 +385,6 @@ new	2020/src/day23.rs	/^    fn new(data: &[usize]) -> Self {$/;"	P	implementatio
 new	2020/src/strides.rs	/^    pub fn new(data: &'a Vec<Vec<T>>, width: usize, height: usize) -> Strides<T> {$/;"	f
 new	2023/src/day04.rs	/^    fn new(line: &str) -> Option<Game> {$/;"	P	implementation:Game
 new	2023/src/strides.rs	/^    pub fn new(data: &'a Vec<Vec<T>>, width: usize, height: usize) -> Strides<T> {$/;"	f
-new2	2023/src/day04.rs	/^    fn new2(line: &str) -> Option<Game> {$/;"	P	implementation:Game
 next	2020/src/day20.rs	/^    fn next(&mut self) -> Option<Self::Item> {$/;"	P	implementation:TileOrientations
 next	2020/src/strides.rs	/^    fn next(&mut self) -> Option<Self::Item> {$/;"	f
 next	2023/src/strides.rs	/^    fn next(&mut self) -> Option<Self::Item> {$/;"	f

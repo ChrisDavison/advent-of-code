@@ -20,7 +20,7 @@ pub use std::time::Instant;
 
 #[macro_export]
 macro_rules! time_solution {
-    ($year:literal, $daynum:literal, $day:ident) => {
+    ($daynum:literal, $day:ident) => {
         let now = std::time::Instant::now();
         match $day::$day() {
             Ok((a, b)) => println!(
