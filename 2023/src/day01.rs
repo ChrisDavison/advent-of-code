@@ -1,14 +1,29 @@
 use aoc2023::*;
 
+#[allow(dead_code)]
+const TEST_INPUT: &str = r"1abc2
+pqr3stu8vwx
+a1b2c3d4e5f
+treb7uchet";
+
+#[allow(dead_code)]
+const TEST_INPUT_2: &str = r"two1nine
+eightwothree
+abcone2threexyz
+xtwone3four
+4nineeightseven2
+zoneight234
+7pqrstsixteen";
+
+const DATA: &str = include_str!("../input/day01");
+
 lazy_static! {
     static ref RE: Regex = Regex::new("(one|two|three|four|five|six|seven|eight|nine|[0-9])")
         .expect("Failed to construct regex");
 }
 
-pub fn day01() -> Result<(String, String)> {
-    let data = include_str!("../input/day01");
-
-    Ok((part1(data)?.to_string(), part2(data)?.to_string()))
+pub fn day01() -> Result<(u32, u32)> {
+    Ok((part1(DATA)?, part2(DATA)?))
 }
 
 type DigitFinder = fn(&str) -> Vec<u32>;
@@ -66,21 +81,6 @@ fn word_to_num(s: &str) -> u32 {
         _ => 0,
     }
 }
-
-#[allow(dead_code)]
-const TEST_INPUT: &str = r"1abc2
-pqr3stu8vwx
-a1b2c3d4e5f
-treb7uchet";
-
-#[allow(dead_code)]
-const TEST_INPUT_2: &str = r"two1nine
-eightwothree
-abcone2threexyz
-xtwone3four
-4nineeightseven2
-zoneight234
-7pqrstsixteen";
 
 mod test {
     #[allow(unused_imports)]

@@ -1,18 +1,27 @@
 use aoc2023::*;
 
-pub fn day02() -> Result<(String, String)> {
+#[allow(dead_code)]
+const TEST_INPUT: &str = r"Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
+Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
+Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
+Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
+Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
+
+const DATA: &str = include_str!("../input/day02");
+
+pub fn day02() -> Result<(i32, i32)> {
     let mut part1sum = 0;
     let mut part2sum = 0;
 
     let limits = (12, 13, 14);
-    for (id, tuple) in parse_iter(include_str!("../input/day02")) {
+    for (id, tuple) in parse_iter(DATA) {
         if is_possible(tuple, &limits) {
             part1sum += id;
         }
         part2sum += product(tuple);
     }
 
-    Ok((part1sum.to_string(), part2sum.to_string()))
+    Ok((part1sum, part2sum))
 }
 
 type Triple = (i32, i32, i32);
@@ -66,10 +75,3 @@ fn parse_line(line: &str) -> (i32, Triple) {
 fn parse_iter(data: &str) -> impl Iterator<Item = (i32, (i32, i32, i32))> + '_ {
     data.lines().map(parse_line)
 }
-
-#[allow(dead_code)]
-const TEST_INPUT: &str = r"Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
-Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
-Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
-Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
-Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";

@@ -26,9 +26,9 @@ macro_rules! time_solution {
             Ok((a, b)) => println!(
                 "{}.1 => {}\n{}.2 => {}\n\tTime {}ms\n--------------------",
                 $daynum,
-                a,
+                a.to_string(),
                 $daynum,
-                b,
+                b.to_string(),
                 now.elapsed().as_millis(),
             ),
             Err(e) => eprintln!("D{}: {}", $daynum + 1, e),

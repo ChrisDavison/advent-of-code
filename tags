@@ -184,28 +184,28 @@ data	2023/src/strides.rs	/^    pub data: &'a Vec<Vec<T>>,$/;"	m	struct:Strides
 day01	2020/src/day01.rs	/^pub fn day01() -> Result<String> {$/;"	f
 day01	2020/src/main.rs	/^mod day01;$/;"	n
 day01	2020/src/my_benchmark.rs	/^mod day01;$/;"	n
-day01	2023/src/day01.rs	/^pub fn day01() -> Result<(String, String)> {$/;"	f
+day01	2023/src/day01.rs	/^pub fn day01() -> Result<(u32, u32)> {$/;"	f
 day01	2023/src/main.rs	/^mod day01;$/;"	n
 day01p1	2018/day01.py	/^def day01p1(diffs, start):$/;"	f
 day01p2	2018/day01.py	/^def day01p2(diffs, start):$/;"	f
 day02	2020/src/day02.rs	/^pub fn day02() -> Result<String> {$/;"	f
 day02	2020/src/main.rs	/^mod day02;$/;"	n
 day02	2020/src/my_benchmark.rs	/^mod day02;$/;"	n
-day02	2023/src/day02.rs	/^pub fn day02() -> Result<(String, String)> {$/;"	f
+day02	2023/src/day02.rs	/^pub fn day02() -> Result<(i32, i32)> {$/;"	f
 day02	2023/src/main.rs	/^mod day02;$/;"	n
 day02p1	2018/day02.py	/^def day02p1(inputs):$/;"	f
 day02p2	2018/day02.py	/^def day02p2(inputs):$/;"	f
 day03	2020/src/day03.rs	/^pub fn day03() -> Result<String> {$/;"	f
 day03	2020/src/main.rs	/^mod day03;$/;"	n
 day03	2020/src/my_benchmark.rs	/^mod day03;$/;"	n
-day03	2023/src/day03.rs	/^pub fn day03() -> Result<(String, String)> {$/;"	f
+day03	2023/src/day03.rs	/^pub fn day03() -> Result<(usize, usize)> {$/;"	f
 day03	2023/src/main.rs	/^mod day03;$/;"	n
 day03p1	2018/day03.py	/^def day03p1(claims):$/;"	f
 day03p2	2018/day03.py	/^def day03p2(claims):$/;"	f
 day04	2020/src/day04.rs	/^pub fn day04() -> anyhow::Result<String> {$/;"	f
 day04	2020/src/main.rs	/^mod day04;$/;"	n
 day04	2020/src/my_benchmark.rs	/^mod day04;$/;"	n
-day04	2023/src/day04.rs	/^pub fn day04() -> Result<(String, String)> {$/;"	f
+day04	2023/src/day04.rs	/^pub fn day04() -> Result<(i32, usize)> {$/;"	f
 day04	2023/src/main.rs	/^mod day04;$/;"	n
 day05	2020/src/day05.rs	/^pub fn day05() -> Result<String> {$/;"	f
 day05	2020/src/main.rs	/^mod day05;$/;"	n
