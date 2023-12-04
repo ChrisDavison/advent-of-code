@@ -31,6 +31,8 @@ Err	2020/src/day08.rs	/^    type Err = anyhow::Error;$/;"	t	implementation:Instr
 Err	2020/src/day14.rs	/^    type Err = anyhow::Error;$/;"	t	implementation:Op
 Err	2020/src/day20.rs	/^    type Err = anyhow::Error;$/;"	t	implementation:Tile
 Err	2020/src/day24.rs	/^    type Err = anyhow::Error;$/;"	t	implementation:Hex
+Game	2023/src/day04.rs	/^impl Game {$/;"	c
+Game	2023/src/day04.rs	/^struct Game {$/;"	s
 Height	2020/src/day04.rs	/^enum Height {$/;"	g
 Height	2020/src/day04.rs	/^impl FromStr for Height {$/;"	c
 Height	2020/src/day04.rs	/^impl std::fmt::Debug for Height {$/;"	c
@@ -79,7 +81,6 @@ Range	2020/src/day16.rs	/^type Range = (usize, usize);$/;"	t
 Region	2023/src/day03.rs	/^type Region = Vec<Point2D>;$/;"	t
 RuleSet	2020/src/day16.rs	/^type RuleSet = HashMap<String, (Range, Range)>;$/;"	t
 SAMPLE	2019/day07.py	/^SAMPLE = "3,15,3,16,1002,16,10,16,1,16,15,15,4,15,99,0,0"$/;"	v
-Solution	2023/blah.py	/^class Solution:$/;"	c
 South	2020/src/day20.rs	/^    South,$/;"	e	enum:Direction
 Strides	2020/src/strides.rs	/^impl<'a, T> Strides<'a, T>$/;"	c
 Strides	2020/src/strides.rs	/^impl<'a, T> std::fmt::Debug for Strides<'a, T> {$/;"	c
@@ -107,15 +108,12 @@ West	2020/src/day20.rs	/^    West,$/;"	e	enum:Direction
 X	2020/src/day14.rs	/^    X,$/;"	e	enum:Bit
 Zero	2020/src/day14.rs	/^    Zero,$/;"	e	enum:Bit
 __init__	2019/intcode.py	/^    def __init__(self, opcodes, **kwargs):$/;"	m	class:IntCode
-__init__	2023/blah.py	/^    def __init__(self, folder="."):$/;"	m	class:Solution
 add	2019/intcode.py	/^    def add(self, intcode):$/;"	m	class:IntCode
 adjacent	2023/src/point2d.rs	/^    pub fn adjacent(&self, other: &Point2D) -> bool {$/;"	P	implementation:Point2D
 align_tiles	2020/src/day20.rs	/^fn align_tiles(tiles: &[Tile]) -> Vec<Vec<Tile>> {$/;"	f
-append	2023/blah.py	/^        def append(coord, number):$/;"	f	member:Solution.part2	file:
 apply_mask	2020/src/day14.rs	/^fn apply_mask(value: usize, mask: &BitMask) -> String {$/;"	f
 apply_mask_v2	2020/src/day14.rs	/^fn apply_mask_v2(value: usize, mask: &BitMask) -> Vec<char> {$/;"	f
 as_ms	2020/src/lib.rs	/^pub fn as_ms(delta: std::time::Duration) -> u128 {$/;"	f
-as_ms	2023/src/lib.rs	/^pub fn as_ms(delta: std::time::Duration) -> u128 {$/;"	f
 bags_containing_gold	2020/src/day07.rs	/^fn bags_containing_gold(bagmap: &BagMap) -> usize {$/;"	f
 bool_xor	2020/src/bool_xor.rs	/^macro_rules! bool_xor {$/;"	M
 bool_xor	2020/src/lib.rs	/^mod bool_xor;$/;"	n
@@ -183,32 +181,31 @@ data	2021/day23.py	/^data = [int(l) for l in open('input\/23').read().splitlines
 data	2021/day24.py	/^data = [int(l) for l in open('input\/24').read().splitlines()]$/;"	v
 data	2021/day25.py	/^data = [int(l) for l in open('input\/25').read().splitlines()]$/;"	v
 data	2023/src/strides.rs	/^    pub data: &'a Vec<Vec<T>>,$/;"	m	struct:Strides
-day	2023/blah.py	/^    day = 3$/;"	v	class:Solution
 day01	2020/src/day01.rs	/^pub fn day01() -> Result<String> {$/;"	f
 day01	2020/src/main.rs	/^mod day01;$/;"	n
 day01	2020/src/my_benchmark.rs	/^mod day01;$/;"	n
-day01	2023/src/day01.rs	/^pub fn day01() -> Result<String> {$/;"	f
+day01	2023/src/day01.rs	/^pub fn day01() -> Result<(String, String)> {$/;"	f
 day01	2023/src/main.rs	/^mod day01;$/;"	n
 day01p1	2018/day01.py	/^def day01p1(diffs, start):$/;"	f
 day01p2	2018/day01.py	/^def day01p2(diffs, start):$/;"	f
 day02	2020/src/day02.rs	/^pub fn day02() -> Result<String> {$/;"	f
 day02	2020/src/main.rs	/^mod day02;$/;"	n
 day02	2020/src/my_benchmark.rs	/^mod day02;$/;"	n
-day02	2023/src/day02.rs	/^pub fn day02() -> Result<String> {$/;"	f
+day02	2023/src/day02.rs	/^pub fn day02() -> Result<(String, String)> {$/;"	f
 day02	2023/src/main.rs	/^mod day02;$/;"	n
 day02p1	2018/day02.py	/^def day02p1(inputs):$/;"	f
 day02p2	2018/day02.py	/^def day02p2(inputs):$/;"	f
 day03	2020/src/day03.rs	/^pub fn day03() -> Result<String> {$/;"	f
 day03	2020/src/main.rs	/^mod day03;$/;"	n
 day03	2020/src/my_benchmark.rs	/^mod day03;$/;"	n
-day03	2023/src/day03.rs	/^pub fn day03() -> Result<String> {$/;"	f
+day03	2023/src/day03.rs	/^pub fn day03() -> Result<(String, String)> {$/;"	f
 day03	2023/src/main.rs	/^mod day03;$/;"	n
 day03p1	2018/day03.py	/^def day03p1(claims):$/;"	f
 day03p2	2018/day03.py	/^def day03p2(claims):$/;"	f
 day04	2020/src/day04.rs	/^pub fn day04() -> anyhow::Result<String> {$/;"	f
 day04	2020/src/main.rs	/^mod day04;$/;"	n
 day04	2020/src/my_benchmark.rs	/^mod day04;$/;"	n
-day04	2023/src/day04.rs	/^pub fn day04() -> Result<String> {$/;"	f
+day04	2023/src/day04.rs	/^pub fn day04() -> Result<(String, String)> {$/;"	f
 day04	2023/src/main.rs	/^mod day04;$/;"	n
 day05	2020/src/day05.rs	/^pub fn day05() -> Result<String> {$/;"	f
 day05	2020/src/main.rs	/^mod day05;$/;"	n
@@ -316,7 +313,6 @@ eyr	2020/src/day04.rs	/^    eyr: usize,$/;"	m	struct:Passport
 find_destination	2020/src/day23.rs	/^    fn find_destination(&mut self) -> usize {$/;"	P	implementation:CupGame
 find_inner_parens	2020/src/day18.rs	/^fn find_inner_parens(s: &[Token]) -> (usize, usize) {$/;"	f
 find_matches	2020/src/day19.rs	/^fn find_matches(data: &str) -> String {$/;"	f
-find_numbers	2023/blah.py	/^    def find_numbers(self, line):$/;"	m	class:Solution
 find_pair_sums_to	2020/src/day01.rs	/^fn find_pair_sums_to(target: i32, data: &HashSet<i32>) -> Option<(i32, i32)> {$/;"	f
 find_rule_order	2020/src/day16.rs	/^fn find_rule_order(rules: &RuleSet, tickets: &[Ticket]) -> Vec<String> {$/;"	f
 find_triple_sums_to	2020/src/day01.rs	/^fn find_triple_sums_to(target: i32, data: &HashSet<i32>) -> Option<(i32, i32, i32)> {$/;"	f
@@ -342,7 +338,6 @@ gen_input	2018/day01.py	/^def gen_input():$/;"	f
 gen_input	2018/day02.py	/^def gen_input():$/;"	f
 gen_input	2018/day03.py	/^def gen_input():$/;"	f
 get	2019/intcode.py	/^    def get(self, offset, mode=0):$/;"	m	class:IntCode
-get_coords	2023/blah.py	/^    def get_coords(self, y, start, end, check):$/;"	m	class:Solution
 get_path	2019/day03.py	/^def get_path(instructions):$/;"	f
 get_starting_floor_state	2020/src/day24.rs	/^fn get_starting_floor_state(coords: &[Hex]) -> HashMap<Hex, bool> {$/;"	f
 grid	2020/src/day20.rs	/^    grid: Vec<Vec<char>>,$/;"	m	struct:Tile
@@ -350,11 +345,13 @@ halt	2019/intcode.py	/^    def halt(self, _intcode):$/;"	m	class:IntCode
 has_1_difference	2018/day02.py	/^def has_1_difference(a, b):$/;"	f
 has_all_fields	2020/src/day04.rs	/^fn has_all_fields(entry: &str) -> bool {$/;"	f
 hash	2020/src/day24.rs	/^    fn hash<H: Hasher>(&self, state: &mut H) {$/;"	P	implementation:Hex
+have	2023/src/day04.rs	/^    have: Vec<usize>,$/;"	m	struct:Game
 hcl	2020/src/day04.rs	/^    hcl: String,$/;"	m	struct:Passport
 height	2020/src/strides.rs	/^    pub height: usize,$/;"	m	struct:Strides
 height	2023/src/strides.rs	/^    pub height: usize,$/;"	m	struct:Strides
 hgt	2020/src/day04.rs	/^    hgt: Height,$/;"	m	struct:Passport
 id	2020/src/day20.rs	/^    id: usize,$/;"	m	struct:Tile
+id	2023/src/day04.rs	/^    id: usize,$/;"	m	struct:Game
 inner_parens_test	2020/src/day18.rs	/^    fn inner_parens_test() {$/;"	f	module:tests
 invalid_fields	2020/src/day16.rs	/^fn invalid_fields(rs: &RuleSet, t: &Ticket) -> Vec<usize> {$/;"	f
 is_overlap	2022/day04.py	/^def is_overlap(l, r):$/;"	f
@@ -386,7 +383,9 @@ ms_time	2021/prelude.py	/^def ms_time(f, *args, **kwargs):$/;"	f
 mul	2019/intcode.py	/^    def mul(self, intcode):$/;"	m	class:IntCode
 new	2020/src/day23.rs	/^    fn new(data: &[usize]) -> Self {$/;"	P	implementation:CupGame
 new	2020/src/strides.rs	/^    pub fn new(data: &'a Vec<Vec<T>>, width: usize, height: usize) -> Strides<T> {$/;"	f
+new	2023/src/day04.rs	/^    fn new(line: &str) -> Option<Game> {$/;"	P	implementation:Game
 new	2023/src/strides.rs	/^    pub fn new(data: &'a Vec<Vec<T>>, width: usize, height: usize) -> Strides<T> {$/;"	f
+new2	2023/src/day04.rs	/^    fn new2(line: &str) -> Option<Game> {$/;"	P	implementation:Game
 next	2020/src/day20.rs	/^    fn next(&mut self) -> Option<Self::Item> {$/;"	P	implementation:TileOrientations
 next	2020/src/strides.rs	/^    fn next(&mut self) -> Option<Self::Item> {$/;"	f
 next	2023/src/strides.rs	/^    fn next(&mut self) -> Option<Self::Item> {$/;"	f
@@ -397,6 +396,7 @@ now	2021/prelude.py	/^now = datetime.now$/;"	v
 np	2019/day03.py	/^import numpy as np$/;"	I	nameref:module:numpy
 np	2019/prelude.py	/^import numpy as np$/;"	I	nameref:module:numpy
 np	2021/prelude.py	/^import numpy as np$/;"	I	nameref:module:numpy
+numbers	2023/src/day04.rs	/^fn numbers(s: &str) -> Vec<usize> {$/;"	f
 nx	2019/day06.py	/^import networkx as nx$/;"	I	nameref:module:networkx
 nx	2019/day07.py	/^import networkx as nx$/;"	I	nameref:module:networkx
 object_score	2022/day02.py	/^def object_score(you):$/;"	f
@@ -414,6 +414,7 @@ parse	2022/day02.py	/^def parse(data: str):$/;"	f
 parse	2022/day05.py	/^def parse(data):$/;"	f
 parse	2022/day07.py	/^def parse(data: str) -> defaultdict[str, Set[str]]:$/;"	f	typeref:typename:defaultdict[str,Set[str]]
 parse	2023/src/day03.rs	/^fn parse(data: &str) -> (Vec<(usize, Region)>, SymbolLocations) {$/;"	f
+parse	2023/src/day04.rs	/^fn parse(data: &str) -> Vec<Game> {$/;"	f
 parse_bag	2020/src/day07.rs	/^fn parse_bag(s: &str) -> Result<(String, usize)> {$/;"	f
 parse_bus_timetable	2020/src/day13.rs	/^fn parse_bus_timetable(s: &str) -> Vec<Option<usize>> {$/;"	f
 parse_claim	2018/day03.py	/^def parse_claim(claim):$/;"	f
@@ -489,10 +490,9 @@ part1	2022/day04.py	/^def part1(data):$/;"	f
 part1	2022/day05.py	/^def part1(data):$/;"	f
 part1	2022/day06.py	/^def part1(data):$/;"	f
 part1	2022/day07.py	/^def part1(data):$/;"	f
-part1	2023/blah.py	/^    def part1(self):$/;"	m	class:Solution
 part1	2023/src/day01.rs	/^fn part1(data: &str) -> Result<u32> {$/;"	f
 part1	2023/src/day03.rs	/^fn part1(data: &str) -> Result<usize> {$/;"	f
-part1	2023/src/day04.rs	/^fn part1(data: &str) -> Result<i32> {$/;"	f
+part1	2023/src/day04.rs	/^fn part1(games: &[Game]) -> Result<i32> {$/;"	f
 part1_examples_test	2020/src/day18.rs	/^    fn part1_examples_test() {$/;"	f	module:tests
 part2	2019/day02.py	/^def part2(data, target=19690720):$/;"	f
 part2	2019/day03.py	/^def part2(paths):$/;"	f
@@ -546,10 +546,9 @@ part2	2022/day04.py	/^def part2(data):$/;"	f
 part2	2022/day05.py	/^def part2(data):$/;"	f
 part2	2022/day06.py	/^def part2(data):$/;"	f
 part2	2022/day07.py	/^def part2():$/;"	f
-part2	2023/blah.py	/^    def part2(self):$/;"	m	class:Solution
 part2	2023/src/day01.rs	/^fn part2(data: &str) -> Result<u32> {$/;"	f
 part2	2023/src/day03.rs	/^fn part2(data: &str) -> Result<usize> {$/;"	f
-part2	2023/src/day04.rs	/^fn part2(data: &str) -> Result<i32> {$/;"	f
+part2	2023/src/day04.rs	/^fn part2(games: &[Game]) -> Result<usize> {$/;"	f
 part2_examples_test	2020/src/day18.rs	/^    fn part2_examples_test() {$/;"	f	module:tests
 part_1	2020/src/day10.rs	/^fn part_1(data: &[usize]) -> usize {$/;"	f
 part_1	2020/src/day11.rs	/^fn part_1(seats: &[Vec<u8>]) -> usize {$/;"	f
@@ -566,12 +565,10 @@ play_recursive_game	2020/src/day22.rs	/^fn play_recursive_game(a: &Deck, b: &Dec
 point2d	2023/src/lib.rs	/^mod point2d;$/;"	n
 pointed_at_by	2020/src/day23.rs	/^    pointed_at_by: Vec<usize>,$/;"	m	struct:CupGame
 points_surrounding_region	2023/src/day03.rs	/^fn points_surrounding_region(region: &[Point2D]) -> impl Iterator<Item = Point2D> + '_ {$/;"	f
-prepare_data	2023/blah.py	/^    def prepare_data(self):$/;"	m	class:Solution
 priority	2022/day03.py	/^def priority(letter):$/;"	f
 product	2023/src/day02.rs	/^fn product(tuple: Triple) -> i32 {$/;"	f
 quick_dict	2020/src/lib.rs	/^mod quick_dict;$/;"	n
 quick_dict	2023/src/lib.rs	/^mod quick_dict;$/;"	n
-re	2023/blah.py	/^    re = re.compile(r"\\d+")$/;"	v	class:Solution
 read	2019/intcode.py	/^    def read(self, intcode):$/;"	m	class:IntCode
 req_rec	2019/day01.py	/^def req_rec(mass):$/;"	f
 required	2019/day01.py	/^def required(mass):$/;"	f
@@ -593,7 +590,6 @@ run	2019/adventofcode.ex	/^  def run() do$/;"	f	module:AocDay02	access:public
 run	2019/intcode.py	/^    def run(self):$/;"	m	class:IntCode
 run	2020/src/day25.rs	/^fn run(card: usize, door: usize) -> Result<String> {$/;"	f
 run_with_replace	2019/day02.py	/^def run_with_replace(data, a, b):$/;"	f
-s	2023/blah.py	/^    s = Solution()$/;"	v
 sample	2019/day03.py	/^sample = """$/;"	v
 sample2	2019/day03.py	/^sample2 = """$/;"	v
 sample3	2019/day03.py	/^sample3 = """$/;"	v
@@ -720,6 +716,6 @@ validate_pid	2020/src/day04.rs	/^fn validate_pid(f: &str) -> Result<String> {$/;
 walk_paths	2019/day03.py	/^def walk_paths(data):$/;"	f
 width	2020/src/strides.rs	/^    pub width: usize,$/;"	m	struct:Strides
 width	2023/src/strides.rs	/^    pub width: usize,$/;"	m	struct:Strides
+winning	2023/src/day04.rs	/^    winning: Vec<usize>,$/;"	m	struct:Game
 within_range	2023/src/point2d.rs	/^    pub fn within_range(&self, other: &Point2D, xdiff: isize, ydiff: isize) -> bool {$/;"	P	implementation:Point2D
 word_to_num	2023/src/day01.rs	/^fn word_to_num(s: &str) -> u32 {$/;"	f
-year	2023/blah.py	/^    year = 2023$/;"	v	class:Solution
