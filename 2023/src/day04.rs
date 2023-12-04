@@ -9,14 +9,14 @@ Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83
 Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
 Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11";
 
-pub fn day04() -> Result<String> {
+pub fn day04() -> Result<(String, String)> {
     let input = include_str!("../input/day04");
     // let SAMPLE = SAMPLE;
-    Ok(format!(
-        "2023 04.1 -> {}\n2023 04.2 -> {}",
-        part1(input)?,
-        part2(input)?
-    ))
+
+    let s = "Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1";
+    // println!("{:?}", s.split_whitespace().collect::<Vec<_>>());
+    let parsed = parse(&input);
+    Ok((part1(&parsed)?.to_string(), part2(&parsed)?.to_string()))
 }
 
 struct Game {
@@ -26,7 +26,9 @@ struct Game {
 }
 
 fn numbers(s: &str) -> Vec<usize> {
-    s.split(" ").filter_map(|x| x.trim().parse().ok()).collect()
+    s.split(|c: char| !c.is_ascii_digit())
+        .filter_map(|x| x.trim().parse().ok())
+        .collect()
 }
 
 impl Game {
@@ -40,15 +42,52 @@ impl Game {
             have: numbers(m.get(3).unwrap().as_str()),
         })
     }
+
+    fn new2(line: &str) -> Option<Game> {
+        let mut id = 0;
+        let mut winning = Vec::new();
+        let mut have = Vec::new();
+        let mut n = 0 as usize;
+        let mut fill_winning = true;
+        for ch in line.trim_start_matches("Card").trim().chars() {
+            if ch.is_ascii_digit() {
+                n += n * 10 + ch.to_digit(10).unwrap() as usize;
+                continue;
+            } else if ch == ':' {
+                id = n;
+                n = 0;
+            } else if ch == ' ' {
+                if fill_winning {
+                    winning.push(n);
+                } else {
+                    have.push(n);
+                }
+                n = 0;
+            } else if ch == '|' {
+                fill_winning = false;
+                winning.push(n);
+                n = 0;
+            }
+        }
+        Some(Game { id, winning, have })
+        // lazy_static! {
+        //     static ref RE: Regex = Regex::new(r"Card\s+(\d+): (.*) \| (.*)").unwrap();
+        // }
+        // RE.captures(line).map(|m| Game {
+        //     id: m.get(1).unwrap().as_str().parse().unwrap(),
+        //     winning: numbers(m.get(2).unwrap().as_str()),
+        //     have: numbers(m.get(3).unwrap().as_str()),
+        // })
+    }
 }
 
 fn parse(data: &str) -> Vec<Game> {
     data.lines().filter_map(Game::new).collect()
 }
 
-fn part1(data: &str) -> Result<i32> {
+fn part1(games: &[Game]) -> Result<i32> {
     let mut sum = 0;
-    for game in parse(data) {
+    for game in games {
         let haveset = game.have.iter().collect::<HashSet<_>>();
         let winset = game.winning.iter().collect::<HashSet<_>>();
         let inter = haveset.intersection(&winset).collect::<Vec<_>>();
@@ -61,14 +100,13 @@ fn part1(data: &str) -> Result<i32> {
     Ok(sum)
 }
 
-fn part2(data: &str) -> Result<usize> {
+fn part2(games: &[Game]) -> Result<usize> {
     let mut sum = 0;
-    let parsed = parse(data);
-    let mut copies_of_each: Vec<usize> = Vec::with_capacity(parsed.len() + 1);
-    copies_of_each.resize(parsed.len() + 1, 1);
+    let mut copies_of_each = Vec::new();
+    copies_of_each.resize(games.len() + 1, 1);
     copies_of_each[0] = 0;
 
-    for game in &parsed {
+    for game in games {
         let haveset = game.have.iter().collect::<HashSet<_>>();
         let winset = game.winning.iter().collect::<HashSet<_>>();
         let inter = haveset.intersection(&winset).collect::<Vec<_>>();

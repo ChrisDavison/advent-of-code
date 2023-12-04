@@ -1,6 +1,6 @@
 use aoc2023::*;
 
-pub fn day02() -> Result<String> {
+pub fn day02() -> Result<(String, String)> {
     let mut part1sum = 0;
     let mut part2sum = 0;
 
@@ -12,9 +12,7 @@ pub fn day02() -> Result<String> {
         part2sum += product(tuple);
     }
 
-    let output = format!("2023 02.1 -> {}\n2023 02.2 -> {}", part1sum, part2sum);
-
-    Ok(output)
+    Ok((part1sum.to_string(), part2sum.to_string()))
 }
 
 type Triple = (i32, i32, i32);
