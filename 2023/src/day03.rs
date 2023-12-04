@@ -14,12 +14,13 @@ const SAMPLE: &str = r"467..114..
 
 const DATA: &str = include_str!("../input/day03");
 
-pub fn day03() -> Result<String> {
-    Ok(format!(
-        "2023 03.1 -> {}\n2023 03.2 -> {}",
-        part1(DATA)?,
-        part2(DATA)?
-    ))
+pub fn day03() -> Result<(String, String)> {
+    Ok((part1(DATA)?.to_string(), part2(DATA)?.to_string()))
+    // Ok(format!(
+    //     "2023 03.1 -> {}\n2023 03.2 -> {}",
+    //     part1(DATA)?,
+    //     part2(DATA)?
+    // ))
 }
 
 fn points_surrounding_region(region: &[Point2D]) -> impl Iterator<Item = Point2D> + '_ {

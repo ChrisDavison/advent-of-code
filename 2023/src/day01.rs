@@ -5,15 +5,10 @@ lazy_static! {
         .expect("Failed to construct regex");
 }
 
-pub fn day01() -> Result<String> {
+pub fn day01() -> Result<(String, String)> {
     let data = include_str!("../input/day01");
 
-    let output = format!(
-        "2023 01.1 -> {}\n2023 01.2 -> {}",
-        part1(data)?,
-        part2(data)?
-    );
-    Ok(output)
+    Ok((part1(data)?.to_string(), part2(data)?.to_string()))
 }
 
 type DigitFinder = fn(&str) -> Vec<u32>;

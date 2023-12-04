@@ -18,20 +18,18 @@ pub use std::iter::repeat;
 pub use std::str::FromStr;
 pub use std::time::Instant;
 
-#[allow(dead_code)]
-pub fn as_ms(delta: std::time::Duration) -> u128 {
-    delta.as_millis()
-}
-
 #[macro_export]
 macro_rules! time_solution {
-    ($daynum:literal, $day:ident) => {
+    ($year:literal, $daynum:literal, $day:ident) => {
         let now = std::time::Instant::now();
         match $day::$day() {
-            Ok(s) => println!(
-                "{}\n    Time: {:.2}ms",
-                s,
-                now.elapsed().as_nanos() / 1_000_000
+            Ok((a, b)) => println!(
+                "{}.1 => {}\n{}.2 => {}\n\tTime {}ms\n--------------------",
+                $daynum,
+                a,
+                $daynum,
+                b,
+                now.elapsed().as_millis(),
             ),
             Err(e) => eprintln!("D{}: {}", $daynum + 1, e),
         }
