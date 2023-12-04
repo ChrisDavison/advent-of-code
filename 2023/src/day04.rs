@@ -11,51 +11,74 @@ Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11";
 
 pub fn day04() -> Result<String> {
     let input = include_str!("../input/day04");
-    // let input = SAMPLE;
+    // let SAMPLE = SAMPLE;
     Ok(format!(
-        "2023 04.1 -> {}
-        2023 04.2 -> {}",
-        part1(&input)?,
-        part2(&input)?
+        "2023 04.1 -> {}\n2023 04.2 -> {}",
+        part1(input)?,
+        part2(input)?
     ))
 }
 
-fn part1(data: &str) -> Result<i32> {
-    let mut games: Vec<(usize, HashSet<usize>, HashSet<usize>)> = Vec::new();
-    lazy_static! {
-        static ref RE: Regex = Regex::new(r"Card (\d+): (.*) \| (.*)").unwrap();
-    }
-    let mut sum = 0;
-    for line in data.lines() {
-        if let Some(m) = RE.captures(line) {
-            games.push((
-                m.get(1).unwrap().as_str().parse().unwrap(),
-                m.get(2)
-                    .unwrap()
-                    .as_str()
-                    .split(" ")
-                    .filter_map(|x| x.trim().parse().ok())
-                    .collect(),
-                m.get(3)
-                    .unwrap()
-                    .as_str()
-                    .split(" ")
-                    .filter_map(|x| x.trim().parse().ok())
-                    .collect(),
-            ));
-            let last = games.last().unwrap();
-            let inter = last.1.intersection(&last.2);
-            // println!("{:?}", inter);
-            let pow = 2_i32.pow((inter.collect::<Vec<_>>().len() - 1) as u32);
-            sum += pow;
-            // println!("{:?}", pow);
-        }
-    }
-    // println!("{:?}", games);
-    println!("{:?}", sum);
-    Ok(0)
+struct Game {
+    id: usize,
+    winning: Vec<usize>,
+    have: Vec<usize>,
 }
 
-fn part2(data: &str) -> Result<i32> {
-    Ok(0)
+fn numbers(s: &str) -> Vec<usize> {
+    s.split(" ").filter_map(|x| x.trim().parse().ok()).collect()
+}
+
+impl Game {
+    fn new(line: &str) -> Option<Game> {
+        lazy_static! {
+            static ref RE: Regex = Regex::new(r"Card\s+(\d+): (.*) \| (.*)").unwrap();
+        }
+        RE.captures(line).map(|m| Game {
+            id: m.get(1).unwrap().as_str().parse().unwrap(),
+            winning: numbers(m.get(2).unwrap().as_str()),
+            have: numbers(m.get(3).unwrap().as_str()),
+        })
+    }
+}
+
+fn parse(data: &str) -> Vec<Game> {
+    data.lines().filter_map(Game::new).collect()
+}
+
+fn part1(data: &str) -> Result<i32> {
+    let mut sum = 0;
+    for game in parse(data) {
+        let haveset = game.have.iter().collect::<HashSet<_>>();
+        let winset = game.winning.iter().collect::<HashSet<_>>();
+        let inter = haveset.intersection(&winset).collect::<Vec<_>>();
+        if inter.is_empty() {
+            continue;
+        }
+        let pow = 2_i32.pow(inter.len() as u32 - 1);
+        sum += pow;
+    }
+    Ok(sum)
+}
+
+fn part2(data: &str) -> Result<usize> {
+    let mut sum = 0;
+    let parsed = parse(data);
+    let mut copies_of_each: Vec<usize> = Vec::with_capacity(parsed.len() + 1);
+    copies_of_each.resize(parsed.len() + 1, 1);
+    copies_of_each[0] = 0;
+
+    for game in &parsed {
+        let haveset = game.have.iter().collect::<HashSet<_>>();
+        let winset = game.winning.iter().collect::<HashSet<_>>();
+        let inter = haveset.intersection(&winset).collect::<Vec<_>>();
+        if inter.is_empty() {
+            continue;
+        }
+        let games_to_add = (1..=inter.len()).map(|x| game.id + x).collect::<Vec<_>>();
+        for g in &games_to_add {
+            copies_of_each[*g] += copies_of_each[game.id];
+        }
+    }
+    Ok(copies_of_each.iter().sum())
 }
