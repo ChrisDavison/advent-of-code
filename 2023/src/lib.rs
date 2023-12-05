@@ -37,6 +37,21 @@ macro_rules! time_solution {
     };
 }
 
+#[macro_export]
+macro_rules! timed {
+    ($partnum:literal, $part:ident, $data:ident) => {
+        let now = std::time::Instant::now();
+        if let Ok(a) = $part(&$data) {
+            println!(
+                "Part {} ({}ms) => {}",
+                $partnum,
+                now.elapsed().as_millis(),
+                a.to_string(),
+            )
+        }
+    };
+}
+
 pub fn numbers(s: &str) -> Vec<usize> {
     s.split(|c: char| !c.is_ascii_digit())
         .filter_map(|x| x.trim().parse().ok())
@@ -55,4 +70,23 @@ pub fn number_pairs(s: &str) -> Vec<(usize, usize)> {
         out.push((a, b));
     }
     out
+}
+
+pub fn pairs<T: Clone + Copy>(v: Vec<T>) -> impl Iterator<Item = (T, T)> {
+    let range = (1..=v.len()).collect::<Vec<usize>>();
+    let mut i = 0;
+    std::iter::from_fn(move || {
+        for _ in &range {
+            i += 2;
+            if i > range.len() {
+                break;
+            }
+            return Some((v[i - 2], v[i - 1]));
+        }
+        None
+    })
+}
+
+pub fn noop<T: Display>(thing: T) -> Result<String> {
+    Ok(format!("{}", thing))
 }

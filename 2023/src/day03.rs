@@ -14,8 +14,9 @@ const SAMPLE: &str = r"467..114..
 
 const DATA: &str = include_str!("../input/day03");
 
-pub fn day03() -> Result<(usize, usize)> {
-    Ok((part1(DATA)?, part2(DATA)?))
+fn main() {
+    timed! {3, part1, DATA};
+    timed! {3, part2, DATA};
 }
 
 fn points_surrounding_region(region: &[Point2D]) -> impl Iterator<Item = Point2D> + '_ {

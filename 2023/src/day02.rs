@@ -9,7 +9,7 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
 
 const DATA: &str = include_str!("../input/day02");
 
-pub fn day02() -> Result<(i32, i32)> {
+fn main() {
     let mut part1sum = 0;
     let mut part2sum = 0;
 
@@ -20,8 +20,9 @@ pub fn day02() -> Result<(i32, i32)> {
         }
         part2sum += product(tuple);
     }
-
-    Ok((part1sum, part2sum))
+    timed! {2, noop, part1sum};
+    timed! {2, noop, part2sum};
+    // Ok((part1sum, part2sum))
 }
 
 type Triple = (i32, i32, i32);
