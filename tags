@@ -368,6 +368,7 @@ main	2023/src/day02.rs	/^fn main() {$/;"	f
 main	2023/src/day03.rs	/^fn main() {$/;"	f
 main	2023/src/day04.rs	/^fn main() {$/;"	f
 main	2023/src/day05.rs	/^fn main() {$/;"	f
+main	2023/template.rs	/^fn main() {$/;"	f
 make_graph	2019/day06.py	/^def make_graph(lines):$/;"	f
 manhattan	2020/src/day12.rs	/^    fn manhattan(&self) -> isize {$/;"	P	implementation:Position
 matching_edge	2020/src/day20.rs	/^    fn matching_edge(a: &Tile, b: &Tile) -> Option<Direction> {$/;"	P	implementation:Tile
@@ -494,6 +495,7 @@ part1	2023/src/day01.rs	/^fn part1(data: &str) -> Result<u32> {$/;"	f
 part1	2023/src/day03.rs	/^fn part1(data: &str) -> Result<usize> {$/;"	f
 part1	2023/src/day04.rs	/^fn part1(games: &[Game]) -> Result<i32> {$/;"	f
 part1	2023/src/day05.rs	/^fn part1(data: &str) -> Result<usize> {$/;"	f
+part1	2023/template.rs	/^fn part1(data: &str) -> Result<usize> {$/;"	f
 part1_examples_test	2020/src/day18.rs	/^    fn part1_examples_test() {$/;"	f	module:tests
 part2	2019/day02.py	/^def part2(data, target=19690720):$/;"	f
 part2	2019/day03.py	/^def part2(paths):$/;"	f
@@ -551,6 +553,7 @@ part2	2023/src/day01.rs	/^fn part2(data: &str) -> Result<u32> {$/;"	f
 part2	2023/src/day03.rs	/^fn part2(data: &str) -> Result<usize> {$/;"	f
 part2	2023/src/day04.rs	/^fn part2(games: &[Game]) -> Result<usize> {$/;"	f
 part2	2023/src/day05.rs	/^fn part2(data: &str) -> Result<usize> {$/;"	f
+part2	2023/template.rs	/^fn part2(data: &str) -> Result<usize> {$/;"	f
 part2_examples_test	2020/src/day18.rs	/^    fn part2_examples_test() {$/;"	f	module:tests
 part_1	2020/src/day10.rs	/^fn part_1(data: &[usize]) -> usize {$/;"	f
 part_1	2020/src/day11.rs	/^fn part_1(seats: &[Vec<u8>]) -> usize {$/;"	f
