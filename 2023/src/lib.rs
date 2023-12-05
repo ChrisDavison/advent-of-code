@@ -79,14 +79,11 @@ pub fn pairs<T: Clone + Copy>(v: Vec<T>) -> impl Iterator<Item = (T, T)> {
     let range = (1..=v.len()).collect::<Vec<usize>>();
     let mut i = 0;
     std::iter::from_fn(move || {
-        for _ in &range {
-            i += 2;
-            if i > range.len() {
-                break;
-            }
-            return Some((v[i - 2], v[i - 1]));
+        i += 2;
+        if i > range.len() {
+            return None;
         }
-        None
+        Some((v[i - 2], v[i - 1]))
     })
 }
 
