@@ -41,13 +41,16 @@ macro_rules! time_solution {
 macro_rules! timed {
     ($partnum:literal, $part:ident, $data:ident) => {
         let now = std::time::Instant::now();
-        if let Ok(a) = $part(&$data) {
-            println!(
-                "Part {} ({}ms) => {}",
-                $partnum,
-                now.elapsed().as_millis(),
-                a.to_string(),
-            )
+        match $part(&$data) {
+            Ok(a) => {
+                println!(
+                    "Part {} ({}ms) => {}",
+                    $partnum,
+                    now.elapsed().as_millis(),
+                    a.to_string(),
+                )
+            }
+            Err(e) => eprintln!("Part {}: {}", $partnum, e),
         }
     };
 }
