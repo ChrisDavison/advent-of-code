@@ -22,12 +22,6 @@ struct Game {
     have: Vec<usize>,
 }
 
-fn numbers(s: &str) -> Vec<usize> {
-    s.split(|c: char| !c.is_ascii_digit())
-        .filter_map(|x| x.trim().parse().ok())
-        .collect()
-}
-
 impl Game {
     fn new(line: &str) -> Option<Game> {
         lazy_static! {
