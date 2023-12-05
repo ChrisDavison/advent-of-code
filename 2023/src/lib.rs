@@ -75,7 +75,7 @@ pub fn number_pairs(s: &str) -> Vec<(usize, usize)> {
     out
 }
 
-pub fn pairs<T: Clone + Copy>(v: Vec<T>) -> impl Iterator<Item = (T, T)> {
+pub fn pairs<T: Clone + Copy>(v: &[T]) -> impl Iterator<Item = (T, T)> + '_ {
     let range = (1..=v.len()).collect::<Vec<usize>>();
     let mut i = 0;
     std::iter::from_fn(move || {
