@@ -19,10 +19,6 @@ num = "0.4.1"
 name="aoc2023"
 path="src/lib.rs"
 
-# [[bin]]
-# name="aoc2023"
-# path="src/main.rs"
-
 [[bin]]
 name="day01"
 path="src/day01.rs"
