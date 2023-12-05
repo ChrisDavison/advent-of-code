@@ -11,9 +11,10 @@ Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11";
 
 const DATA: &str = include_str!("../input/day04");
 
-pub fn day04() -> Result<(i32, usize)> {
+fn main() {
     let parsed = parse(DATA);
-    Ok((part1(&parsed)?, part2(&parsed)?))
+    timed! {4, part1, parsed};
+    timed! {4, part2, parsed};
 }
 
 struct Game {

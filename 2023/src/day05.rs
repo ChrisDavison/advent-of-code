@@ -37,20 +37,24 @@ humidity-to-location map:
 
 const DATA: &str = include_str!("../input/day05");
 
-const USE_SAMPLE: bool = false;
+const USE_SAMPLE: bool = true;
 
-pub fn day05() -> Result<(usize, usize)> {
+fn main() {
     let parsed = if USE_SAMPLE { SAMPLE } else { DATA };
-    Ok((part1(&parsed), part2(&parsed)))
+    timed! {1, part1, parsed};
+    timed! {1, part2, parsed};
 }
 
-fn part1(data: &str) -> usize {
-    // let mut mapmap = HashMap::new();
+fn parse(data: &str) -> (Vec<usize>, impl Iterator<Item = &str>) {
     let mut paragraphs = data.split("\n\n");
-    let mut seeds = numbers(paragraphs.next().unwrap().split_once(':').unwrap().1);
-    for paragraph in paragraphs {
-        let mut plines = paragraph.lines();
+    let seeds = numbers(paragraphs.next().unwrap().split_once(':').unwrap().1);
+    (seeds, paragraphs)
+}
 
+fn min_location_from_seedset(seeds: &[usize], maps: &[&str]) -> usize {
+    let mut seeds: Vec<_> = seeds.into();
+    for map in maps {
+        let mut plines = map.lines();
         // skip the first line (a-to-b map)
         let _words = plines.next().unwrap().split_once(' ').unwrap().0.split('-');
 
@@ -58,6 +62,11 @@ fn part1(data: &str) -> usize {
         let mut seeds_remaining = seeds.iter().cloned().collect::<HashSet<usize>>();
         let mut seeds_new = HashSet::new();
 
+        // TODO think about how I can flatten this nested for.
+        //
+        // Only want to iterate over seeds once, and don't want to reallocate seeds constantly.
+        // If I go one-pass, can update seeds inplace
+        // ----------------------------------------
         for line in plines {
             let num = numbers(line);
             let from_min = num[1];
@@ -66,7 +75,6 @@ fn part1(data: &str) -> usize {
             for seed in &seeds {
                 if seeds_remaining.contains(&seed) {
                     if *seed >= from_min && *seed <= from_max {
-                        // println!("conv {} to {}", seed, to_min + (seed - from_min));
                         converted.insert(seed);
                         seeds_new.insert(to_min + (seed - from_min));
                         seeds_remaining.remove(&seed);
@@ -74,47 +82,33 @@ fn part1(data: &str) -> usize {
                 }
             }
         }
+
         seeds_new.extend(seeds_remaining);
         seeds = seeds_new.iter().cloned().collect();
     }
     *seeds.iter().min().unwrap()
 }
 
-fn part2(data: &str) -> usize {
+fn part1(data: &str) -> Result<usize> {
     // let mut mapmap = HashMap::new();
-    let mut paragraphs = data.split("\n\n");
-    let seedline = paragraphs.next().unwrap().split_once(':').unwrap().1;
-    // let mut seeds = numbers();
-    println!("{:#?}", number_pairs(seedline));
-    // for paragraph in paragraphs {
-    //     let mut plines = paragraph.lines();
+    let (seeds, paragraphs) = parse(data);
+    Ok(min_location_from_seedset(
+        &seeds,
+        &paragraphs.collect::<Vec<&str>>(),
+    ))
+}
 
-    //     // skip the first line (a-to-b map)
-    //     let _words = plines.next().unwrap().split_once(' ').unwrap().0.split('-');
+fn part2(data: &str) -> Result<usize> {
+    let (seedsets, paragraphs) = parse(data);
+    let paragraphs = paragraphs.collect::<Vec<_>>();
 
-    //     let mut converted = HashSet::new();
-    //     let mut seeds_remaining = seeds.iter().cloned().collect::<HashSet<usize>>();
-    //     let mut seeds_new = HashSet::new();
-
-    //     for line in plines {
-    //         let num = numbers(line);
-    //         let from_min = num[1];
-    //         let from_max = num[1] + num[2];
-    //         let to_min = num[0];
-    //         for seed in &seeds {
-    //             if seeds_remaining.contains(&seed) {
-    //                 if *seed >= from_min && *seed <= from_max {
-    //                     // println!("conv {} to {}", seed, to_min + (seed - from_min));
-    //                     converted.insert(seed);
-    //                     seeds_new.insert(to_min + (seed - from_min));
-    //                     seeds_remaining.remove(&seed);
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     seeds_new.extend(seeds_remaining);
-    //     seeds = seeds_new.iter().cloned().collect();
-    // }
-    // *seeds.iter().min().unwrap()
-    0
+    let mut out = Vec::new();
+    let pp = pairs(seedsets).collect::<Vec<_>>();
+    for (i, &pair) in pp.iter().enumerate() {
+        println!("{} of {}", i, pp.len());
+        let (start, n) = pair;
+        let seeds = (start..).take(n).collect::<Vec<usize>>();
+        out.push(min_location_from_seedset(&seeds, &paragraphs));
+    }
+    Ok(*out.iter().min().unwrap_or(&0))
 }

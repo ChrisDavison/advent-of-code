@@ -184,34 +184,24 @@ data	2023/src/strides.rs	/^    pub data: &'a Vec<Vec<T>>,$/;"	m	struct:Strides
 day01	2020/src/day01.rs	/^pub fn day01() -> Result<String> {$/;"	f
 day01	2020/src/main.rs	/^mod day01;$/;"	n
 day01	2020/src/my_benchmark.rs	/^mod day01;$/;"	n
-day01	2023/src/day01.rs	/^pub fn day01() -> Result<(u32, u32)> {$/;"	f
-day01	2023/src/main.rs	/^mod day01;$/;"	n
 day01p1	2018/day01.py	/^def day01p1(diffs, start):$/;"	f
 day01p2	2018/day01.py	/^def day01p2(diffs, start):$/;"	f
 day02	2020/src/day02.rs	/^pub fn day02() -> Result<String> {$/;"	f
 day02	2020/src/main.rs	/^mod day02;$/;"	n
 day02	2020/src/my_benchmark.rs	/^mod day02;$/;"	n
-day02	2023/src/day02.rs	/^pub fn day02() -> Result<(i32, i32)> {$/;"	f
-day02	2023/src/main.rs	/^mod day02;$/;"	n
 day02p1	2018/day02.py	/^def day02p1(inputs):$/;"	f
 day02p2	2018/day02.py	/^def day02p2(inputs):$/;"	f
 day03	2020/src/day03.rs	/^pub fn day03() -> Result<String> {$/;"	f
 day03	2020/src/main.rs	/^mod day03;$/;"	n
 day03	2020/src/my_benchmark.rs	/^mod day03;$/;"	n
-day03	2023/src/day03.rs	/^pub fn day03() -> Result<(usize, usize)> {$/;"	f
-day03	2023/src/main.rs	/^mod day03;$/;"	n
 day03p1	2018/day03.py	/^def day03p1(claims):$/;"	f
 day03p2	2018/day03.py	/^def day03p2(claims):$/;"	f
 day04	2020/src/day04.rs	/^pub fn day04() -> anyhow::Result<String> {$/;"	f
 day04	2020/src/main.rs	/^mod day04;$/;"	n
 day04	2020/src/my_benchmark.rs	/^mod day04;$/;"	n
-day04	2023/src/day04.rs	/^pub fn day04() -> Result<(i32, usize)> {$/;"	f
-day04	2023/src/main.rs	/^mod day04;$/;"	n
 day05	2020/src/day05.rs	/^pub fn day05() -> Result<String> {$/;"	f
 day05	2020/src/main.rs	/^mod day05;$/;"	n
 day05	2020/src/my_benchmark.rs	/^mod day05;$/;"	n
-day05	2023/src/day05.rs	/^pub fn day05() -> Result<(usize, usize)> {$/;"	f
-day05	2023/src/main.rs	/^mod day05;$/;"	n
 day06	2020/src/day06.rs	/^pub fn day06() -> Result<String> {$/;"	f
 day06	2020/src/main.rs	/^mod day06;$/;"	n
 day06	2020/src/my_benchmark.rs	/^mod day06;$/;"	n
@@ -373,12 +363,17 @@ lower	2020/src/day02.rs	/^    lower: usize,$/;"	m	struct:PasswordLine
 m0	2019/day07.py	/^    m0 = IntCode(SAMPLE.split(","), inputs=[4, 3, 2, 1, 0])$/;"	v
 main	2020/src/main.rs	/^fn main() {$/;"	f
 main	2020/template.rs	/^fn main() -> Result<()> {$/;"	f
-main	2023/src/main.rs	/^fn main() {$/;"	f
+main	2023/src/day01.rs	/^fn main() {$/;"	f
+main	2023/src/day02.rs	/^fn main() {$/;"	f
+main	2023/src/day03.rs	/^fn main() {$/;"	f
+main	2023/src/day04.rs	/^fn main() {$/;"	f
+main	2023/src/day05.rs	/^fn main() {$/;"	f
 make_graph	2019/day06.py	/^def make_graph(lines):$/;"	f
 manhattan	2020/src/day12.rs	/^    fn manhattan(&self) -> isize {$/;"	P	implementation:Position
 matching_edge	2020/src/day20.rs	/^    fn matching_edge(a: &Tile, b: &Tile) -> Option<Direction> {$/;"	P	implementation:Tile
 max	2020/src/day23.rs	/^    max: usize,$/;"	m	struct:CupGame
 min	2020/src/day23.rs	/^    min: usize,$/;"	m	struct:CupGame
+min_location_from_seedset	2023/src/day05.rs	/^fn min_location_from_seedset(seeds: &[usize], maps: &[&str]) -> usize {$/;"	f
 move_by	2020/src/day12.rs	/^fn move_by(current: &mut Position, direction: char, distance: usize) {$/;"	f
 ms_time	2019/prelude.py	/^def ms_time(f, *args, **kwargs):$/;"	f
 ms_time	2021/prelude.py	/^def ms_time(f, *args, **kwargs):$/;"	f
@@ -390,6 +385,7 @@ new	2023/src/strides.rs	/^    pub fn new(data: &'a Vec<Vec<T>>, width: usize, he
 next	2020/src/day20.rs	/^    fn next(&mut self) -> Option<Self::Item> {$/;"	P	implementation:TileOrientations
 next	2020/src/strides.rs	/^    fn next(&mut self) -> Option<Self::Item> {$/;"	f
 next	2023/src/strides.rs	/^    fn next(&mut self) -> Option<Self::Item> {$/;"	f
+noop	2023/src/lib.rs	/^pub fn noop<T: Display>(thing: T) -> Result<String> {$/;"	f
 north	2020/src/day12.rs	/^    north: isize,$/;"	m	struct:Position
 north	2020/src/day24.rs	/^    north: isize,$/;"	m	struct:Hex
 now	2019/prelude.py	/^now = datetime.now$/;"	v
@@ -410,6 +406,7 @@ p1_example	2020/src/day09.rs	/^fn p1_example() {$/;"	f
 p1_valid	2019/day04.py	/^def p1_valid(pw):$/;"	f
 p2_example	2020/src/day09.rs	/^fn p2_example() {$/;"	f
 p2_valid	2019/day04.py	/^def p2_valid(pw):$/;"	f
+pairs	2023/src/lib.rs	/^pub fn pairs<T: Clone + Copy>(v: Vec<T>) -> impl Iterator<Item = (T, T)> {$/;"	f
 parse	2020/src/day22.rs	/^fn parse(data: &str) -> (VecDeque<usize>, VecDeque<usize>) {$/;"	f
 parse	2022/day01.py	/^def parse(data):$/;"	f
 parse	2022/day02.py	/^def parse(data: str):$/;"	f
@@ -417,6 +414,7 @@ parse	2022/day05.py	/^def parse(data):$/;"	f
 parse	2022/day07.py	/^def parse(data: str) -> defaultdict[str, Set[str]]:$/;"	f	typeref:typename:defaultdict[str,Set[str]]
 parse	2023/src/day03.rs	/^fn parse(data: &str) -> (Vec<(usize, Region)>, SymbolLocations) {$/;"	f
 parse	2023/src/day04.rs	/^fn parse(data: &str) -> Vec<Game> {$/;"	f
+parse	2023/src/day05.rs	/^fn parse(data: &str) -> (Vec<usize>, impl Iterator<Item = &str>) {$/;"	f
 parse_bag	2020/src/day07.rs	/^fn parse_bag(s: &str) -> Result<(String, usize)> {$/;"	f
 parse_bus_timetable	2020/src/day13.rs	/^fn parse_bus_timetable(s: &str) -> Vec<Option<usize>> {$/;"	f
 parse_claim	2018/day03.py	/^def parse_claim(claim):$/;"	f
@@ -495,7 +493,7 @@ part1	2022/day07.py	/^def part1(data):$/;"	f
 part1	2023/src/day01.rs	/^fn part1(data: &str) -> Result<u32> {$/;"	f
 part1	2023/src/day03.rs	/^fn part1(data: &str) -> Result<usize> {$/;"	f
 part1	2023/src/day04.rs	/^fn part1(games: &[Game]) -> Result<i32> {$/;"	f
-part1	2023/src/day05.rs	/^fn part1(data: &str) -> usize {$/;"	f
+part1	2023/src/day05.rs	/^fn part1(data: &str) -> Result<usize> {$/;"	f
 part1_examples_test	2020/src/day18.rs	/^    fn part1_examples_test() {$/;"	f	module:tests
 part2	2019/day02.py	/^def part2(data, target=19690720):$/;"	f
 part2	2019/day03.py	/^def part2(paths):$/;"	f
@@ -552,7 +550,7 @@ part2	2022/day07.py	/^def part2():$/;"	f
 part2	2023/src/day01.rs	/^fn part2(data: &str) -> Result<u32> {$/;"	f
 part2	2023/src/day03.rs	/^fn part2(data: &str) -> Result<usize> {$/;"	f
 part2	2023/src/day04.rs	/^fn part2(games: &[Game]) -> Result<usize> {$/;"	f
-part2	2023/src/day05.rs	/^fn part2(data: &str) -> usize {$/;"	f
+part2	2023/src/day05.rs	/^fn part2(data: &str) -> Result<usize> {$/;"	f
 part2_examples_test	2020/src/day18.rs	/^    fn part2_examples_test() {$/;"	f	module:tests
 part_1	2020/src/day10.rs	/^fn part_1(data: &[usize]) -> usize {$/;"	f
 part_1	2020/src/day11.rs	/^fn part_1(seats: &[Vec<u8>]) -> usize {$/;"	f
@@ -700,6 +698,7 @@ time_solution	2020/src/lib.rs	/^macro_rules! time_solution {$/;"	M
 time_solution	2023/src/lib.rs	/^macro_rules! time_solution {$/;"	M
 timed	2019/prelude.py	/^def timed(funcname, f, *args, **kwargs):$/;"	f
 timed	2021/prelude.py	/^def timed(funcname, f, *args, **kwargs):$/;"	f
+timed	2023/src/lib.rs	/^macro_rules! timed {$/;"	M
 token_part1_test	2020/src/day18.rs	/^    fn token_part1_test() {$/;"	f	module:tests
 tot1	2019/day04.py	/^tot1, tot2 = 0, 0$/;"	v
 tot2	2019/day04.py	/^tot1, tot2 = 0, 0$/;"	v

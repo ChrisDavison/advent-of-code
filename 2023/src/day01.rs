@@ -22,8 +22,9 @@ lazy_static! {
         .expect("Failed to construct regex");
 }
 
-pub fn day01() -> Result<(u32, u32)> {
-    Ok((part1(DATA)?, part2(DATA)?))
+fn main() {
+    timed! {1, part1, DATA};
+    timed! {1, part2, DATA};
 }
 
 type DigitFinder = fn(&str) -> Vec<u32>;
