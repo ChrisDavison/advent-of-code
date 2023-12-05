@@ -1,3 +1,4 @@
+#![feature(iter_array_chunks)]
 mod bool_xor;
 mod parse_each;
 mod point2d;
@@ -34,4 +35,24 @@ macro_rules! time_solution {
             Err(e) => eprintln!("D{}: {}", $daynum + 1, e),
         }
     };
+}
+
+pub fn numbers(s: &str) -> Vec<usize> {
+    s.split(|c: char| !c.is_ascii_digit())
+        .filter_map(|x| x.trim().parse().ok())
+        .collect()
+}
+
+pub fn number_pairs(s: &str) -> Vec<(usize, usize)> {
+    let mut out = Vec::new();
+    for ab in s
+        .split(|c: char| !c.is_ascii_digit())
+        .filter_map(|x| x.trim().parse().ok())
+        .array_chunks::<2>()
+    {
+        let a = ab[0];
+        let b = ab[1];
+        out.push((a, b));
+    }
+    out
 }

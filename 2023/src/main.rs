@@ -4,7 +4,7 @@ mod day01;
 mod day02;
 mod day03;
 mod day04;
-// mod day05;
+mod day05;
 // mod day06;
 // mod day07;
 // mod day08;
@@ -33,7 +33,7 @@ fn main() {
     time_solution! {2, day02};
     time_solution! {3, day03};
     time_solution! {4, day04};
-    // time_solution! {5, day05};
+    time_solution! {5, day05};
     // time_solution! {6, day06};
     // time_solution! {7, day07};
     // time_solution! {8, day08};
