@@ -73,12 +73,11 @@ fn min_location_from_seedset(seeds: &[usize], maps: &[&str]) -> usize {
             let from_max = num[1] + num[2];
             let to_min = num[0];
             for seed in &seeds {
-                if seeds_remaining.contains(&seed) {
-                    if *seed >= from_min && *seed <= from_max {
-                        converted.insert(seed);
-                        seeds_new.insert(to_min + (seed - from_min));
-                        seeds_remaining.remove(&seed);
-                    }
+                let within = *seed >= from_min && *seed <= from_max;
+                if seeds_remaining.contains(seed) && within {
+                    converted.insert(seed);
+                    seeds_new.insert(to_min + (seed - from_min));
+                    seeds_remaining.remove(seed);
                 }
             }
         }
