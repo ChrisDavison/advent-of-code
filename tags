@@ -19,8 +19,6 @@ Bit	2020/src/day14.rs	/^enum Bit {$/;"	g
 BitMask	2020/src/day14.rs	/^type BitMask = [Bit; 36];$/;"	t
 Claim	2018/day03.py	/^class Claim:$/;"	c
 Cm	2020/src/day04.rs	/^    Cm(usize),$/;"	e	enum:Height
-Cropmap	2023/src/day05.rs	/^type Cropmap = Vec<Croprange>;$/;"	t
-Croprange	2023/src/day05.rs	/^type Croprange = (usize, usize, usize);$/;"	t
 CupGame	2020/src/day23.rs	/^impl CupGame {$/;"	c
 CupGame	2020/src/day23.rs	/^struct CupGame {$/;"	s
 Deck	2020/src/day22.rs	/^type Deck = VecDeque<usize>;$/;"	t
@@ -103,6 +101,7 @@ Tile	2020/src/day20.rs	/^struct Tile {$/;"	s
 TileOrientations	2020/src/day20.rs	/^impl std::iter::Iterator for TileOrientations {$/;"	c
 TileOrientations	2020/src/day20.rs	/^struct TileOrientations {$/;"	s
 Tips	README.md	/^## Tips$/;"	s	chapter:Advent of Code
+ToFromDelta	2023/src/day05.rs	/^type ToFromDelta = (usize, usize, usize);$/;"	t
 Token	2020/src/day18.rs	/^enum Token {$/;"	g
 Token	2020/src/day18.rs	/^impl std::fmt::Display for Token {$/;"	c
 Triple	2023/src/day02.rs	/^type Triple = (i32, i32, i32);$/;"	t
@@ -332,8 +331,8 @@ gen_input	2018/day01.py	/^def gen_input():$/;"	f
 gen_input	2018/day02.py	/^def gen_input():$/;"	f
 gen_input	2018/day03.py	/^def gen_input():$/;"	f
 get	2019/intcode.py	/^    def get(self, offset, mode=0):$/;"	m	class:IntCode
-get_next_ranges	2023/src/day05.rs	/^fn get_next_ranges(seedrange: (usize, usize), cropmaps: &Cropmap) -> Vec<(usize, usize)> {$/;"	f
-get_next_value	2023/src/day05.rs	/^fn get_next_value(seeds: &mut [usize], ranges: &Cropmap) {$/;"	f
+get_next_ranges	2023/src/day05.rs	/^fn get_next_ranges(seedrange: (usize, usize), cropmaps: &Vec<ToFromDelta>) -> Vec<(usize, usize)/;"	f
+get_next_value	2023/src/day05.rs	/^fn get_next_value(seeds: &mut [usize], ranges: &Vec<ToFromDelta>) {$/;"	f
 get_path	2019/day03.py	/^def get_path(instructions):$/;"	f
 get_starting_floor_state	2020/src/day24.rs	/^fn get_starting_floor_state(coords: &[Hex]) -> HashMap<Hex, bool> {$/;"	f
 grid	2020/src/day20.rs	/^    grid: Vec<Vec<char>>,$/;"	m	struct:Tile
@@ -378,7 +377,7 @@ manhattan	2020/src/day12.rs	/^    fn manhattan(&self) -> isize {$/;"	P	implement
 matching_edge	2020/src/day20.rs	/^    fn matching_edge(a: &Tile, b: &Tile) -> Option<Direction> {$/;"	P	implementation:Tile
 max	2020/src/day23.rs	/^    max: usize,$/;"	m	struct:CupGame
 min	2020/src/day23.rs	/^    min: usize,$/;"	m	struct:CupGame
-min_location_from_seedset	2023/src/day05.rs	/^fn min_location_from_seedset(seeds: &mut [usize], maps: &[Cropmap]) -> usize {$/;"	f
+min_location_from_seedset	2023/src/day05.rs	/^fn min_location_from_seedset(seeds: &mut [usize], maps: &[Vec<ToFromDelta>]) -> usize {$/;"	f
 move_by	2020/src/day12.rs	/^fn move_by(current: &mut Position, direction: char, distance: usize) {$/;"	f
 ms_time	2019/prelude.py	/^def ms_time(f, *args, **kwargs):$/;"	f
 ms_time	2021/prelude.py	/^def ms_time(f, *args, **kwargs):$/;"	f
@@ -419,7 +418,7 @@ parse	2022/day05.py	/^def parse(data):$/;"	f
 parse	2022/day07.py	/^def parse(data: str) -> defaultdict[str, Set[str]]:$/;"	f	typeref:typename:defaultdict[str,Set[str]]
 parse	2023/src/day03.rs	/^fn parse(data: &str) -> (Vec<(usize, Region)>, SymbolLocations) {$/;"	f
 parse	2023/src/day04.rs	/^fn parse(data: &str) -> Vec<Game> {$/;"	f
-parse	2023/src/day05.rs	/^fn parse(data: &str) -> (Vec<usize>, Vec<Cropmap>) {$/;"	f
+parse	2023/src/day05.rs	/^fn parse(data: &str) -> (Vec<usize>, Vec<Vec<ToFromDelta>>) {$/;"	f
 parse_bag	2020/src/day07.rs	/^fn parse_bag(s: &str) -> Result<(String, usize)> {$/;"	f
 parse_bus_timetable	2020/src/day13.rs	/^fn parse_bus_timetable(s: &str) -> Vec<Option<usize>> {$/;"	f
 parse_claim	2018/day03.py	/^def parse_claim(claim):$/;"	f
@@ -439,7 +438,7 @@ parse_instr	2019/intcode.py	/^    def parse_instr(self, s):$/;"	m	class:IntCode
 parse_instructions	2020/src/day12.rs	/^fn parse_instructions(s: &str) -> Vec<(char, usize)> {$/;"	f
 parse_iter	2023/src/day02.rs	/^fn parse_iter(data: &str) -> impl Iterator<Item = (i32, (i32, i32, i32))> + '_ {$/;"	f
 parse_line	2023/src/day02.rs	/^fn parse_line(line: &str) -> (i32, Triple) {$/;"	f
-parse_map	2023/src/day05.rs	/^fn parse_map(line: &str) -> Croprange {$/;"	f
+parse_map	2023/src/day05.rs	/^fn parse_map(line: &str) -> ToFromDelta {$/;"	f
 parse_password	2020/src/day02.rs	/^fn parse_password(s: &str) -> Result<PasswordLine> {$/;"	f
 parse_rule	2020/src/day16.rs	/^fn parse_rule(s: &str) -> Result<(String, (Range, Range))> {$/;"	f
 parse_ticket	2020/src/day16.rs	/^fn parse_ticket(s: &str) -> Vec<usize> {$/;"	f
@@ -499,7 +498,7 @@ part1	2022/day07.py	/^def part1(data):$/;"	f
 part1	2023/src/day01.rs	/^fn part1(data: &str) -> Result<u32> {$/;"	f
 part1	2023/src/day03.rs	/^fn part1(data: &str) -> Result<usize> {$/;"	f
 part1	2023/src/day04.rs	/^fn part1(games: &[Game]) -> Result<i32> {$/;"	f
-part1	2023/src/day05.rs	/^fn part1(parsed: &(Vec<usize>, Vec<Cropmap>)) -> Result<usize> {$/;"	f
+part1	2023/src/day05.rs	/^fn part1(parsed: &(Vec<usize>, Vec<Vec<ToFromDelta>>)) -> Result<usize> {$/;"	f
 part1	2023/template.rs	/^fn part1(data: &str) -> Result<usize> {$/;"	f
 part1_examples_test	2020/src/day18.rs	/^    fn part1_examples_test() {$/;"	f	module:tests
 part2	2019/day02.py	/^def part2(data, target=19690720):$/;"	f
@@ -557,7 +556,7 @@ part2	2022/day07.py	/^def part2():$/;"	f
 part2	2023/src/day01.rs	/^fn part2(data: &str) -> Result<u32> {$/;"	f
 part2	2023/src/day03.rs	/^fn part2(data: &str) -> Result<usize> {$/;"	f
 part2	2023/src/day04.rs	/^fn part2(games: &[Game]) -> Result<usize> {$/;"	f
-part2	2023/src/day05.rs	/^fn part2(parsed: &(Vec<usize>, Vec<Cropmap>)) -> Result<usize> {$/;"	f
+part2	2023/src/day05.rs	/^fn part2(parsed: &(Vec<usize>, Vec<Vec<ToFromDelta>>)) -> Result<usize> {$/;"	f
 part2	2023/template.rs	/^fn part2(data: &str) -> Result<usize> {$/;"	f
 part2_examples_test	2020/src/day18.rs	/^    fn part2_examples_test() {$/;"	f	module:tests
 part_1	2020/src/day10.rs	/^fn part_1(data: &[usize]) -> usize {$/;"	f

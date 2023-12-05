@@ -1,3 +1,5 @@
+use std::path::Prefix;
+
 use aoc2023::*;
 
 #[allow(dead_code)]
@@ -46,7 +48,7 @@ fn main() {
     timed! {1, part2, parsed};
 }
 
-fn parse(data: &str) -> (Vec<usize>, Vec<Cropmap>) {
+fn parse(data: &str) -> (Vec<usize>, Vec<Vec<ToFromDelta>>) {
     let mut paragraphs = data.split("\n\n");
     let seeds = numbers(paragraphs.next().unwrap().split_once(':').unwrap().1);
 
@@ -56,29 +58,28 @@ fn parse(data: &str) -> (Vec<usize>, Vec<Cropmap>) {
                 .lines()
                 .skip(1)
                 .map(parse_map)
-                .collect::<Cropmap>()
+                .collect::<Vec<ToFromDelta>>()
         })
-        .collect::<Vec<Cropmap>>();
+        .collect::<Vec<Vec<ToFromDelta>>>();
 
     (seeds, paragraphs)
 }
 
-fn parse_map(line: &str) -> Croprange {
+fn parse_map(line: &str) -> ToFromDelta {
     let nums = numbers(line);
     (nums[0], nums[1], nums[1] + nums[2])
 }
 
-fn min_location_from_seedset(seeds: &mut [usize], maps: &[Cropmap]) -> usize {
+fn min_location_from_seedset(seeds: &mut [usize], maps: &[Vec<ToFromDelta>]) -> usize {
     for (i, map) in maps.iter().enumerate() {
         get_next_value(seeds, map);
     }
     *seeds.iter().min().unwrap()
 }
 
-type Croprange = (usize, usize, usize);
-type Cropmap = Vec<Croprange>;
+type ToFromDelta = (usize, usize, usize);
 
-fn get_next_value(seeds: &mut [usize], ranges: &Cropmap) {
+fn get_next_value(seeds: &mut [usize], ranges: &Vec<ToFromDelta>) {
     for seed in seeds.iter_mut() {
         for (out_start, in_min, in_max) in ranges {
             if *seed >= *in_min && *seed <= *in_max {
@@ -89,7 +90,7 @@ fn get_next_value(seeds: &mut [usize], ranges: &Cropmap) {
     }
 }
 
-fn get_next_ranges(seedrange: (usize, usize), cropmaps: &Cropmap) -> Vec<(usize, usize)> {
+fn get_next_ranges(seedrange: (usize, usize), cropmaps: &Vec<ToFromDelta>) -> Vec<(usize, usize)> {
     let mut seedrange = seedrange;
     let mut ranges = Vec::new();
     let mut i = 0;
@@ -130,34 +131,36 @@ fn get_next_ranges(seedrange: (usize, usize), cropmaps: &Cropmap) -> Vec<(usize,
     ranges
 }
 
-fn part1(parsed: &(Vec<usize>, Vec<Cropmap>)) -> Result<usize> {
+fn part1(parsed: &(Vec<usize>, Vec<Vec<ToFromDelta>>)) -> Result<usize> {
     let (seeds, maps) = parsed;
     let mut seeds = seeds.clone();
     Ok(min_location_from_seedset(&mut seeds, &maps))
 }
 
-fn part2(parsed: &(Vec<usize>, Vec<Cropmap>)) -> Result<usize> {
+fn part2(parsed: &(Vec<usize>, Vec<Vec<ToFromDelta>>)) -> Result<usize> {
     let (seeds, maps) = parsed;
 
     let mut seed_startends = pairs(seeds)
         .map(|ab| (ab.0, ab.0 + ab.1))
         .collect::<Vec<_>>();
 
-    // let mut out = Vec::new();
+    // // let mut out = Vec::new();
     for (i, map) in maps.iter().enumerate() {
-        println!("{:#?}", i);
-        let mut newranges = Vec::new();
-        for rng in &seed_startends {
-            for nrng in get_next_ranges(*rng, map) {
-                newranges.push(nrng);
-            }
-        }
-        seed_startends = newranges;
-        println!("{:#?}", seed_startends);
+        let mut map = map.clone();
+        println!("{:?}", i);
+        // println!("{:?}", seed_startends[0]);
+        map.sort_by_key(|x| x.1);
+        map = map.iter().clone().map(|&(a, b, c)| (a, b, b + c)).collect();
+        println!("{:?}", map[0]);
+        seed_startends = seed_startends
+            .iter()
+            .map(|rng| get_next_ranges(*rng, &map))
+            .flatten()
+            .collect();
     }
     // for (i, seed_startend) in seed_startends.iter().enumerate() {
     //     out.push(min_location_from_seedset_range(*seed_startend, &maps));
     // }
     // Ok(*out.iter().min().unwrap_or(&0))
-    Ok(0)
+    seed_startends.iter().map(|(a, b)| a.min(b)).next().unwrap()
 }
