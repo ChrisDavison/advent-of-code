@@ -181,6 +181,7 @@ data	2021/day22.py	/^data = [int(l) for l in open('input\/22').read().splitlines
 data	2021/day23.py	/^data = [int(l) for l in open('input\/23').read().splitlines()]$/;"	v
 data	2021/day24.py	/^data = [int(l) for l in open('input\/24').read().splitlines()]$/;"	v
 data	2021/day25.py	/^data = [int(l) for l in open('input\/25').read().splitlines()]$/;"	v
+data	2023/day06.py	/^data = list([[number for number in re.findall('\\d+', line)]$/;"	v
 data	2023/src/strides.rs	/^    pub data: &'a Vec<Vec<T>>,$/;"	m	struct:Strides
 day01	2020/src/day01.rs	/^pub fn day01() -> Result<String> {$/;"	f
 day01	2020/src/main.rs	/^mod day01;$/;"	n
@@ -271,6 +272,7 @@ digits_and_worddigits_in_line	2023/src/day01.rs	/^fn digits_and_worddigits_in_li
 digits_in_line	2023/src/day01.rs	/^fn digits_in_line(line: &str) -> Vec<u32> {$/;"	f
 display_ring	2020/src/day23.rs	/^    fn display_ring(&self) -> String {$/;"	P	implementation:CupGame
 distance	2023/src/point2d.rs	/^    pub fn distance(&self, other: &Point2D) -> (isize, isize) {$/;"	P	implementation:Point2D
+dnum	2023/day06.py	/^dnum = int(''.join(x for x in data[1]))$/;"	v
 dt_str	2019/prelude.py	/^dt_str = lambda start: "({}ms)".format((datetime.now() - start).microseconds)$/;"	f
 dt_str	2021/prelude.py	/^dt_str = lambda start: "({}ms)".format((datetime.now() - start).microseconds)$/;"	f
 east	2020/src/day12.rs	/^    east: isize,$/;"	m	struct:Position
@@ -303,6 +305,7 @@ examples_part1	2020/src/day06.rs	/^    fn examples_part1() {$/;"	f	module:tests
 examples_part2	2020/src/day02.rs	/^    fn examples_part2() {$/;"	f	module:tests
 examples_part2	2020/src/day06.rs	/^    fn examples_part2() {$/;"	f	module:tests
 eyr	2020/src/day04.rs	/^    eyr: usize,$/;"	m	struct:Passport
+f	2023/day06.py	/^def f(tnum, dnum):$/;"	f
 find_destination	2020/src/day23.rs	/^    fn find_destination(&mut self) -> usize {$/;"	P	implementation:CupGame
 find_inner_parens	2020/src/day18.rs	/^fn find_inner_parens(s: &[Token]) -> (usize, usize) {$/;"	f
 find_matches	2020/src/day19.rs	/^fn find_matches(data: &str) -> String {$/;"	f
@@ -575,6 +578,7 @@ point2d	2023/src/lib.rs	/^mod point2d;$/;"	n
 pointed_at_by	2020/src/day23.rs	/^    pointed_at_by: Vec<usize>,$/;"	m	struct:CupGame
 points_surrounding_region	2023/src/day03.rs	/^fn points_surrounding_region(region: &[Point2D]) -> impl Iterator<Item = Point2D> + '_ {$/;"	f
 priority	2022/day03.py	/^def priority(letter):$/;"	f
+prod	2023/day06.py	/^prod = 1$/;"	v
 product	2023/src/day02.rs	/^fn product(tuple: Triple) -> i32 {$/;"	f
 quick_dict	2020/src/lib.rs	/^mod quick_dict;$/;"	n
 quick_dict	2023/src/lib.rs	/^mod quick_dict;$/;"	n
@@ -600,6 +604,7 @@ run	2019/intcode.py	/^    def run(self):$/;"	m	class:IntCode
 run	2020/src/day25.rs	/^fn run(card: usize, door: usize) -> Result<String> {$/;"	f
 run_with_replace	2019/day02.py	/^def run_with_replace(data, a, b):$/;"	f
 sample	2019/day03.py	/^sample = """$/;"	v
+sample	2023/day06.py	/^sample = """Time:      7  15   30$/;"	v
 sample2	2019/day03.py	/^sample2 = """$/;"	v
 sample3	2019/day03.py	/^sample3 = """$/;"	v
 save	2019/intcode.py	/^    def save(self, intcode):$/;"	m	class:IntCode
@@ -619,6 +624,8 @@ simplify	2020/src/day18.rs	/^fn simplify($/;"	f
 size	2020/src/day20.rs	/^    size: usize,$/;"	m	struct:Tile
 solve	2020/src/day15.rs	/^fn solve(data: &[usize], target: usize) -> Result<usize> {$/;"	f
 sorted_seat_ids	2020/src/day05.rs	/^fn sorted_seat_ids(data: &[&str]) -> Vec<i64> {$/;"	f
+source	2023/day06.py	/^source = open("input\/day06").read()$/;"	v
+source	2023/day06.py	/^source = sample$/;"	v
 split_ingredient_allergen	2020/src/day21.rs	/^fn split_ingredient_allergen(s: &str) -> (HashSet<&str>, HashSet<&str>) {$/;"	f
 strides	2020/src/day20.rs	/^    fn strides(&self, width: usize, height: usize) -> Strides<char> {$/;"	P	implementation:Tile
 strides	2020/src/lib.rs	/^mod strides;$/;"	n
@@ -706,6 +713,7 @@ time_solution	2023/src/lib.rs	/^macro_rules! time_solution {$/;"	M
 timed	2019/prelude.py	/^def timed(funcname, f, *args, **kwargs):$/;"	f
 timed	2021/prelude.py	/^def timed(funcname, f, *args, **kwargs):$/;"	f
 timed	2023/src/lib.rs	/^macro_rules! timed {$/;"	M
+tnum	2023/day06.py	/^tnum = int(''.join(x for x in data[0]))$/;"	v
 token_part1_test	2020/src/day18.rs	/^    fn token_part1_test() {$/;"	f	module:tests
 tot1	2019/day04.py	/^tot1, tot2 = 0, 0$/;"	v
 tot2	2019/day04.py	/^tot1, tot2 = 0, 0$/;"	v
