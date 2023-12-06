@@ -3,12 +3,13 @@ from dataclasses import dataclass
 # from itertools import *
 from itertools import chain
 from pathlib import Path
-from typing import List, Tuple, Union, Sequence, Iterable, Optional
+from typing import List, Tuple, Union, Sequence, Iterable, Optional, Set
 import functools
 import math as m
 import os
 import pickle
 import re
+import operator
 
 # from matplotlib.backend_bases import MouseButton
 # from skimage import transform, data
@@ -17,8 +18,8 @@ import re
 # from skimage.feature import match_descriptors, plot_matches, SIFT
 # from skimage.io import imread, imshow
 # import cv2
-# import matplotlib.pyplot as plt
-# import numpy as np
+import matplotlib.pyplot as plt
+import numpy as np
 # import pandas as pd
 
 
@@ -185,3 +186,115 @@ def first_true(iterable, default=False):
     """Returns the first true value in the iterable.
     If no true value is found, returns `default`."""
     return next((x for x in iterable if x), default)
+
+
+Point  = Tuple[int, ...]      # Type for points
+Vector = Point                # E.g., (1, 0) can be a point, or can be a direction, a Vector
+Zero   = (0, 0)
+
+directions4 = East, South, West, North = ((1, 0), (0, 1),  (-1, 0), (0, -1))
+diagonals   = SE,   NE,    SW,   NW    = ((1, 1), (1, -1), (-1, 1), (-1, -1))
+directions8 = directions4 + diagonals
+directions5 = directions4 + (Zero,)
+directions9 = directions8 + (Zero,)
+arrow_direction = {'^': North, 'v': South, '>': East, '<': West, '.': Zero,
+                   'U': North, 'D': South, 'R': East, 'L': West}
+
+def X_(point) -> int: "X coordinate of a point"; return point[0]
+def Y_(point) -> int: "Y coordinate of a point"; return point[1]
+def Z_(point) -> int: "Z coordinate of a point"; return point[2]
+
+def Xs(points) -> Tuple[int]: "X coordinates of a collection of points"; return mapt(X_, points)
+def Ys(points) -> Tuple[int]: "Y coordinates of a collection of points"; return mapt(Y_, points)
+def Zs(points) -> Tuple[int]: "X coordinates of a collection of points"; return mapt(Z_, points)
+
+def add(p: Point, q: Point) -> Point:  return mapt(operator.add, p, q)
+def sub(p: Point, q: Point) -> Point:  return mapt(operator.sub, p, q)
+def neg(p: Point)           -> Vector: return mapt(operator.neg, p)
+def mul(p: Point, k: float) -> Vector: return tuple(k * c for c in p)
+
+def distance(p: Point, q: Point) -> float:
+    """Euclidean (L2) distance between two points."""
+    d = sum((pi - qi) ** 2 for pi, qi in zip(p, q)) ** 0.5
+    return int(d) if d.is_integer() else d
+
+def slide(points: Set[Point], delta: Vector) -> Set[Point]:
+    """Slide all the points in the set of points by the amount delta."""
+    return {add(p, delta) for p in points}
+
+def make_turn(facing:Vector, turn:str) -> Vector:
+    """Turn 90 degrees left or right. `turn` can be 'L' or 'Left' or 'R' or 'Right' or lowercase."""
+    (x, y) = facing
+    return (y, -x) if turn[0] in ('L', 'l') else (-y, x)
+
+# Profiling found that `add` and `taxi_distance` were speed bottlenecks;
+# I define below versions that are specialized for 2D points only.
+
+def add2(p: Point, q: Point) -> Point:
+    """Specialized version of point addition for 2D Points only. Faster."""
+    return (p[0] + q[0], p[1] + q[1])
+
+def taxi_distance(p: Point, q: Point) -> int:
+    """Manhattan (L1) distance between two 2D Points."""
+    return abs(p[0] - q[0]) + abs(p[1] - q[1])
+
+class Grid(dict):
+    """A 2D grid, implemented as a mapping of {(x, y): cell_contents}."""
+    def __init__(self, grid=(), directions=directions4, skip=(), default=KeyError):
+        """Initialize with either (e.g.) `Grid({(0, 0): '#', (1, 0): '.', ...})`, or
+        `Grid(["#..", "..#"]) or `Grid("#..\n..#")`."""
+        self.directions = directions
+        self.default = default
+        if isinstance(grid, abc.Mapping):
+            self.update(grid)
+        else:
+            if isinstance(grid, str):
+                grid = grid.splitlines()
+            self.update({(x, y): val
+                         for y, row in enumerate(grid)
+                         for x, val in enumerate(row)
+                         if val not in skip})
+
+    def __missing__(self, point):
+        """If asked for a point off the grid, either return default or raise error."""
+        if self.default == KeyError:
+            raise KeyError(point)
+        else:
+            return self.default
+
+    def copy(self): return Grid(self, directions=self.directions, default=self.default)
+
+    def neighbors(self, point) -> List[Point]:
+        """Points on the grid that neighbor `point`."""
+        return [add2(point, Δ) for Δ in self.directions
+                if add2(point, Δ) in self or self.default != KeyError]
+
+    def neighbor_contents(self, point) -> Iterable:
+        """The contents of the neighboring points."""
+        return (self[p] for p in self.neighbors(point))
+
+    def to_rows(self, xrange=None, yrange=None) -> List[List[object]]:
+        """The contents of the grid, as a rectangular list of lists.
+        You can define a window with an xrange and yrange; or they default to the whole grid."""
+        xrange = xrange or cover(Xs(self))
+        yrange = yrange or cover(Ys(self))
+        default = ' ' if self.default is KeyError else self.default
+        return [[self.get((x, y), default) for x in xrange]
+                for y in yrange]
+
+    def print(self, sep='', xrange=None, yrange=None):
+        """Print a representation of the grid."""
+        for row in self.to_rows(xrange, yrange):
+            print(*row, sep=sep)
+
+    def plot(self, markers={'#': 's', '.': ','}, figsize=(14, 14), **kwds):
+        """Plot a representation of the grid."""
+        plt.figure(figsize=figsize)
+        plt.gca().invert_yaxis()
+        for m in markers:
+            plt.plot(*T(p for p in self if self[p] == m), markers[m], **kwds)
+
+def neighbors(point, directions=directions4) -> List[Point]:
+    """Neighbors of this point, in the given directions.
+    (This function can be used outside of a Grid class.)"""
+    return [add(point, Δ) for Δ in directions]
