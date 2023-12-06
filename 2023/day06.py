@@ -6,15 +6,14 @@ Distance:  9  40  200"""
 source = sample
 source = open("input/day06").read()
 
-data = list([[number for number in re.findall('\d+', line)]
+data = list([[number for number in re.findall(r'\d+', line)]
         for line in source.splitlines()])
 
 def f(tnum, dnum):
     s = 0
     for t in range(tnum):
-        delta = tnum - t
-        win = (tnum*t - t*t - dnum) > 0  # tnum * t - t^2
-        if win:
+        val = (-(t*t) + tnum*t - dnum)
+        if val > 0:
             s += 1
     return s
 
