@@ -1,6 +1,6 @@
 [package]
 name = "aoc2023"
-version = "2023.5.1"
+version = "2023.6.2"
 authors = ["Chris Davison <c.jr.davison@gmail.com>"]
 edition = "2018"
 
@@ -38,3 +38,4 @@ path="src/day04.rs"
 [[bin]]
 name="day05"
 path="src/day05.rs"
+
