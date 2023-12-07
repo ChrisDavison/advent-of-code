@@ -36,18 +36,13 @@ def cardhand1(s):
         case _:
             return Hand(0, cardranks, cards, bid)
 
-
 def cardhand2(s):
     cards, bid = s.split(" ")
     bid = int(bid)
     nj, cards_noj = sum(1 for c in cards if c == 'J'), ''.join(c for c in cards if c != 'J')
-    cardset = sorted(Counter(cards_noj).values())[::-1]
+    cardset = sorted(Counter(cards_noj).values())[::-1] if cards_noj else [0]
     cardranks = mapt(lambda x: "J123456789TQKA".index(x), cards)
-    # print(f"{cards}\t{cardset = :} {nj = :}")
-    if cardset:
-        cardset[0] += nj
-    else:
-        cardset = [nj]
+    cardset[0] += nj
     match cardset:
         case [5]:
             return Hand(6, cardranks, cards, bid)
