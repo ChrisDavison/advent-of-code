@@ -17,29 +17,19 @@ zoneight234
 
 DATA = DAY(1)
 
-
 # --- part 1
-def f(data):
+def f(parsed):
     s = 0
-    for d in map(digits, data.splitlines()):
+    for d in parsed:
         s += d[0] * 10 + d[-1]
     print(s)
     return s
-
 
 # assert f(TEST_INPUT) == 142
-assert f(DATA) == 56465
+parsed = parse(1, digits, lines, show=0)
+assert f(parsed) == 56465
 
-
-# --- part 2
-def f2(data):
-    s = 0
-    for d in map(digits_and_worddigits, data.splitlines()):
-        s += d[0] * 10 + d[-1]
-    print(s)
-    return s
-
-
+parsed = parse(1, digits_and_worddigits, lines, show=0)
 # assert f2(TEST_INPUT) == 142
 # assert f2(TEST_INPUT_2) == 281
-assert f2(DATA) == 55902
+assert f(parsed) == 55902

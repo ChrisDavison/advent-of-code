@@ -19,7 +19,7 @@ def parse_game(l):
         return card, winning, have
 
 
-p = mapl(parse_game, DATA.splitlines())
+p = parse(4, parse_game, lines, show=0)
 
 s = 0
 for _id, have, win in p:

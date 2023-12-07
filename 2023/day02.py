@@ -22,18 +22,16 @@ def parse_set(s):
     return np.array(rgb)
 
 
-def p(data):
-    for line in data.splitlines():
-        if m := game_rx.search(line):
-            yield int(m.group("id")), np.max(
-                mapl(np.array, map(parse_set, m.group("sets").split(";"))), axis=0
-            )
-
+def parse_game(line):
+    if m := game_rx.search(line):
+        return int(m.group("id")), np.max(
+            mapl(np.array, map(parse_set, m.group("sets").split(";"))), axis=0
+        )
 
 lim = np.array([12, 13, 14])
 wins = 0
 p2 = 0
-for gameid, gameset_max in p(DATA):
+for gameid, gameset_max in parse(2, parse_game, lines, show=0):
     if np.all(gameset_max <= lim):
         wins += gameid
     p2 += np.prod(gameset_max)

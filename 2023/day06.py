@@ -1,4 +1,5 @@
 import re
+from utility import *
 
 sample = """Time:      7  15   30
 Distance:  9  40  200"""
@@ -6,10 +7,7 @@ Distance:  9  40  200"""
 source = sample
 source = open("input/day06").read()
 
-data = list(
-    [[number for number in re.findall(r"\d+", line)] for line in source.splitlines()]
-)
-
+data = mapl(np.array, parse(6, ints, lines, show=0))
 
 def f(tnum, dnum):
     s = 0
@@ -19,13 +17,15 @@ def f(tnum, dnum):
             s += 1
     return s
 
+def concat_ints(ls):
+    return int(cat(mapl(str, ls)))
 
 prod = 1
 for time, record in zip(*data):
     prod *= f(int(time), int(record))
 print(prod)
 
-tnum = int("".join(x for x in data[0]))
-dnum = int("".join(x for x in data[1]))
+tnum = concat_ints(data[0])
+dnum = concat_ints(data[1])
 
 print(f(tnum, dnum))
