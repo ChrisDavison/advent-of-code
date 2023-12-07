@@ -351,9 +351,7 @@ examples_part2	2020/src/day02.rs	/^    fn examples_part2() {$/;"	f	module:tests
 examples_part2	2020/src/day06.rs	/^    fn examples_part2() {$/;"	f	module:tests
 eyr	2020/src/day04.rs	/^    eyr: usize,$/;"	m	struct:Passport
 f	2023/day01.py	/^def f(parsed):$/;"	f
-f	2023/day05.py	/^def f(data):$/;"	f
 f	2023/day06.py	/^def f(tnum, dnum):$/;"	f
-f2	2023/day05.py	/^def f2(data):$/;"	f
 find_destination	2020/src/day23.rs	/^    fn find_destination(&mut self) -> usize {$/;"	P	implementation:CupGame
 find_inner_parens	2020/src/day18.rs	/^fn find_inner_parens(s: &[Token]) -> (usize, usize) {$/;"	f
 find_matches	2020/src/day19.rs	/^fn find_matches(data: &str) -> String {$/;"	f
@@ -384,8 +382,6 @@ gen_input	2018/day01.py	/^def gen_input():$/;"	f
 gen_input	2018/day02.py	/^def gen_input():$/;"	f
 gen_input	2018/day03.py	/^def gen_input():$/;"	f
 get	2019/intcode.py	/^    def get(self, offset, mode=0):$/;"	m	class:IntCode
-get_next_ranges	2023/day05.py	/^def get_next_ranges(cropmapping, seed_range):$/;"	f
-get_next_value	2023/day05.py	/^def get_next_value(seeds, ranges):$/;"	f
 get_path	2019/day03.py	/^def get_path(instructions):$/;"	f
 get_starting_floor_state	2020/src/day24.rs	/^fn get_starting_floor_state(coords: &[Hex]) -> HashMap<Hex, bool> {$/;"	f
 get_text	2023/utility.py	/^def get_text(day_or_text:Union[int, str]) -> str:$/;"	f	typeref:typename:str
@@ -425,7 +421,6 @@ lower	2020/src/day02.rs	/^    lower: usize,$/;"	m	struct:PasswordLine
 m	2023/day01.py	/^import math as m$/;"	I	nameref:module:math
 m	2023/day02.py	/^import math as m$/;"	I	nameref:module:math
 m	2023/day03.py	/^import math as m$/;"	I	nameref:module:math
-m	2023/day05.py	/^import math as m$/;"	I	nameref:module:math
 m	2023/utility.py	/^import math as m$/;"	I	nameref:module:math
 m0	2019/day07.py	/^    m0 = IntCode(SAMPLE.split(","), inputs=[4, 3, 2, 1, 0])$/;"	v
 main	2020/src/main.rs	/^fn main() {$/;"	f
@@ -438,7 +433,6 @@ mapt	2023/utility.py	/^def mapt(func, iterable) -> Tuple:$/;"	f	typeref:typename
 matching_edge	2020/src/day20.rs	/^    fn matching_edge(a: &Tile, b: &Tile) -> Option<Direction> {$/;"	P	implementation:Tile
 max	2020/src/day23.rs	/^    max: usize,$/;"	m	struct:CupGame
 min	2020/src/day23.rs	/^    min: usize,$/;"	m	struct:CupGame
-min_location_from_seedset	2023/day05.py	/^def min_location_from_seedset(seeds, maps):$/;"	f
 minmax	2023/utility.py	/^def minmax(numbers) -> Tuple[int, int]:$/;"	f	typeref:typename:Tuple[int,int]
 move_by	2020/src/day12.rs	/^fn move_by(current: &mut Position, direction: char, distance: usize) {$/;"	f
 ms_time	2019/prelude.py	/^def ms_time(f, *args, **kwargs):$/;"	f
@@ -562,6 +556,7 @@ part1	2022/day06.py	/^def part1(data):$/;"	f
 part1	2022/day07.py	/^def part1(data):$/;"	f
 part1	2023/day03.py	/^def part1():$/;"	f
 part1	2023/day04.py	/^def part1():$/;"	f
+part1	2023/day05.py	/^def part1(data):$/;"	f
 part1	2023/day06.py	/^def part1():$/;"	f
 part1	2023/day07.py	/^def part1(data=SAMPLE):$/;"	f
 part1	2023/template.py	/^def part1(data=SAMPLE):$/;"	f
@@ -620,6 +615,7 @@ part2	2022/day06.py	/^def part2(data):$/;"	f
 part2	2022/day07.py	/^def part2():$/;"	f
 part2	2023/day03.py	/^def part2():$/;"	f
 part2	2023/day04.py	/^def part2():$/;"	f
+part2	2023/day05.py	/^def part2(data):$/;"	f
 part2	2023/day06.py	/^def part2():$/;"	f
 part2	2023/day07.py	/^def part2(data=SAMPLE):$/;"	f
 part2	2023/template.py	/^def part2(data=SAMPLE):$/;"	f
@@ -645,7 +641,6 @@ pop	2023/utility.py	/^    def pop(self):$/;"	m	class:PriorityQueue
 positive_ints	2023/utility.py	/^def positive_ints(text: str) -> Tuple[int]:$/;"	f	typeref:typename:Tuple[int]
 powerset	2023/utility.py	/^def powerset(iterable) -> Iterable[tuple]:$/;"	f	typeref:typename:Iterable[tuple]
 pp	2023/day04.py	/^from pprint import pprint as pp$/;"	x	nameref:unknown:pprint
-pp	2023/day05.py	/^from pprint import pprint as pp$/;"	x	nameref:unknown:pprint
 print	2023/utility.py	/^    def print(self, sep="", xrange=None, yrange=None):$/;"	m	class:Grid
 priority	2022/day03.py	/^def priority(letter):$/;"	f
 prod	2023/utility.py	/^def prod(numbers) -> float:  # Will be math.prod in Python 3.8$/;"	f	typeref:typename:float
