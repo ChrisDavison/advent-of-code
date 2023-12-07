@@ -351,7 +351,7 @@ examples_part2	2020/src/day02.rs	/^    fn examples_part2() {$/;"	f	module:tests
 examples_part2	2020/src/day06.rs	/^    fn examples_part2() {$/;"	f	module:tests
 eyr	2020/src/day04.rs	/^    eyr: usize,$/;"	m	struct:Passport
 f	2023/day01.py	/^def f(parsed):$/;"	f
-f	2023/day06.py	/^def f(tnum, dnum):$/;"	f
+f	2023/day06.py	/^def f(t, d):$/;"	f
 find_destination	2020/src/day23.rs	/^    fn find_destination(&mut self) -> usize {$/;"	P	implementation:CupGame
 find_inner_parens	2020/src/day18.rs	/^fn find_inner_parens(s: &[Token]) -> (usize, usize) {$/;"	f
 find_matches	2020/src/day19.rs	/^fn find_matches(data: &str) -> String {$/;"	f

@@ -9,13 +9,22 @@ source = Path("input/06").read_text()
 
 data = mapl(np.array, parse(6, ints, lines, show=0))
 
-def f(tnum, dnum):
-    s = 0
-    for t in range(tnum):
-        val = -(t * t) + tnum * t - dnum
-        if val > 0:
-            s += 1
-    return s
+def f(t, d):
+    # quadratic equation
+    # |
+    # |     ________
+    # |    /        \
+    # |---x----------x------------
+    # |  /            \
+    # | /              \
+    # |/                \
+    # |===========================
+    # want to find the two roots x that give us values above the record
+    # take ceil of first, so we're after we cross above
+    # take floor of second, so we're before the cross below
+    first = m.ceil((-t + m.sqrt(t*t - 4*d)) / -2)
+    second = m.floor((-t - m.sqrt(t*t - 4*d)) / -2)
+    return np.abs(first - second) + 1
 
 def concat_ints(ls):
     return int(cat(mapl(str, ls)))
