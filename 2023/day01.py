@@ -15,7 +15,7 @@ xtwone3four
 zoneight234
 7pqrstsixteen"""
 
-DATA = DAY(1)
+DATA = Path('input/01').read_text()
 
 # --- part 1
 def f(parsed):

@@ -2,8 +2,10 @@ from collections import namedtuple, Counter, defaultdict
 from dataclasses import dataclass
 from itertools import *
 from itertools import chain
+from functools import partial
 from pathlib import Path
 from typing import List, Tuple, Union, Sequence, Iterable, Optional, Set, Callable
+from time import time_ns
 import functools
 import math as m
 import os
@@ -16,10 +18,6 @@ import numpy as np
 import pandas as pd
 import networkx as nx
 from datetime import time
-
-
-DAY = lambda day: Path(f"input/day{day:02d}").read_text()
-
 
 
 # PARSER
@@ -677,3 +675,13 @@ class AttrCounter(Counter):
         return self[attr]
     def __setattr__(self, attr, value):
         self[attr] = value
+
+def timed(func):
+    def inner(*args, **kwargs):
+        start = time_ns()
+        ret = func(*args, **kwargs)
+        ns_delta = time_ns() - start
+        print(ret)
+        print(f"\t{ns_delta / 1e6:.0f}ms")
+        return ret, ns_delta
+    return inner

@@ -37,7 +37,7 @@ humidity-to-location map:
 60 56 37
 56 93 4"""
 
-DATA = DAY(5)
+DATA = Path('input/05').read_text()
 
 
 # --- part 1

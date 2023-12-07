@@ -1,5 +1,4 @@
 from utility import *
-from time import  time_ns
 
 SAMPLE = """32T3K 765
 T55J5 684
@@ -7,7 +6,7 @@ KK677 28
 KTJJT 220
 QQQJA 483"""
 
-DATA = DAY(7)
+DATA = Path('input/07').read_text()
 
 Hand = namedtuple("Hand", "setrank cardrank cards bid")
 
@@ -33,32 +32,25 @@ def cardhand(cardstr, j_is_wild=False):
     cardranks = mapt(lambda x: rank.index(x), cards)
     return Hand(cardset_to_setrank(cardset), cardranks, cards, bid)
 
-def parse_cards(line):
-    return cardhand(line, False)
-
-def parse_cards_wild_j(line):
-    return cardhand(line, True)
-
-def score(data, parser):
+@timed
+def part1(data=SAMPLE):
     s = 0
-    for i, hand in enumerate(parse(data, parser, lines, show=0)):
+    ordered_hands = sorted([cardhand(line, j_is_wild=False) for line in data.splitlines()])
+    for i, hand in enumerate(ordered_hands):
         score = hand.bid * (i + 1)
         # print(f"{hand.cards} \t\t {hand.bid} * {i + 1} = {score}")
         s += score
     return s
 
+@timed
+def part2(data=SAMPLE):
+    s = 0
+    ordered_hands = sorted([cardhand(line, j_is_wild=True) for line in data.splitlines()])
+    for i, hand in enumerate(ordered_hands):
+        score = hand.bid * (i + 1)
+        # print(f"{hand.cards} \t\t {hand.bid} * {i + 1} = {score}")
+        s += score
+    return s
 
-start = time_ns()
-print(f"{score(SAMPLE, parse_cards) = :}")
-print(f"{score(DATA, parse_cards) = :}")
-
-mid = time_ns()
-print(f"\t{(mid - start) / 1e6:.0f}ms")
-
-print("-----------")
-
-print(f"{score(SAMPLE, parse_cards_wild_j) = :}")
-print(f"{score(DATA, parse_cards_wild_j) = :}")
-end = time_ns()
-print(f"\t{(end - mid) / 1e6:.0f}ms")
-print(f"Total {(end - start) / 1e6:.0f} ms")
+part1(DATA)
+part2(DATA)
