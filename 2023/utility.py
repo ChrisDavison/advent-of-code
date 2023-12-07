@@ -41,7 +41,7 @@ def get_text(day_or_text:Union[int, str]) -> str:
     if isinstance(day_or_text, str):
         return day_or_text
     else:
-        filename = f'input/day{day_or_text:02d}'
+        filename = f'input/{day_or_text:02d}'
         return Path(filename).read_text()
 
 def show_items(source, items, show:int, hr="─"*100):
@@ -681,7 +681,9 @@ def timed(func):
         start = time_ns()
         ret = func(*args, **kwargs)
         ns_delta = time_ns() - start
-        print(ret)
+        if ret:
+            print(ret)
         print(f"\t{ns_delta / 1e6:.0f}ms")
-        return ret, ns_delta
+        if ret:
+            return ret, ns_delta
     return inner
