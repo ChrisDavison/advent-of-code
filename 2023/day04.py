@@ -10,12 +10,14 @@ Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11"""
 
 DATA = DAY(4)
 
+
 def parse_game(l):
     if m := re.search(r"Card\s+(\d+):\s+(.+)\s+\|\s(.+)", l):
         card = int(m[1])
         winning = set(mapt(int, m[2].split()))
         have = set(mapt(int, m[3].split()))
         return card, winning, have
+
 
 p = mapl(parse_game, DATA.splitlines())
 
@@ -35,7 +37,7 @@ for gameid, have, win in p:
     inter = have & win
     if not inter:
         continue
-    for g in range(1, len(inter)+1):
+    for g in range(1, len(inter) + 1):
         copies_of_each[gameid + g] += copies_of_each[gameid]
 
 pp(sum(copies_of_each))
