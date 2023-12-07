@@ -13,6 +13,7 @@ game_rx = re.compile(r"Game\s+(?P<id>\d+):\s+(?P<sets>.*)")
 
 DATA = DAY(2)
 
+
 def parse_set(s):
     rgb = [0, 0, 0]
     rgbstr = "rgb"
@@ -20,18 +21,21 @@ def parse_set(s):
         rgb[rgbstr.index(w[0])] = int(d)
     return np.array(rgb)
 
+
 def p(data):
     for line in data.splitlines():
         if m := game_rx.search(line):
-            yield int(m.group("id")), np.max(mapl(np.array, map(parse_set, m.group("sets").split(";"))), axis=0)
+            yield int(m.group("id")), np.max(
+                mapl(np.array, map(parse_set, m.group("sets").split(";"))), axis=0
+            )
+
 
 lim = np.array([12, 13, 14])
 wins = 0
 p2 = 0
-for (gameid, gameset_max) in p(DATA):
+for gameid, gameset_max in p(DATA):
     if np.all(gameset_max <= lim):
         wins += gameid
     p2 += np.prod(gameset_max)
 print(wins)
 print(p2)
-

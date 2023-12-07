@@ -15,22 +15,30 @@ SAMPLE = """467..114..
 
 DATA = DAY(3)
 
+
 def p(data):
     possible = []
     symbols = dict()
     rxline = re.compile(r"(?P<digit>\d+)|(?P<sym>[^0-9.])")
-    for (i, line) in enumerate(data.splitlines()):
+    for i, line in enumerate(data.splitlines()):
         for m in rxline.finditer(line):
             if m.group("sym"):
-                symbols[(i, m.start())] = m.group('sym')
+                symbols[(i, m.start())] = m.group("sym")
             if m.group("digit"):
-                possible.append((int(m.group('digit')), [(i, col) for col in range(m.start(), m.end())]))
+                possible.append(
+                    (
+                        int(m.group("digit")),
+                        [(i, col) for col in range(m.start(), m.end())],
+                    )
+                )
     return possible, symbols
+
 
 def surrounding(point):
     point = tuple(point)
     for direction in directions8:
         yield point[0] + direction[0], point[1] + direction[1]
+
 
 def points_surrounding_region(r):
     seen = set()
@@ -40,9 +48,10 @@ def points_surrounding_region(r):
                 seen.add(surround)
                 yield surround
 
+
 number_map, symbols = p(DATA)
 parts = []
-for (n, region) in number_map:
+for n, region in number_map:
     if any(p in symbols for p in points_surrounding_region(region)):
         parts.append(n)
 print(sum(parts))
@@ -56,7 +65,7 @@ for number, region in number_map:
         point_to_idx_of_partnum[point] = len(partnums) - 1
 
 ratios = []
-for (location, ch) in symbols.items():
+for location, ch in symbols.items():
     if ch != "*":
         continue
     candidates = set()
