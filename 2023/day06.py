@@ -20,12 +20,18 @@ def f(tnum, dnum):
 def concat_ints(ls):
     return int(cat(mapl(str, ls)))
 
-prod = 1
-for time, record in zip(*data):
-    prod *= f(int(time), int(record))
-print(prod)
+@timed
+def part1():
+    prod = 1
+    for time, record in zip(*data):
+        prod *= f(int(time), int(record))
+    print(prod)
+part1()
 
-tnum = concat_ints(data[0])
-dnum = concat_ints(data[1])
+@timed
+def part2():
+    tnum = concat_ints(data[0])
+    dnum = concat_ints(data[1])
 
-print(f(tnum, dnum))
+    print(f(tnum, dnum))
+part2()

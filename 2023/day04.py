@@ -21,23 +21,28 @@ def parse_game(l):
 
 p = parse(4, parse_game, lines, show=0)
 
-s = 0
-for _id, have, win in p:
-    inter = have & win
-    if inter:
-        s += 2 ** (len(inter) - 1)
-print(s)
+@timed
+def part1():
+    s = 0
+    for _id, have, win in p:
+        inter = have & win
+        if inter:
+            s += 2 ** (len(inter) - 1)
+    print(s)
+part1()
 
+@timed
+def part2():
+    copies_of_each = [1] * (len(p) + 1)
+    copies_of_each[0] = 0
+    s = 0
 
-copies_of_each = [1] * (len(p) + 1)
-copies_of_each[0] = 0
-s = 0
+    for gameid, have, win in p:
+        inter = have & win
+        if not inter:
+            continue
+        for g in range(1, len(inter) + 1):
+            copies_of_each[gameid + g] += copies_of_each[gameid]
 
-for gameid, have, win in p:
-    inter = have & win
-    if not inter:
-        continue
-    for g in range(1, len(inter) + 1):
-        copies_of_each[gameid + g] += copies_of_each[gameid]
-
-pp(sum(copies_of_each))
+    pp(sum(copies_of_each))
+part2()
