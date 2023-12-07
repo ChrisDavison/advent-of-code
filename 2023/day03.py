@@ -13,7 +13,7 @@ SAMPLE = """467..114..
 ...$.*....
 .664.598.."""
 
-DATA = DAY(3)
+DATA = Path('input/03').read_text()
 
 
 def p(data):

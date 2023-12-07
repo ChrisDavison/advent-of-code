@@ -15,7 +15,7 @@ if [[ -z "$SESSION" ]]; then
     exit -1
 fi
 URL="https://adventofcode.com/"$year"/day/"$day1"/input"
-curl --cookie "session=$SESSION" $URL > input/day$day2
+curl --cookie "session=$SESSION" $URL > input/$day2
 
 git add day$day2.py input/$day2
 git commit -m "Start day$day2"

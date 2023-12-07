@@ -5,7 +5,7 @@ sample = """Time:      7  15   30
 Distance:  9  40  200"""
 
 source = sample
-source = open("input/day06").read()
+source = Path("input/06").read_text()
 
 data = mapl(np.array, parse(6, ints, lines, show=0))
 

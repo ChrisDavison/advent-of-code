@@ -11,7 +11,7 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green"""
 
 game_rx = re.compile(r"Game\s+(?P<id>\d+):\s+(?P<sets>.*)")
 
-DATA = DAY(2)
+DATA = Path('input/02').read_text()
 
 
 def parse_set(s):
