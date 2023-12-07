@@ -147,8 +147,8 @@ calculate	2020/src/day18.rs	/^fn calculate(eqn: &mut Vec<Token>) -> Result<i64> 
 calculate2	2020/src/day18.rs	/^fn calculate2(eqn: &mut Vec<Token>) -> Result<i64> {$/;"	f
 can_match	2020/src/day20.rs	/^    fn can_match(&self, other: &Tile) -> Option<(Tile, Tile, Direction)> {$/;"	P	implementation:Tile
 candidates	2023/day03.py	/^    candidates = set()$/;"	v
-cardhand1	2023/day07.py	/^def cardhand1(s):$/;"	f
-cardhand2	2023/day07.py	/^def cardhand2(s):$/;"	f
+cardhand	2023/day07.py	/^def cardhand(cardstr, j_is_wild=False):$/;"	f
+cardset_to_setrank	2023/day07.py	/^def cardset_to_setrank(cs):$/;"	f
 cat	2023/utility.py	/^cat = "".join$/;"	v
 check_slope	2020/src/day03.rs	/^fn check_slope(lines: &[Vec<char>], (dx, dy): (usize, usize)) -> usize {$/;"	f
 cid	2020/src/day04.rs	/^    cid: Option<String>,$/;"	m	struct:Passport
@@ -338,11 +338,9 @@ eyr	2020/src/day04.rs	/^    eyr: usize,$/;"	m	struct:Passport
 f	2023/day01.py	/^def f(data):$/;"	f
 f	2023/day05.py	/^def f(data):$/;"	f
 f	2023/day06.py	/^def f(tnum, dnum):$/;"	f
-f	2023/day07.py	/^def f(data):$/;"	f
 f	2023/template.py	/^def f(data):$/;"	f
 f2	2023/day01.py	/^def f2(data):$/;"	f
 f2	2023/day05.py	/^def f2(data):$/;"	f
-f2	2023/day07.py	/^def f2(data):$/;"	f
 f2	2023/template.py	/^def f2(data):$/;"	f
 find_destination	2020/src/day23.rs	/^    fn find_destination(&mut self) -> usize {$/;"	P	implementation:CupGame
 find_inner_parens	2020/src/day18.rs	/^fn find_inner_parens(s: &[Token]) -> (usize, usize) {$/;"	f
@@ -459,13 +457,14 @@ nx	2019/day06.py	/^import networkx as nx$/;"	I	nameref:module:networkx
 nx	2019/day07.py	/^import networkx as nx$/;"	I	nameref:module:networkx
 nx	2023/utility.py	/^import networkx as nx$/;"	I	nameref:module:networkx
 object_score	2022/day02.py	/^def object_score(you):$/;"	f
+one	2023/day07.py	/^def one(data):$/;"	f
 one_step	2019/intcode.py	/^    def one_step(self):$/;"	m	class:IntCode
 orbits_of	2019/day06.py	/^def orbits_of(node, graph):$/;"	f
 orientations	2020/src/day20.rs	/^    fn orientations(&self) -> TileOrientations {$/;"	P	implementation:Tile
 p	2023/day02.py	/^def p(data):$/;"	f
 p	2023/day03.py	/^def p(data):$/;"	f
 p	2023/day04.py	/^p = mapl(parse_game, DATA.splitlines())$/;"	v
-p	2023/day07.py	/^def p(data, cardgen):$/;"	f
+p	2023/day07.py	/^def p(data, j_is_wild):$/;"	f
 p1	2019/day07.py	/^    p1 = m0.last_output()$/;"	v
 p1_example	2020/src/day09.rs	/^fn p1_example() {$/;"	f
 p1_valid	2019/day04.py	/^def p1_valid(pw):$/;"	f
@@ -767,6 +766,7 @@ tot1	2019/day04.py	/^tot1, tot2 = 0, 0$/;"	v
 tot2	2019/day04.py	/^tot1, tot2 = 0, 0$/;"	v
 total_bags	2020/src/day07.rs	/^fn total_bags(bagmap: &BagMap, bag: &str) -> usize {$/;"	f
 truncate	2023/utility.py	/^def truncate(object, width=100, ellipsis=" ...") -> str:$/;"	f	typeref:typename:str
+two	2023/day07.py	/^def two(data):$/;"	f
 union	2023/utility.py	/^def union(sets) -> set:$/;"	f	typeref:typename:set
 update_memory	2020/src/day14.rs	/^fn update_memory($/;"	f
 update_memory_v2	2020/src/day14.rs	/^fn update_memory_v2($/;"	f

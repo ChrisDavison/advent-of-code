@@ -15,82 +15,61 @@ DATA = DAY(7)
 
 Hand = namedtuple('Hand', 'setrank cardrank cards bid')
 
-def cardhand1(s):
-    cards, bid = s.split(" ")
-    bid = int(bid)
-    cardset = sorted(Counter(cards).values())[::-1]
-    cardranks = mapt(lambda x: "123456789TJQKA".index(x), cards)
-    match cardset:
-        case [5]:
-            return Hand(6, cardranks, cards, bid)
-        case [4, 1]:
-            return Hand(5, cardranks, cards, bid)
-        case [3, 2]:
-            return Hand(4, cardranks, cards, bid)
-        case [3, 1, 1]:
-            return Hand(3, cardranks, cards, bid)
-        case [2, 2, 1]:
-            return Hand(2, cardranks, cards, bid)
-        case [2, 1, 1, 1]:
-            return Hand(1, cardranks, cards, bid)
-        case _:
-            return Hand(0, cardranks, cards, bid)
+def cardset_to_setrank(cs):
+    ranks = [
+        [1, 1, 1, 1, 1],
+        [2, 1, 1, 1],
+        [2, 2, 1],
+        [3, 1, 1],
+        [3, 2],
+        [4, 1],
+        [5]
+    ]
+    return ranks.index(cs)
 
-def cardhand2(s):
-    cards, bid = s.split(" ")
+def cardhand(cardstr, j_is_wild=False):
+    cards, bid = cardstr.split(" ")
     bid = int(bid)
     nj, cards_noj = sum(1 for c in cards if c == 'J'), ''.join(c for c in cards if c != 'J')
-    cardset = sorted(Counter(cards_noj).values())[::-1] if cards_noj else [0]
-    cardranks = mapt(lambda x: "J123456789TQKA".index(x), cards)
-    cardset[0] += nj
-    match cardset:
-        case [5]:
-            return Hand(6, cardranks, cards, bid)
-        case [4, 1]:
-            return Hand(5, cardranks, cards, bid)
-        case [3, 2]:
-            return Hand(4, cardranks, cards, bid)
-        case [3, 1, 1]:
-            return Hand(3, cardranks, cards, bid)
-        case [2, 2, 1]:
-            return Hand(2, cardranks, cards, bid)
-        case [2, 1, 1, 1]:
-            return Hand(1, cardranks, cards, bid)
-        case _:
-            return Hand(0, cardranks, cards, bid)
+    cards_to_count = cards if not j_is_wild else cards_noj
+    cardset = sorted(Counter(cards_to_count).values(), reverse=True) if cards_to_count else [0]
+    if j_is_wild:
+        cardset[0] += nj
+    rank = "123456789TJQKA" if not j_is_wild else "J123456789TQKA"
+    cardranks = mapt(lambda x: rank.index(x), cards)
+    return Hand(cardset_to_setrank(cardset), cardranks, cards, bid)
 
-def p(data, cardgen):
-    cards = mapl(cardgen, data.splitlines())
-    return sorted(cards)
+def p(data, j_is_wild):
+    return sorted([cardhand(line, j_is_wild) for line in data.splitlines()])
 
 # --- part 1
-def f(data):
+def one(data):
     s = 0
-    for i, hand in enumerate(p(data, cardhand1)):
+    for i, hand in enumerate(p(data, False)):
         score = hand.bid * (i + 1)
         # print(f"{hand.cards} \t\t {hand.bid} * {i + 1} = {score}")
         s += score
     return s
 
 start = time_ns()
-print(f"1. {f(SAMPLE) = :}")
-print(f"1. {f(DATA) = :}")
+print(f"{one(SAMPLE) = :}")
+print(f"{one(DATA) = :}")
 mid = time_ns()
 print(f"\t{(mid - start) / 1e6:.0f}ms")
 
 print("-----------")
 
 # --- part 2
-def f2(data):
+def two(data):
     s = 0
-    for i, hand in enumerate(p(data, cardhand2)):
+    for i, hand in enumerate(p(data, True)):
         score = hand.bid * (i + 1)
         # print(f"{hand.cards} \t\t {hand.bid} * {i + 1} = {score}")
         s += score
     return s
 
-print(f"2. {f2(SAMPLE) = :}")
-print(f"2. {f2(DATA) = :}")
+print(f"{two(SAMPLE) = :}")
+print(f"{two(DATA) = :}")
 end = time_ns()
 print(f"\t{(end - mid) / 1e6:.0f}ms")
 print(f"Total {(end - start) / 1e6:.0f} ms")
