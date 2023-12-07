@@ -311,6 +311,7 @@ ecl	2020/src/day04.rs	/^    ecl: String,$/;"	m	struct:Passport
 edges	2020/src/day20.rs	/^    fn edges(&self) -> (Vec<char>, Vec<char>, Vec<char>, Vec<char>) {$/;"	P	implementation:Tile
 elves_data	2022/day01.py	/^elves_data = parse(open("inputs\/01").read())$/;"	v
 elves_ex	2022/day01.py	/^elves_ex = parse(example)$/;"	v
+end	2023/day07.py	/^end = time_ns()$/;"	v
 eq	2020/src/day24.rs	/^    fn eq(&self, other: &Hex) -> bool {$/;"	P	implementation:Hex
 equals	2019/intcode.py	/^    def equals(self, intcode):$/;"	m	class:IntCode
 ex	2022/day02.py	/^ex = """A Y$/;"	v
@@ -426,6 +427,7 @@ mapl	2023/utility.py	/^def mapl(func, iterable) -> List:$/;"	f	typeref:typename:
 mapt	2023/utility.py	/^def mapt(func, iterable) -> Tuple:$/;"	f	typeref:typename:Tuple
 matching_edge	2020/src/day20.rs	/^    fn matching_edge(a: &Tile, b: &Tile) -> Option<Direction> {$/;"	P	implementation:Tile
 max	2020/src/day23.rs	/^    max: usize,$/;"	m	struct:CupGame
+mid	2023/day07.py	/^mid = time_ns()$/;"	v
 min	2020/src/day23.rs	/^    min: usize,$/;"	m	struct:CupGame
 min_location_from_seedset	2023/day05.py	/^def min_location_from_seedset(seeds, maps):$/;"	f
 minmax	2023/utility.py	/^def minmax(numbers) -> Tuple[int, int]:$/;"	f	typeref:typename:Tuple[int,int]
@@ -678,6 +680,7 @@ source	2023/day06.py	/^source = open("input\/day06").read()$/;"	v
 source	2023/day06.py	/^source = sample$/;"	v
 split_at	2023/utility.py	/^def split_at(sequence, i) -> Tuple[Sequence, Sequence]:$/;"	f	typeref:typename:Tuple[Sequence,Sequence]
 split_ingredient_allergen	2020/src/day21.rs	/^fn split_ingredient_allergen(s: &str) -> (HashSet<&str>, HashSet<&str>) {$/;"	f
+start	2023/day07.py	/^start = time_ns()$/;"	v
 strides	2020/src/day20.rs	/^    fn strides(&self, width: usize, height: usize) -> Strides<char> {$/;"	P	implementation:Tile
 strides	2020/src/lib.rs	/^mod strides;$/;"	n
 stringify_decks	2020/src/day22.rs	/^fn stringify_decks(a: &Deck, b: &Deck) -> String {$/;"	f

@@ -15,6 +15,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import networkx as nx
+from datetime import time
+
 
 
 DAY = lambda day: Path(f"input/day{day:02d}").read_text()
