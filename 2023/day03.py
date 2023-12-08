@@ -13,7 +13,7 @@ SAMPLE = """467..114..
 ...$.*....
 .664.598.."""
 
-DATA = Path('input/03').read_text()
+DATA = Path("input/03").read_text()
 
 
 def p(data):
@@ -61,6 +61,7 @@ def part1():
 number_map, symbols = p(DATA)
 part1()
 
+
 @timed
 def part2():
     partnums = []
@@ -81,5 +82,6 @@ def part2():
         if len(candidates) == 2:
             ratios.append(np.prod(list(candidates)))
     print(sum(ratios))
+
 
 part2()

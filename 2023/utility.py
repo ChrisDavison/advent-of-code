@@ -1,3 +1,22 @@
+from collections import Counter, defaultdict, namedtuple, deque, abc
+from dataclasses import dataclass, field
+from itertools import permutations, combinations, cycle, chain, islice
+from itertools import count as count_from, product as cross_product
+from typing import *
+from statistics import mean, median
+from math import ceil, floor, factorial, gcd, log, log2, log10, sqrt, inf
+
+import matplotlib.pyplot as plt
+
+import ast
+import fractions
+import functools
+import heapq
+import operator
+import pathlib
+import re
+import string
+import time
 from collections import namedtuple, Counter, defaultdict
 from dataclasses import dataclass
 from itertools import *
@@ -21,39 +40,53 @@ from datetime import time
 
 
 # PARSER
-current_year = 2022    # Subdirectory name for input files
-lines = str.splitlines # By default, split input text into lines
-def paragraphs(text): "Split text into paragraphs"; return text.split('\n\n')
+current_year = 2022  # Subdirectory name for input files
+lines = str.splitlines  # By default, split input text into lines
 
-def parse(day_or_text:Union[int, str], parser:Callable=str, section_by:Callable=lines, show=8) -> tuple:
+
+def paragraphs(text):
+    "Split text into paragraphs"
+    return text.split("\n\n")
+
+
+def parse(
+    day_or_text: Union[int, str],
+    parser: Callable = str,
+    section_by: Callable = lines,
+    show=8,
+) -> tuple:
     """Split the input text into `sections`, and apply `parser` to each.
     The first argument is either the text itself, or the day number of a text file."""
     text = get_text(day_or_text)
-    show_items('Puzzle input', text.splitlines(), show)
+    show_items("Puzzle input", text.splitlines(), show)
     records = mapt(parser, section_by(text.rstrip()))
     if parser != str or section_by != lines:
-        show_items('Parsed representation', records, show)
+        show_items("Parsed representation", records, show)
     return records
 
-def get_text(day_or_text:Union[int, str]) -> str:
+
+def get_text(day_or_text: Union[int, str]) -> str:
     """The text used as input to the puzzle: either a string or the day number,
     which denotes the file 'AOC/year/input{day}.txt'."""
     if isinstance(day_or_text, str):
         return day_or_text
     else:
-        filename = f'input/{day_or_text:02d}'
+        filename = f"input/{day_or_text:02d}"
         return Path(filename).read_text()
 
-def show_items(source, items, show:int, hr="─"*100):
+
+def show_items(source, items, show: int, hr="─" * 100):
     """Show the first few items, in a pretty format."""
     if show:
         types = Counter(map(type, items))
-        counts = ', '.join(f'{n} {t.__name__}{"" if n == 1 else "s"}' for t, n in types.items())
-        print(f'{hr}\n{source} ➜ {counts}:\n{hr}')
+        counts = ", ".join(
+            f'{n} {t.__name__}{"" if n == 1 else "s"}' for t, n in types.items()
+        )
+        print(f"{hr}\n{source} ➜ {counts}:\n{hr}")
         for line in items[:show]:
             print(truncate(line))
         if show < len(items):
-            print('...')
+            print("...")
 
 
 # =================================
@@ -156,105 +189,11 @@ def atom(text: str) -> Atom:
         return text.strip()
 
 
-def minmax(numbers) -> Tuple[int, int]:
-    """A tuple of the (minimum, maximum) of numbers."""
-    numbers = list(numbers)
-    return min(numbers), max(numbers)
-
-
-def T(matrix: Sequence[Sequence]) -> List[Tuple]:
-    """The transpose of a matrix: T([(1,2,3), (4,5,6)]) == [(1,4), (2,5), (3,6)]"""
-    return list(zip(*matrix))
-
-
-def split_at(sequence, i) -> Tuple[Sequence, Sequence]:
-    """The sequence split into two pieces: (before position i, and i-and-after)."""
-    return sequence[:i], sequence[i:]
-
-
-def is_int(x) -> bool:
-    "Is x an int?"
-    return isinstance(x, int)
-
-
-def sign(x) -> int:
-    "0, +1, or -1"
-    return 0 if x == 0 else +1 if x > 0 else -1
-
-
-def lcm(i, j) -> int:
-    "Least common multiple"
-    return i * j // gcd(i, j)
-
-
-def union(sets) -> set:
-    "Union of several sets"
-    return set().union(*sets)
-
-
-def intersection(sets):
-    "Intersection of several sets; error if no sets."
-    first, *rest = sets
-    return set(first).intersection(*rest)
-
-
-def clock_mod(i, m) -> int:
-    """i % m, but replace a result of 0 with m"""
-    # This is like a clock, where 24 mod 12 is 12, not 0.
-    return (i % m) or m
-
-
 def countwhere(pred, iterable) -> int:
     return sum(1 for item in iterable if pred(item))
 
 
-def powerset(iterable) -> Iterable[tuple]:
-    "powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"
-    s = list(iterable)
-    return flatten(combinations(s, r) for r in range(len(s) + 1))
-
-
 flatten = chain.from_iterable  # Yield items from each sequence in turn
-
-
-def batched(iterable, n) -> Iterable[tuple]:
-    "Batch data into non-overlapping tuples of length n. The last batch may be shorter."
-    # batched('ABCDEFG', 3) --> ABC DEF G
-    it = iter(iterable)
-    while True:
-        batch = tuple(islice(it, n))
-        if batch:
-            yield batch
-        else:
-            return
-
-
-def sliding_window(sequence, n) -> Iterable[Sequence]:
-    """All length-n subsequences of sequence."""
-    return (sequence[i : i + n] for i in range(len(sequence) + 1 - n))
-
-
-def first(iterable, default=None) -> Optional[object]:
-    """The first element in an iterable, or the default if iterable is empty."""
-    return next(iter(iterable), default)
-
-
-def last(iterable) -> Optional[object]:
-    """The last element in an iterable."""
-    for item in iterable:
-        pass
-    return item
-
-
-def nth(iterable, n, default=None):
-    "Returns the nth item or a default value"
-    return next(islice(iterable, n, None), default)
-
-
-def first_true(iterable, default=False):
-    """Returns the first true value in the iterable.
-    If no true value is found, returns `default`."""
-    return next((x for x in iterable if x), default)
 
 
 # =========================
@@ -363,6 +302,7 @@ def taxi_distance(p: Point, q: Point) -> int:
 # GRID
 # ==============
 
+
 class Grid(dict):
     """A 2D grid, implemented as a mapping of {(x, y): cell_contents}."""
 
@@ -433,7 +373,6 @@ def neighbors(point, directions=directions4) -> List[Point]:
     """Neighbors of this point, in the given directions.
     (This function can be used outside of a Grid class.)"""
     return [add(point, Δ) for Δ in directions]
-
 
 
 # =======
@@ -517,6 +456,13 @@ def lcm(i, j) -> int:
     "Least common multiple"
     return i * j // gcd(i, j)
 
+
+def lcm_list(ii) -> int:
+    "Least common multiple of a list of numbers"
+    l = ii[0]
+    for i in ii[1:]:
+        l = lcm(l, i)
+    return l
 
 def union(sets) -> set:
     "Union of several sets"
@@ -637,7 +583,7 @@ class PriorityQueue:
 
     def __init__(self, items=(), key=lambda x: x):
         self.key = key
-        self.items = [] # a heap of (score, item) pairs
+        self.items = []  # a heap of (score, item) pairs
         for item in items:
             self.add(item)
 
@@ -650,31 +596,45 @@ class PriorityQueue:
         """Pop and return the item with min f(item) value."""
         return heapq.heappop(self.items)[1]
 
-    def top(self): return self.items[0][1]
+    def top(self):
+        return self.items[0][1]
 
-    def __len__(self): return len(self.items)
+    def __len__(self):
+        return len(self.items)
+
 
 class Hdict(dict):
     """A dict, but it is hashable."""
-    def __hash__(self): return hash(tuple(sorted(self.items())))
+
+    def __hash__(self):
+        return hash(tuple(sorted(self.items())))
+
 
 class HCounter(Counter):
     """A Counter, but it is hashable."""
-    def __hash__(self): return hash(tuple(sorted(self.items())))
+
+    def __hash__(self):
+        return hash(tuple(sorted(self.items())))
+
 
 class Graph(dict):
     """A graph of {node: [neighboring_nodes...]}.
     Can store other kwd attributes on it (which you can't do with a dict)."""
+
     def __init__(self, contents, **kwds):
         self.update(contents)
         self.__dict__.update(**kwds)
 
+
 class AttrCounter(Counter):
     """A Counter, but `ctr['name']` and `ctr.name` are the same."""
+
     def __getattr__(self, attr):
         return self[attr]
+
     def __setattr__(self, attr, value):
         self[attr] = value
+
 
 def timed(func):
     def inner(*args, **kwargs):
@@ -686,4 +646,5 @@ def timed(func):
         print(f"\t{ns_delta / 1e6:.0f}ms")
         if ret:
             return ret, ns_delta
+
     return inner

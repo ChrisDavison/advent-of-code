@@ -6,13 +6,15 @@ KK677 28
 KTJJT 220
 QQQJA 483"""
 
-DATA = Path('input/07').read_text()
+DATA = Path("input/07").read_text()
 
 Hand = namedtuple("Hand", "setrank cardrank cards bid")
+
 
 def cardset_to_setrank(cs):
     ranks = [[1, 1, 1, 1, 1], [2, 1, 1, 1], [2, 2, 1], [3, 1, 1], [3, 2], [4, 1], [5]]
     return ranks.index(cs)
+
 
 def cardhand(cardstr, j_is_wild=False):
     cards, bid = cardstr.split(" ")
@@ -32,25 +34,32 @@ def cardhand(cardstr, j_is_wild=False):
     cardranks = mapt(lambda x: rank.index(x), cards)
     return Hand(cardset_to_setrank(cardset), cardranks, cards, bid)
 
+
 @timed
 def part1(data=SAMPLE):
     s = 0
-    ordered_hands = sorted([cardhand(line, j_is_wild=False) for line in data.splitlines()])
+    ordered_hands = sorted(
+        [cardhand(line, j_is_wild=False) for line in data.splitlines()]
+    )
     for i, hand in enumerate(ordered_hands):
         score = hand.bid * (i + 1)
         # print(f"{hand.cards} \t\t {hand.bid} * {i + 1} = {score}")
         s += score
     return s
 
+
 @timed
 def part2(data=SAMPLE):
     s = 0
-    ordered_hands = sorted([cardhand(line, j_is_wild=True) for line in data.splitlines()])
+    ordered_hands = sorted(
+        [cardhand(line, j_is_wild=True) for line in data.splitlines()]
+    )
     for i, hand in enumerate(ordered_hands):
         score = hand.bid * (i + 1)
         # print(f"{hand.cards} \t\t {hand.bid} * {i + 1} = {score}")
         s += score
     return s
+
 
 part1(DATA)
 part2(DATA)
