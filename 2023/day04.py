@@ -24,7 +24,7 @@ p = parse(4, parse_game, lines, show=0)
 @timed
 def part1():
     s = 0
-    for _id, have, win in p:
+    for _, have, win in p:
         inter = have & win
         if inter:
             s += 2 ** (len(inter) - 1)
@@ -37,7 +37,6 @@ part1()
 def part2():
     copies_of_each = [1] * (len(p) + 1)
     copies_of_each[0] = 0
-    s = 0
 
     for gameid, have, win in p:
         inter = have & win

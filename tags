@@ -426,9 +426,6 @@ lines	2023/utility.py	/^lines = str.splitlines  # By default, split input text i
 loop_until_symbol_evaluated	2020/src/day18.rs	/^fn loop_until_symbol_evaluated<F>($/;"	f
 lower	2019/day04.py	/^lower, upper = [int(i) for i in data.split("-")[:2]]$/;"	v
 lower	2020/src/day02.rs	/^    lower: usize,$/;"	m	struct:PasswordLine
-m	2023/day01.py	/^import math as m$/;"	I	nameref:module:math
-m	2023/day02.py	/^import math as m$/;"	I	nameref:module:math
-m	2023/day03.py	/^import math as m$/;"	I	nameref:module:math
 m	2023/utility.py	/^import math as m$/;"	I	nameref:module:math
 m0	2019/day07.py	/^    m0 = IntCode(SAMPLE.split(","), inputs=[4, 3, 2, 1, 0])$/;"	v
 main	2020/src/main.rs	/^fn main() {$/;"	f
