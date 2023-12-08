@@ -10,7 +10,6 @@ Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11"""
 
 DATA = Path("input/04").read_text()
 
-
 def parse_game(l):
     if m := re.search(r"Card\s+(\d+):\s+(.+)\s+\|\s(.+)", l):
         card = int(m[1])
@@ -30,7 +29,6 @@ def part1():
         if inter:
             s += 2 ** (len(inter) - 1)
     print(s)
-
 
 part1()
 

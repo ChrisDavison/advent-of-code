@@ -21,10 +21,7 @@ DATA = Path("input/01").read_text()
 # --- part 1
 @timed
 def f(parsed):
-    s = 0
-    for d in parsed:
-        s += d[0] * 10 + d[-1]
-    return s
+    return sum(d[0] * 10 + d[-1] for d in parsed)
 
 
 f(parse(1, digits, lines, show=0))
