@@ -30,6 +30,7 @@ DATA	2023/day03.py	/^DATA = Path('input\/03').read_text()$/;"	v
 DATA	2023/day04.py	/^DATA = Path('input\/04').read_text()$/;"	v
 DATA	2023/day05.py	/^DATA = Path('input\/05').read_text()$/;"	v
 DATA	2023/day07.py	/^DATA = Path('input\/07').read_text()$/;"	v
+DATA	2023/day08.py	/^DATA = Path("input\/8").read_text()$/;"	v
 DATA	2023/template.py	/^DATA = Path("input\/DAYNUM1").read_text()$/;"	v
 Deck	2020/src/day22.rs	/^type Deck = VecDeque<usize>;$/;"	t
 Direction	2020/src/day20.rs	/^enum Direction {$/;"	g
@@ -96,6 +97,7 @@ SAMPLE	2023/day03.py	/^SAMPLE = """467..114..$/;"	v
 SAMPLE	2023/day04.py	/^SAMPLE = """Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53$/;"	v
 SAMPLE	2023/day05.py	/^SAMPLE = """seeds: 79 14 55 13$/;"	v
 SAMPLE	2023/day07.py	/^SAMPLE = """32T3K 765$/;"	v
+SAMPLE	2023/day08.py	/^SAMPLE = """"""$/;"	v
 SAMPLE	2023/template.py	/^SAMPLE = """"""$/;"	v
 South	2020/src/day20.rs	/^    South,$/;"	e	enum:Direction
 Strides	2020/src/strides.rs	/^impl<'a, T> Strides<'a, T>$/;"	c
@@ -559,6 +561,7 @@ part1	2023/day04.py	/^def part1():$/;"	f
 part1	2023/day05.py	/^def part1(data):$/;"	f
 part1	2023/day06.py	/^def part1():$/;"	f
 part1	2023/day07.py	/^def part1(data=SAMPLE):$/;"	f
+part1	2023/day08.py	/^def part1(data=SAMPLE):$/;"	f
 part1	2023/template.py	/^def part1(data=SAMPLE):$/;"	f
 part1_examples_test	2020/src/day18.rs	/^    fn part1_examples_test() {$/;"	f	module:tests
 part2	2019/day02.py	/^def part2(data, target=19690720):$/;"	f
@@ -618,6 +621,7 @@ part2	2023/day04.py	/^def part2():$/;"	f
 part2	2023/day05.py	/^def part2(data):$/;"	f
 part2	2023/day06.py	/^def part2():$/;"	f
 part2	2023/day07.py	/^def part2(data=SAMPLE):$/;"	f
+part2	2023/day08.py	/^def part2(data=SAMPLE):$/;"	f
 part2	2023/template.py	/^def part2(data=SAMPLE):$/;"	f
 part2_examples_test	2020/src/day18.rs	/^    fn part2_examples_test() {$/;"	f	module:tests
 part_1	2020/src/day10.rs	/^fn part_1(data: &[usize]) -> usize {$/;"	f
