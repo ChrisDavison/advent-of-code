@@ -1,4 +1,6 @@
-from utility import *
+import sys, os
+sys.path.insert(0, os.path.expanduser("~/code/advent-of-code/"))
+from pyutil.utility import *
 
 SAMPLE = """RL
 
@@ -22,8 +24,8 @@ SAMPLE2 = """LR
 XXX = (XXX, XXX)"""
 
 @timed
-def part1(data=SAMPLE):
-    instructions, routes, n_instructions = parser(data)
+def part1(data: Union[int, str]=SAMPLE):
+    instructions, routes, _ = parser(data)
     n = 0
     current = "AAA"
     for instruction in cycle(instructions):
@@ -35,19 +37,14 @@ def part1(data=SAMPLE):
 
 
 @timed
-def part2(data=SAMPLE):
+def part2(data: Union[int, str]=SAMPLE):
     instructions, routes, n_instructions = parser(data)
     current = [k for k in routes.keys() if k[2] == "A"]
-    cycles = [find_cycle(instructions, routes, start, n_instructions) for start in current]
-    # Make sure it's not a pathological case
-    # If we find a cycle, but the rest of the instructions are not equal to
-    # what caused the cycle, we might NOT cycle again in line with the rest of
-    # the ghosts
-    assert m.lcm(*cycles) == m.lcm(*cycles, n_instructions)
+    cycles = [find_cycle(instructions, routes, start) for start in current]
     return m.lcm(*cycles, n_instructions)
 
 
-def find_cycle(instructions, routes, start, n_instructions):
+def find_cycle(instructions, routes, start):
     current = start
     # need to also factor in that while I might have found a point before, I
     # may take a different direction this time. So need to find a multiple of

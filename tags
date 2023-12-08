@@ -356,7 +356,7 @@ examples_part2	2020/src/day06.rs	/^    fn examples_part2() {$/;"	f	module:tests
 eyr	2020/src/day04.rs	/^    eyr: usize,$/;"	m	struct:Passport
 f	2023/day01.py	/^def f(parsed):$/;"	f
 f	2023/day06.py	/^def f(t, d):$/;"	f
-find_cycle	2023/day08.py	/^def find_cycle(instructions, routes, start, n_instructions):$/;"	f
+find_cycle	2023/day08.py	/^def find_cycle(instructions, routes, start):$/;"	f
 find_destination	2020/src/day23.rs	/^    fn find_destination(&mut self) -> usize {$/;"	P	implementation:CupGame
 find_inner_parens	2020/src/day18.rs	/^fn find_inner_parens(s: &[Token]) -> (usize, usize) {$/;"	f
 find_matches	2020/src/day19.rs	/^fn find_matches(data: &str) -> String {$/;"	f
@@ -567,7 +567,7 @@ part1	2023/day04.py	/^def part1():$/;"	f
 part1	2023/day05.py	/^def part1(data):$/;"	f
 part1	2023/day06.py	/^def part1():$/;"	f
 part1	2023/day07.py	/^def part1(data=SAMPLE):$/;"	f
-part1	2023/day08.py	/^def part1(data=SAMPLE):$/;"	f
+part1	2023/day08.py	/^def part1(data: Union[int, str]=SAMPLE):$/;"	f
 part1	2023/template.py	/^def part1(data=SAMPLE):$/;"	f
 part1_examples_test	2020/src/day18.rs	/^    fn part1_examples_test() {$/;"	f	module:tests
 part2	2019/day02.py	/^def part2(data, target=19690720):$/;"	f
@@ -627,7 +627,7 @@ part2	2023/day04.py	/^def part2():$/;"	f
 part2	2023/day05.py	/^def part2(data):$/;"	f
 part2	2023/day06.py	/^def part2():$/;"	f
 part2	2023/day07.py	/^def part2(data=SAMPLE):$/;"	f
-part2	2023/day08.py	/^def part2(data=SAMPLE):$/;"	f
+part2	2023/day08.py	/^def part2(data: Union[int, str]=SAMPLE):$/;"	f
 part2	2023/template.py	/^def part2(data=SAMPLE):$/;"	f
 part2_examples_test	2020/src/day18.rs	/^    fn part2_examples_test() {$/;"	f	module:tests
 part_1	2020/src/day10.rs	/^fn part_1(data: &[usize]) -> usize {$/;"	f

@@ -1,3 +1,4 @@
+# pylint: disable=unused-import
 from collections import Counter, defaultdict, namedtuple, deque, abc
 from dataclasses import dataclass, field
 from itertools import permutations, combinations, cycle, chain, islice
@@ -19,7 +20,6 @@ import string
 import time
 from collections import namedtuple, Counter, defaultdict
 from dataclasses import dataclass
-from itertools import *
 from itertools import chain
 from functools import partial
 from pathlib import Path
