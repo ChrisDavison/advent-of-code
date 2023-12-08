@@ -34,7 +34,7 @@ humidity-to-location map:
 60 56 37
 56 93 4"""
 
-DATA = Path('input/05').read_text()
+DATA = Path("input/05").read_text()
 
 
 def parsed(data):
@@ -57,8 +57,8 @@ def part1(data):
     for rng in maps:
         new = []
         for s in seeds:
-            for (to, frm, delta) in rng:
-                if frm <= s < frm+delta:
+            for to, frm, delta in rng:
+                if frm <= s < frm + delta:
                     new.append(s - frm + to)
                     break
             else:
@@ -66,17 +66,18 @@ def part1(data):
         seeds = new
     return min(seeds)
 
+
 @timed
 def part2(data):
     seeds, maps = parsed(data)
-    seedranges = [(seeds[i], seeds[i] + seeds[i+1]) for i in range(0, len(seeds), 2)]
+    seedranges = [(seeds[i], seeds[i] + seeds[i + 1]) for i in range(0, len(seeds), 2)]
     for rng in maps:
         new = []
         while len(seedranges) > 0:
             s, e = seedranges.pop()
-            for (to, frm, delta) in rng:
+            for to, frm, delta in rng:
                 os = max(s, frm)
-                oe = min(e, frm+delta)
+                oe = min(e, frm + delta)
                 if os < oe:
                     new.append((os - frm + to, oe - frm + to))
                     if os > s:

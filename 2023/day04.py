@@ -8,7 +8,7 @@ Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83
 Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
 Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11"""
 
-DATA = Path('input/04').read_text()
+DATA = Path("input/04").read_text()
 
 
 def parse_game(l):
@@ -21,6 +21,7 @@ def parse_game(l):
 
 p = parse(4, parse_game, lines, show=0)
 
+
 @timed
 def part1():
     s = 0
@@ -29,7 +30,10 @@ def part1():
         if inter:
             s += 2 ** (len(inter) - 1)
     print(s)
+
+
 part1()
+
 
 @timed
 def part2():
@@ -45,4 +49,6 @@ def part2():
             copies_of_each[gameid + g] += copies_of_each[gameid]
 
     pp(sum(copies_of_each))
+
+
 part2()

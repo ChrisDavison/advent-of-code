@@ -15,7 +15,8 @@ xtwone3four
 zoneight234
 7pqrstsixteen"""
 
-DATA = Path('input/01').read_text()
+DATA = Path("input/01").read_text()
+
 
 # --- part 1
 @timed
@@ -24,6 +25,7 @@ def f(parsed):
     for d in parsed:
         s += d[0] * 10 + d[-1]
     return s
+
 
 f(parse(1, digits, lines, show=0))
 f(parse(1, digits_and_worddigits, lines, show=0))
