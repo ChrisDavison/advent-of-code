@@ -1,6 +1,6 @@
 import sys, os
 sys.path.insert(0, os.path.expanduser("~/code/advent-of-code/"))
-from pyutil.utility import *
+from utility import *
 
 SAMPLE = """RL
 
