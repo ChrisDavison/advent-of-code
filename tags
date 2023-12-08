@@ -146,6 +146,7 @@ add	2023/utility.py	/^    def add(self, item):$/;"	m	class:PriorityQueue
 add	2023/utility.py	/^def add(p: Point, q: Point) -> Point:$/;"	f	typeref:typename:Point
 add2	2023/utility.py	/^def add2(p: Point, q: Point) -> Point:$/;"	f	typeref:typename:Point
 align_tiles	2020/src/day20.rs	/^fn align_tiles(tiles: &[Tile]) -> Vec<Vec<Tile>> {$/;"	f
+all	2023/Makefile	/^all: $(src)$/;"	t
 append	2023/utility.py	/^def append(sequences) -> Sequence:$/;"	f	typeref:typename:Sequence
 apply_mask	2020/src/day14.rs	/^fn apply_mask(value: usize, mask: &BitMask) -> String {$/;"	f
 apply_mask_v2	2020/src/day14.rs	/^fn apply_mask_v2(value: usize, mask: &BitMask) -> Vec<char> {$/;"	f
@@ -229,6 +230,7 @@ data	2021/day23.py	/^data = [int(l) for l in open('input\/23').read().splitlines
 data	2021/day24.py	/^data = [int(l) for l in open('input\/24').read().splitlines()]$/;"	v
 data	2021/day25.py	/^data = [int(l) for l in open('input\/25').read().splitlines()]$/;"	v
 data	2023/day06.py	/^data = mapl(np.array, parse(6, ints, lines, show=0))$/;"	v
+day%	2023/Makefile	/^day%: day%.py$/;"	t
 day01	2020/src/day01.rs	/^pub fn day01() -> Result<String> {$/;"	f
 day01	2020/src/main.rs	/^mod day01;$/;"	n
 day01	2020/src/my_benchmark.rs	/^mod day01;$/;"	n
@@ -703,6 +705,7 @@ source	2023/day06.py	/^source = Path("input\/06").read_text()$/;"	v
 source	2023/day06.py	/^source = sample$/;"	v
 split_at	2023/utility.py	/^def split_at(sequence, i) -> Tuple[Sequence, Sequence]:$/;"	f	typeref:typename:Tuple[Sequence,Sequence]
 split_ingredient_allergen	2020/src/day21.rs	/^fn split_ingredient_allergen(s: &str) -> (HashSet<&str>, HashSet<&str>) {$/;"	f
+src	2023/Makefile	/^src := $(wildcard day*.py)$/;"	m
 strides	2020/src/day20.rs	/^    fn strides(&self, width: usize, height: usize) -> Strides<char> {$/;"	P	implementation:Tile
 strides	2020/src/lib.rs	/^mod strides;$/;"	n
 stringify_decks	2020/src/day22.rs	/^fn stringify_decks(a: &Deck, b: &Deck) -> String {$/;"	f
@@ -785,6 +788,8 @@ timed	2019/prelude.py	/^def timed(funcname, f, *args, **kwargs):$/;"	f
 timed	2021/prelude.py	/^def timed(funcname, f, *args, **kwargs):$/;"	f
 timed	2023/utility.py	/^def timed(func):$/;"	f
 to_rows	2023/utility.py	/^    def to_rows(self, xrange=None, yrange=None) -> List[List[object]]:$/;"	m	class:Grid	typeref:typename:List[List[object]]
+today	2023/Makefile	/^today := $(shell date +%02d)$/;"	m
+today	2023/Makefile	/^today: day$(today).py$/;"	t
 token_part1_test	2020/src/day18.rs	/^    fn token_part1_test() {$/;"	f	module:tests
 top	2023/utility.py	/^    def top(self):$/;"	m	class:PriorityQueue
 tot1	2019/day04.py	/^tot1, tot2 = 0, 0$/;"	v
