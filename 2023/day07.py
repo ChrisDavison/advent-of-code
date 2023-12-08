@@ -43,7 +43,6 @@ def part1(data=SAMPLE):
     )
     for i, hand in enumerate(ordered_hands):
         score = hand.bid * (i + 1)
-        # print(f"{hand.cards} \t\t {hand.bid} * {i + 1} = {score}")
         s += score
     return s
 
@@ -56,7 +55,6 @@ def part2(data=SAMPLE):
     )
     for i, hand in enumerate(ordered_hands):
         score = hand.bid * (i + 1)
-        # print(f"{hand.cards} \t\t {hand.bid} * {i + 1} = {score}")
         s += score
     return s
 

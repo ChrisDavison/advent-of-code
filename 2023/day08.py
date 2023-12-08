@@ -55,6 +55,8 @@ def find_cycle(instructions, routes, start):
         n += 1  # number of steps taken
         if current[2] == 'Z':
             return n
+    # The only way we can get here is if we've not got any instructions
+    return 0
 
 
 def parser(data):

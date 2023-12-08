@@ -1,4 +1,3 @@
-import re
 from utility import *
 
 sample = """Time:      7  15   30

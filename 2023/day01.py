@@ -1,4 +1,3 @@
-import math as m
 from pathlib import Path
 from utility import *
 
