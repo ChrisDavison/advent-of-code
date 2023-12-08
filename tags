@@ -30,7 +30,7 @@ DATA	2023/day03.py	/^DATA = Path("input\/03").read_text()$/;"	v
 DATA	2023/day04.py	/^DATA = Path("input\/04").read_text()$/;"	v
 DATA	2023/day05.py	/^DATA = Path("input\/05").read_text()$/;"	v
 DATA	2023/day07.py	/^DATA = Path("input\/07").read_text()$/;"	v
-DATA	2023/template.py	/^DATA = Path("input\/DAYNUM1").read_text()$/;"	v
+DATA	2023/template.py	/^DATA = Path("input\/DAYNUM2").read_text()$/;"	v
 Deck	2020/src/day22.rs	/^type Deck = VecDeque<usize>;$/;"	t
 Direction	2020/src/day20.rs	/^enum Direction {$/;"	g
 East	2020/src/day20.rs	/^    East,$/;"	e	enum:Direction
@@ -97,7 +97,7 @@ SAMPLE	2023/day04.py	/^SAMPLE = """Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48
 SAMPLE	2023/day05.py	/^SAMPLE = """seeds: 79 14 55 13$/;"	v
 SAMPLE	2023/day07.py	/^SAMPLE = """32T3K 765$/;"	v
 SAMPLE	2023/day08.py	/^SAMPLE = """RL$/;"	v
-SAMPLE	2023/template.py	/^SAMPLE = """"""$/;"	v
+SAMPLE	2023/template.py	/^SAMPLE = """ """$/;"	v
 SAMPLE2	2023/day08.py	/^SAMPLE2 = """LR$/;"	v
 South	2020/src/day20.rs	/^    South,$/;"	e	enum:Direction
 Strides	2020/src/strides.rs	/^impl<'a, T> Strides<'a, T>$/;"	c
@@ -509,6 +509,7 @@ parse_ticket	2020/src/day16.rs	/^fn parse_ticket(s: &str) -> Vec<usize> {$/;"	f
 parse_tokens	2020/src/day18.rs	/^fn parse_tokens(s: &str) -> Vec<Token> {$/;"	f
 parsed	2023/day05.py	/^def parsed(data):$/;"	f
 parser	2023/day08.py	/^def parser(data):$/;"	f
+parser	2023/template.py	/^def parser(data):$/;"	f
 part1	2019/day02.py	/^def part1(data):$/;"	f
 part1	2019/day03.py	/^def part1(paths):$/;"	f
 part1	2019/day04.py	/^def part1(lower, upper):$/;"	f
