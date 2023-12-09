@@ -1,4 +1,4 @@
-from utility import *
+from utility import Path, re, mapt, lines, timed, parse
 from pprint import pprint as pp
 
 SAMPLE = """Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
@@ -10,8 +10,9 @@ Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11"""
 
 DATA = Path("input/04").read_text()
 
-def parse_game(l):
-    if m := re.search(r"Card\s+(\d+):\s+(.+)\s+\|\s(.+)", l):
+
+def parse_game(line):
+    if m := re.search(r"Card\s+(\d+):\s+(.+)\s+\|\s(.+)", line):
         card = int(m[1])
         winning = set(mapt(int, m[2].split()))
         have = set(mapt(int, m[3].split()))
@@ -30,8 +31,6 @@ def part1():
             s += 2 ** (len(inter) - 1)
     print(s)
 
-part1()
-
 
 @timed
 def part2():
@@ -48,4 +47,5 @@ def part2():
     pp(sum(copies_of_each))
 
 
+part1()
 part2()

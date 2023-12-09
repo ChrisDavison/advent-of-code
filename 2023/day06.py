@@ -1,4 +1,4 @@
-from utility import *
+from utility import Path, mapl, ints, lines, parse, m, timed, np, cat
 
 sample = """Time:      7  15   30
 Distance:  9  40  200"""

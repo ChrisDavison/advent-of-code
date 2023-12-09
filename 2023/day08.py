@@ -1,6 +1,4 @@
-import sys, os
-sys.path.insert(0, os.path.expanduser("~/code/advent-of-code/"))
-from utility import *
+from utility import cycle, timed, Union, m, re, lines, parse
 
 SAMPLE = """RL
 
@@ -23,8 +21,9 @@ SAMPLE2 = """LR
 22Z = (22B, 22B)
 XXX = (XXX, XXX)"""
 
+
 @timed
-def part1(data: Union[int, str]=SAMPLE):
+def part1(data: Union[int, str] = SAMPLE):
     instructions, routes, _ = parser(data)
     n = 0
     current = "AAA"
@@ -37,7 +36,7 @@ def part1(data: Union[int, str]=SAMPLE):
 
 
 @timed
-def part2(data: Union[int, str]=SAMPLE):
+def part2(data: Union[int, str] = SAMPLE):
     instructions, routes, n_instructions = parser(data)
     current = [k for k in routes.keys() if k[2] == "A"]
     cycles = [find_cycle(instructions, routes, start) for start in current]

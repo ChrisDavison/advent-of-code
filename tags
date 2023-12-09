@@ -467,7 +467,6 @@ now	2021/prelude.py	/^now = datetime.now$/;"	v
 np	2019/day03.py	/^import numpy as np$/;"	I	nameref:module:numpy
 np	2019/prelude.py	/^import numpy as np$/;"	I	nameref:module:numpy
 np	2021/prelude.py	/^import numpy as np$/;"	I	nameref:module:numpy
-np	2023/day02.py	/^import numpy as np$/;"	I	nameref:module:numpy
 np	2023/utility.py	/^import numpy as np$/;"	I	nameref:module:numpy
 nth	2023/utility.py	/^def nth(iterable, n, default=None):$/;"	f
 number_map	2023/day03.py	/^number_map, symbols = p(DATA)$/;"	v
@@ -503,7 +502,7 @@ parse_each	2020/src/parse_each.rs	/^pub fn parse_each<T: FromStr, U: Iterator<It
 parse_example_day1	2018/test_all_days.py	/^    def parse_example_day1(inputstr):$/;"	f	function:test_day01part1	file:
 parse_example_day1	2018/test_all_days.py	/^    def parse_example_day1(inputstr):$/;"	f	function:test_day01part2	file:
 parse_game	2023/day02.py	/^def parse_game(line):$/;"	f
-parse_game	2023/day04.py	/^def parse_game(l):$/;"	f
+parse_game	2023/day04.py	/^def parse_game(line):$/;"	f
 parse_guard_record	2018/day04.py	/^def parse_guard_record(record):$/;"	f
 parse_instr	2019/intcode.py	/^    def parse_instr(self, s):$/;"	m	class:IntCode
 parse_instructions	2020/src/day12.rs	/^fn parse_instructions(s: &str) -> Vec<(char, usize)> {$/;"	f
@@ -573,7 +572,7 @@ part1	2023/day04.py	/^def part1():$/;"	f
 part1	2023/day05.py	/^def part1(data):$/;"	f
 part1	2023/day06.py	/^def part1():$/;"	f
 part1	2023/day07.py	/^def part1(data=SAMPLE):$/;"	f
-part1	2023/day08.py	/^def part1(data: Union[int, str]=SAMPLE):$/;"	f
+part1	2023/day08.py	/^def part1(data: Union[int, str] = SAMPLE):$/;"	f
 part1	2023/template.py	/^def part1(data=SAMPLE):$/;"	f
 part1_examples_test	2020/src/day18.rs	/^    fn part1_examples_test() {$/;"	f	module:tests
 part2	2019/day02.py	/^def part2(data, target=19690720):$/;"	f
@@ -633,7 +632,7 @@ part2	2023/day04.py	/^def part2():$/;"	f
 part2	2023/day05.py	/^def part2(data):$/;"	f
 part2	2023/day06.py	/^def part2():$/;"	f
 part2	2023/day07.py	/^def part2(data=SAMPLE):$/;"	f
-part2	2023/day08.py	/^def part2(data: Union[int, str]=SAMPLE):$/;"	f
+part2	2023/day08.py	/^def part2(data: Union[int, str] = SAMPLE):$/;"	f
 part2	2023/template.py	/^def part2(data=SAMPLE):$/;"	f
 part2_examples_test	2020/src/day18.rs	/^    fn part2_examples_test() {$/;"	f	module:tests
 part_1	2020/src/day10.rs	/^fn part_1(data: &[usize]) -> usize {$/;"	f

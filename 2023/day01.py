@@ -1,5 +1,4 @@
-from pathlib import Path
-from utility import *
+from utility import Path, parse, digits, lines, digits_and_worddigits, timed
 
 TEST_INPUT = """1abc2
 pqr3stu8vwx
