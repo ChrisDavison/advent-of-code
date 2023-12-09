@@ -98,7 +98,7 @@ SAMPLE	2023/day04.py	/^SAMPLE = """Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48
 SAMPLE	2023/day05.py	/^SAMPLE = """seeds: 79 14 55 13$/;"	v
 SAMPLE	2023/day07.py	/^SAMPLE = """32T3K 765$/;"	v
 SAMPLE	2023/day08.py	/^SAMPLE = """RL$/;"	v
-SAMPLE	2023/day09.py	/^SAMPLE = """ """$/;"	v
+SAMPLE	2023/day09.py	/^SAMPLE = """0 3 6 9 12 15$/;"	v
 SAMPLE	2023/template.py	/^SAMPLE = """ """$/;"	v
 SAMPLE2	2023/day08.py	/^SAMPLE2 = """LR$/;"	v
 South	2020/src/day20.rs	/^    South,$/;"	e	enum:Direction
