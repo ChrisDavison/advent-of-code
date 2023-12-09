@@ -21,11 +21,10 @@ import time
 from collections import namedtuple, Counter, defaultdict
 from dataclasses import dataclass
 from itertools import chain
-from functools import partial
+from functools import partial, reduce
 from pathlib import Path
 from typing import List, Tuple, Union, Sequence, Iterable, Optional, Set, Callable
 from time import time_ns
-import functools
 import math as m
 import os
 import pickle
