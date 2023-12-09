@@ -12,11 +12,9 @@ def part1(data=SAMPLE):
     data = parser(data)
     s = 0
     for line in data:
-        seen = [line]
         final = line[-1]
         while any(l != 0 for l in line):
             line = [y-x for x, y in zip(line, line[1:])]
-            seen.append(line)
             final += line[-1]
         s += final
     return s
@@ -27,16 +25,15 @@ def part2(data=SAMPLE):
     data = parser(data)
     s = 0
     for line in data:
-        seen = [line]
         firsts = deque([line[0]])
         while any(l != 0 for l in line):
             line = [y-x for x, y in zip(line, line[1:])]
-            seen.append(line)
             firsts.insert(0, line[0])
         cur = 0
         for val in firsts:
             cur = val - cur
-        s += cur
+        # b-a...c-(b-a)...d -(c-(b-a))
+        s += reduce(lambda a, b: b - a, firsts)
     return s
 
 
