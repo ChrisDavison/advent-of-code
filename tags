@@ -149,6 +149,7 @@ add	2023/utility.py	/^def add(p: Point, q: Point) -> Point:$/;"	f	typeref:typena
 add2	2023/utility.py	/^def add2(p: Point, q: Point) -> Point:$/;"	f	typeref:typename:Point
 align_tiles	2020/src/day20.rs	/^fn align_tiles(tiles: &[Tile]) -> Vec<Vec<Tile>> {$/;"	f
 all	2023/Makefile	/^all: $(src)$/;"	t
+all	2023/aoc.sh	/^all() {$/;"	f
 append	2023/utility.py	/^def append(sequences) -> Sequence:$/;"	f	typeref:typename:Sequence
 apply_mask	2020/src/day14.rs	/^fn apply_mask(value: usize, mask: &BitMask) -> String {$/;"	f
 apply_mask_v2	2020/src/day14.rs	/^fn apply_mask_v2(value: usize, mask: &BitMask) -> Vec<char> {$/;"	f
@@ -232,6 +233,7 @@ data	2021/day23.py	/^data = [int(l) for l in open('input\/23').read().splitlines
 data	2021/day24.py	/^data = [int(l) for l in open('input\/24').read().splitlines()]$/;"	v
 data	2021/day25.py	/^data = [int(l) for l in open('input\/25').read().splitlines()]$/;"	v
 data	2023/day06.py	/^data = mapl(np.array, parse(6, ints, lines, show=0))$/;"	v
+day	2023/aoc.sh	/^day(){ $/;"	f
 day%	2023/Makefile	/^day%: day%.py$/;"	t
 day01	2020/src/day01.rs	/^pub fn day01() -> Result<String> {$/;"	f
 day01	2020/src/main.rs	/^mod day01;$/;"	n
@@ -435,6 +437,7 @@ main	2020/src/main.rs	/^fn main() {$/;"	f
 main	2020/template.rs	/^fn main() -> Result<()> {$/;"	f
 make_graph	2019/day06.py	/^def make_graph(lines):$/;"	f
 make_turn	2023/utility.py	/^def make_turn(facing: Vector, turn: str) -> Vector:$/;"	f	typeref:typename:Vector
+mambaenv	2023/aoc.sh	/^mambaenv() {$/;"	f
 manhattan	2020/src/day12.rs	/^    fn manhattan(&self) -> isize {$/;"	P	implementation:Position
 mapl	2023/utility.py	/^def mapl(func, iterable) -> List:$/;"	f	typeref:typename:List
 mapt	2023/utility.py	/^def mapt(func, iterable) -> Tuple:$/;"	f	typeref:typename:Tuple
@@ -688,6 +691,7 @@ score_p2	2020/src/day23.rs	/^    fn score_p2(&self) -> usize {$/;"	P	implementat
 seat_location	2020/src/day05.rs	/^fn seat_location(s: &str) -> (i64, i64) {$/;"	f
 seat_locations	2020/src/day05.rs	/^    fn seat_locations() {$/;"	f	module:tests
 set	2019/intcode.py	/^    def set(self, offset, value):$/;"	m	class:IntCode
+setup_day	2023/aoc.sh	/^setup_day() {$/;"	f
 setup_logger	2019/logger.py	/^def setup_logger(name, level=logging.INFO):$/;"	f
 should_be_active	2020/src/day17.rs	/^fn should_be_active(cell: u8, n_neighbours_alive: u8) -> bool {$/;"	f
 should_flip_2	2020/src/day24.rs	/^fn should_flip_2((i, j): (usize, usize), grid: &[Vec<bool>]) -> bool {$/;"	f
@@ -791,6 +795,7 @@ timed	2023/utility.py	/^def timed(func):$/;"	f
 to_rows	2023/utility.py	/^    def to_rows(self, xrange=None, yrange=None) -> List[List[object]]:$/;"	m	class:Grid	typeref:typename:List[List[object]]
 today	2023/Makefile	/^today := $(shell date +%02d)$/;"	m
 today	2023/Makefile	/^today: day$(today).py$/;"	t
+today	2023/aoc.sh	/^today(){ $/;"	f
 token_part1_test	2020/src/day18.rs	/^    fn token_part1_test() {$/;"	f	module:tests
 top	2023/utility.py	/^    def top(self):$/;"	m	class:PriorityQueue
 tot1	2019/day04.py	/^tot1, tot2 = 0, 0$/;"	v
