@@ -1,5 +1,4 @@
-import re
-from utility import *
+from utility import re, Path, timed, directions8, np
 
 SAMPLE = """467..114..
 ...*......

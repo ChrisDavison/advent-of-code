@@ -1,4 +1,4 @@
-from utility import *
+from utility import Path, namedtuple, Counter, mapt, timed
 
 SAMPLE = """32T3K 765
 T55J5 684

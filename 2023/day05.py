@@ -1,4 +1,4 @@
-from utility import *
+from utility import re, paragraphs, mapl, timed, Path
 
 SAMPLE = """seeds: 79 14 55 13
 
