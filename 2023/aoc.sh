@@ -19,6 +19,9 @@ day(){
 }
 
 today(){ 
+    if [[ ! -e "day$day2.py" ]]; then
+        setup_day
+    fi
     python3 $(date +"day%02d.py")
 }
 
@@ -78,4 +81,4 @@ case ${1:-} in
         echo "Usage: $0 {all|day|today|new|1-25}"
         exit 1
 esac
-popd
+popd > /dev/null
