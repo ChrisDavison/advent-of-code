@@ -102,6 +102,10 @@ SAMPLE	2023/day07.py	/^SAMPLE = """32T3K 765$/;"	v
 SAMPLE	2023/day08.py	/^SAMPLE = """RL$/;"	v
 SAMPLE	2023/day09.py	/^SAMPLE = """0 3 6 9 12 15$/;"	v
 SAMPLE	2023/day10.py	/^SAMPLE = """7-F7-$/;"	v
+<<<<<<< HEAD
+=======
+SAMPLE	2023/day11.py	/^SAMPLE = """...#......$/;"	v
+>>>>>>> 3748618 (fixup! day10 p1 and p2)
 SAMPLE	2023/template.py	/^SAMPLE = """ """$/;"	v
 SAMPLE2	2023/day08.py	/^SAMPLE2 = """LR$/;"	v
 SAMPLE2	2023/day10.py	/^SAMPLE2 = """.F----7F7F7F7F-7....$/;"	v
@@ -708,6 +712,10 @@ set	2019/intcode.py	/^    def set(self, offset, value):$/;"	m	class:IntCode
 setup_day	2023/aoc.sh	/^setup_day() {$/;"	f
 setup_logger	2019/logger.py	/^def setup_logger(name, level=logging.INFO):$/;"	f
 shoelace	2023/day10.py	/^def shoelace(points):$/;"	f
+<<<<<<< HEAD
+shoelace	2023/day10other.py	/^def shoelace(points):$/;"	f
+=======
+>>>>>>> 3748618 (fixup! day10 p1 and p2)
 should_be_active	2020/src/day17.rs	/^fn should_be_active(cell: u8, n_neighbours_alive: u8) -> bool {$/;"	f
 should_flip_2	2020/src/day24.rs	/^fn should_flip_2((i, j): (usize, usize), grid: &[Vec<bool>]) -> bool {$/;"	f
 should_pick	2022/day02.py	/^def should_pick(opponent, you):$/;"	f
@@ -835,7 +843,7 @@ validate_hcl	2020/src/day04.rs	/^fn validate_hcl(f: &str) -> Result<String> {$/;
 validate_hgt	2020/src/day04.rs	/^fn validate_hgt(f: &str) -> Result<Height> {$/;"	f
 validate_iyr	2020/src/day04.rs	/^fn validate_iyr(f: &str) -> Result<usize> {$/;"	f
 validate_pid	2020/src/day04.rs	/^fn validate_pid(f: &str) -> Result<String> {$/;"	f
-visualise	2023/day10.py	/^def visualise(data):$/;"	f
+visualise	2023/day10.py	/^def visualise(data, end='\\n'):$/;"	f
 walk_from	2023/day10.py	/^def walk_from(start, points):$/;"	f
 walk_paths	2019/day03.py	/^def walk_paths(data):$/;"	f
 walrus	2023/utility.py	/^def walrus(name, value):$/;"	f
