@@ -25,21 +25,28 @@ today(){
     python3 $(date +"day%02d.py")
 }
 
+watchtoday(){
+    echo $(date +"day%02d.py")
+    echo $(date +"day%02d.py") | entr python3 $(date +"day%02d.py")
+}
+
 setup_day() {
     filename="day$day2.py"
     filename_in="input/$day2"
 
     cd $aocdir
+    echo $aocdir
     cat template.py > $filename
     sed -i'' -e "s/DAYNUM2/$day2/g" $filename
-    rm $filename_in
+    [[ -f $filename_in ]] && rm $filename_in
     
-    SESSION=$(cat ~/.aoc_token)
-    if [[ -n $SESSION ]]; then
+    SESSION=$(cat $HOME/.aoc_token)
+    if [[ -z $SESSION ]]; then
         echo "AOC token empty. Put it in ~/.aoc_token"
         exit -1
     fi
     URL="https://adventofcode.com/$year/day/$day1/input"
+    echo $URL
     curl --cookie "session=$SESSION" $URL > $filename_in
 
     git add $filename $filename_in
@@ -70,6 +77,10 @@ case ${1:-} in
         mambaenv
         today
         ;;
+    watch)
+        mambaenv
+        watchtoday
+        ;;
     new)
         setup_day
         ;;
@@ -78,7 +89,6 @@ case ${1:-} in
         day $(printf "%02d" $1)
         ;;
     *)
-        echo "Usage: $0 {all|day|today|new|1-25}"
+        echo "Usage: $0 {all|day|today|watch|new|1-25}"
         exit 1
 esac
-popd > /dev/null

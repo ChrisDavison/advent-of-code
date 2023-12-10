@@ -1,4 +1,3 @@
-# pylint: disable=unused-import
 from collections import Counter, defaultdict, namedtuple, deque, abc
 from dataclasses import dataclass, field
 from itertools import permutations, combinations, cycle, chain, islice
@@ -17,6 +16,7 @@ import operator
 import pathlib
 import re
 import string
+import datetime
 import time
 from collections import namedtuple, Counter, defaultdict
 from dataclasses import dataclass
@@ -35,7 +35,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import networkx as nx
-from datetime import time
 
 
 # PARSER
@@ -62,7 +61,6 @@ def parse(
     if parser != str or section_by != lines:
         show_items("Parsed representation", records, show)
     return records
-
 
 def get_text(day_or_text: Union[int, str]) -> str:
     """The text used as input to the puzzle: either a string or the day number,
@@ -218,6 +216,47 @@ arrow_direction = {
     "R": East,
     "L": West,
 }
+
+class Point2D:
+    def __init__(self, x, y, data=None):
+        self.x = x
+        self.y = y
+        if data:
+            self.data = data
+
+    def up(self):
+        return Point2D(self.x, self.y-1)
+
+    def right(self):
+        return Point2D(self.x+1, self.y)
+
+    def down(self):
+        return Point2D(self.x, self.y+1)
+
+    def left(self):
+        return Point2D(self.x-1, self.y)
+
+    def surrounding(self):
+        yield self.up()
+        yield self.up().right()
+        yield self.right()
+        yield self.right().down()
+        yield self.down()
+        yield self.down().left()
+        yield self.left()
+        yield self.left().up()
+
+    def __str__(self):
+        return f"({self.x},{self.y})"
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __eq__(self, o):
+        return self.x == o.x and self.y == o.y
+
+    def __hash__(self):
+        return (self.x, self.y).__hash__()
 
 
 def X_(point) -> int:
@@ -640,10 +679,17 @@ def timed(func):
         start = time_ns()
         ret = func(*args, **kwargs)
         ns_delta = time_ns() - start
-        if ret:
-            print(ret)
-        print(f"\t{ns_delta / 1e6:.0f}ms")
+        delta = ns_delta / 1e6
+        print(f"{func.__name__} ({delta:.0f}ms) = {ret}")
         if ret:
             return ret, ns_delta
 
     return inner
+
+
+def surrounding(point):
+    point = tuple(point)
+    for direction in directions8:
+        yield point[0] + direction[0], point[1] + direction[1]
+
+
