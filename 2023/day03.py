@@ -1,4 +1,4 @@
-from utility import re, Path, timed, directions8, np
+from utility import re, Path, timed, directions8, np, Point2D
 
 SAMPLE = """467..114..
 ...*......
@@ -18,30 +18,25 @@ def p(data):
     possible = []
     symbols = dict()
     rxline = re.compile(r"(?P<digit>\d+)|(?P<sym>[^0-9.])")
+
     for i, line in enumerate(data.splitlines()):
         for m in rxline.finditer(line):
             if m.group("sym"):
-                symbols[(i, m.start())] = m.group("sym")
+                symbols[Point2D(i, m.start())] = m.group("sym")
             if m.group("digit"):
                 possible.append(
                     (
                         int(m.group("digit")),
-                        [(i, col) for col in range(m.start(), m.end())],
+                        [Point2D(i, col) for col in range(m.start(), m.end())],
                     )
                 )
     return possible, symbols
 
 
-def surrounding(point):
-    point = tuple(point)
-    for direction in directions8:
-        yield point[0] + direction[0], point[1] + direction[1]
-
-
 def points_surrounding_region(r):
     seen = set()
     for point in r:
-        for surround in surrounding(point):
+        for surround in point.surrounding():
             if surround not in seen:
                 seen.add(surround)
                 yield surround
