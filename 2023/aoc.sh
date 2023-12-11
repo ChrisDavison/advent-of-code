@@ -54,11 +54,10 @@ setup_day() {
 }
 
 mambaenv() {
-    MAMBA_EXE="/home/davison/.local/bin/micromamba"
-    MAMBA_ROOT_PREFIX="/home/davison/.mamba"
+    MAMBA_EXE="$HOME/.local/bin/micromamba"
+    MAMBA_ROOT_PREFIX="$HOME/.mamba"
     source <($MAMBA_EXE shell hook --shell bash --root-prefix $MAMBA_ROOT_PREFIX)
 
-    micromamba deactivate
     micromamba activate ml
 }
 
