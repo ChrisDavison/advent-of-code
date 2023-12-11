@@ -693,6 +693,11 @@ def surrounding(point):
         yield point[0] + direction[0], point[1] + direction[1]
 
 
-
 def char_indices(line, ch):
     return {i for i, ltr in enumerate(line) if ltr == ch}
+
+
+def enumerated_grid(data):
+    for y, line in enumerate(data):
+        for x, ch in enumerate(line):
+            yield (x, y), ch

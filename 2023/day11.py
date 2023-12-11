@@ -49,7 +49,6 @@ def part2(data=SAMPLE):
 class Galaxy:
     x: int
     y: int
-    n: int
 
     def __eq__(self, o):
         return self.x == o.x and self.y == o.y
@@ -63,9 +62,6 @@ class Galaxy:
         self.x += dx
         self.y += dy
 
-    def __repr__(self):
-        return f"#{self.n}: {self.x},{self.y}"
-
     def dist(self, o):
         return int(m.fabs(self.x - o.x) + m.fabs(self.y - o.y))
 
@@ -74,14 +70,10 @@ def parse_galaxies(data):
     galaxies = []
     blank_rows = []
     blank_cols = set(range(len(data.splitlines()[0])))
-    n = 0
     for y, line in enumerate(data.splitlines()):
-        found_galaxy = False
-        for x in char_indices(line, '#'):
-            n += 1
-            galaxies.append(Galaxy(x, y, n))
-            found_galaxy = True
-        if not found_galaxy:
+        if m := char_indices(line, '#'):
+            galaxies.extend(Galaxy(x, y) for x in m)
+        else:
             blank_rows.append(y)
         blank_cols &= char_indices(line, '.')
     # from blanks _per_row_, find which were blank in _all_ rows
