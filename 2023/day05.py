@@ -1,4 +1,4 @@
-from utility import re, paragraphs, mapl, timed, Path
+from utility import re, paragraphs, mapl, timed, Path, ints
 
 SAMPLE = """seeds: 79 14 55 13
 
@@ -39,15 +39,12 @@ DATA = Path("input/05").read_text()
 
 def parsed(data):
     seeds, *pp = paragraphs(data)
-    seeds = mapl(int, re.findall(r"\d+", seeds))
+    seeds = ints(seeds)
 
-    maps = []
-    for paragraph in pp:
-        to_from_deltas = []
-        for line in paragraph.splitlines()[1:]:
-            lnums = mapl(int, re.findall(r"\d+", line))
-            to_from_deltas.append(lnums)
-        maps.append(to_from_deltas)
+    maps = [
+        [ints(line) for line in paragraph.splitlines()[1:]]
+        for paragraph in pp[1:]
+    ]
     return seeds, maps
 
 
