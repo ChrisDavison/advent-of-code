@@ -1,4 +1,4 @@
-from utility import reduce, Path, timed, dataclass, defaultdict, m
+from utility import reduce, Path, timed, dataclass, defaultdict, m, re, char_indices
 
 SAMPLE = """...#......
 .......#..
@@ -16,7 +16,7 @@ DATA = Path("input/11").read_text()
 
 @timed
 def part1(data=SAMPLE):
-    return run(data, add_rows=2)
+    return run(data, add_rows=1)
 
 
 def run(data=SAMPLE, add_rows=1):
@@ -37,12 +37,12 @@ def run(data=SAMPLE, add_rows=1):
     return(sum(mins))
 
 
-
-
 @timed
 def part2(data=SAMPLE):
-    return run(data, add_rows=1_000_000)
-
+    # in part1, we add a line for each blank
+    # instead, in part2 we _replace_ with 1_000_000 lines
+    # (i.e. add 999_999)
+    return run(data, add_rows=1_000_000-1)
 
 
 @dataclass
@@ -58,8 +58,8 @@ class Galaxy:
         return (self.x, self.y).__hash__()
 
     def expand(self, blankrows, blankcols, add_rows=1):
-        dy = sum(add_rows-1 for b in blankrows if b < self.y)
-        dx = sum(add_rows-1 for b in blankcols if b < self.x)
+        dy = sum(add_rows for b in blankrows if b < self.y)
+        dx = sum(add_rows for b in blankcols if b < self.x)
         self.x += dx
         self.y += dy
 
@@ -70,23 +70,31 @@ class Galaxy:
         return int(m.fabs(self.x - o.x) + m.fabs(self.y - o.y))
 
 
-def parser(data, add_rows=1):
+def parse_galaxies(data):
     galaxies = []
     blank_rows = []
-    blank_cols = []
+    blank_cols = set(range(len(data.splitlines()[0])))
     n = 0
     for y, line in enumerate(data.splitlines()):
         found_galaxy = False
-        for x, char in enumerate(line):
-            if char == '#':
-                n += 1
-                galaxies.append(Galaxy(x, y, n))
-                found_galaxy = True
-        blank_cols.append(set(i for i in range(len(line)) if line[i] == '.'))
+        for x in char_indices(line, '#'):
+            n += 1
+            galaxies.append(Galaxy(x, y, n))
+            found_galaxy = True
         if not found_galaxy:
             blank_rows.append(y)
+        blank_cols &= char_indices(line, '.')
     # from blanks _per_row_, find which were blank in _all_ rows
-    blank_cols = reduce(lambda x, y: x.intersection(y), blank_cols)
+    # blank_cols = reduce(lambda x, y: x.intersection(y), blank_cols)
+    # now we have the galaxies, blank rows, and blank columns,
+    # expand the galaxies' position based on the blanks
+    return galaxies, blank_rows, blank_cols
+
+
+def parser(data, add_rows=1):
+    galaxies, blank_rows, blank_cols = parse_galaxies(data)
+    # from blanks _per_row_, find which were blank in _all_ rows
+    # blank_cols = reduce(lambda x, y: x.intersection(y), blank_cols)
     # now we have the galaxies, blank rows, and blank columns,
     # expand the galaxies' position based on the blanks
     for g in galaxies:
