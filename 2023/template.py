@@ -1,8 +1,8 @@
-from utility import *
+from utility import lines, parse, Path, timed
 
 SAMPLE = """ """
 
-DATA = Path("input/DAYNUM2").read_text()
+# DATA = Path("input/DAYNUM2").read_text()
 
 
 @timed
@@ -20,5 +20,8 @@ def part2(data=SAMPLE):
 def parser(data):
     return parse(data, str, lines, show=8)
 
+
 part1()
-part2()
+# part1(DAYNUM2)
+# part2()
+# part2(DAYNUM2)
