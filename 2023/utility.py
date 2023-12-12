@@ -37,8 +37,8 @@ import pandas as pd
 import networkx as nx
 
 
-# PARSER
-current_year = 2022  # Subdirectory name for input files
+T_START = None
+T_NOW = None
 lines = str.splitlines  # By default, split input text into lines
 
 
@@ -701,3 +701,22 @@ def enumerated_grid(data):
     for y, line in enumerate(data):
         for x, ch in enumerate(line):
             yield (x, y), ch
+
+
+def timer(msg=None, reset=False):
+    global T_START, T_NOW
+    if reset:
+        T_NOW = time_ns()
+        return
+    tstr = datetime.datetime.now().strftime("%T")
+    if T_START is None:
+        T_START = time_ns()
+        T_NOW = time_ns()
+        print(f"[Time start] {tstr}")
+    else:
+        now = time_ns()
+        delta = now - T_NOW
+        deltat = now - T_START
+        msg = tstr if not msg else msg
+        print(f"[Time delta] {msg} took {delta/1e6:.0f}ms ({deltat/1e6:.0f}ms total)")
+        T_NOW = now
