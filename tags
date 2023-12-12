@@ -33,6 +33,7 @@ DATA	2023/day07.py	/^DATA = Path("input\/07").read_text()$/;"	v
 DATA	2023/day09.py	/^DATA = Path("input\/09").read_text()$/;"	v
 DATA	2023/day10.py	/^DATA = Path("input\/10").read_text()$/;"	v
 DATA	2023/day11.py	/^DATA = Path("input\/11").read_text()$/;"	v
+DATA	2023/day12.py	/^DATA = Path("input\/12").read_text()$/;"	v
 DATA	2023/template.py	/^DATA = Path("input\/DAYNUM2").read_text()$/;"	v
 Deck	2020/src/day22.rs	/^type Deck = VecDeque<usize>;$/;"	t
 Direction	2020/src/day20.rs	/^enum Direction {$/;"	g
@@ -103,18 +104,12 @@ SAMPLE	2023/day05.py	/^SAMPLE = """seeds: 79 14 55 13$/;"	v
 SAMPLE	2023/day07.py	/^SAMPLE = """32T3K 765$/;"	v
 SAMPLE	2023/day08.py	/^SAMPLE = """RL$/;"	v
 SAMPLE	2023/day09.py	/^SAMPLE = """0 3 6 9 12 15$/;"	v
-<<<<<<< HEAD
 SAMPLE	2023/day10.py	/^SAMPLE = """7-F7-$/;"	v
-<<<<<<< HEAD
-=======
 SAMPLE	2023/day11.py	/^SAMPLE = """...#......$/;"	v
->>>>>>> 3748618 (fixup! day10 p1 and p2)
-=======
-SAMPLE	2023/day10.py	/^SAMPLE = """ """$/;"	v
-SAMPLE	2023/day11.py	/^SAMPLE = """...#......$/;"	v
->>>>>>> f18e610 (tidy up some duplicate utility code)
+SAMPLE	2023/day12.py	/^SAMPLE = """ """$/;"	v
 SAMPLE	2023/template.py	/^SAMPLE = """ """$/;"	v
 SAMPLE2	2023/day08.py	/^SAMPLE2 = """LR$/;"	v
+SAMPLE2	2023/day10.py	/^SAMPLE2 = """.F----7F7F7F7F-7....$/;"	v
 South	2020/src/day20.rs	/^    South,$/;"	e	enum:Direction
 Strides	2020/src/strides.rs	/^impl<'a, T> Strides<'a, T>$/;"	c
 Strides	2020/src/strides.rs	/^impl<'a, T> std::fmt::Debug for Strides<'a, T> {$/;"	c
@@ -544,6 +539,7 @@ parser	2023/day08.py	/^def parser(data):$/;"	f
 parser	2023/day09.py	/^def parser(data):$/;"	f
 parser	2023/day10.py	/^def parser(data):$/;"	f
 parser	2023/day11.py	/^def parser(data, add_rows=1):$/;"	f
+parser	2023/day12.py	/^def parser(data):$/;"	f
 parser	2023/template.py	/^def parser(data):$/;"	f
 part1	2019/day02.py	/^def part1(data):$/;"	f
 part1	2019/day03.py	/^def part1(paths):$/;"	f
@@ -605,6 +601,7 @@ part1	2023/day07.py	/^def part1(data=SAMPLE):$/;"	f
 part1	2023/day08.py	/^def part1(data: Union[int, str] = SAMPLE):$/;"	f
 part1	2023/day10.py	/^def part1(data=SAMPLE):$/;"	f
 part1	2023/day11.py	/^def part1(data=SAMPLE):$/;"	f
+part1	2023/day12.py	/^def part1(data=SAMPLE):$/;"	f
 part1	2023/template.py	/^def part1(data=SAMPLE):$/;"	f
 part1_examples_test	2020/src/day18.rs	/^    fn part1_examples_test() {$/;"	f	module:tests
 part2	2019/day02.py	/^def part2(data, target=19690720):$/;"	f
@@ -667,6 +664,7 @@ part2	2023/day07.py	/^def part2(data=SAMPLE):$/;"	f
 part2	2023/day08.py	/^def part2(data: Union[int, str] = SAMPLE):$/;"	f
 part2	2023/day10.py	/^def part2(data=SAMPLE):$/;"	f
 part2	2023/day11.py	/^def part2(data=SAMPLE):$/;"	f
+part2	2023/day12.py	/^def part2(data=SAMPLE):$/;"	f
 part2	2023/template.py	/^def part2(data=SAMPLE):$/;"	f
 part2_examples_test	2020/src/day18.rs	/^    fn part2_examples_test() {$/;"	f	module:tests
 part_1	2020/src/day10.rs	/^fn part_1(data: &[usize]) -> usize {$/;"	f
@@ -728,16 +726,7 @@ seat_locations	2020/src/day05.rs	/^    fn seat_locations() {$/;"	f	module:tests
 set	2019/intcode.py	/^    def set(self, offset, value):$/;"	m	class:IntCode
 setup_day	2023/aoc.sh	/^setup_day() {$/;"	f
 setup_logger	2019/logger.py	/^def setup_logger(name, level=logging.INFO):$/;"	f
-<<<<<<< HEAD
 shoelace	2023/day10.py	/^def shoelace(points):$/;"	f
-<<<<<<< HEAD
-shoelace	2023/day10other.py	/^def shoelace(points):$/;"	f
-=======
-<<<<<<< HEAD
->>>>>>> 3748618 (fixup! day10 p1 and p2)
-=======
->>>>>>> 8224182 (tidy up some duplicate utility code)
->>>>>>> f18e610 (tidy up some duplicate utility code)
 should_be_active	2020/src/day17.rs	/^fn should_be_active(cell: u8, n_neighbours_alive: u8) -> bool {$/;"	f
 should_flip_2	2020/src/day24.rs	/^fn should_flip_2((i, j): (usize, usize), grid: &[Vec<bool>]) -> bool {$/;"	f
 should_pick	2022/day02.py	/^def should_pick(opponent, you):$/;"	f
@@ -864,11 +853,8 @@ validate_hcl	2020/src/day04.rs	/^fn validate_hcl(f: &str) -> Result<String> {$/;
 validate_hgt	2020/src/day04.rs	/^fn validate_hgt(f: &str) -> Result<Height> {$/;"	f
 validate_iyr	2020/src/day04.rs	/^fn validate_iyr(f: &str) -> Result<usize> {$/;"	f
 validate_pid	2020/src/day04.rs	/^fn validate_pid(f: &str) -> Result<String> {$/;"	f
-<<<<<<< HEAD
 visualise	2023/day10.py	/^def visualise(data, end='\\n'):$/;"	f
 walk_from	2023/day10.py	/^def walk_from(start, points):$/;"	f
-=======
->>>>>>> 8224182 (tidy up some duplicate utility code)
 walk_paths	2019/day03.py	/^def walk_paths(data):$/;"	f
 walrus	2023/utility.py	/^def walrus(name, value):$/;"	f
 watchtoday	2023/aoc.sh	/^watchtoday(){$/;"	f
