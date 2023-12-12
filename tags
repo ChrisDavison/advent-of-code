@@ -24,6 +24,7 @@ Claim	2018/day03.py	/^class Claim:$/;"	c
 Cm	2020/src/day04.rs	/^    Cm(usize),$/;"	e	enum:Height
 CupGame	2020/src/day23.rs	/^impl CupGame {$/;"	c
 CupGame	2020/src/day23.rs	/^struct CupGame {$/;"	s
+D	2023/day12.py	/^D = []$/;"	v
 DATA	2023/day01.py	/^DATA = Path("input\/01").read_text()$/;"	v
 DATA	2023/day02.py	/^DATA = Path("input\/02").read_text()$/;"	v
 DATA	2023/day03.py	/^DATA = Path("input\/03").read_text()$/;"	v
@@ -34,7 +35,6 @@ DATA	2023/day09.py	/^DATA = Path("input\/09").read_text()$/;"	v
 DATA	2023/day10.py	/^DATA = Path("input\/10").read_text()$/;"	v
 DATA	2023/day11.py	/^DATA = Path("input\/11").read_text()$/;"	v
 DATA	2023/day12.py	/^DATA = Path("input\/12").read_text()$/;"	v
-DATA	2023/template.py	/^DATA = Path("input\/DAYNUM2").read_text()$/;"	v
 Deck	2020/src/day22.rs	/^type Deck = VecDeque<usize>;$/;"	t
 Direction	2020/src/day20.rs	/^enum Direction {$/;"	g
 East	2020/src/day20.rs	/^    East,$/;"	e	enum:Direction
@@ -120,6 +120,8 @@ T	2023/utility.py	/^def T(matrix: Sequence[Sequence]) -> List[Tuple]:$/;"	f	type
 TEST_INPUT	2023/day01.py	/^TEST_INPUT = """1abc2$/;"	v
 TEST_INPUT	2023/day02.py	/^TEST_INPUT = """Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green$/;"	v
 TEST_INPUT_2	2023/day01.py	/^TEST_INPUT_2 = """two1nine$/;"	v
+T_NOW	2023/utility.py	/^T_NOW = None$/;"	v
+T_START	2023/utility.py	/^T_START = None$/;"	v
 Ticket	2020/src/day16.rs	/^type Ticket = Vec<usize>;$/;"	t
 Tile	2020/src/day20.rs	/^impl Tile {$/;"	c
 Tile	2020/src/day20.rs	/^impl std::fmt::Display for Tile {$/;"	c
@@ -179,6 +181,8 @@ bool_xor	2020/src/bool_xor.rs	/^macro_rules! bool_xor {$/;"	M
 bool_xor	2020/src/lib.rs	/^mod bool_xor;$/;"	n
 both	2023/day02.py	/^def both():$/;"	f
 byr	2020/src/day04.rs	/^    byr: usize,$/;"	m	struct:Passport
+c	2023/day12.py	/^    c = ints(c)$/;"	v
+c	2023/day12.py	/^    s, c = line.split(' ')$/;"	v
 cache	2023/utility.py	/^cache = functools.lru_cache(None)$/;"	v
 calculate	2020/src/day18.rs	/^fn calculate(eqn: &mut Vec<Token>) -> Result<i64> {$/;"	f
 calculate2	2020/src/day18.rs	/^fn calculate2(eqn: &mut Vec<Token>) -> Result<i64> {$/;"	f
@@ -199,6 +203,7 @@ col_lim	2020/src/strides.rs	/^    pub col_lim: usize,$/;"	m	struct:Strides
 concat_ints	2023/day06.py	/^def concat_ints(ls):$/;"	f
 contains_gold	2020/src/day07.rs	/^fn contains_gold(bagmap: &BagMap, bag: &str, cache: &mut BagCache) -> bool {$/;"	f
 copy	2023/utility.py	/^    def copy(self):$/;"	m	class:Grid
+count	2023/day12.py	/^def count(p, s): $/;"	f
 count_answers	2020/src/day06.rs	/^fn count_answers(s: &[&str], counter: fn(&&str) -> usize) -> Vec<usize> {$/;"	f
 count_black	2020/src/day24.rs	/^fn count_black(floor: &HashMap<Hex, bool>) -> usize {$/;"	f
 count_black_2	2020/src/day24.rs	/^fn count_black_2(floor: &[Vec<bool>]) -> usize {$/;"	f
@@ -216,7 +221,6 @@ create_hypercube	2020/src/day17.rs	/^fn create_hypercube(n: usize, value: u8) ->
 criterion_benchmark	2020/src/my_benchmark.rs	/^fn criterion_benchmark(c: &mut Criterion) {$/;"	f
 cross_product	2023/utility.py	/^from itertools import count as count_from, product as cross_product$/;"	x	nameref:unknown:product
 current	2020/src/day23.rs	/^    current: usize,$/;"	m	struct:CupGame
-current_year	2023/utility.py	/^current_year = 2022  # Subdirectory name for input files$/;"	v
 d15_1_ex	2020/src/day15.rs	/^fn d15_1_ex() {$/;"	f
 data	2019/day01.py	/^data = [int(l) for l in open('input\/01').read().splitlines()]$/;"	v
 data	2019/day02.py	/^    data = [int(d) for d in open('input\/02').read().split(',')]$/;"	v
@@ -529,7 +533,6 @@ parse_game	2023/day04.py	/^def parse_game(line):$/;"	f
 parse_guard_record	2018/day04.py	/^def parse_guard_record(record):$/;"	f
 parse_instr	2019/intcode.py	/^    def parse_instr(self, s):$/;"	m	class:IntCode
 parse_instructions	2020/src/day12.rs	/^fn parse_instructions(s: &str) -> Vec<(char, usize)> {$/;"	f
-parse_line	2023/day12.py	/^    def parse_line(l):$/;"	f	function:parser	file:
 parse_password	2020/src/day02.rs	/^fn parse_password(s: &str) -> Result<PasswordLine> {$/;"	f
 parse_rule	2020/src/day16.rs	/^fn parse_rule(s: &str) -> Result<(String, (Range, Range))> {$/;"	f
 parse_set	2023/day02.py	/^def parse_set(s):$/;"	f
@@ -540,7 +543,6 @@ parser	2023/day08.py	/^def parser(data):$/;"	f
 parser	2023/day09.py	/^def parser(data):$/;"	f
 parser	2023/day10.py	/^def parser(data):$/;"	f
 parser	2023/day11.py	/^def parser(data, add_rows=1):$/;"	f
-parser	2023/day12.py	/^def parser(data):$/;"	f
 parser	2023/template.py	/^def parser(data):$/;"	f
 part1	2019/day02.py	/^def part1(data):$/;"	f
 part1	2019/day03.py	/^def part1(paths):$/;"	f
@@ -602,7 +604,6 @@ part1	2023/day07.py	/^def part1(data=SAMPLE):$/;"	f
 part1	2023/day08.py	/^def part1(data: Union[int, str] = SAMPLE):$/;"	f
 part1	2023/day10.py	/^def part1(data=SAMPLE):$/;"	f
 part1	2023/day11.py	/^def part1(data=SAMPLE):$/;"	f
-part1	2023/day12.py	/^def part1(data=SAMPLE):$/;"	f
 part1	2023/template.py	/^def part1(data=SAMPLE):$/;"	f
 part1_examples_test	2020/src/day18.rs	/^    fn part1_examples_test() {$/;"	f	module:tests
 part2	2019/day02.py	/^def part2(data, target=19690720):$/;"	f
@@ -665,7 +666,6 @@ part2	2023/day07.py	/^def part2(data=SAMPLE):$/;"	f
 part2	2023/day08.py	/^def part2(data: Union[int, str] = SAMPLE):$/;"	f
 part2	2023/day10.py	/^def part2(data=SAMPLE):$/;"	f
 part2	2023/day11.py	/^def part2(data=SAMPLE):$/;"	f
-part2	2023/day12.py	/^def part2(data=SAMPLE):$/;"	f
 part2	2023/template.py	/^def part2(data=SAMPLE):$/;"	f
 part2_examples_test	2020/src/day18.rs	/^    fn part2_examples_test() {$/;"	f	module:tests
 part_1	2020/src/day10.rs	/^fn part_1(data: &[usize]) -> usize {$/;"	f
@@ -714,6 +714,8 @@ run	2019/intcode.py	/^    def run(self):$/;"	m	class:IntCode
 run	2020/src/day25.rs	/^fn run(card: usize, door: usize) -> Result<String> {$/;"	f
 run	2023/day11.py	/^def run(data=SAMPLE, add_rows=1):$/;"	f
 run_with_replace	2019/day02.py	/^def run_with_replace(data, a, b):$/;"	f
+s	2023/day12.py	/^    s, c = line.split(' ')$/;"	v
+s	2023/day12.py	/^s: int = 0$/;"	v	typeref:typename:int
 sample	2019/day03.py	/^sample = """$/;"	v
 sample	2023/day06.py	/^sample = """Time:      7  15   30$/;"	v
 sample2	2019/day03.py	/^sample2 = """$/;"	v
@@ -828,6 +830,7 @@ time_solution	2020/src/lib.rs	/^macro_rules! time_solution {$/;"	M
 timed	2019/prelude.py	/^def timed(funcname, f, *args, **kwargs):$/;"	f
 timed	2021/prelude.py	/^def timed(funcname, f, *args, **kwargs):$/;"	f
 timed	2023/utility.py	/^def timed(func):$/;"	f
+timer	2023/utility.py	/^def timer(msg=None, reset=False):$/;"	f
 to_rows	2023/utility.py	/^    def to_rows(self, xrange=None, yrange=None) -> List[List[object]]:$/;"	m	class:Grid	typeref:typename:List[List[object]]
 today	2023/Makefile	/^today := $(shell date +%02d)$/;"	m
 today	2023/Makefile	/^today: day$(today).py$/;"	t

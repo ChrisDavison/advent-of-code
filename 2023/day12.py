@@ -1,5 +1,8 @@
-from utility import lines, parse, timed, Path, ints, re, mapt, permutations, cat
+from utility import lines, parse, timed, Path, ints, re, mapt, permutations, cat, datetime, cache, timer, defaultdict
 from itertools import product
+import pyperclip
+
+timer()
 
 SAMPLE = """???.### 1,1,3
 .??..??...?##. 1,1,3
@@ -10,54 +13,47 @@ SAMPLE = """???.### 1,1,3
 
 DATA = Path("input/12").read_text()
 
+timer()
 
-@timed
-def part1(data=SAMPLE):
-    data = parser(data)
-    s = 0
-    for (pattern, to_match) in data:
-        n = get_permutations(pattern, to_match)
-        s += n
-        # print(pattern, to_match, n)
-    return s
+D = []
+for line in DATA.splitlines():
+    s, c = line.split(' ')
+    c = ints(c)
+    D.append((s, c))
+timer('Parse')
 
 
-@timed
-def part2(data=SAMPLE):
-    data = parser(data)
-    pass
+@cache
+def count(p, s): 
+    if not p:
+        return 1 if not s else 0
+    if not s:
+        return 0 if "#" in p else 1
+
+    result = 0
+
+    if p[0] in ".?":
+        result += count(p[1:], s)
+
+    if p[0] in "#?":
+        if s[0] <= len(p) and "." not in p[:s[0]] and (s[0] == len(p) or p[s[0]] != '#'):
+            result += count(p[s[0] + 1:], s[1:])
+
+    return result
 
 
-def parser(data):
-    def parse_line(line):
-        s, c = line.split(' ')
-        c = ints(c)
-        return (s, c)
+s: int = 0
+for (pattern, to_match) in D:
+    s += count(pattern + '.', to_match)
+timer(f"Part 1: {s}")
+input("Enter to copy to clipboard")
+pyperclip.copy(s)
 
-    return parse(data, parse_line, lines, show=0)
+timer(reset=True)
+s: int = 0
+for (p, to_match) in D:
+    s += count('?'.join([p, p, p, p, p]), to_match * 5)
+timer(f"Part 2: {s}")
+input("Enter to copy to clipboard")
+pyperclip.copy(s)
 
-
-def count_springs(line):
-    if isinstance(line, list):
-        line = cat(line)
-    return mapt(len, re.findall('#+', line))
-
-
-def get_permutations(line, to_match):
-    q = [m.start() for m in re.finditer(r'\?', line)]
-    n = 0
-    for permut in product([True, False], repeat=len(q)):
-        l2 = list(line)
-        for i, p in enumerate(permut):
-            l2[q[i]] = '#' if p else '.'
-        if count_springs(l2) == to_match:
-            n += 1
-    return n
-
-
-
-print(count_springs(list('.##.##.###')))
-print(get_permutations('.??.??.###', (2, 2, 3)))
-part1()
-part1(12)
-# part2()
