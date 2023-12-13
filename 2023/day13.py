@@ -23,46 +23,33 @@ SAMPLE = """#.##..##.
 
 DATA = Path("input/13").read_text()
 
-timer()
 D = mapl(lines, paragraphs(DATA))
 # D = mapl(lines, paragraphs(SAMPLE))
 
+
+@cache
 def is_vmirror(line, i):
-    l, r = line[:i], line[i:]
-    n = min(len(l), len(r))
-    return l[-n:][::-1] == r[:n]
+    n = min(i, len(line)-i)
+    return line[i-n:i][::-1] == line[i:i+n]
 
 
 def column_mirrors(paragraph):
     def f(line):
-        possible = set()
-        for i in range(1, len(line)):
-            N = len(line)
-            w = N - i
-            if is_vmirror(line, i): 
-                possible.add(i)
-        return possible
+        # start from 1 as we need at least 1 line to mirror from
+        return {i for i in range(1, len(line)) if is_vmirror(line, i)}
 
-    possible = f(paragraph[0])
-    for i, line in enumerate(paragraph[1:]):
-        if not possible:
-            break
-        possible &= f(line)
-    return possible
+    return reduce(lambda x, y: x & y, map(f, paragraph))
 
 
 def is_row_mirrored(p, i):
     if i == 1:
         return True
-    found = True
     for n in range(1, len(p)):
         i1 = i - n - 1
         i2 = i + n
         if i1 < 0 or i2 >= len(p):
             return True
-        u, d = p[i-n-1], p[i+n]
-        spc = (n+1) * ' '
-        if u != d:
+        if p[i1] != p[i2]:
             return False
     return True
 
@@ -80,8 +67,6 @@ def row_mirrors(paragraph):
             mirrors.add(i)
     return mirrors
    
-# row_mirrors(D[1])
-
 
 def variants(paragraph):
     was = '.'
