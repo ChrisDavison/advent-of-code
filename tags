@@ -107,6 +107,7 @@ SAMPLE	2023/day09.py	/^SAMPLE = """0 3 6 9 12 15$/;"	v
 SAMPLE	2023/day10.py	/^SAMPLE = """7-F7-$/;"	v
 SAMPLE	2023/day11.py	/^SAMPLE = """...#......$/;"	v
 SAMPLE	2023/day12.py	/^SAMPLE = """???.### 1,1,3$/;"	v
+SAMPLE	2023/day13.py	/^SAMPLE = """ """$/;"	v
 SAMPLE	2023/template.py	/^SAMPLE = """ """$/;"	v
 SAMPLE2	2023/day08.py	/^SAMPLE2 = """LR$/;"	v
 SAMPLE2	2023/day10.py	/^SAMPLE2 = """.F----7F7F7F7F-7....$/;"	v
@@ -543,6 +544,7 @@ parser	2023/day08.py	/^def parser(data):$/;"	f
 parser	2023/day09.py	/^def parser(data):$/;"	f
 parser	2023/day10.py	/^def parser(data):$/;"	f
 parser	2023/day11.py	/^def parser(data, add_rows=1):$/;"	f
+parser	2023/day13.py	/^def parser(data):$/;"	f
 parser	2023/template.py	/^def parser(data):$/;"	f
 part1	2019/day02.py	/^def part1(data):$/;"	f
 part1	2019/day03.py	/^def part1(paths):$/;"	f
@@ -604,6 +606,7 @@ part1	2023/day07.py	/^def part1(data=SAMPLE):$/;"	f
 part1	2023/day08.py	/^def part1(data: Union[int, str] = SAMPLE):$/;"	f
 part1	2023/day10.py	/^def part1(data=SAMPLE):$/;"	f
 part1	2023/day11.py	/^def part1(data=SAMPLE):$/;"	f
+part1	2023/day13.py	/^def part1(data=SAMPLE):$/;"	f
 part1	2023/template.py	/^def part1(data=SAMPLE):$/;"	f
 part1_examples_test	2020/src/day18.rs	/^    fn part1_examples_test() {$/;"	f	module:tests
 part2	2019/day02.py	/^def part2(data, target=19690720):$/;"	f
@@ -666,6 +669,7 @@ part2	2023/day07.py	/^def part2(data=SAMPLE):$/;"	f
 part2	2023/day08.py	/^def part2(data: Union[int, str] = SAMPLE):$/;"	f
 part2	2023/day10.py	/^def part2(data=SAMPLE):$/;"	f
 part2	2023/day11.py	/^def part2(data=SAMPLE):$/;"	f
+part2	2023/day13.py	/^def part2(data=SAMPLE):$/;"	f
 part2	2023/template.py	/^def part2(data=SAMPLE):$/;"	f
 part2_examples_test	2020/src/day18.rs	/^    fn part2_examples_test() {$/;"	f	module:tests
 part_1	2020/src/day10.rs	/^fn part_1(data: &[usize]) -> usize {$/;"	f
