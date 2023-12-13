@@ -30,6 +30,7 @@ import os
 import pickle
 import re
 import operator
+import pyperclip
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -720,3 +721,13 @@ def timer(msg=None, reset=False):
         msg = tstr if not msg else msg
         print(f"[Time delta] {msg} took {delta/1e6:.0f}ms ({deltat/1e6:.0f}ms total)")
         T_NOW = now
+
+
+def clip(val):
+    input("Enter to copy to clipboard.")
+    pyperclip.copy(val)
+    timer(reset=True)
+
+
+def as_grid(paragraph):
+    return [[ch for ch in line] for line in paragraph.splitlines()]
