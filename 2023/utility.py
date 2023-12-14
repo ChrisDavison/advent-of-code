@@ -731,3 +731,8 @@ def clip(val):
 
 def as_grid(paragraph):
     return [[ch for ch in line] for line in paragraph.splitlines()]
+
+
+def get_dim(data):
+    g = as_grid(data)
+    return (len(g[0]), len(g))
