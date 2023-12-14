@@ -493,6 +493,7 @@ ms_time	2021/prelude.py	/^def ms_time(f, *args, **kwargs):$/;"	f
 mul	2019/intcode.py	/^    def mul(self, intcode):$/;"	m	class:IntCode
 mul	2023/utility.py	/^def mul(p: Point, k: float) -> Vector:$/;"	f	typeref:typename:Vector
 multimap	2023/utility.py	/^class multimap(defaultdict):$/;"	c
+n_cycles	2023/day14.py	/^n_cycles = int(cycles \/\/ len(seen))$/;"	v
 naked_plot	2023/utility.py	/^def naked_plot(points, marker="o", size=(10, 10), invert=True, square=False, **kwds):$/;"	f
 neg	2023/utility.py	/^def neg(p: Point) -> Vector:$/;"	f	typeref:typename:Vector
 neighbor_contents	2023/utility.py	/^    def neighbor_contents(self, point) -> Iterable:$/;"	m	class:Grid	typeref:typename:Iterable
@@ -751,6 +752,7 @@ score_p1	2020/src/day23.rs	/^    fn score_p1(&self) -> String {$/;"	P	implementa
 score_p2	2020/src/day23.rs	/^    fn score_p2(&self) -> usize {$/;"	P	implementation:CupGame
 seat_location	2020/src/day05.rs	/^fn seat_location(s: &str) -> (i64, i64) {$/;"	f
 seat_locations	2020/src/day05.rs	/^    fn seat_locations() {$/;"	f	module:tests
+seen	2023/day14.py	/^seen = dict()$/;"	v
 set	2019/intcode.py	/^    def set(self, offset, value):$/;"	m	class:IntCode
 setup_day	2023/aoc.sh	/^setup_day() {$/;"	f
 setup_logger	2019/logger.py	/^def setup_logger(name, level=logging.INFO):$/;"	f
