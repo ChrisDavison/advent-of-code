@@ -91,21 +91,35 @@ def score_grid(grid):
     return s
 
 timer()
-roll_cols(G, up=True)
-score = score_grid(G)
-timer(f"Part 1: {score}")
-pyperclip.copy(int(score))
+# roll_cols(G, up=True)
+# score = score_grid(G)
+# timer(f"Part 1: {score}")
+# pyperclip.copy(int(score))
 
 # ===== Part 2
 
 cycles = 1000000000
-
+seen = dict()
 timer(reset=True)
 for i in range(1, cycles):
     if i % 10_000 == 0:
         print(i)
         timer()
 
+    roll_cols(G, up=True)
+    roll_rows(G, right=False)
+    roll_cols(G, up=False)
+    roll_rows(G, right=True)
+    if '\n'.join(mapt(cat, G)) in seen:
+        break
+
+    seen['\n'.join(mapt(cat, G))] = 1
+print(len(seen))
+n_cycles = int(cycles // len(seen))
+print(f"n cycles = {n_cycles}")
+print(f"rem {rem}")
+
+for i in range(rem):
     roll_cols(G, up=True)
     roll_rows(G, right=False)
     roll_cols(G, up=False)
