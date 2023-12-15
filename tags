@@ -48,6 +48,10 @@ Err	2020/src/day14.rs	/^    type Err = anyhow::Error;$/;"	t	implementation:Op
 Err	2020/src/day20.rs	/^    type Err = anyhow::Error;$/;"	t	implementation:Tile
 Err	2020/src/day24.rs	/^    type Err = anyhow::Error;$/;"	t	implementation:Hex
 ErrorTodo	2023/utility.py	/^class ErrorTodo(Exception):$/;"	c
+G	2023/day14.py	/^    G = roll_cols(G, up=False)$/;"	v
+G	2023/day14.py	/^    G = roll_cols(G, up=True)$/;"	v
+G	2023/day14.py	/^    G = roll_rows(G, right=False)$/;"	v
+G	2023/day14.py	/^    G = roll_rows(G, right=True)$/;"	v
 G	2023/day14.py	/^G = np.array(as_grid(SAMPLE))$/;"	v
 Galaxy	2023/day11.py	/^class Galaxy:$/;"	c
 Graph	2023/utility.py	/^class Graph(dict):$/;"	c
@@ -466,6 +470,8 @@ last	2023/utility.py	/^def last(iterable) -> Optional[object]:$/;"	f	typeref:typ
 last_output	2019/intcode.py	/^    def last_output(self):$/;"	m	class:IntCode
 lcm	2023/utility.py	/^def lcm(i, j) -> int:$/;"	f	typeref:typename:int
 lcm_list	2023/utility.py	/^def lcm_list(ii) -> int:$/;"	f	typeref:typename:int
+left	2023/day14.py	/^        left = cycles - remains$/;"	v
+left	2023/day14.py	/^left = 0$/;"	v
 left	2023/utility.py	/^    def left(self):$/;"	m	class:Point2D
 less_than	2019/intcode.py	/^    def less_than(self, intcode):$/;"	m	class:IntCode
 letter	2020/src/day02.rs	/^    letter: char,$/;"	m	struct:PasswordLine
@@ -493,7 +499,6 @@ ms_time	2021/prelude.py	/^def ms_time(f, *args, **kwargs):$/;"	f
 mul	2019/intcode.py	/^    def mul(self, intcode):$/;"	m	class:IntCode
 mul	2023/utility.py	/^def mul(p: Point, k: float) -> Vector:$/;"	f	typeref:typename:Vector
 multimap	2023/utility.py	/^class multimap(defaultdict):$/;"	c
-n_cycles	2023/day14.py	/^n_cycles = int(cycles \/\/ len(seen))$/;"	v
 naked_plot	2023/utility.py	/^def naked_plot(points, marker="o", size=(10, 10), invert=True, square=False, **kwds):$/;"	f
 neg	2023/utility.py	/^def neg(p: Point) -> Vector:$/;"	f	typeref:typename:Vector
 neighbor_contents	2023/utility.py	/^    def neighbor_contents(self, point) -> Iterable:$/;"	m	class:Grid	typeref:typename:Iterable
@@ -714,6 +719,8 @@ quantify	2023/utility.py	/^def quantify(iterable, pred=bool) -> int:$/;"	f	typer
 quick_dict	2020/src/lib.rs	/^mod quick_dict;$/;"	n
 rdelta	2023/day13.py	/^        rdelta = row_mirrors(variant) - was_vmirror$/;"	v
 read	2019/intcode.py	/^    def read(self, intcode):$/;"	m	class:IntCode
+remain	2023/day14.py	/^        remain = (cycles - i) % something$/;"	v
+remains	2023/day14.py	/^remains = 0$/;"	v
 req_rec	2019/day01.py	/^def req_rec(mass):$/;"	f
 required	2019/day01.py	/^def required(mass):$/;"	f
 required_mass_of_fuel	2019/adventofcode.ex	/^  def required_mass_of_fuel(fuel) do$/;"	f	module:AocDay01	access:public
@@ -746,7 +753,6 @@ sample2	2019/day03.py	/^sample2 = """$/;"	v
 sample3	2019/day03.py	/^sample3 = """$/;"	v
 save	2019/intcode.py	/^    def save(self, intcode):$/;"	m	class:IntCode
 score	2020/src/day22.rs	/^fn score(deck: &Deck) -> usize {$/;"	f
-score	2023/day14.py	/^score = score_grid(G)$/;"	v
 score_grid	2023/day14.py	/^def score_grid(grid):$/;"	f
 score_p1	2020/src/day23.rs	/^    fn score_p1(&self) -> String {$/;"	P	implementation:CupGame
 score_p2	2020/src/day23.rs	/^    fn score_p2(&self) -> usize {$/;"	P	implementation:CupGame
@@ -769,6 +775,8 @@ size	2020/src/day20.rs	/^    size: usize,$/;"	m	struct:Tile
 slide	2023/utility.py	/^def slide(points: Set[Point], delta: Vector) -> Set[Point]:$/;"	f	typeref:typename:Set[Point]
 sliding_window	2023/utility.py	/^def sliding_window(sequence, n) -> Iterable[Sequence]:$/;"	f	typeref:typename:Iterable[Sequence]
 solve	2020/src/day15.rs	/^fn solve(data: &[usize], target: usize) -> Result<usize> {$/;"	f
+something	2023/day14.py	/^        something = i - len(seen)$/;"	v
+something	2023/day14.py	/^something = 0$/;"	v
 sorted_seat_ids	2020/src/day05.rs	/^fn sorted_seat_ids(data: &[&str]) -> Vec<i64> {$/;"	f
 source	2023/day06.py	/^source = Path("input\/06").read_text()$/;"	v
 source	2023/day06.py	/^source = sample$/;"	v
@@ -869,6 +877,7 @@ tot2	2019/day04.py	/^tot1, tot2 = 0, 0$/;"	v
 total	2023/utility.py	/^def total(counter: Counter) -> int:$/;"	f	typeref:typename:int
 total_bags	2020/src/day07.rs	/^fn total_bags(bagmap: &BagMap, bag: &str) -> usize {$/;"	f
 truncate	2023/utility.py	/^def truncate(object, width=100, ellipsis=" ...") -> str:$/;"	f	typeref:typename:str
+un_grid	2023/utility.py	/^def un_grid(grid):$/;"	f
 union	2023/utility.py	/^def union(sets) -> set:$/;"	f	typeref:typename:set
 up	2023/utility.py	/^    def up(self):$/;"	m	class:Point2D
 update_memory	2020/src/day14.rs	/^fn update_memory($/;"	f

@@ -740,6 +740,10 @@ def as_grid(paragraph):
     return [[ch for ch in line] for line in paragraph.splitlines()]
 
 
+def un_grid(grid):
+    return '\n'.join(mapt(cat, grid))
+
+
 def get_dim(data):
     g = as_grid(data)
     return (len(g[0]), len(g))
