@@ -1,4 +1,4 @@
-from utility import re, Path, timed, directions8, np, Point2D
+from utility import re, Path, timer, directions8, np, Point2D
 
 SAMPLE = """467..114..
 ...*......
@@ -42,39 +42,31 @@ def points_surrounding_region(r):
                 yield surround
 
 
-@timed
-def part1():
-    parts = []
-    for n, region in number_map:
-        if any(p in symbols for p in points_surrounding_region(region)):
-            parts.append(n)
-    print(sum(parts))
-
-
+timer()
 number_map, symbols = p(DATA)
-part1()
+
+parts = []
+for n, region in number_map:
+    if any(p in symbols for p in points_surrounding_region(region)):
+        parts.append(n)
+timer(f"Part 1: {sum(parts)}")
 
 
-@timed
-def part2():
-    partnums = []
-    point_to_idx_of_partnum = dict()
-    for number, region in number_map:
-        partnums.append(number)
-        for point in region:
-            point_to_idx_of_partnum[point] = len(partnums) - 1
+partnums = []
+point_to_idx_of_partnum = dict()
+for number, region in number_map:
+    partnums.append(number)
+    for point in region:
+        point_to_idx_of_partnum[point] = len(partnums) - 1
 
-    ratios = []
-    for location, ch in symbols.items():
-        if ch != "*":
-            continue
-        candidates = set()
-        for p in points_surrounding_region([location]):
-            if idx := point_to_idx_of_partnum.get(p, None):
-                candidates.add(partnums[idx])
-        if len(candidates) == 2:
-            ratios.append(np.prod(list(candidates)))
-    print(sum(ratios))
-
-
-part2()
+ratios = []
+for location, ch in symbols.items():
+    if ch != "*":
+        continue
+    candidates = set()
+    for p in points_surrounding_region([location]):
+        if idx := point_to_idx_of_partnum.get(p, None):
+            candidates.add(partnums[idx])
+    if len(candidates) == 2:
+        ratios.append(np.prod(list(candidates)))
+timer(f"Part 2: {sum(ratios)}")

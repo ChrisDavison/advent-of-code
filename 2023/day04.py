@@ -1,4 +1,4 @@
-from utility import Path, re, mapt, lines, timed, parse
+from utility import Path, re, mapt, lines, timer, parse
 from pprint import pprint as pp
 
 SAMPLE = """Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
@@ -22,30 +22,23 @@ def parse_game(line):
 p = parse(4, parse_game, lines, show=0)
 
 
-@timed
-def part1():
-    s = 0
-    for _, have, win in p:
-        inter = have & win
-        if inter:
-            s += 2 ** (len(inter) - 1)
-    print(s)
+timer()
+s = 0
+for _, have, win in p:
+    inter = have & win
+    if inter:
+        s += 2 ** (len(inter) - 1)
+timer(f"Part 1: {s}")
 
 
-@timed
-def part2():
-    copies_of_each = [1] * (len(p) + 1)
-    copies_of_each[0] = 0
+copies_of_each = [1] * (len(p) + 1)
+copies_of_each[0] = 0
 
-    for gameid, have, win in p:
-        inter = have & win
-        if not inter:
-            continue
-        for g in range(1, len(inter) + 1):
-            copies_of_each[gameid + g] += copies_of_each[gameid]
+for gameid, have, win in p:
+    inter = have & win
+    if not inter:
+        continue
+    for g in range(1, len(inter) + 1):
+        copies_of_each[gameid + g] += copies_of_each[gameid]
 
-    pp(sum(copies_of_each))
-
-
-part1()
-part2()
+timer(f"Part 2: {sum(copies_of_each)}")

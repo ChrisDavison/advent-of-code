@@ -1,4 +1,4 @@
-from utility import Path, np, re, mapl, timed, lines, parse
+from utility import Path, np, re, mapl, timed, lines, parse, timer
 
 TEST_INPUT = """Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
 Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
@@ -26,17 +26,13 @@ def parse_game(line):
         )
 
 
-@timed
-def both():
-    lim = np.array([12, 13, 14])
-    wins = 0
-    p2 = 0
-    for gameid, gameset_max in parse(2, parse_game, lines, show=0):
-        if np.all(gameset_max <= lim):
-            wins += gameid
-        p2 += np.prod(gameset_max)
-    print(wins)
-    print(p2)
+timer()
+lim = np.array([12, 13, 14])
+wins = 0
+p2 = 0
+for gameid, gameset_max in parse(2, parse_game, lines, show=0):
+    if np.all(gameset_max <= lim):
+        wins += gameid
+    p2 += np.prod(gameset_max)
+timer(f"Part 1 + 2: {wins}, {p2}")
 
-
-both()
