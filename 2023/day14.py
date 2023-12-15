@@ -53,15 +53,14 @@ def roll_slice(l, to_right=True):
 
 
 def score_grid(grid):
-    scores = np.arange(grid.shape[1], 0, -1)
     s = 0
+    N = len(grid)
     for i, row in enumerate(grid):
-        s += sum(1 for c in row if c == "O") * scores[i]
+        s += sum(1 for c in row if c == "O") * (N - i)
     return s
 
 
 timer()
-
 g2 = np.copy(G)
 roll_cols(g2, up=True)
 score = score_grid(g2)
