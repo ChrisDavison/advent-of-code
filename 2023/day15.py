@@ -1,9 +1,11 @@
 from utility import Path, timer, re, cache
+import pyperclip
 
 SAMPLE = """rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7"""
 
 DATA = Path("input/15").read_text()
 
+timer(reset=True)
 
 @cache
 def puzzlehash(s):
@@ -22,6 +24,7 @@ timer()
 # Part 1
 P = [puzzlehash(part) for part in DATA.replace('\n', '').split(',')]
 timer(f"Part 1: {sum(P)}")
+pyperclip.copy(sum(P))
 
 # Part 2
 timer(reset=True)
@@ -39,14 +42,12 @@ for part, h in P:
         case ('-', _):
             if label in boxes[box]:
                 del boxes[box][label]
-
-
 s = 0
 for i, box in enumerate(boxes, start=1):
     if len(box) == 0:
         continue
     for j, (_, v) in enumerate(box.items(), start=1):
         s += i * j * int(v)
-
-
 timer(f"Part 2: {s}")
+pyperclip.copy(s)
+
