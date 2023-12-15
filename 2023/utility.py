@@ -740,7 +740,7 @@ def as_grid(paragraph):
 
 
 def un_grid(grid):
-    return '\n'.join(mapt(cat, grid))
+    return '\n'.join(''.join(row) for row in grid)
 
 
 def get_dim(data):

@@ -14,130 +14,102 @@ O.#..O.#.#
 
 DATA = Path("input/14").read_text()
 
-G = np.array(as_grid(SAMPLE))
+G = np.array(as_grid(DATA))
 debug = False
 
 
-def prettify(grid):
-    out = ""
-    for line in grid:
-        for ch in line:
-            if ch == '.':
-                out += ' '
-            elif ch == '#':
-                out += '░'
-            else:
-                out += '*'
-        if len(grid) > 1:
-            out += '\n'
-    return out
-
-
 def roll_cols(grid, up=True):
+    # as grid is a numpy array, this modifies inplace
     for col in range(len(grid[0])):
         grid[:, col] = roll_slice(cat(grid[:, col]), to_right=not up)
-    return grid
+
 
 def roll_rows(grid, right=False):
+    # as grid is a numpy array, this modifies inplace
     for row in range(len(grid)):
-        grid[row,:] = roll_slice(cat(grid[row, :]), to_right=right)
-    return grid
+        grid[row, :] = roll_slice(cat(grid[row, :]), to_right=right)
+
 
 @cache
 def roll_slice(l, to_right=True):
     if to_right:
-        # if debug:
-        #     print(">> right")
         return roll_slice(l[::-1], to_right=False)[::-1]
-    # if debug:
-    #     print("<< left")
     new = [c for c in l]
-    if debug:
-        print(cat(mapt(str, list(range(len(new))))))
-        print(cat(new))
-        print()
-    for i in char_indices(new, 'O'):
-        if debug:
-            print(' ' * (i) + '↓')
-            print(f"{cat(new)}")
+    for i in char_indices(new, "O"):
         # find previous #
-        blocks_before = next(char_indices(new[:i], '#', reverse=True), 0)
-        if debug:
-            print(f"# = {blocks_before}")
+        blocks_before = next(char_indices(new[:i], "#", reverse=True), 0)
         gapstart = 0
         if blocks_before:
             gapstart = blocks_before
         # find previous .
-        gaps_before = [j for j, ch in enumerate(new) if ch == '.' and j < i and j >= gapstart]
-        
-        if debug:
-            print(f". = {gaps_before}")
+        gaps_before = [
+            j for j, ch in enumerate(new) if ch == "." and j < i and j >= gapstart
+        ]
         if gaps_before:
-            new[i] = '.'
-            new[list(gaps_before)[0]] = 'O'
-
-        if debug:
-            print(cat(new))
-            print()
+            new[i] = "."
+            new[list(gaps_before)[0]] = "O"
 
     return new
 
 
 def score_grid(grid):
-    scores = np.arange(G.shape[1], 0, -1)
+    scores = np.arange(grid.shape[1], 0, -1)
     s = 0
-    for i, row in enumerate(G):
-        s += sum(1 for c in row if c == 'O') * scores[i]
+    for i, row in enumerate(grid):
+        s += sum(1 for c in row if c == "O") * scores[i]
     return s
 
+
 timer()
-# roll_cols(G, up=True)
-# score = score_grid(G)
-# timer(f"Part 1: {score}")
+
+g2 = np.copy(G)
+roll_cols(g2, up=True)
+score = score_grid(g2)
+timer(f"Part 1: {score}")
 # pyperclip.copy(int(score))
 
 # ===== Part 2
 
-cycles = 1000000000
+
+def tumble(grid):
+    actions = [
+        (roll_cols, True),
+        (roll_rows, False),
+        (roll_cols, False),
+        (roll_rows, True),
+    ]
+    for i, (f, b) in enumerate(actions):
+        f(grid, b)
+
+
 seen = dict()
 timer(reset=True)
 something = 0
 remains = 0
 left = 0
-for i in range(1, cycles):
-    if i % 10_000 == 0:
-        print(i)
-        timer()
 
-    G = roll_cols(G, up=True)
-    G = roll_rows(G, right=False)
-    G = roll_cols(G, up=False)
-    G = roll_rows(G, right=True)
+seen[un_grid(G)] = 1
+cycles = 1000000000
+loopstart = 0
+for i in range(1, cycles):
+    tumble(G)
     if un_grid(G) in seen:
-        print(f"{seen = :}")
-        something = i - len(seen)
-        remain = (cycles - i) % something
-        left = cycles - remains
-        print(f"{something = :}")
-        print(f"{remain = :}")
-        print(f"{left = :}")
-        break
+        if not loopstart:
+            loopstart = len(seen)
+            seen = dict()
+        else:
+            loopend = i
+            break
     else:
         seen[un_grid(G)] = 1
 
-print(f"{left = :}")
-# rem = cycles - (n_cycles * len(seen))
+left = cycles - loopend
+remain = left % len(seen)
 
-# for i in range(left):
-#     roll_cols(G, up=True)
-#     roll_rows(G, right=False)
-#     roll_cols(G, up=False)
-#     roll_rows(G, right=True)
+# tumble it the remaining number of times, then score it
+for i in range(left % len(seen)):
+    tumble(G)
 
-    # print(prettify(G))
-
-    # score = score_grid(G)
-    # print(f"{i} {score = :}")
-# timer(f"Part 2: {score}")
-# pyperclip.copy(int(score))
-
+score = score_grid(G)
+timer(f"Part 2: {score}")
+pyperclip.copy(int(score))
