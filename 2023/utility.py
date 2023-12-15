@@ -720,13 +720,12 @@ def timer(msg=None, reset=False):
     if T_START is None:
         T_START = time_ns()
         T_NOW = time_ns()
-        print(f"[Time start] {tstr}")
+        print(f"START {tstr}")
     else:
         now = time_ns()
         delta = now - T_NOW
-        deltat = now - T_START
         msg = tstr if not msg else msg
-        print(f"[Time delta] {msg} took {delta/1e6:.0f}ms ({deltat/1e6:.0f}ms total)")
+        print(f"Δ {delta/1e6:.0f}ms - {msg}")
         T_NOW = now
 
 
