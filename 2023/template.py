@@ -1,27 +1,26 @@
-from utility import lines, parse, Path, timed
+from utility import *
 
 SAMPLE = """ """
 
-# DATA = Path("input/DAYNUM2").read_text()
+DATA = Path("input/DAYNUM2").read_text()
+
+P = mapt(parse, SAMPLE.splitlines())
+# G = as_grid(SAMPLE)
+
+# part1
+timer()
 
 
-@timed
-def part1(data=SAMPLE):
-    data = parser(data)
-    pass
+res = 0
+timer(f"Part 1: {res}")
+pyperclip.copy(int(res))
+
+# part2
+timer(reset=True)
 
 
-@timed
-def part2(data=SAMPLE):
-    data = parser(data)
-    pass
+res = 0
+timer(f"Part 2: {res}")
+pyperclip.copy(int(res))
 
 
-def parser(data):
-    return parse(data, str, lines, show=8)
-
-
-part1()
-# part1(DAYNUM2)
-# part2()
-# part2(DAYNUM2)

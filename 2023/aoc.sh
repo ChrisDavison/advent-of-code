@@ -37,7 +37,7 @@ setup_day() {
     cd $aocdir
     echo $aocdir
     cat template.py > $filename
-    sed -i'' -e "s/DAYNUM2/$day2/g" $filename
+    sed -i'' "s/DAYNUM2/$day2/g" $filename
     [[ -f $filename_in ]] && rm $filename_in
     
     SESSION=$(cat $HOME/.aoc_token)
