@@ -87,7 +87,7 @@ Op	2020/src/day14.rs	/^impl FromStr for Op {$/;"	c
 Op	2020/src/day14.rs	/^impl std::fmt::Display for Op {$/;"	c
 P	2023/day15.py	/^P = [(part, puzzlehash(part)) for part in DATA.replace('\\n', '').split(',')]$/;"	v
 P	2023/day15.py	/^P = [puzzlehash(part) for part in DATA.replace('\\n', '').split(',')]$/;"	v
-P	2023/template.py	/^P = mapt(parse, SAMPLE.splitlines())$/;"	v
+P	2023/template.py	/^P = []$/;"	v
 PClose	2020/src/day18.rs	/^    PClose,$/;"	e	enum:Token
 POpen	2020/src/day18.rs	/^    POpen,$/;"	e	enum:Token
 Passport	2020/src/day04.rs	/^impl FromStr for Passport {$/;"	c
