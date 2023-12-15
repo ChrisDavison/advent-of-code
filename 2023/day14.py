@@ -36,12 +36,12 @@ def prettify(grid):
 def roll_cols(grid, up=True):
     for col in range(len(grid[0])):
         grid[:, col] = roll_slice(cat(grid[:, col]), to_right=not up)
-
+    return grid
 
 def roll_rows(grid, right=False):
     for row in range(len(grid)):
         grid[row,:] = roll_slice(cat(grid[row, :]), to_right=right)
-
+    return grid
 
 @cache
 def roll_slice(l, to_right=True):
@@ -101,33 +101,43 @@ timer()
 cycles = 1000000000
 seen = dict()
 timer(reset=True)
+something = 0
+remains = 0
+left = 0
 for i in range(1, cycles):
     if i % 10_000 == 0:
         print(i)
         timer()
 
-    roll_cols(G, up=True)
-    roll_rows(G, right=False)
-    roll_cols(G, up=False)
-    roll_rows(G, right=True)
-    if '\n'.join(mapt(cat, G)) in seen:
+    G = roll_cols(G, up=True)
+    G = roll_rows(G, right=False)
+    G = roll_cols(G, up=False)
+    G = roll_rows(G, right=True)
+    if un_grid(G) in seen:
+        print(f"{seen = :}")
+        something = i - len(seen)
+        remain = (cycles - i) % something
+        left = cycles - remains
+        print(f"{something = :}")
+        print(f"{remain = :}")
+        print(f"{left = :}")
         break
+    else:
+        seen[un_grid(G)] = 1
 
-    seen['\n'.join(mapt(cat, G))] = 1
-print(len(seen))
-n_cycles = int(cycles // len(seen))
-print(f"n cycles = {n_cycles}")
-print(f"rem {rem}")
+print(f"{left = :}")
+# rem = cycles - (n_cycles * len(seen))
 
-for i in range(rem):
-    roll_cols(G, up=True)
-    roll_rows(G, right=False)
-    roll_cols(G, up=False)
-    roll_rows(G, right=True)
+# for i in range(left):
+#     roll_cols(G, up=True)
+#     roll_rows(G, right=False)
+#     roll_cols(G, up=False)
+#     roll_rows(G, right=True)
 
     # print(prettify(G))
 
-score = score_grid(G)
-timer(f"Part 2: {score}")
-pyperclip.copy(int(score))
+    # score = score_grid(G)
+    # print(f"{i} {score = :}")
+# timer(f"Part 2: {score}")
+# pyperclip.copy(int(score))
 
