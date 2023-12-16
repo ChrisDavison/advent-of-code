@@ -1,5 +1,7 @@
 from utility import *
 
+timer(reset=True)
+
 SAMPLE = r""".|...\....
 |.-.\.....
 .....|-...
@@ -28,7 +30,8 @@ class Beam:
     y: int
     xd: int
     yd: int
-
+    
+    @cache
     def step(self, symbol):
         xd = self.xd
         yd = self.yd
@@ -71,12 +74,13 @@ class Beam:
     def __hash__(self):
         return (self.x, self.y, self.xd, self.yd).__hash__()
 
+    
+    @cache
     def within_bounds(self, dim):
         xlim, ylim = dim
         within_x = self.x >= 0 and self.x < xlim
         within_y = self.y >= 0 and self.y < ylim
         return within_x and within_y
-
 
 
 # part1
