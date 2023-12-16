@@ -95,18 +95,11 @@ def energise(startbeam, grid):
         except:
             continue
         for nb in b.step(symbol):
-            oob = 'OOB' if not nb.within_bounds(dim) else ''
-            # print(f"{b} into {symbol} => {nb}   {oob}")
-            # if nb.x == 7 and nb.y == 0:
-            #     print(f"{b} => {nb}")
             if nb.within_bounds(dim) and nb not in tiles_energised:
                 # only count unique beams
                 # and beams that are still in bounds
                 beams.append(nb)
-    s = len(set((b.x, b.y) for b in tiles_energised))
-    for b in tiles_energised:
-        tiles[b.y][b.x] = '#'
-        return s
+    return len(set((b.x, b.y) for b in tiles_energised))
 
 s = energise(Beam(x=0, y=0, xd=1, yd=0), P)
 timer(f"Part 1: {s}")
@@ -114,36 +107,20 @@ pyperclip.copy(int(s))
 
 def energise_every_beam(P):
     xlim, ylim = len(P[0]), len(P)
-    me = 0
-    # left, heading right
+    beams = []
     for row in range(ylim):
-        b = Beam(x=0, y=row, xd=1, yd=0)
-        e = energise(b, P)
-        # print(f"{b = :}  => {e}")
-        me = max(e, me)
+        # left to right
+        beams.append(Beam(x=0, y=row, xd=1, yd=0))
+        # right to left
+        beams.append(Beam(x=xlim-1, y=row, xd=-1, yd=0))
 
-    # right, heading left
-    for row in range(ylim):
-        b = Beam(x=xlim-1, y=row, xd=-1, yd=0)
-        e = energise(b, P)
-        # print(f"{b = :}  => {e}")
-        me = max(e, me)
-
-    # top, heading down
     for col in range(xlim):
-        b = Beam(x=col, y=0, xd=0, yd=1)
-        e = energise(b, P)
-        # print(f"{b = :}  => {e}")
-        me = max(e, me)
+        # top to bottom
+        beams.append(Beam(x=col, y=0, xd=0, yd=1))
+        # bottom to top
+        beams.append(Beam(x=col, y=xlim-1, xd=0, yd=-1))
 
-    # bottom, heading up
-    for col in range(xlim):
-        b = Beam(x=col, y=xlim-1, xd=0, yd=-1)
-        e = energise(b, P)
-        # print(f"{b = :}  => {e}")
-        me = max(e, me)
-
-    return me
+    return max(energise(b, P) for b in beams)
 
 # part2
 timer(reset=True)
