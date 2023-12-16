@@ -82,43 +82,74 @@ class Beam:
 # part1
 timer()
 
-beams = [Beam(x=0, y=0, xd=1, yd=0)]
-tiles_energised = set()
-loops = 10
-dim = (len(P), (len(P[0])))
-while beams:
-    b = beams.pop()
-    tiles_energised.add(b)
-    try:
-        symbol = P[b.y][b.x]
-    except:
-        continue
-    for nb in b.step(symbol):
-        oob = 'OOB' if not nb.within_bounds(dim) else ''
-        # print(f"{b} into {symbol} => {nb}   {oob}")
-        # if nb.x == 7 and nb.y == 0:
-        #     print(f"{b} => {nb}")
-        if nb.within_bounds(dim) and nb not in tiles_energised:
-            # only count unique beams
-            # and beams that are still in bounds
-            beams.append(nb)
+def energise(startbeam, grid):
+    beams = [startbeam]
+    tiles_energised = set()
+    loops = 10
+    dim = (len(grid), (len(grid[0])))
+    while beams:
+        b = beams.pop()
+        tiles_energised.add(b)
+        try:
+            symbol = grid[b.y][b.x]
+        except:
+            continue
+        for nb in b.step(symbol):
+            oob = 'OOB' if not nb.within_bounds(dim) else ''
+            # print(f"{b} into {symbol} => {nb}   {oob}")
+            # if nb.x == 7 and nb.y == 0:
+            #     print(f"{b} => {nb}")
+            if nb.within_bounds(dim) and nb not in tiles_energised:
+                # only count unique beams
+                # and beams that are still in bounds
+                beams.append(nb)
+    s = len(set((b.x, b.y) for b in tiles_energised))
+    for b in tiles_energised:
+        tiles[b.y][b.x] = '#'
+        return s
 
-
-s = len(set((b.x, b.y) for b in tiles_energised))
-for b in tiles_energised:
-    tiles[b.y][b.x] = '#'
-
+s = energise(Beam(x=0, y=0, xd=1, yd=0), P)
 timer(f"Part 1: {s}")
 pyperclip.copy(int(s))
 
-if 0:
-    # part2
-    timer(reset=True)
+def energise_every_beam(P):
+    xlim, ylim = len(P[0]), len(P)
+    me = 0
+    # left, heading right
+    for row in range(ylim):
+        b = Beam(x=0, y=row, xd=1, yd=0)
+        e = energise(b, P)
+        # print(f"{b = :}  => {e}")
+        me = max(e, me)
 
-    # ... do stuff ...
+    # right, heading left
+    for row in range(ylim):
+        b = Beam(x=xlim-1, y=row, xd=-1, yd=0)
+        e = energise(b, P)
+        # print(f"{b = :}  => {e}")
+        me = max(e, me)
 
-    res = 0
-    timer(f"Part 2: {res}")
-    pyperclip.copy(int(res))
+    # top, heading down
+    for col in range(xlim):
+        b = Beam(x=col, y=0, xd=0, yd=1)
+        e = energise(b, P)
+        # print(f"{b = :}  => {e}")
+        me = max(e, me)
+
+    # bottom, heading up
+    for col in range(xlim):
+        b = Beam(x=col, y=xlim-1, xd=0, yd=-1)
+        e = energise(b, P)
+        # print(f"{b = :}  => {e}")
+        me = max(e, me)
+
+    return me
+
+# part2
+timer(reset=True)
+
+maxenergy = energise_every_beam(P)
+timer(f"Part 2: {maxenergy}")
+pyperclip.copy(int(maxenergy))
 
 
