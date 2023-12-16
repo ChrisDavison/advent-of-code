@@ -194,10 +194,8 @@ as_grid	2023/utility.py	/^def as_grid(paragraph):$/;"	f
 as_ms	2020/src/lib.rs	/^pub fn as_ms(delta: std::time::Duration) -> u128 {$/;"	f
 atom	2023/utility.py	/^def atom(text: str) -> Atom:$/;"	f	typeref:typename:Atom
 atoms	2023/utility.py	/^def atoms(text: str) -> Tuple[Atom]:$/;"	f	typeref:typename:Tuple[Atom]
-b	2023/day16.py	/^    b = beams.pop()$/;"	v
 bags_containing_gold	2020/src/day07.rs	/^fn bags_containing_gold(bagmap: &BagMap) -> usize {$/;"	f
 batched	2023/utility.py	/^def batched(iterable, n) -> Iterable[tuple]:$/;"	f	typeref:typename:Iterable[tuple]
-beams	2023/day16.py	/^beams = [Beam(x=0, y=0, xd=1, yd=0)]$/;"	v
 bool_xor	2020/src/bool_xor.rs	/^macro_rules! bool_xor {$/;"	M
 bool_xor	2020/src/lib.rs	/^mod bool_xor;$/;"	n
 box	2023/day15.py	/^    box = puzzlehash(label)$/;"	v
@@ -373,7 +371,6 @@ dict	2020/src/quick_dict.rs	/^macro_rules! dict {$/;"	M
 difference_positions	2018/day02.py	/^def difference_positions(a, b):$/;"	f
 digits	2023/utility.py	/^def digits(text: str) -> Tuple[int]:$/;"	f	typeref:typename:Tuple[int]
 digits_and_worddigits	2023/utility.py	/^def digits_and_worddigits(text: str) -> Tuple[int]:$/;"	f	typeref:typename:Tuple[int]
-dim	2023/day16.py	/^dim = (len(P), (len(P[0])))$/;"	v
 directions4	2023/utility.py	/^directions4 = East, South, West, North = ((1, 0), (0, 1), (-1, 0), (0, -1))$/;"	v
 directions5	2023/utility.py	/^directions5 = directions4 + (Zero,)$/;"	v
 directions8	2023/utility.py	/^directions8 = directions4 + diagonals$/;"	v
@@ -392,6 +389,8 @@ ecl	2020/src/day04.rs	/^    ecl: String,$/;"	m	struct:Passport
 edges	2020/src/day20.rs	/^    fn edges(&self) -> (Vec<char>, Vec<char>, Vec<char>, Vec<char>) {$/;"	P	implementation:Tile
 elves_data	2022/day01.py	/^elves_data = parse(open("inputs\/01").read())$/;"	v
 elves_ex	2022/day01.py	/^elves_ex = parse(example)$/;"	v
+energise	2023/day16.py	/^def energise(startbeam, grid):$/;"	f
+energise_every_beam	2023/day16.py	/^def energise_every_beam(P):$/;"	f
 enumerated_grid	2023/utility.py	/^def enumerated_grid(data):$/;"	f
 eq	2020/src/day24.rs	/^    fn eq(&self, other: &Hex) -> bool {$/;"	P	implementation:Hex
 equals	2019/intcode.py	/^    def equals(self, intcode):$/;"	m	class:IntCode
@@ -495,7 +494,6 @@ letter	2020/src/day02.rs	/^    letter: char,$/;"	m	struct:PasswordLine
 lim	2023/day02.py	/^lim = np.array([12, 13, 14])$/;"	v
 lines	2023/utility.py	/^lines = str.splitlines  # By default, split input text into lines$/;"	v
 loop_until_symbol_evaluated	2020/src/day18.rs	/^fn loop_until_symbol_evaluated<F>($/;"	f
-loops	2023/day16.py	/^loops = 10$/;"	v
 loopstart	2023/day14.py	/^            loopstart = len(seen)$/;"	v
 loopstart	2023/day14.py	/^loopstart = 0$/;"	v
 lower	2019/day04.py	/^lower, upper = [int(i) for i in data.split("-")[:2]]$/;"	v
@@ -513,6 +511,7 @@ mapl	2023/utility.py	/^def mapl(func, iterable) -> List:$/;"	f	typeref:typename:
 mapt	2023/utility.py	/^def mapt(func, iterable) -> Tuple:$/;"	f	typeref:typename:Tuple
 matching_edge	2020/src/day20.rs	/^    fn matching_edge(a: &Tile, b: &Tile) -> Option<Direction> {$/;"	P	implementation:Tile
 max	2020/src/day23.rs	/^    max: usize,$/;"	m	struct:CupGame
+maxenergy	2023/day16.py	/^maxenergy = energise_every_beam(P)$/;"	v
 min	2020/src/day23.rs	/^    min: usize,$/;"	m	struct:CupGame
 minmax	2023/utility.py	/^def minmax(numbers) -> Tuple[int, int]:$/;"	f	typeref:typename:Tuple[int,int]
 move_by	2020/src/day12.rs	/^fn move_by(current: &mut Position, direction: char, distance: usize) {$/;"	f
@@ -547,7 +546,6 @@ nx	2019/day07.py	/^import networkx as nx$/;"	I	nameref:module:networkx
 nx	2023/utility.py	/^import networkx as nx$/;"	I	nameref:module:networkx
 object_score	2022/day02.py	/^def object_score(you):$/;"	f
 one_step	2019/intcode.py	/^    def one_step(self):$/;"	m	class:IntCode
-oob	2023/day16.py	/^        oob = 'OOB' if not nb.within_bounds(dim) else ''$/;"	v
 orbits_of	2019/day06.py	/^def orbits_of(node, graph):$/;"	f
 orientations	2020/src/day20.rs	/^    fn orientations(&self) -> TileOrientations {$/;"	P	implementation:Tile
 p	2023/day03.py	/^def p(data):$/;"	f
@@ -748,7 +746,6 @@ req_rec	2019/day01.py	/^def req_rec(mass):$/;"	f
 required	2019/day01.py	/^def required(mass):$/;"	f
 required_mass_of_fuel	2019/adventofcode.ex	/^  def required_mass_of_fuel(fuel) do$/;"	f	module:AocDay01	access:public
 required_mass_of_fuel_recursive	2019/adventofcode.ex	/^  def required_mass_of_fuel_recursive(fuel) do$/;"	f	module:AocDay01	access:public
-res	2023/day16.py	/^    res = 0$/;"	v
 res	2023/template.py	/^res = 0$/;"	v
 result	2022/day02.py	/^def result(opponent, you):$/;"	f
 right	2023/utility.py	/^    def right(self):$/;"	m	class:Point2D
@@ -774,7 +771,7 @@ s	2023/day12.py	/^    s, c = line.split(' ')$/;"	v
 s	2023/day12.py	/^s: int = 0$/;"	v	typeref:typename:int
 s	2023/day13.py	/^s: int = 0$/;"	v	typeref:typename:int
 s	2023/day15.py	/^s = 0$/;"	v
-s	2023/day16.py	/^s = len(set((b.x, b.y) for b in tiles_energised))$/;"	v
+s	2023/day16.py	/^s = energise(Beam(x=0, y=0, xd=1, yd=0), P)$/;"	v
 sample	2019/day03.py	/^sample = """$/;"	v
 sample	2023/day06.py	/^sample = """Time:      7  15   30$/;"	v
 sample2	2019/day03.py	/^sample2 = """$/;"	v
@@ -893,7 +890,6 @@ tests	2020/src/day08.rs	/^mod tests {$/;"	n
 tests	2020/src/day18.rs	/^mod tests {$/;"	n
 the	2023/utility.py	/^def the(sequence) -> object:$/;"	f	typeref:typename:object
 tiles	2023/day16.py	/^tiles = np.array(P)$/;"	v
-tiles_energised	2023/day16.py	/^tiles_energised = set()$/;"	v
 time_solution	2020/src/lib.rs	/^macro_rules! time_solution {$/;"	M
 timed	2019/prelude.py	/^def timed(funcname, f, *args, **kwargs):$/;"	f
 timed	2021/prelude.py	/^def timed(funcname, f, *args, **kwargs):$/;"	f
