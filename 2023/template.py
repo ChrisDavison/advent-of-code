@@ -1,28 +1,13 @@
-from utility import *
+from collections import defaultdict
+import re
+from utility import T, minmax, split_at, quantify, powerset, batched, sliding_window, first, last, nth, first_true, as_grid
 
 SAMPLE = """ """
-DATA = Path("input/DAYNUM2").read_text()
+DATA = open("input/DAYNUM2").readlines()
 
 P = []
 for line in SAMPLE.splitlines():
     P.append(line)
 
-# part1
-timer()
-
-# ... do stuff ...
-
-res = 0
-timer(f"Part 1: {res}")
-pyperclip.copy(int(res))
-
-# part2
-timer(reset=True)
-
-# ... do stuff ...
-
-res = 0
-timer(f"Part 2: {res}")
-pyperclip.copy(int(res))
-
+print(f"Part 1: {0}")
 

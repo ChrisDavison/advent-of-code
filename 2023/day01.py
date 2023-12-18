@@ -15,12 +15,15 @@ zoneight234
 
 DATA = Path("input/01").read_text()
 
+s = 0
+for line in DATA.splitlines():
+    d = digits(line)
+    s += d[0] * 10 + d[-1]
+print("Part 1: ", s)
 
-# --- part 1
-@timed
-def f(parsed):
-    return sum(d[0] * 10 + d[-1] for d in parsed)
 
-
-f(parse(1, digits, lines, show=0))
-f(parse(1, digits_and_worddigits, lines, show=0))
+s = 0
+for line in DATA.splitlines():
+    d = digits_and_worddigits(line)
+    s += d[0] * 10 + d[-1]
+print("Part 1: ", s)
