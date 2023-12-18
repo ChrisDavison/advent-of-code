@@ -44,7 +44,7 @@ DATA	2023/day15.py	/^DATA = Path("input\/15").read_text()$/;"	v
 DATA	2023/day16.py	/^DATA = Path("input\/16").read_text()$/;"	v
 DATA	2023/day17.py	/^DATA = Path("input\/17").read_text()$/;"	v
 DATA	2023/day18.py	/^DATA = Path("input\/18").read_text()$/;"	v
-DATA	2023/template.py	/^DATA = Path("input\/DAYNUM2").read_text()$/;"	v
+DATA	2023/template.py	/^DATA = open("input\/DAYNUM2").readlines()$/;"	v
 Deck	2020/src/day22.rs	/^type Deck = VecDeque<usize>;$/;"	t
 Direction	2020/src/day20.rs	/^enum Direction {$/;"	g
 East	2020/src/day20.rs	/^    East,$/;"	e	enum:Direction
@@ -268,6 +268,8 @@ criterion_benchmark	2020/src/my_benchmark.rs	/^fn criterion_benchmark(c: &mut Cr
 cross_product	2023/utility.py	/^from itertools import count as count_from, product as cross_product$/;"	x	nameref:unknown:product
 current	2020/src/day23.rs	/^    current: usize,$/;"	m	struct:CupGame
 cycles	2023/day14.py	/^cycles = 1000000000$/;"	v
+d	2023/day01.py	/^    d = digits(line)$/;"	v
+d	2023/day01.py	/^    d = digits_and_worddigits(line)$/;"	v
 d	2023/day16.py	/^d = DATA$/;"	v
 d15_1_ex	2020/src/day15.rs	/^fn d15_1_ex() {$/;"	f
 data	2019/day01.py	/^data = [int(l) for l in open('input\/01').read().splitlines()]$/;"	v
@@ -440,7 +442,6 @@ examples_part2	2020/src/day06.rs	/^    fn examples_part2() {$/;"	f	module:tests
 expand	2023/day11.py	/^    def expand(self, blankrows, blankcols, add_rows=1):$/;"	m	class:Galaxy
 expand	2023/utility.py	/^def expand(problem, node):$/;"	f
 eyr	2020/src/day04.rs	/^    eyr: usize,$/;"	m	struct:Passport
-f	2023/day01.py	/^def f(parsed):$/;"	f
 f	2023/day06.py	/^def f(t, d):$/;"	f
 f	2023/day13.py	/^    def f(line):$/;"	f	function:column_mirrors	file:
 find_cycle	2023/day08.py	/^def find_cycle(instructions, routes, start):$/;"	f
@@ -784,7 +785,6 @@ res	2023/day17.py	/^        res = cost$/;"	v
 res	2023/day17.py	/^res = 0$/;"	v
 res	2023/day18.py	/^res = shoelace(*p(DATA, lineparser_1))$/;"	v
 res	2023/day18.py	/^res = shoelace(*p(DATA, lineparser_2))$/;"	v
-res	2023/template.py	/^res = 0$/;"	v
 result	2022/day02.py	/^def result(opponent, you):$/;"	f
 result	2023/utility.py	/^    def result(self, loc1, loc2):     return loc2$/;"	m	class:GridProblem
 result	2023/utility.py	/^    def result(self, state, action): return action # Simplest case: action is result state$/;"	m	class:SearchProblem
@@ -806,6 +806,7 @@ run	2019/intcode.py	/^    def run(self):$/;"	m	class:IntCode
 run	2020/src/day25.rs	/^fn run(card: usize, door: usize) -> Result<String> {$/;"	f
 run	2023/day11.py	/^def run(data=SAMPLE, add_rows=1):$/;"	f
 run_with_replace	2019/day02.py	/^def run_with_replace(data, a, b):$/;"	f
+s	2023/day01.py	/^s = 0$/;"	v
 s	2023/day04.py	/^s = 0$/;"	v
 s	2023/day12.py	/^    s, c = line.split(' ')$/;"	v
 s	2023/day12.py	/^s: int = 0$/;"	v	typeref:typename:int

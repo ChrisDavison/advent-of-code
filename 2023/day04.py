@@ -22,13 +22,12 @@ def parse_game(line):
 p = parse(4, parse_game, lines, show=0)
 
 
-timer()
 s = 0
 for _, have, win in p:
     inter = have & win
     if inter:
         s += 2 ** (len(inter) - 1)
-timer(f"Part 1: {s}")
+print(f"Part 1: {s}")
 
 
 copies_of_each = [1] * (len(p) + 1)
@@ -41,4 +40,4 @@ for gameid, have, win in p:
     for g in range(1, len(inter) + 1):
         copies_of_each[gameid + g] += copies_of_each[gameid]
 
-timer(f"Part 2: {sum(copies_of_each)}")
+print(f"Part 2: {sum(copies_of_each)}")
