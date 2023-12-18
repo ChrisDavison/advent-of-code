@@ -96,7 +96,6 @@ P	2023/day15.py	/^P = [(part, puzzlehash(part)) for part in DATA.replace('\\n', 
 P	2023/day15.py	/^P = [puzzlehash(part) for part in DATA.replace('\\n', '').split(',')]$/;"	v
 P	2023/day16.py	/^P = []$/;"	v
 P	2023/day17.py	/^P = np.array(as_grid(DATA), dtype=int)$/;"	v
-P	2023/day18.py	/^P = []$/;"	v
 P	2023/template.py	/^P = []$/;"	v
 PClose	2020/src/day18.rs	/^    PClose,$/;"	e	enum:Token
 POpen	2020/src/day18.rs	/^    POpen,$/;"	e	enum:Token
@@ -131,7 +130,7 @@ SAMPLE	2023/day14.py	/^SAMPLE = """O....#....$/;"	v
 SAMPLE	2023/day15.py	/^SAMPLE = """rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7"""$/;"	v
 SAMPLE	2023/day16.py	/^SAMPLE = r""".|...\\....$/;"	v
 SAMPLE	2023/day17.py	/^SAMPLE = """2413432311323$/;"	v
-SAMPLE	2023/day18.py	/^SAMPLE = """ """$/;"	v
+SAMPLE	2023/day18.py	/^SAMPLE = """R 6 (#70c710)$/;"	v
 SAMPLE	2023/template.py	/^SAMPLE = """ """$/;"	v
 SAMPLE2	2023/day08.py	/^SAMPLE2 = """LR$/;"	v
 SAMPLE2	2023/day10.py	/^SAMPLE2 = """.F----7F7F7F7F-7....$/;"	v
@@ -520,6 +519,8 @@ left	2023/utility.py	/^    def left(self):$/;"	m	class:Point2D
 less_than	2019/intcode.py	/^    def less_than(self, intcode):$/;"	m	class:IntCode
 letter	2020/src/day02.rs	/^    letter: char,$/;"	m	struct:PasswordLine
 lim	2023/day02.py	/^lim = np.array([12, 13, 14])$/;"	v
+lineparser_1	2023/day18.py	/^def lineparser_1(line):$/;"	f
+lineparser_2	2023/day18.py	/^def lineparser_2(line):$/;"	f
 lines	2023/utility.py	/^lines = str.splitlines  # By default, split input text into lines$/;"	v
 loop_until_symbol_evaluated	2020/src/day18.rs	/^fn loop_until_symbol_evaluated<F>($/;"	f
 loopstart	2023/day14.py	/^            loopstart = len(seen)$/;"	v
@@ -578,6 +579,7 @@ orbits_of	2019/day06.py	/^def orbits_of(node, graph):$/;"	f
 orientations	2020/src/day20.rs	/^    fn orientations(&self) -> TileOrientations {$/;"	P	implementation:Tile
 p	2023/day03.py	/^def p(data):$/;"	f
 p	2023/day04.py	/^p = parse(4, parse_game, lines, show=0)$/;"	v
+p	2023/day18.py	/^def p(data, lineparser):$/;"	f
 p1	2019/day07.py	/^    p1 = m0.last_output()$/;"	v
 p1_example	2020/src/day09.rs	/^fn p1_example() {$/;"	f
 p1_valid	2019/day04.py	/^def p1_valid(pw):$/;"	f
@@ -780,7 +782,8 @@ required_mass_of_fuel	2019/adventofcode.ex	/^  def required_mass_of_fuel(fuel) d
 required_mass_of_fuel_recursive	2019/adventofcode.ex	/^  def required_mass_of_fuel_recursive(fuel) do$/;"	f	module:AocDay01	access:public
 res	2023/day17.py	/^        res = cost$/;"	v
 res	2023/day17.py	/^res = 0$/;"	v
-res	2023/day18.py	/^res = 0$/;"	v
+res	2023/day18.py	/^res = shoelace(*p(DATA, lineparser_1))$/;"	v
+res	2023/day18.py	/^res = shoelace(*p(DATA, lineparser_2))$/;"	v
 res	2023/template.py	/^res = 0$/;"	v
 result	2022/day02.py	/^def result(opponent, you):$/;"	f
 result	2023/utility.py	/^    def result(self, loc1, loc2):     return loc2$/;"	m	class:GridProblem
@@ -831,6 +834,7 @@ set	2019/intcode.py	/^    def set(self, offset, value):$/;"	m	class:IntCode
 setup_day	2023/aoc.sh	/^setup_day() {$/;"	f
 setup_logger	2019/logger.py	/^def setup_logger(name, level=logging.INFO):$/;"	f
 shoelace	2023/day10.py	/^def shoelace(points):$/;"	f
+shoelace	2023/day18.py	/^def shoelace(coords, pathlen):$/;"	f
 should_be_active	2020/src/day17.rs	/^fn should_be_active(cell: u8, n_neighbours_alive: u8) -> bool {$/;"	f
 should_flip_2	2020/src/day24.rs	/^fn should_flip_2((i, j): (usize, usize), grid: &[Vec<bool>]) -> bool {$/;"	f
 should_pick	2022/day02.py	/^def should_pick(opponent, you):$/;"	f
