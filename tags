@@ -43,6 +43,7 @@ DATA	2023/day14.py	/^DATA = Path("input\/14").read_text()$/;"	v
 DATA	2023/day15.py	/^DATA = Path("input\/15").read_text()$/;"	v
 DATA	2023/day16.py	/^DATA = Path("input\/16").read_text()$/;"	v
 DATA	2023/day17.py	/^DATA = Path("input\/17").read_text()$/;"	v
+DATA	2023/day18.py	/^DATA = Path("input\/18").read_text()$/;"	v
 DATA	2023/template.py	/^DATA = Path("input\/DAYNUM2").read_text()$/;"	v
 Deck	2020/src/day22.rs	/^type Deck = VecDeque<usize>;$/;"	t
 Direction	2020/src/day20.rs	/^enum Direction {$/;"	g
@@ -95,6 +96,7 @@ P	2023/day15.py	/^P = [(part, puzzlehash(part)) for part in DATA.replace('\\n', 
 P	2023/day15.py	/^P = [puzzlehash(part) for part in DATA.replace('\\n', '').split(',')]$/;"	v
 P	2023/day16.py	/^P = []$/;"	v
 P	2023/day17.py	/^P = np.array(as_grid(DATA), dtype=int)$/;"	v
+P	2023/day18.py	/^P = []$/;"	v
 P	2023/template.py	/^P = []$/;"	v
 PClose	2020/src/day18.rs	/^    PClose,$/;"	e	enum:Token
 POpen	2020/src/day18.rs	/^    POpen,$/;"	e	enum:Token
@@ -129,6 +131,7 @@ SAMPLE	2023/day14.py	/^SAMPLE = """O....#....$/;"	v
 SAMPLE	2023/day15.py	/^SAMPLE = """rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7"""$/;"	v
 SAMPLE	2023/day16.py	/^SAMPLE = r""".|...\\....$/;"	v
 SAMPLE	2023/day17.py	/^SAMPLE = """2413432311323$/;"	v
+SAMPLE	2023/day18.py	/^SAMPLE = """ """$/;"	v
 SAMPLE	2023/template.py	/^SAMPLE = """ """$/;"	v
 SAMPLE2	2023/day08.py	/^SAMPLE2 = """LR$/;"	v
 SAMPLE2	2023/day10.py	/^SAMPLE2 = """.F----7F7F7F7F-7....$/;"	v
@@ -777,6 +780,7 @@ required_mass_of_fuel	2019/adventofcode.ex	/^  def required_mass_of_fuel(fuel) d
 required_mass_of_fuel_recursive	2019/adventofcode.ex	/^  def required_mass_of_fuel_recursive(fuel) do$/;"	f	module:AocDay01	access:public
 res	2023/day17.py	/^        res = cost$/;"	v
 res	2023/day17.py	/^res = 0$/;"	v
+res	2023/day18.py	/^res = 0$/;"	v
 res	2023/template.py	/^res = 0$/;"	v
 result	2022/day02.py	/^def result(opponent, you):$/;"	f
 result	2023/utility.py	/^    def result(self, loc1, loc2):     return loc2$/;"	m	class:GridProblem
