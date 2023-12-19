@@ -97,10 +97,10 @@ P	2023/day15.py	/^P = [(part, puzzlehash(part)) for part in DATA.replace('\\n', 
 P	2023/day15.py	/^P = [puzzlehash(part) for part in DATA.replace('\\n', '').split(',')]$/;"	v
 P	2023/day16.py	/^P = []$/;"	v
 P	2023/day17.py	/^P = np.array(as_grid(DATA), dtype=int)$/;"	v
-P	2023/day19.py	/^P = []$/;"	v
 P	2023/template.py	/^P = []$/;"	v
 PClose	2020/src/day18.rs	/^    PClose,$/;"	e	enum:Token
 POpen	2020/src/day18.rs	/^    POpen,$/;"	e	enum:Token
+Part	2023/day19.py	/^class Part:$/;"	c
 Passport	2020/src/day04.rs	/^impl FromStr for Passport {$/;"	c
 Passport	2020/src/day04.rs	/^struct Passport {$/;"	s
 PasswordLine	2020/src/day02.rs	/^struct PasswordLine<'a> {$/;"	s
@@ -116,6 +116,7 @@ Position	2020/src/day17.rs	/^type Position = (usize, usize, usize);$/;"	t
 Position4d	2020/src/day17.rs	/^type Position4d = (usize, usize, usize, usize);$/;"	t
 PriorityQueue	2023/utility.py	/^class PriorityQueue:$/;"	c
 Range	2020/src/day16.rs	/^type Range = (usize, usize);$/;"	t
+Rule	2023/day19.py	/^class Rule:$/;"	c
 RuleSet	2020/src/day16.rs	/^type RuleSet = HashMap<String, (Range, Range)>;$/;"	t
 SAMPLE	2019/day07.py	/^SAMPLE = "3,15,3,16,1002,16,10,16,1,16,15,15,4,15,99,0,0"$/;"	v
 SAMPLE	2023/day03.py	/^SAMPLE = """467..114..$/;"	v
@@ -133,7 +134,7 @@ SAMPLE	2023/day15.py	/^SAMPLE = """rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=
 SAMPLE	2023/day16.py	/^SAMPLE = r""".|...\\....$/;"	v
 SAMPLE	2023/day17.py	/^SAMPLE = """2413432311323$/;"	v
 SAMPLE	2023/day18.py	/^SAMPLE = """R 6 (#70c710)$/;"	v
-SAMPLE	2023/day19.py	/^SAMPLE = """ """$/;"	v
+SAMPLE	2023/day19.py	/^SAMPLE = """px{a<2006:qkq,m>2090:A,rfg}$/;"	v
 SAMPLE	2023/template.py	/^SAMPLE = """ """$/;"	v
 SAMPLE2	2023/day08.py	/^SAMPLE2 = """LR$/;"	v
 SAMPLE2	2023/day10.py	/^SAMPLE2 = """.F----7F7F7F7F-7....$/;"	v
@@ -307,6 +308,7 @@ data	2021/day23.py	/^data = [int(l) for l in open('input\/23').read().splitlines
 data	2021/day24.py	/^data = [int(l) for l in open('input\/24').read().splitlines()]$/;"	v
 data	2021/day25.py	/^data = [int(l) for l in open('input\/25').read().splitlines()]$/;"	v
 data	2023/day06.py	/^data = mapl(np.array, parse(6, ints, lines, show=0))$/;"	v
+data	2023/day19.py	/^data = SAMPLE$/;"	v
 day	2023/aoc.sh	/^day(){ $/;"	f
 day%	2023/Makefile	/^day%: day%.py$/;"	t
 day01	2020/src/day01.rs	/^pub fn day01() -> Result<String> {$/;"	f
@@ -513,6 +515,7 @@ iteration	2020/src/day20.rs	/^    iteration: usize,$/;"	m	struct:TileOrientation
 iyr	2020/src/day04.rs	/^    iyr: usize,$/;"	m	struct:Passport
 jump_false	2019/intcode.py	/^    def jump_false(self, intcode):$/;"	m	class:IntCode
 jump_true	2019/intcode.py	/^    def jump_true(self, intcode):$/;"	m	class:IntCode
+key	2023/day19.py	/^    key, rr = line.split('{')$/;"	v
 last	2023/utility.py	/^def last(iterable) -> Optional[object]:$/;"	f	typeref:typename:Optional[object]
 last_output	2019/intcode.py	/^    def last_output(self):$/;"	m	class:IntCode
 lcm	2023/utility.py	/^def lcm(i, j) -> int:$/;"	f	typeref:typename:int
@@ -751,6 +754,7 @@ part_2	2020/src/day13.rs	/^fn part_2(buses: &[Option<usize>]) -> usize {$/;"	f
 part_2	2020/src/day14.rs	/^fn part_2(instructions: &[Op]) -> Result<usize> {$/;"	f
 partnums	2023/day03.py	/^partnums = []$/;"	v
 parts	2023/day03.py	/^parts = []$/;"	v
+parts	2023/day19.py	/^rules, parts = data.split('\\n\\n')$/;"	v
 password	2020/src/day02.rs	/^    password: &'a str,$/;"	m	struct:PasswordLine
 path_actions	2023/utility.py	/^def path_actions(node):$/;"	f
 path_states	2023/utility.py	/^def path_states(node):$/;"	f
@@ -777,6 +781,7 @@ quick_dict	2020/src/lib.rs	/^mod quick_dict;$/;"	n
 r	2023/day17.py	/^    cost, r, c, dr, dc, s = heappop(pq)$/;"	v
 ratios	2023/day03.py	/^ratios = []$/;"	v
 rdelta	2023/day13.py	/^        rdelta = row_mirrors(variant) - was_vmirror$/;"	v
+rdict	2023/day19.py	/^rdict = dict()$/;"	v
 read	2019/intcode.py	/^    def read(self, intcode):$/;"	m	class:IntCode
 remain	2023/day14.py	/^remain = left % len(seen)$/;"	v
 remains	2023/day14.py	/^remains = 0$/;"	v
@@ -802,7 +807,10 @@ rotate_waypoint	2020/src/day12.rs	/^fn rotate_waypoint(current: &mut Position, d
 row	2020/src/strides.rs	/^    pub row: usize,$/;"	m	struct:Strides
 row_lim	2020/src/strides.rs	/^    pub row_lim: usize,$/;"	m	struct:Strides
 row_mirrors	2023/day13.py	/^def row_mirrors(paragraph):$/;"	f
+rr	2023/day19.py	/^    key, rr = line.split('{')$/;"	v
+rrr	2023/day19.py	/^    rrr = rr[:-1].split(',')$/;"	v
 rule_matches	2020/src/day16.rs	/^fn rule_matches((lower_range, upper_range): (Range, Range), num: usize) -> bool {$/;"	f
+rules	2023/day19.py	/^rules, parts = data.split('\\n\\n')$/;"	v
 run	2019/adventofcode.ex	/^  def run() do$/;"	f	module:AocDay01	access:public
 run	2019/adventofcode.ex	/^  def run() do$/;"	f	module:AocDay02	access:public
 run	2019/intcode.py	/^    def run(self):$/;"	m	class:IntCode
