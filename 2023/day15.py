@@ -7,6 +7,7 @@ DATA = Path("input/15").read_text()
 
 timer(reset=True)
 
+
 @cache
 def puzzlehash(s):
     h = 0
@@ -22,24 +23,24 @@ def puzzlehash(s):
 timer()
 
 # Part 1
-P = [puzzlehash(part) for part in DATA.replace('\n', '').split(',')]
+P = [puzzlehash(part) for part in DATA.replace("\n", "").split(",")]
 timer(f"Part 1: {sum(P)}")
 pyperclip.copy(sum(P))
 
 # Part 2
 timer(reset=True)
-P = [(part, puzzlehash(part)) for part in DATA.replace('\n', '').split(',')]
+P = [(part, puzzlehash(part)) for part in DATA.replace("\n", "").split(",")]
 boxes = []
 for _ in range(256):
     boxes.append(dict())
 for part, h in P:
-    m = re.search(r'(\w+)([=-])(\d+)*', part)
+    m = re.search(r"(\w+)([=-])(\d+)*", part)
     label, *action = m.groups()
     box = puzzlehash(label)
     match action:
-        case ('=', focal_len):
+        case ("=", focal_len):
             boxes[box][label] = focal_len
-        case ('-', _):
+        case ("-", _):
             if label in boxes[box]:
                 del boxes[box][label]
 s = 0
@@ -50,4 +51,3 @@ for i, box in enumerate(boxes, start=1):
         s += i * j * int(v)
 timer(f"Part 2: {s}")
 pyperclip.copy(s)
-

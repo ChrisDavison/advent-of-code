@@ -7,6 +7,7 @@ SAMPLE = """0 3 6 9 12 15
 
 DATA = Path("input/09").read_text()
 
+
 @timed
 def do(data=SAMPLE, rev_line=False):
     data = parser(data)

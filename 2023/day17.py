@@ -29,14 +29,15 @@ P = np.array(as_grid(DATA), dtype=int)
 # part1
 timer(reset=True)
 
+
 def step(cost, r, c, dr, dc, steps):
     nr = r + dr
     nc = c + dc
     if 0 <= nr < len(P) and 0 <= nc < len(P[0]):
-        heappush(pq, (cost + P[nr][nc], nr, nc, dr, dc, steps+1))
+        heappush(pq, (cost + P[nr][nc], nr, nc, dr, dc, steps + 1))
 
 
-targetr, targetc = len(P)-1, len(P[0])-1
+targetr, targetc = len(P) - 1, len(P[0]) - 1
 seen = set()
 # heat, r, c, dr, dc, s
 pq = [(0, 0, 0, 0, 0, 0)]
@@ -52,7 +53,7 @@ while pq:
     if s < 3 and (dr, dc) != (0, 0):
         # Continue current direction
         step(cost, r, c, dr, dc, s)
-    for (ndr, ndc) in directions4:
+    for ndr, ndc in directions4:
         # Skip the 'straight' case, as it's covered above
         # and backtracking, as we've obviously already done it
         if (ndr, ndc) == (dr, dc) or (ndr, ndc) == (-dr, -dc):
@@ -80,7 +81,7 @@ while pq:
         step(cost, r, c, dr, dc, s)
     if s >= 4 or (dr, dc) == (0, 0):
         # Only turn if we've moved at least 4 steps
-        for (ndr, ndc) in directions4:
+        for ndr, ndc in directions4:
             # Skip the 'straight' case, as it's covered above
             # and backtracking, as we've obviously already done it
             if (ndr, ndc) == (dr, dc) or (ndr, ndc) == (-dr, -dc):
@@ -88,5 +89,3 @@ while pq:
             step(cost, r, c, ndr, ndc, 0)
 timer(f"Part 2: {res}")
 pyperclip.copy(int(res))
-
-

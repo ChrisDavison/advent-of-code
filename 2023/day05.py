@@ -41,10 +41,7 @@ def parsed(data):
     seeds, *pp = paragraphs(data)
     seeds = ints(seeds)
 
-    maps = [
-        [ints(line) for line in paragraph.splitlines()[1:]]
-        for paragraph in pp[1:]
-    ]
+    maps = [[ints(line) for line in paragraph.splitlines()[1:]] for paragraph in pp[1:]]
     return seeds, maps
 
 

@@ -30,7 +30,7 @@ def part1(data: Union[int, str] = SAMPLE):
     for instruction in cycle(instructions):
         current = routes[current][instruction]
         n += 1
-        if current == 'ZZZ':
+        if current == "ZZZ":
             break
     return n
 
@@ -52,7 +52,7 @@ def find_cycle(instructions, routes, start):
     for instruction in cycle(instructions):
         current = routes[current][instruction]
         n += 1  # number of steps taken
-        if current[2] == 'Z':
+        if current[2] == "Z":
             return n
     # The only way we can get here is if we've not got any instructions
     return 0

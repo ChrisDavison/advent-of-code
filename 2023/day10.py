@@ -50,20 +50,20 @@ def walk_from(start, points):
     return chainl
 
 
-def visualise(data, end='\n'):
+def visualise(data, end="\n"):
     if isinstance(data, list):
-        data = '\n'.join(''.join(thing for thing in row) for row in data)
+        data = "\n".join("".join(thing for thing in row) for row in data)
     replaces = [
-      ('.', '#'),
-      ('F', '┏'),
-      ('J', '┛'),
-      ('7', '┓'),
-      ('L', '┗'),
-      ('-', '━'),
-      ('|', '┃'),
-      ('S', '▒'),
-      ('O', '#'),
-      ('I', 'I'),
+        (".", "#"),
+        ("F", "┏"),
+        ("J", "┛"),
+        ("7", "┓"),
+        ("L", "┗"),
+        ("-", "━"),
+        ("|", "┃"),
+        ("S", "▒"),
+        ("O", "#"),
+        ("I", "I"),
     ]
     for r in replaces:
         data = data.replace(*r)
@@ -77,7 +77,6 @@ def shoelace(points):
         area += X[i] * Y[i + 1] - Y[i] * X[i + 1]
 
     return abs(area) / 2
-
 
 
 @timed
@@ -97,7 +96,9 @@ def part2(data=SAMPLE):
                     is_in = not is_in
                 elif c in "FL":
                     last_f_or_l = c  # keep track of if we were F or L
-                elif (last_f_or_l == "F" and c == "J") or (last_f_or_l == "L" and c == "7"):
+                elif (last_f_or_l == "F" and c == "J") or (
+                    last_f_or_l == "L" and c == "7"
+                ):
                     is_in = not is_in
             else:
                 inside_squares += is_in
@@ -112,8 +113,8 @@ def parser(data):
         dim[0] = max(y, dim[0])
         for x, c in enumerate(line):
             dim[1] = max(x, dim[1])
-            p = Point2D(x, y, data='c')
-            
+            p = Point2D(x, y, data="c")
+
             match c:
                 case "S":
                     s = p
@@ -131,18 +132,19 @@ def parser(data):
                     connections[p] = (p.down(), p.up())
                 case "-":
                     connections[p] = (p.left(), p.right())
-    
+
     for sur in s.surrounding():
-        if sur not in connections: # one of the non-connected directions
+        if sur not in connections:  # one of the non-connected directions
             continue
         for p in connections[sur]:
             # if any of the points surrounding s touch s,
             # make s point back to them
-            if p == s: 
+            if p == s:
                 connections[s].append(sur)
     return s, connections, (dim[0] + 1, dim[1] + 1)
 
-print('-'*80)
+
+print("-" * 80)
 print(datetime.datetime.now().strftime("@ %H:%M"))
 part1(DATA)
 print()

@@ -63,6 +63,7 @@ def parse(
         show_items("Parsed representation", records, show)
     return records
 
+
 def get_text(day_or_text: Union[int, str]) -> str:
     """The text used as input to the puzzle: either a string or the day number,
     which denotes the file 'AOC/year/input{day}.txt'."""
@@ -218,6 +219,7 @@ arrow_direction = {
     "L": West,
 }
 
+
 class Point2D:
     def __init__(self, x, y, data=None):
         self.x = x
@@ -226,16 +228,16 @@ class Point2D:
             self.data = data
 
     def up(self):
-        return Point2D(self.x, self.y-1)
+        return Point2D(self.x, self.y - 1)
 
     def right(self):
-        return Point2D(self.x+1, self.y)
+        return Point2D(self.x + 1, self.y)
 
     def down(self):
-        return Point2D(self.x, self.y+1)
+        return Point2D(self.x, self.y + 1)
 
     def left(self):
-        return Point2D(self.x-1, self.y)
+        return Point2D(self.x - 1, self.y)
 
     def surrounding(self):
         yield self.up()
@@ -503,6 +505,7 @@ def lcm_list(ii) -> int:
         l = lcm(l, i)
     return l
 
+
 def union(sets) -> set:
     "Union of several sets"
     return set().union(*sets)
@@ -702,7 +705,7 @@ def char_indices(line, ch, reverse=False):
     else:
         for i, ltr in enumerate(line[::-1]):
             if ltr == ch:
-                yield len(line) - i - 1 
+                yield len(line) - i - 1
 
 
 def enumerated_grid(data):
@@ -740,7 +743,7 @@ def as_grid(paragraph):
 
 
 def un_grid(grid):
-    return '\n'.join(''.join(row) for row in grid)
+    return "\n".join("".join(row) for row in grid)
 
 
 def get_dim(data):
@@ -753,7 +756,8 @@ def A_star_search(problem, h=None):
     h = h or problem.h
     return best_first_search(problem, f=lambda n: n.path_cost + h(n))
 
-def best_first_search(problem, f) -> 'Node':
+
+def best_first_search(problem, f) -> "Node":
     "Search nodes with minimum f(node) value first."
     node = Node(problem.initial)
     frontier = PriorityQueue([node], key=f)
@@ -774,39 +778,68 @@ class SearchProblem:
     """The abstract class for a search problem. A new domain subclasses this,
     overriding `actions` and perhaps other methods.
     The default heuristic is 0 and the default action cost is 1 for all states.
-    When you create an instance of a subclass, specify `initial`, and `goal` states 
+    When you create an instance of a subclass, specify `initial`, and `goal` states
     (or give an `is_goal` method) and perhaps other keyword args for the subclass."""
 
-    def __init__(self, initial=None, goal=None, **kwds): 
-        self.__dict__.update(initial=initial, goal=goal, **kwds) 
-        
+    def __init__(self, initial=None, goal=None, **kwds):
+        self.__dict__.update(initial=initial, goal=goal, **kwds)
+
     def __str__(self):
-        return '{}({!r}, {!r})'.format(type(self).__name__, self.initial, self.goal)
-    
-    def actions(self, state):        raise NotImplementedError
-    def result(self, state, action): return action # Simplest case: action is result state
-    def is_goal(self, state):        return state == self.goal
-    def action_cost(self, s, a, s1): return 1
-    def h(self, node):               return 0 # Never overestimate!
-    
+        return "{}({!r}, {!r})".format(type(self).__name__, self.initial, self.goal)
+
+    def actions(self, state):
+        raise NotImplementedError
+
+    def result(self, state, action):
+        return action  # Simplest case: action is result state
+
+    def is_goal(self, state):
+        return state == self.goal
+
+    def action_cost(self, s, a, s1):
+        return 1
+
+    def h(self, node):
+        return 0  # Never overestimate!
+
+
 class GridProblem(SearchProblem):
     """Problem for searching a grid from a start to a goal location.
     A state is just an (x, y) location in the grid."""
-    def actions(self, loc):           return self.grid.neighbors(loc)
-    def result(self, loc1, loc2):     return loc2
-    def h(self, node):                return taxi_distance(node.state, self.goal) 
+
+    def actions(self, loc):
+        return self.grid.neighbors(loc)
+
+    def result(self, loc1, loc2):
+        return loc2
+
+    def h(self, node):
+        return taxi_distance(node.state, self.goal)
+
 
 class Node:
     "A Node in a search tree."
-    def __init__(self, state, parent=None, action=None, path_cost=0):
-        self.__dict__.update(state=state, parent=parent, action=action, path_cost=path_cost)
 
-    def __repr__(self):      return f'Node({self.state}, path_cost={self.path_cost})'
-    def __len__(self):       return 0 if self.parent is None else (1 + len(self.parent))
-    def __lt__(self, other): return self.path_cost < other.path_cost
-    
-search_failure = Node('failure', path_cost=inf) # Indicates an algorithm couldn't find a solution.
-    
+    def __init__(self, state, parent=None, action=None, path_cost=0):
+        self.__dict__.update(
+            state=state, parent=parent, action=action, path_cost=path_cost
+        )
+
+    def __repr__(self):
+        return f"Node({self.state}, path_cost={self.path_cost})"
+
+    def __len__(self):
+        return 0 if self.parent is None else (1 + len(self.parent))
+
+    def __lt__(self, other):
+        return self.path_cost < other.path_cost
+
+
+search_failure = Node(
+    "failure", path_cost=inf
+)  # Indicates an algorithm couldn't find a solution.
+
+
 def expand(problem, node):
     "Expand a node, generating the children nodes."
     s = node.state
@@ -814,15 +847,17 @@ def expand(problem, node):
         s2 = problem.result(s, action)
         cost = node.path_cost + problem.action_cost(s, action, s2)
         yield Node(s2, node, action, cost)
-        
+
+
 def path_actions(node):
     "The sequence of actions to get to this node."
     if node.parent is None:
-        return []  
+        return []
     return path_actions(node.parent) + [node.action]
+
 
 def path_states(node):
     "The sequence of states to get to this node."
-    if node in (search_failure, None): 
+    if node in (search_failure, None):
         return []
     return path_states(node.parent) + [node.state]
