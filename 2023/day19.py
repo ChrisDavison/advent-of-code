@@ -1,9 +1,8 @@
 from collections import defaultdict
-from dataclasses import dataclass
 import operator
 import re
 from pathlib import Path
-from utility import first
+
 
 SAMPLE = """px{a<2006:qkq,m>2090:A,rfg}
 pv{a>1716:R,A}
@@ -24,16 +23,6 @@ hdj{m>838:A,pv}
 {x=2127,m=1623,a=2188,s=1013}"""
 DATA = Path("input/19").read_text()
 
-data = DATA
-
-
-@dataclass
-class Part:
-    x: int
-    m: int
-    a: int
-    s: int
-
 
 def predgen(predicatestr):
     m = re.findall(r'([xmas])([<>])(\d+)', predicatestr)[0]
@@ -47,57 +36,64 @@ def predgen(predicatestr):
     return inner
 
 
-def acceptable(part, ruleset):
-    print(part)
-    print()
-    curkey = 'in'
-    while curkey not in 'AR':
-        rules = ruleset[curkey]
-        rulestidy = ' || '.join([f"{r[2]} -> {r[1]}" for r in rules])
-        print(curkey, '\t', rulestidy)
-        while rules:
-            predicate, nextkey, pstr = rules[0]
-            rules = rules[1:]
-            print(f"\tif {pstr} -> {nextkey}", end=' ')
-            if predicate(part):
-                print(f"\tPASSED -> {nextkey}")
-                curkey = nextkey
-                break
-            else:
-                print(f"\tFAILED")
-        # input()
+def acceptable(part, ruleset, curkey='in'):
     if curkey == 'A':
-        acc.append(part['score'])
-    print('='*80)
-    # break
+        return True
+    if curkey == 'R':
+        return False
+
+    rules = ruleset[curkey]
+    while rules:
+        predicate, nextkey, pstr = rules[0]
+        rules = rules[1:]
+        if predicate(part):
+            curkey = nextkey
+            break
+    return acceptable(part, ruleset, curkey)
 
 
+def parse(data):
+    rules, parts = data.split('\n\n')
+    ruleset = defaultdict(list)
+    for line in rules.splitlines():
+        key, rr = line[:-1].split('{')
+        rs = []
+        for rule in rr.split(','):
+            if ':' in rule:
+                predicatestr, nextkey = rule.split(':')
+                predicate = predgen(predicatestr)
+                rs.append((predicate, nextkey, predicatestr))
+            else:
+                predicate = lambda x: True
+                nextkey = rule
+                rs.append((predicate, nextkey, 'TRUE'))
+        ruleset[key] = rs
+    return ruleset
 
-rules, parts = data.split('\n\n')
-ruleset = defaultdict(list)
-for line in rules.splitlines():
-    key, rr = line[:-1].split('{')
-    rs = []
-    for rule in rr.split(','):
-        if ':' in rule:
-            predicatestr, nextkey = rule.split(':')
-            predicate = predgen(predicatestr)
-            rs.append((predicate, nextkey, predicatestr))
-        else:
-            predicate = lambda x: True
-            nextkey = rule
-            rs.append((predicate, nextkey, 'TRUE'))
-    ruleset[key] = rs
-acc = []
 
+ruleset = parse(DATA)
+res = 0
 for p in parts.splitlines():
     x, m, a, s = [int(v.split('=')[1]) for v in p[1:-1].split(',')]
-    part = {'x': x, 'm': m, 'a': a, 's': s, 'score': x + m + a + s}
-
+    part = {'x': x, 'm': m, 'a': a, 's': s}
     if acceptable(part, ruleset):
-        acc.append(part)
-    # break
-
-res = sum(acc)
+        res += sum(part.values())
 print(f"Part 1: {res}")
 
+
+# part 2
+# for every combination of 1..4000 for x, m, a, s
+# count how many are acceptable
+# i.e. instead for 4000 * 4000 * 4000 * 4000 parts, count acceptable
+
+# we _DONT_ want to create these parts as that's going to be an obscene amount of calculation
+# instead, consider the ACCEPT/REJECT at each stage as a binary tree
+# count the number of inputs that would get into each path
+def as_tree(rules):
+    pass
+
+# ruleset = parse(SAMPLE)
+# for k, rules in ruleset.items():
+#     print(k)
+#     for r in rules:
+#         print(f"\t{r[2]} -> {r[1]}")
