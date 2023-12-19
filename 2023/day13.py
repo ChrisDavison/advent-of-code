@@ -29,8 +29,8 @@ D = mapl(lines, paragraphs(DATA))
 
 @cache
 def is_vmirror(line, i):
-    n = min(i, len(line)-i)
-    return line[i-n:i][::-1] == line[i:i+n]
+    n = min(i, len(line) - i)
+    return line[i - n : i][::-1] == line[i : i + n]
 
 
 def column_mirrors(paragraph):
@@ -60,22 +60,22 @@ def row_mirrors(paragraph):
     # if any of the outward don't match
     mirrors = set()
     for i in range(1, len(paragraph)):
-        u, d = paragraph[i-1], paragraph[i]
+        u, d = paragraph[i - 1], paragraph[i]
         if u != d:
             continue
         if is_row_mirrored(paragraph, i):
             mirrors.add(i)
     return mirrors
-   
+
 
 def variants(paragraph):
-    was = '.'
-    m = {'#': '.', '.': '#'}
+    was = "."
+    m = {"#": ".", ".": "#"}
     paragraph = paragraph[:]
-    for (x, y) in product(range(len(paragraph)), range(len(paragraph[0]))):
+    for x, y in product(range(len(paragraph)), range(len(paragraph[0]))):
         was = paragraph[x][y]
         paragraph[x][y] = m[was]
-        yield [''.join(line) for line in paragraph]
+        yield ["".join(line) for line in paragraph]
         paragraph[x][y] = m[paragraph[x][y]]
 
 

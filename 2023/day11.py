@@ -34,7 +34,7 @@ def run(data=SAMPLE, add_rows=1):
     mins = dists.values()
     # pp(sum(mins))
     # pp(dists_per)
-    return(sum(mins))
+    return sum(mins)
 
 
 @timed
@@ -42,7 +42,7 @@ def part2(data=SAMPLE):
     # in part1, we add a line for each blank
     # instead, in part2 we _replace_ with 1_000_000 lines
     # (i.e. add 999_999)
-    return run(data, add_rows=1_000_000-1)
+    return run(data, add_rows=1_000_000 - 1)
 
 
 @dataclass
@@ -71,11 +71,11 @@ def parse_galaxies(data):
     blank_rows = []
     blank_cols = set(range(len(data.splitlines()[0])))
     for y, line in enumerate(data.splitlines()):
-        if m := char_indices(line, '#'):
+        if m := char_indices(line, "#"):
             galaxies.extend(Galaxy(x, y) for x in m)
         else:
             blank_rows.append(y)
-        blank_cols &= char_indices(line, '.')
+        blank_cols &= char_indices(line, ".")
     # from blanks _per_row_, find which were blank in _all_ rows
     # blank_cols = reduce(lambda x, y: x.intersection(y), blank_cols)
     # now we have the galaxies, blank rows, and blank columns,

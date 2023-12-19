@@ -1,6 +1,4 @@
 from collections import defaultdict
-import operator
-import re
 from pathlib import Path
 
 
@@ -24,58 +22,44 @@ hdj{m>838:A,pv}
 DATA = Path("input/19").read_text()
 
 
-def predgen(predicatestr):
-    m = re.findall(r'([xmas])([<>])(\d+)', predicatestr)[0]
-    func = operator.lt if m[1] == '<' else operator.gt
-    key = m[0]
-    value = int(m[2])
-
-    def inner(part):
-        # print(f"{part = :} {key} {value}")
-        return func(part[key], value)
-    return inner
-
-
-def acceptable(part, ruleset, curkey='in'):
-    if curkey == 'A':
+def acceptable(part, ruleset, curkey="in"):
+    if curkey == "A":
         return True
-    if curkey == 'R':
+    if curkey == "R":
         return False
-
-    rules = ruleset[curkey]
+    rules, fallback = ruleset[curkey]
     while rules:
-        predicate, nextkey, pstr = rules[0]
+        letter, op, value, nextkey = rules[0]
         rules = rules[1:]
-        if predicate(part):
-            curkey = nextkey
-            break
-    return acceptable(part, ruleset, curkey)
+        if op == ">" and part[letter] > value:
+            return acceptable(part, ruleset, nextkey)
+        elif op == "<" and part[letter] < value:
+            return acceptable(part, ruleset, nextkey)
+    return acceptable(part, ruleset, fallback)
 
 
 def parse(data):
-    rules, parts = data.split('\n\n')
+    rules, parts = data.split("\n\n")
     ruleset = defaultdict(list)
     for line in rules.splitlines():
-        key, rr = line[:-1].split('{')
+        key, rr = line[:-1].split("{")
         rs = []
-        for rule in rr.split(','):
-            if ':' in rule:
-                predicatestr, nextkey = rule.split(':')
-                predicate = predgen(predicatestr)
-                rs.append((predicate, nextkey, predicatestr))
-            else:
-                predicate = lambda x: True
-                nextkey = rule
-                rs.append((predicate, nextkey, 'TRUE'))
-        ruleset[key] = rs
-    return ruleset
+        fallback_key = rr.split(",")[-1]
+        for rule in rr.split(",")[:-1]:
+            predicatestr, nextkey = rule.split(":")
+            letter = predicatestr[0]
+            op = predicatestr[1]
+            value = int(predicatestr[2:])
+            rs.append((letter, op, value, nextkey))
+        ruleset[key] = (rs, fallback_key)
+    return ruleset, parts
 
 
-ruleset = parse(DATA)
+ruleset, parts = parse(DATA)
 res = 0
 for p in parts.splitlines():
-    x, m, a, s = [int(v.split('=')[1]) for v in p[1:-1].split(',')]
-    part = {'x': x, 'm': m, 'a': a, 's': s}
+    x, m, a, s = [int(v.split("=")[1]) for v in p[1:-1].split(",")]
+    part = {"x": x, "m": m, "a": a, "s": s}
     if acceptable(part, ruleset):
         res += sum(part.values())
 print(f"Part 1: {res}")
@@ -85,15 +69,41 @@ print(f"Part 1: {res}")
 # for every combination of 1..4000 for x, m, a, s
 # count how many are acceptable
 # i.e. instead for 4000 * 4000 * 4000 * 4000 parts, count acceptable
+# ----------
+# we _DONT_ want to create these parts as that's going to be an obscene amount
+# of calculation instead, consider the ACCEPT/REJECT at each stage as a binary
+# tree and count the number of inputs that would get into each path
+def count(ranges, curkey="in"):
+    if curkey == "R":
+        return 0
+    if curkey == "A":
+        product = 1
+        for lo, hi in ranges.values():
+            product *= hi - lo + 1
+        return product
+    total = 0
+    rules, fallback = ruleset[curkey]
+    for letter, op, value, nextkey in rules:
+        lo, hi = ranges[letter]  # Currently POSSIBLY viable ranges for letter
+        if op == "<":
+            trues = (lo, value - 1)
+            falses = (value, hi)
+        else:
+            trues = (value + 1, hi)
+            falses = (lo, value)
+        if trues[0] <= trues[1]:
+            copy = dict(ranges)
+            copy[letter] = trues
+            total += count(copy, nextkey)
+        if falses[0] <= falses[1]:
+            ranges = dict(ranges)
+            ranges[letter] = falses
+        else:
+            break
+    else:
+        total += count(ranges, fallback)
+    return total
 
-# we _DONT_ want to create these parts as that's going to be an obscene amount of calculation
-# instead, consider the ACCEPT/REJECT at each stage as a binary tree
-# count the number of inputs that would get into each path
-def as_tree(rules):
-    pass
 
-# ruleset = parse(SAMPLE)
-# for k, rules in ruleset.items():
-#     print(k)
-#     for r in rules:
-#         print(f"\t{r[2]} -> {r[1]}")
+res = count({key: (1, 4000) for key in "xmas"})
+print(f"Part 2: {res}")

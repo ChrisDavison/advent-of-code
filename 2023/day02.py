@@ -25,6 +25,7 @@ def parse_game(line):
             mapl(np.array, map(parse_set, m.group("sets").split(";"))), axis=0
         )
 
+
 lim = np.array([12, 13, 14])
 wins = 0
 p2 = 0
@@ -34,4 +35,3 @@ for gameid, gameset_max in parse(2, parse_game, lines, show=0):
     p2 += np.prod(gameset_max)
 print(f"Part 1: {wins}")
 print(f"Part 2: {p2}")
-

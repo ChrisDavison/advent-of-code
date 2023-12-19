@@ -19,17 +19,17 @@ DATA = Path("input/18").read_text()
 
 
 def lineparser_1(line):
-    direc = {'R': (0, 1), 'D': (1, 0), 'L': (0, -1), 'U': (-1, 0)}
-    d, n, _ = line.split(' ') #dont care about colour
+    direc = {"R": (0, 1), "D": (1, 0), "L": (0, -1), "U": (-1, 0)}
+    d, n, _ = line.split(" ")  # dont care about colour
     dr, dc = direc[d]
     return dr, dc, int(n)
 
 
 def lineparser_2(line):
-    direc = {'R': (0, 1), 'D': (1, 0), 'L': (0, -1), 'U': (-1, 0)}
-    _, _, x = line.split(' ')
+    direc = {"R": (0, 1), "D": (1, 0), "L": (0, -1), "U": (-1, 0)}
+    _, _, x = line.split(" ")
     x = x[2:-1]  # Trim (# and )
-    dr, dc = direc['RDLU'[int(x[-1])]]       # take last as direction index
+    dr, dc = direc["RDLU"[int(x[-1])]]  # take last as direction index
     n = int(x[:-1], 16)  # take first 5 as length
     return dr, dc, int(n)
 
@@ -41,7 +41,7 @@ def p(data, lineparser):
         dr, dc, n = lineparser(line)
         r, c = points[-1]
         pathlen += n
-        points.append((r + dr*n, c + dc*n))
+        points.append((r + dr * n, c + dc * n))
     return points, pathlen
 
 
@@ -56,11 +56,11 @@ def shoelace(coords, pathlen):
     area = 0
     for i in range(len(coords)):
         xi = coords[i][0]
-        yiprev = coords[i-1][1]
-        yinext = coords[(i+1) % len(coords)][1]
+        yiprev = coords[i - 1][1]
+        yinext = coords[(i + 1) % len(coords)][1]
         area += coords[i][0] * (yiprev - yinext)
     area = abs(area) / 2
-    i = area - pathlen//2 + 1
+    i = area - pathlen // 2 + 1
     return int(i + pathlen)
 
 
@@ -73,4 +73,3 @@ timer(reset=True)
 res = shoelace(*p(DATA, lineparser_2))
 timer(f"Part 2: {res}")
 pyperclip.copy(res)
-

@@ -1,4 +1,18 @@
-from utility import lines, parse, timed, Path, ints, re, mapt, permutations, cat, datetime, cache, timer, defaultdict
+from utility import (
+    lines,
+    parse,
+    timed,
+    Path,
+    ints,
+    re,
+    mapt,
+    permutations,
+    cat,
+    datetime,
+    cache,
+    timer,
+    defaultdict,
+)
 from itertools import product
 import pyperclip
 
@@ -17,14 +31,14 @@ timer()
 
 D = []
 for line in DATA.splitlines():
-    s, c = line.split(' ')
+    s, c = line.split(" ")
     c = ints(c)
     D.append((s, c))
-timer('Parse')
+timer("Parse")
 
 
 @cache
-def count(p, s): 
+def count(p, s):
     if not p:
         return 1 if not s else 0
     if not s:
@@ -36,24 +50,27 @@ def count(p, s):
         result += count(p[1:], s)
 
     if p[0] in "#?":
-        if s[0] <= len(p) and "." not in p[:s[0]] and (s[0] == len(p) or p[s[0]] != '#'):
-            result += count(p[s[0] + 1:], s[1:])
+        if (
+            s[0] <= len(p)
+            and "." not in p[: s[0]]
+            and (s[0] == len(p) or p[s[0]] != "#")
+        ):
+            result += count(p[s[0] + 1 :], s[1:])
 
     return result
 
 
 s: int = 0
-for (pattern, to_match) in D:
-    s += count(pattern + '.', to_match)
+for pattern, to_match in D:
+    s += count(pattern + ".", to_match)
 timer(f"Part 1: {s}")
 input("Enter to copy to clipboard")
 pyperclip.copy(s)
 
 timer(reset=True)
 s: int = 0
-for (p, to_match) in D:
-    s += count('?'.join([p, p, p, p, p]), to_match * 5)
+for p, to_match in D:
+    s += count("?".join([p, p, p, p, p]), to_match * 5)
 timer(f"Part 2: {s}")
 input("Enter to copy to clipboard")
 pyperclip.copy(s)
-
