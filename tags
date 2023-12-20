@@ -85,6 +85,7 @@ Iterate over a string and get a number from a sequence *in one pass*	README.md	/
 Jmp	2020/src/day08.rs	/^    Jmp(i64),$/;"	e	enum:Instruction
 Mask	2020/src/day14.rs	/^    Mask(BitMask),$/;"	e	enum:Op
 Mem	2020/src/day14.rs	/^    Mem(usize, usize),$/;"	e	enum:Op
+Module	2023/day20.py	/^class Module:$/;"	c
 Mul	2020/src/day18.rs	/^    Mul,$/;"	e	enum:Token
 Node	2023/utility.py	/^class Node:$/;"	c
 Nop	2020/src/day08.rs	/^    Nop(i64),$/;"	e	enum:Instruction
@@ -182,6 +183,7 @@ __hash__	2023/utility.py	/^    def __hash__(self):$/;"	m	class:HCounter
 __hash__	2023/utility.py	/^    def __hash__(self):$/;"	m	class:Hdict
 __hash__	2023/utility.py	/^    def __hash__(self):$/;"	m	class:Point2D
 __init__	2019/intcode.py	/^    def __init__(self, opcodes, **kwargs):$/;"	m	class:IntCode
+__init__	2023/day20.py	/^    def __init__(self, label, prefix, targets):$/;"	m	class:Module
 __init__	2023/utility.py	/^    def __init__(self, contents, **kwds):$/;"	m	class:Graph
 __init__	2023/utility.py	/^    def __init__(self, grid=(), directions=directions4, skip=(), default=KeyError):$/;"	m	class:Grid
 __init__	2023/utility.py	/^    def __init__(self, initial=None, goal=None, **kwds):$/;"	m	class:SearchProblem
@@ -193,6 +195,7 @@ __len__	2023/utility.py	/^    def __len__(self):$/;"	m	class:Node
 __len__	2023/utility.py	/^    def __len__(self):$/;"	m	class:PriorityQueue
 __lt__	2023/utility.py	/^    def __lt__(self, other):$/;"	m	class:Node
 __missing__	2023/utility.py	/^    def __missing__(self, point):$/;"	m	class:Grid
+__repr__	2023/day20.py	/^    def __repr__(self):$/;"	m	class:Module
 __repr__	2023/utility.py	/^    def __repr__(self):$/;"	m	class:Node
 __repr__	2023/utility.py	/^    def __repr__(self):$/;"	m	class:Point2D
 __setattr__	2023/utility.py	/^    def __setattr__(self, attr, value):$/;"	m	class:AttrCounter
@@ -690,7 +693,7 @@ part1	2023/day07.py	/^def part1(data=SAMPLE):$/;"	f
 part1	2023/day08.py	/^def part1(data: Union[int, str] = SAMPLE):$/;"	f
 part1	2023/day10.py	/^def part1(data=SAMPLE):$/;"	f
 part1	2023/day11.py	/^def part1(data=SAMPLE):$/;"	f
-part1	2023/day20.py	/^def part1(data=SAMPLE):$/;"	f
+part1	2023/day20.py	/^def part1(data=SAMPLE, n=1):$/;"	f
 part1_examples_test	2020/src/day18.rs	/^    fn part1_examples_test() {$/;"	f	module:tests
 part2	2019/day02.py	/^def part2(data, target=19690720):$/;"	f
 part2	2019/day03.py	/^def part2(paths):$/;"	f
@@ -875,7 +878,6 @@ split_ingredient_allergen	2020/src/day21.rs	/^fn split_ingredient_allergen(s: &s
 src	2023/Makefile	/^src := $(wildcard day*.py)$/;"	m
 step	2023/day16.py	/^    def step(self, symbol):$/;"	m	class:Beam
 step	2023/day17.py	/^def step(cost, r, c, dr, dc, steps):$/;"	f
-step	2023/day20.py	/^def step(rules, q, constate, ffstate):$/;"	f
 strides	2020/src/day20.rs	/^    fn strides(&self, width: usize, height: usize) -> Strides<char> {$/;"	P	implementation:Tile
 strides	2020/src/lib.rs	/^mod strides;$/;"	n
 stringify_decks	2020/src/day22.rs	/^fn stringify_decks(a: &Deck, b: &Deck) -> String {$/;"	f
