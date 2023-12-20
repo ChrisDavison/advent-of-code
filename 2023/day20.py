@@ -2,6 +2,7 @@ from collections import defaultdict, deque
 from functools import lru_cache
 import re
 import pyperclip
+import math
 
 SAMPLE = """broadcaster -> a, b, c
 %a -> b
@@ -58,7 +59,6 @@ def part1(data=SAMPLE, n=1):
     for i in range(n):
         n_lo += 1
         q = deque([('broadcaster', target, -1) for target in start_targets])
-        q = q.copy()
 
         while q:
             op, target, val = q.popleft()
@@ -85,6 +85,56 @@ def part1(data=SAMPLE, n=1):
                 outval = -1 if all(x == 1 for x in module.memory.values()) else 1
                 for o in module.targets:
                     q.append((module.label, o, outval))
-    print(f"{n_lo = :}, {n_hi = :}")
-    print(f"Part 1: {n_lo * n_hi = :}")
-    pyperclip.copy(n_lo * n_hi)
+    return n_lo * n_hi
+
+
+def part2():
+    rules, start_targets = parse(DATA)
+    n = 0
+    (sends_to_rx,) = [module.label for label, module in rules.items()
+                      if 'rx' in module.targets]
+
+    cycle_lengths = {}
+    seen = {label: 0 for label, module in rules.items() if sends_to_rx in module.targets}
+
+    while True:
+        q = deque([('broadcaster', target, -1) for target in start_targets])
+        n += 1
+
+        while q:
+            op, target, val = q.popleft()
+
+
+            if target not in rules:
+                # print(target, 'not in rules')
+                continue
+
+            module = rules[target]
+            # print(f"{module = :}")
+
+            if module.label == sends_to_rx and val == 1:
+                seen[op] += 1
+
+                if op not in cycle_lengths:
+                    cycle_lengths[op] = n
+                else:
+                    assert n == seen[op] * cycle_lengths[op]
+        
+                if all(seen.values()):
+                    x = 1
+                    for l in cycle_lengths.values():
+                        x = x * l // math.gcd(x, l)
+                    pyperclip.copy(x)
+                    return x
+            
+
+            if module.prefix == '%':
+                if val == -1:
+                    module.memory = -module.memory
+                    for o in module.targets:
+                        q.append((module.label, o, module.memory))
+            elif module.prefix == '&':
+                module.memory[op] = val
+                outval = -1 if all(x == 1 for x in module.memory.values()) else 1
+                for o in module.targets:
+                    q.append((module.label, o, outval))
