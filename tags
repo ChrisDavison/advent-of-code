@@ -753,6 +753,7 @@ part2	2023/day07.py	/^def part2(data=SAMPLE):$/;"	f
 part2	2023/day08.py	/^def part2(data: Union[int, str] = SAMPLE):$/;"	f
 part2	2023/day10.py	/^def part2(data=SAMPLE):$/;"	f
 part2	2023/day11.py	/^def part2(data=SAMPLE):$/;"	f
+part2	2023/day20.py	/^def part2():$/;"	f
 part2_examples_test	2020/src/day18.rs	/^    fn part2_examples_test() {$/;"	f	module:tests
 part_1	2020/src/day10.rs	/^fn part_1(data: &[usize]) -> usize {$/;"	f
 part_1	2020/src/day11.rs	/^fn part_1(seats: &[Vec<u8>]) -> usize {$/;"	f
