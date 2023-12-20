@@ -44,7 +44,8 @@ DATA	2023/day15.py	/^DATA = Path("input\/15").read_text()$/;"	v
 DATA	2023/day16.py	/^DATA = Path("input\/16").read_text()$/;"	v
 DATA	2023/day17.py	/^DATA = Path("input\/17").read_text()$/;"	v
 DATA	2023/day18.py	/^DATA = Path("input\/18").read_text()$/;"	v
-DATA	2023/day19.py	/^DATA = open("input\/19").readlines()$/;"	v
+DATA	2023/day19.py	/^DATA = Path("input\/19").read_text()$/;"	v
+DATA	2023/day20.py	/^DATA = open("input\/20").readlines()$/;"	v
 DATA	2023/template.py	/^DATA = open("input\/DAYNUM2").readlines()$/;"	v
 Deck	2020/src/day22.rs	/^type Deck = VecDeque<usize>;$/;"	t
 Direction	2020/src/day20.rs	/^enum Direction {$/;"	g
@@ -93,14 +94,14 @@ One	2020/src/day14.rs	/^    One,$/;"	e	enum:Bit
 Op	2020/src/day14.rs	/^enum Op {$/;"	g
 Op	2020/src/day14.rs	/^impl FromStr for Op {$/;"	c
 Op	2020/src/day14.rs	/^impl std::fmt::Display for Op {$/;"	c
-P	2023/day15.py	/^P = [(part, puzzlehash(part)) for part in DATA.replace('\\n', '').split(',')]$/;"	v
-P	2023/day15.py	/^P = [puzzlehash(part) for part in DATA.replace('\\n', '').split(',')]$/;"	v
+P	2023/day15.py	/^P = [(part, puzzlehash(part)) for part in DATA.replace("\\n", "").split(",")]$/;"	v
+P	2023/day15.py	/^P = [puzzlehash(part) for part in DATA.replace("\\n", "").split(",")]$/;"	v
 P	2023/day16.py	/^P = []$/;"	v
 P	2023/day17.py	/^P = np.array(as_grid(DATA), dtype=int)$/;"	v
+P	2023/day20.py	/^P = []$/;"	v
 P	2023/template.py	/^P = []$/;"	v
 PClose	2020/src/day18.rs	/^    PClose,$/;"	e	enum:Token
 POpen	2020/src/day18.rs	/^    POpen,$/;"	e	enum:Token
-Part	2023/day19.py	/^class Part:$/;"	c
 Passport	2020/src/day04.rs	/^impl FromStr for Passport {$/;"	c
 Passport	2020/src/day04.rs	/^struct Passport {$/;"	s
 PasswordLine	2020/src/day02.rs	/^struct PasswordLine<'a> {$/;"	s
@@ -116,7 +117,6 @@ Position	2020/src/day17.rs	/^type Position = (usize, usize, usize);$/;"	t
 Position4d	2020/src/day17.rs	/^type Position4d = (usize, usize, usize, usize);$/;"	t
 PriorityQueue	2023/utility.py	/^class PriorityQueue:$/;"	c
 Range	2020/src/day16.rs	/^type Range = (usize, usize);$/;"	t
-Rule	2023/day19.py	/^class Rule:$/;"	c
 RuleSet	2020/src/day16.rs	/^type RuleSet = HashMap<String, (Range, Range)>;$/;"	t
 SAMPLE	2019/day07.py	/^SAMPLE = "3,15,3,16,1002,16,10,16,1,16,15,15,4,15,99,0,0"$/;"	v
 SAMPLE	2023/day03.py	/^SAMPLE = """467..114..$/;"	v
@@ -135,6 +135,7 @@ SAMPLE	2023/day16.py	/^SAMPLE = r""".|...\\....$/;"	v
 SAMPLE	2023/day17.py	/^SAMPLE = """2413432311323$/;"	v
 SAMPLE	2023/day18.py	/^SAMPLE = """R 6 (#70c710)$/;"	v
 SAMPLE	2023/day19.py	/^SAMPLE = """px{a<2006:qkq,m>2090:A,rfg}$/;"	v
+SAMPLE	2023/day20.py	/^SAMPLE = """ """$/;"	v
 SAMPLE	2023/template.py	/^SAMPLE = """ """$/;"	v
 SAMPLE2	2023/day08.py	/^SAMPLE2 = """LR$/;"	v
 SAMPLE2	2023/day10.py	/^SAMPLE2 = """.F----7F7F7F7F-7....$/;"	v
@@ -183,24 +184,26 @@ __hash__	2023/utility.py	/^    def __hash__(self):$/;"	m	class:Point2D
 __init__	2019/intcode.py	/^    def __init__(self, opcodes, **kwargs):$/;"	m	class:IntCode
 __init__	2023/utility.py	/^    def __init__(self, contents, **kwds):$/;"	m	class:Graph
 __init__	2023/utility.py	/^    def __init__(self, grid=(), directions=directions4, skip=(), default=KeyError):$/;"	m	class:Grid
-__init__	2023/utility.py	/^    def __init__(self, initial=None, goal=None, **kwds): $/;"	m	class:SearchProblem
+__init__	2023/utility.py	/^    def __init__(self, initial=None, goal=None, **kwds):$/;"	m	class:SearchProblem
 __init__	2023/utility.py	/^    def __init__(self, items=(), key=lambda x: x):$/;"	m	class:PriorityQueue
 __init__	2023/utility.py	/^    def __init__(self, pairs: Iterable[tuple] = (), symmetric=False):$/;"	m	class:multimap
 __init__	2023/utility.py	/^    def __init__(self, state, parent=None, action=None, path_cost=0):$/;"	m	class:Node
 __init__	2023/utility.py	/^    def __init__(self, x, y, data=None):$/;"	m	class:Point2D
-__len__	2023/utility.py	/^    def __len__(self):       return 0 if self.parent is None else (1 + len(self.parent))$/;"	m	class:Node
+__len__	2023/utility.py	/^    def __len__(self):$/;"	m	class:Node
 __len__	2023/utility.py	/^    def __len__(self):$/;"	m	class:PriorityQueue
-__lt__	2023/utility.py	/^    def __lt__(self, other): return self.path_cost < other.path_cost$/;"	m	class:Node
+__lt__	2023/utility.py	/^    def __lt__(self, other):$/;"	m	class:Node
 __missing__	2023/utility.py	/^    def __missing__(self, point):$/;"	m	class:Grid
-__repr__	2023/utility.py	/^    def __repr__(self):      return f'Node({self.state}, path_cost={self.path_cost})'$/;"	m	class:Node
+__repr__	2023/utility.py	/^    def __repr__(self):$/;"	m	class:Node
 __repr__	2023/utility.py	/^    def __repr__(self):$/;"	m	class:Point2D
 __setattr__	2023/utility.py	/^    def __setattr__(self, attr, value):$/;"	m	class:AttrCounter
 __str__	2023/day16.py	/^    def __str__(self):$/;"	m	class:Beam
 __str__	2023/utility.py	/^    def __str__(self):$/;"	m	class:Point2D
 __str__	2023/utility.py	/^    def __str__(self):$/;"	m	class:SearchProblem
-action_cost	2023/utility.py	/^    def action_cost(self, s, a, s1): return 1$/;"	m	class:SearchProblem
-actions	2023/utility.py	/^    def actions(self, loc):           return self.grid.neighbors(loc)$/;"	m	class:GridProblem
-actions	2023/utility.py	/^    def actions(self, state):        raise NotImplementedError$/;"	m	class:SearchProblem
+a	2023/day19.py	/^    x, m, a, s = [int(v.split("=")[1]) for v in p[1:-1].split(",")]$/;"	v
+acceptable	2023/day19.py	/^def acceptable(part, ruleset, curkey="in"):$/;"	f
+action_cost	2023/utility.py	/^    def action_cost(self, s, a, s1):$/;"	m	class:SearchProblem
+actions	2023/utility.py	/^    def actions(self, loc):$/;"	m	class:GridProblem
+actions	2023/utility.py	/^    def actions(self, state):$/;"	m	class:SearchProblem
 add	2019/intcode.py	/^    def add(self, intcode):$/;"	m	class:IntCode
 add	2023/utility.py	/^    def add(self, item):$/;"	m	class:PriorityQueue
 add	2023/utility.py	/^def add(p: Point, q: Point) -> Point:$/;"	f	typeref:typename:Point
@@ -218,14 +221,14 @@ atom	2023/utility.py	/^def atom(text: str) -> Atom:$/;"	f	typeref:typename:Atom
 atoms	2023/utility.py	/^def atoms(text: str) -> Tuple[Atom]:$/;"	f	typeref:typename:Tuple[Atom]
 bags_containing_gold	2020/src/day07.rs	/^fn bags_containing_gold(bagmap: &BagMap) -> usize {$/;"	f
 batched	2023/utility.py	/^def batched(iterable, n) -> Iterable[tuple]:$/;"	f	typeref:typename:Iterable[tuple]
-best_first_search	2023/utility.py	/^def best_first_search(problem, f) -> 'Node':$/;"	f	typeref:typename:'Node'
+best_first_search	2023/utility.py	/^def best_first_search(problem, f) -> "Node":$/;"	f	typeref:typename:"Node"
 bool_xor	2020/src/bool_xor.rs	/^macro_rules! bool_xor {$/;"	M
 bool_xor	2020/src/lib.rs	/^mod bool_xor;$/;"	n
 box	2023/day15.py	/^    box = puzzlehash(label)$/;"	v
 boxes	2023/day15.py	/^boxes = []$/;"	v
 byr	2020/src/day04.rs	/^    byr: usize,$/;"	m	struct:Passport
 c	2023/day12.py	/^    c = ints(c)$/;"	v
-c	2023/day12.py	/^    s, c = line.split(' ')$/;"	v
+c	2023/day12.py	/^    s, c = line.split(" ")$/;"	v
 c	2023/day17.py	/^    cost, r, c, dr, dc, s = heappop(pq)$/;"	v
 cache	2023/utility.py	/^cache = functools.lru_cache(None)$/;"	v
 calculate	2020/src/day18.rs	/^fn calculate(eqn: &mut Vec<Token>) -> Result<i64> {$/;"	f
@@ -253,7 +256,8 @@ contains_gold	2020/src/day07.rs	/^fn contains_gold(bagmap: &BagMap, bag: &str, c
 copies_of_each	2023/day04.py	/^copies_of_each = [1] * (len(p) + 1)$/;"	v
 copy	2023/utility.py	/^    def copy(self):$/;"	m	class:Grid
 cost	2023/day17.py	/^    cost, r, c, dr, dc, s = heappop(pq)$/;"	v
-count	2023/day12.py	/^def count(p, s): $/;"	f
+count	2023/day12.py	/^def count(p, s):$/;"	f
+count	2023/day19.py	/^def count(ranges, curkey="in"):$/;"	f
 count_answers	2020/src/day06.rs	/^fn count_answers(s: &[&str], counter: fn(&&str) -> usize) -> Vec<usize> {$/;"	f
 count_black	2020/src/day24.rs	/^fn count_black(floor: &HashMap<Hex, bool>) -> usize {$/;"	f
 count_black_2	2020/src/day24.rs	/^fn count_black_2(floor: &[Vec<bool>]) -> usize {$/;"	f
@@ -308,7 +312,6 @@ data	2021/day23.py	/^data = [int(l) for l in open('input\/23').read().splitlines
 data	2021/day24.py	/^data = [int(l) for l in open('input\/24').read().splitlines()]$/;"	v
 data	2021/day25.py	/^data = [int(l) for l in open('input\/25').read().splitlines()]$/;"	v
 data	2023/day06.py	/^data = mapl(np.array, parse(6, ints, lines, show=0))$/;"	v
-data	2023/day19.py	/^data = SAMPLE$/;"	v
 day	2023/aoc.sh	/^day(){ $/;"	f
 day%	2023/Makefile	/^day%: day%.py$/;"	t
 day01	2020/src/day01.rs	/^pub fn day01() -> Result<String> {$/;"	f
@@ -486,8 +489,8 @@ get_path	2019/day03.py	/^def get_path(instructions):$/;"	f
 get_starting_floor_state	2020/src/day24.rs	/^fn get_starting_floor_state(coords: &[Hex]) -> HashMap<Hex, bool> {$/;"	f
 get_text	2023/utility.py	/^def get_text(day_or_text: Union[int, str]) -> str:$/;"	f	typeref:typename:str
 grid	2020/src/day20.rs	/^    grid: Vec<Vec<char>>,$/;"	m	struct:Tile
-h	2023/utility.py	/^    def h(self, node):                return taxi_distance(node.state, self.goal) $/;"	m	class:GridProblem
-h	2023/utility.py	/^    def h(self, node):               return 0 # Never overestimate!$/;"	m	class:SearchProblem
+h	2023/utility.py	/^    def h(self, node):$/;"	m	class:GridProblem
+h	2023/utility.py	/^    def h(self, node):$/;"	m	class:SearchProblem
 halt	2019/intcode.py	/^    def halt(self, _intcode):$/;"	m	class:IntCode
 has_1_difference	2018/day02.py	/^def has_1_difference(a, b):$/;"	f
 has_all_fields	2020/src/day04.rs	/^fn has_all_fields(entry: &str) -> bool {$/;"	f
@@ -504,7 +507,7 @@ intersection	2023/utility.py	/^def intersection(sets):$/;"	f
 ints	2023/utility.py	/^def ints(text: str) -> Tuple[int]:$/;"	f	typeref:typename:Tuple[int]
 invalid_fields	2020/src/day16.rs	/^fn invalid_fields(rs: &RuleSet, t: &Ticket) -> Vec<usize> {$/;"	f
 invert_dict	2023/utility.py	/^def invert_dict(dic) -> dict:$/;"	f	typeref:typename:dict
-is_goal	2023/utility.py	/^    def is_goal(self, state):        return state == self.goal$/;"	m	class:SearchProblem
+is_goal	2023/utility.py	/^    def is_goal(self, state):$/;"	m	class:SearchProblem
 is_int	2023/utility.py	/^def is_int(x) -> bool:$/;"	f	typeref:typename:bool
 is_overlap	2022/day04.py	/^def is_overlap(l, r):$/;"	f
 is_row_mirrored	2023/day13.py	/^def is_row_mirrored(p, i):$/;"	f
@@ -515,7 +518,6 @@ iteration	2020/src/day20.rs	/^    iteration: usize,$/;"	m	struct:TileOrientation
 iyr	2020/src/day04.rs	/^    iyr: usize,$/;"	m	struct:Passport
 jump_false	2019/intcode.py	/^    def jump_false(self, intcode):$/;"	m	class:IntCode
 jump_true	2019/intcode.py	/^    def jump_true(self, intcode):$/;"	m	class:IntCode
-key	2023/day19.py	/^    key, rr = line.split('{')$/;"	v
 last	2023/utility.py	/^def last(iterable) -> Optional[object]:$/;"	f	typeref:typename:Optional[object]
 last_output	2019/intcode.py	/^    def last_output(self):$/;"	m	class:IntCode
 lcm	2023/utility.py	/^def lcm(i, j) -> int:$/;"	f	typeref:typename:int
@@ -534,7 +536,8 @@ loopstart	2023/day14.py	/^            loopstart = len(seen)$/;"	v
 loopstart	2023/day14.py	/^loopstart = 0$/;"	v
 lower	2019/day04.py	/^lower, upper = [int(i) for i in data.split("-")[:2]]$/;"	v
 lower	2020/src/day02.rs	/^    lower: usize,$/;"	m	struct:PasswordLine
-m	2023/day15.py	/^    m = re.search(r'(\\w+)([=-])(\\d+)*', part)$/;"	v
+m	2023/day15.py	/^    m = re.search(r"(\\w+)([=-])(\\d+)*", part)$/;"	v
+m	2023/day19.py	/^    x, m, a, s = [int(v.split("=")[1]) for v in p[1:-1].split(",")]$/;"	v
 m	2023/utility.py	/^import math as m$/;"	I	nameref:module:math
 m0	2019/day07.py	/^    m0 = IntCode(SAMPLE.split(","), inputs=[4, 3, 2, 1, 0])$/;"	v
 main	2020/src/main.rs	/^fn main() {$/;"	f
@@ -558,7 +561,7 @@ mul	2023/utility.py	/^def mul(p: Point, k: float) -> Vector:$/;"	f	typeref:typen
 multimap	2023/utility.py	/^class multimap(defaultdict):$/;"	c
 n	2023/day16.py	/^    n = []$/;"	v
 naked_plot	2023/utility.py	/^def naked_plot(points, marker="o", size=(10, 10), invert=True, square=False, **kwds):$/;"	f
-nb	2023/day16.py	/^        nb = lambda xd, yd: Beam(x=self.x+xd, y=self.y+yd, xd=xd, yd=yd)$/;"	f	member:Beam.step	file:
+nb	2023/day16.py	/^        nb = lambda xd, yd: Beam(x=self.x + xd, y=self.y + yd, xd=xd, yd=yd)$/;"	f	member:Beam.step	file:
 neg	2023/utility.py	/^def neg(p: Point) -> Vector:$/;"	f	typeref:typename:Vector
 neighbor_contents	2023/utility.py	/^    def neighbor_contents(self, point) -> Iterable:$/;"	m	class:Grid	typeref:typename:Iterable
 neighbors	2023/utility.py	/^    def neighbors(self, point) -> List[Point]:$/;"	m	class:Grid	typeref:typename:List[Point]
@@ -599,6 +602,7 @@ parse	2022/day01.py	/^def parse(data):$/;"	f
 parse	2022/day02.py	/^def parse(data: str):$/;"	f
 parse	2022/day05.py	/^def parse(data):$/;"	f
 parse	2022/day07.py	/^def parse(data: str) -> defaultdict[str, Set[str]]:$/;"	f	typeref:typename:defaultdict[str,Set[str]]
+parse	2023/day19.py	/^def parse(data):$/;"	f
 parse	2023/utility.py	/^def parse($/;"	f	typeref:typename:tuple
 parse_bag	2020/src/day07.rs	/^fn parse_bag(s: &str) -> Result<(String, usize)> {$/;"	f
 parse_bus_timetable	2020/src/day13.rs	/^fn parse_bus_timetable(s: &str) -> Vec<Option<usize>> {$/;"	f
@@ -626,6 +630,7 @@ parser	2023/day08.py	/^def parser(data):$/;"	f
 parser	2023/day09.py	/^def parser(data):$/;"	f
 parser	2023/day10.py	/^def parser(data):$/;"	f
 parser	2023/day11.py	/^def parser(data, add_rows=1):$/;"	f
+part	2023/day19.py	/^    part = {"x": x, "m": m, "a": a, "s": s}$/;"	v
 part1	2019/day02.py	/^def part1(data):$/;"	f
 part1	2019/day03.py	/^def part1(paths):$/;"	f
 part1	2019/day04.py	/^def part1(lower, upper):$/;"	f
@@ -754,7 +759,7 @@ part_2	2020/src/day13.rs	/^fn part_2(buses: &[Option<usize>]) -> usize {$/;"	f
 part_2	2020/src/day14.rs	/^fn part_2(instructions: &[Op]) -> Result<usize> {$/;"	f
 partnums	2023/day03.py	/^partnums = []$/;"	v
 parts	2023/day03.py	/^parts = []$/;"	v
-parts	2023/day19.py	/^rules, parts = data.split('\\n\\n')$/;"	v
+parts	2023/day19.py	/^ruleset, parts = parse(DATA)$/;"	v
 password	2020/src/day02.rs	/^    password: &'a str,$/;"	m	struct:PasswordLine
 path_actions	2023/utility.py	/^def path_actions(node):$/;"	f
 path_states	2023/utility.py	/^def path_states(node):$/;"	f
@@ -781,7 +786,6 @@ quick_dict	2020/src/lib.rs	/^mod quick_dict;$/;"	n
 r	2023/day17.py	/^    cost, r, c, dr, dc, s = heappop(pq)$/;"	v
 ratios	2023/day03.py	/^ratios = []$/;"	v
 rdelta	2023/day13.py	/^        rdelta = row_mirrors(variant) - was_vmirror$/;"	v
-rdict	2023/day19.py	/^rdict = dict()$/;"	v
 read	2019/intcode.py	/^    def read(self, intcode):$/;"	m	class:IntCode
 remain	2023/day14.py	/^remain = left % len(seen)$/;"	v
 remains	2023/day14.py	/^remains = 0$/;"	v
@@ -793,9 +797,11 @@ res	2023/day17.py	/^        res = cost$/;"	v
 res	2023/day17.py	/^res = 0$/;"	v
 res	2023/day18.py	/^res = shoelace(*p(DATA, lineparser_1))$/;"	v
 res	2023/day18.py	/^res = shoelace(*p(DATA, lineparser_2))$/;"	v
+res	2023/day19.py	/^res = 0$/;"	v
+res	2023/day19.py	/^res = count({key: (1, 4000) for key in "xmas"})$/;"	v
 result	2022/day02.py	/^def result(opponent, you):$/;"	f
-result	2023/utility.py	/^    def result(self, loc1, loc2):     return loc2$/;"	m	class:GridProblem
-result	2023/utility.py	/^    def result(self, state, action): return action # Simplest case: action is result state$/;"	m	class:SearchProblem
+result	2023/utility.py	/^    def result(self, loc1, loc2):$/;"	m	class:GridProblem
+result	2023/utility.py	/^    def result(self, state, action):$/;"	m	class:SearchProblem
 right	2023/utility.py	/^    def right(self):$/;"	m	class:Point2D
 roll_cols	2023/day14.py	/^def roll_cols(grid, up=True):$/;"	f
 roll_rows	2023/day14.py	/^def roll_rows(grid, right=False):$/;"	f
@@ -807,10 +813,8 @@ rotate_waypoint	2020/src/day12.rs	/^fn rotate_waypoint(current: &mut Position, d
 row	2020/src/strides.rs	/^    pub row: usize,$/;"	m	struct:Strides
 row_lim	2020/src/strides.rs	/^    pub row_lim: usize,$/;"	m	struct:Strides
 row_mirrors	2023/day13.py	/^def row_mirrors(paragraph):$/;"	f
-rr	2023/day19.py	/^    key, rr = line.split('{')$/;"	v
-rrr	2023/day19.py	/^    rrr = rr[:-1].split(',')$/;"	v
 rule_matches	2020/src/day16.rs	/^fn rule_matches((lower_range, upper_range): (Range, Range), num: usize) -> bool {$/;"	f
-rules	2023/day19.py	/^rules, parts = data.split('\\n\\n')$/;"	v
+ruleset	2023/day19.py	/^ruleset, parts = parse(DATA)$/;"	v
 run	2019/adventofcode.ex	/^  def run() do$/;"	f	module:AocDay01	access:public
 run	2019/adventofcode.ex	/^  def run() do$/;"	f	module:AocDay02	access:public
 run	2019/intcode.py	/^    def run(self):$/;"	m	class:IntCode
@@ -819,12 +823,13 @@ run	2023/day11.py	/^def run(data=SAMPLE, add_rows=1):$/;"	f
 run_with_replace	2019/day02.py	/^def run_with_replace(data, a, b):$/;"	f
 s	2023/day01.py	/^s = 0$/;"	v
 s	2023/day04.py	/^s = 0$/;"	v
-s	2023/day12.py	/^    s, c = line.split(' ')$/;"	v
+s	2023/day12.py	/^    s, c = line.split(" ")$/;"	v
 s	2023/day12.py	/^s: int = 0$/;"	v	typeref:typename:int
 s	2023/day13.py	/^s: int = 0$/;"	v	typeref:typename:int
 s	2023/day15.py	/^s = 0$/;"	v
 s	2023/day16.py	/^s = energise(Beam(x=0, y=0, xd=1, yd=0), P)$/;"	v
 s	2023/day17.py	/^    cost, r, c, dr, dc, s = heappop(pq)$/;"	v
+s	2023/day19.py	/^    x, m, a, s = [int(v.split("=")[1]) for v in p[1:-1].split(",")]$/;"	v
 sample	2019/day03.py	/^sample = """$/;"	v
 sample	2023/day06.py	/^sample = """Time:      7  15   30$/;"	v
 sample2	2019/day03.py	/^sample2 = """$/;"	v
@@ -836,7 +841,7 @@ score	2023/day14.py	/^score = score_grid(g2)$/;"	v
 score_grid	2023/day14.py	/^def score_grid(grid):$/;"	f
 score_p1	2020/src/day23.rs	/^    fn score_p1(&self) -> String {$/;"	P	implementation:CupGame
 score_p2	2020/src/day23.rs	/^    fn score_p2(&self) -> usize {$/;"	P	implementation:CupGame
-search_failure	2023/utility.py	/^search_failure = Node('failure', path_cost=inf) # Indicates an algorithm couldn't find a solutio/;"	v
+search_failure	2023/utility.py	/^search_failure = Node($/;"	v
 seat_location	2020/src/day05.rs	/^fn seat_location(s: &str) -> (i64, i64) {$/;"	f
 seat_locations	2020/src/day05.rs	/^    fn seat_locations() {$/;"	f	module:tests
 seen	2023/day14.py	/^            seen = dict()$/;"	v
@@ -876,8 +881,8 @@ surrounding	2023/utility.py	/^    def surrounding(self):$/;"	m	class:Point2D
 surrounding	2023/utility.py	/^def surrounding(point):$/;"	f
 symbols	2023/day03.py	/^number_map, symbols = p(DATA)$/;"	v
 t	2020/src/day20.rs	/^    t: Tile,$/;"	m	struct:TileOrientations
-targetc	2023/day17.py	/^targetr, targetc = len(P)-1, len(P[0])-1$/;"	v
-targetr	2023/day17.py	/^targetr, targetc = len(P)-1, len(P[0])-1$/;"	v
+targetc	2023/day17.py	/^targetr, targetc = len(P) - 1, len(P[0]) - 1$/;"	v
+targetr	2023/day17.py	/^targetr, targetc = len(P) - 1, len(P[0]) - 1$/;"	v
 taxi_distance	2023/utility.py	/^def taxi_distance(p: Point, q: Point) -> int:$/;"	f	typeref:typename:int
 terminates	2020/src/day19.rs	/^fn terminates(pattern: &str) -> bool {$/;"	f
 test_10_1_examples	2021/test_examples.py	/^def test_10_1_examples():$/;"	f
@@ -983,7 +988,7 @@ validate_hgt	2020/src/day04.rs	/^fn validate_hgt(f: &str) -> Result<Height> {$/;
 validate_iyr	2020/src/day04.rs	/^fn validate_iyr(f: &str) -> Result<usize> {$/;"	f
 validate_pid	2020/src/day04.rs	/^fn validate_pid(f: &str) -> Result<String> {$/;"	f
 variants	2023/day13.py	/^def variants(paragraph):$/;"	f
-visualise	2023/day10.py	/^def visualise(data, end='\\n'):$/;"	f
+visualise	2023/day10.py	/^def visualise(data, end="\\n"):$/;"	f
 walk_from	2023/day10.py	/^def walk_from(start, points):$/;"	f
 walk_paths	2019/day03.py	/^def walk_paths(data):$/;"	f
 walrus	2023/utility.py	/^def walrus(name, value):$/;"	f
@@ -995,4 +1000,5 @@ wins	2023/day02.py	/^wins = 0$/;"	v
 within_bounds	2023/day16.py	/^    def within_bounds(self, dim):$/;"	m	class:Beam
 word_to_num	2023/utility.py	/^def word_to_num(s):$/;"	f
 words	2023/utility.py	/^def words(text: str) -> Tuple[str]:$/;"	f	typeref:typename:Tuple[str]
+x	2023/day19.py	/^    x, m, a, s = [int(v.split("=")[1]) for v in p[1:-1].split(",")]$/;"	v
 Ø	2023/utility.py	/^Ø = frozenset()  # empty set$/;"	v
