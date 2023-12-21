@@ -46,6 +46,7 @@ DATA	2023/day17.py	/^DATA = Path("input\/17").read_text()$/;"	v
 DATA	2023/day18.py	/^DATA = Path("input\/18").read_text()$/;"	v
 DATA	2023/day19.py	/^DATA = Path("input\/19").read_text()$/;"	v
 DATA	2023/day20.py	/^DATA = [line.strip() for line in open("input\/20").readlines()]$/;"	v
+DATA	2023/day21.py	/^DATA = open("input\/21").readlines()$/;"	v
 DATA	2023/template.py	/^DATA = open("input\/DAYNUM2").readlines()$/;"	v
 Deck	2020/src/day22.rs	/^type Deck = VecDeque<usize>;$/;"	t
 Direction	2020/src/day20.rs	/^enum Direction {$/;"	g
@@ -99,6 +100,7 @@ P	2023/day15.py	/^P = [(part, puzzlehash(part)) for part in DATA.replace("\\n", 
 P	2023/day15.py	/^P = [puzzlehash(part) for part in DATA.replace("\\n", "").split(",")]$/;"	v
 P	2023/day16.py	/^P = []$/;"	v
 P	2023/day17.py	/^P = np.array(as_grid(DATA), dtype=int)$/;"	v
+P	2023/day21.py	/^P = []$/;"	v
 P	2023/template.py	/^P = []$/;"	v
 PClose	2020/src/day18.rs	/^    PClose,$/;"	e	enum:Token
 POpen	2020/src/day18.rs	/^    POpen,$/;"	e	enum:Token
@@ -136,6 +138,7 @@ SAMPLE	2023/day17.py	/^SAMPLE = """2413432311323$/;"	v
 SAMPLE	2023/day18.py	/^SAMPLE = """R 6 (#70c710)$/;"	v
 SAMPLE	2023/day19.py	/^SAMPLE = """px{a<2006:qkq,m>2090:A,rfg}$/;"	v
 SAMPLE	2023/day20.py	/^SAMPLE = """broadcaster -> a, b, c$/;"	v
+SAMPLE	2023/day21.py	/^SAMPLE = """ """$/;"	v
 SAMPLE	2023/template.py	/^SAMPLE = """ """$/;"	v
 SAMPLE2	2023/day08.py	/^SAMPLE2 = """LR$/;"	v
 SAMPLE2	2023/day10.py	/^SAMPLE2 = """.F----7F7F7F7F-7....$/;"	v
