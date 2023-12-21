@@ -51,6 +51,8 @@ setup_day() {
 
     git add $filename $filename_in
     git commit -m "Start day$day2"
+    firefox "https://adventofcode.com/$year/day/$day1"
+    nvim "$day2.py"
 }
 
 mambaenv() {

@@ -239,15 +239,17 @@ class Point2D:
     def left(self):
         return Point2D(self.x - 1, self.y)
 
-    def surrounding(self):
-        yield self.up()
-        yield self.up().right()
-        yield self.right()
-        yield self.right().down()
-        yield self.down()
-        yield self.down().left()
-        yield self.left()
-        yield self.left().up()
+    def surrounding(self, directions=4):
+        if directions == 4:
+            yield self.up()
+            yield self.right()
+            yield self.down()
+            yield self.left()
+        if directions == 8:
+            yield self.up().right()
+            yield self.right().down()
+            yield self.down().left()
+            yield self.left().up()
 
     def __str__(self):
         return f"({self.x},{self.y})"
@@ -691,9 +693,9 @@ def timed(func):
     return inner
 
 
-def surrounding(point):
+def surrounding(point, directions=directions8):
     point = tuple(point)
-    for direction in directions8:
+    for direction in directions:
         yield point[0] + direction[0], point[1] + direction[1]
 
 
