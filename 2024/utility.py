@@ -24,7 +24,6 @@ from time import time_ns
 from typing import *
 from typing import Callable, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
-import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
 import pandas as pd
@@ -398,6 +397,8 @@ class Grid(dict):
 
     def plot(self, markers={"#": "s", ".": ","}, figsize=(14, 14), **kwds):
         """Plot a representation of the grid."""
+        import matplotlib.pyplot as plt
+
         plt.figure(figsize=figsize)
         plt.gca().invert_yaxis()
         for m in markers:
@@ -514,6 +515,8 @@ def intersection(sets):
 def naked_plot(points, marker="o", size=(10, 10), invert=True, square=False, **kwds):
     """Plot `points` without any axis lines or tick marks.
     Optionally specify size, whether square or not, and whether to invery y axis."""
+    import matplotlib.pyplot as plt
+
     if size:
         plt.figure(figsize=((size, size) if is_int(size) else size))
     plt.plot(*T(points), marker, **kwds)
