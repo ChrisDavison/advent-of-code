@@ -1,25 +1,24 @@
 from collections import defaultdict
 import re
-from utility import (
-    T,
-    minmax,
-    split_at,
-    quantify,
-    powerset,
-    batched,
-    sliding_window,
-    first,
-    last,
-    nth,
-    first_true,
-    as_grid,
-)
+from utility import *
 
 SAMPLE = """ """
-DATA = open("input/DAYNUM2").readlines()
+DATA = open("input/DAYNUM2").read()
 
 P = []
 for line in SAMPLE.splitlines():
     P.append(line)
 
-print(f"Part 1: {0}")
+
+def part1(data):
+    res = None
+    print(f"Part1 {res}")
+
+
+def part2(data):
+    res = None
+    print(f"Part2 {res}")
+
+
+print(part1(SAMPLE))
+print(part1(DATA))
