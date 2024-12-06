@@ -358,6 +358,9 @@ class Grid(dict):
                     if val not in skip
                 }
             )
+        self.n_rows = len(grid)
+        self.n_cols = len(grid[0])
+        self.dim = (self.n_rows, self.n_cols)
 
     def __missing__(self, point):
         """If asked for a point off the grid, either return default or raise error."""
