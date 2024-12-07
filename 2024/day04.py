@@ -1,5 +1,4 @@
 import sys
-import re
 
 
 def part1(data):

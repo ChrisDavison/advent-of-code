@@ -1,32 +1,15 @@
-import ast
 import datetime
-import fractions
 import functools
 import heapq
-import math as m
 import operator
-import os
-import pathlib
-import pickle
 import re
-import string
-import time
-from collections import Counter, abc, defaultdict, deque, namedtuple
-from dataclasses import dataclass, field
-from functools import partial, reduce
-from itertools import chain, combinations, cycle, islice, permutations
-from itertools import count as count_from
-from itertools import product as cross_product
-from math import ceil, factorial, floor, gcd, inf, log, log2, log10, sqrt
+from collections import Counter, abc, defaultdict
+from itertools import chain, combinations, islice
+from math import gcd, inf
 from pathlib import Path
-from statistics import mean, median
 from time import time_ns
-from typing import *
 from typing import Callable, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
-import networkx as nx
-import numpy as np
-import pandas as pd
 import pyperclip
 
 T_START = None
@@ -50,7 +33,7 @@ def parse(
     text = get_text(day_or_text)
     show_items("Puzzle input", text.splitlines(), show)
     records = mapt(parser, section_by(text.rstrip()))
-    if parser != str or section_by != lines:
+    if parser is not str or section_by != lines:
         show_items("Parsed representation", records, show)
     return records
 
@@ -364,7 +347,7 @@ class Grid(dict):
 
     def __missing__(self, point):
         """If asked for a point off the grid, either return default or raise error."""
-        if self.default == KeyError:
+        if self.default is KeyError:
             raise KeyError(point)
         else:
             return self.default
@@ -377,7 +360,7 @@ class Grid(dict):
         return [
             add2(point, Δ)
             for Δ in self.directions
-            if add2(point, Δ) in self or self.default != KeyError
+            if add2(point, Δ) in self or self.default is not KeyError
         ]
 
     def neighbor_contents(self, point) -> Iterable:
@@ -467,7 +450,7 @@ def the(sequence) -> object:
     """Return the one item in a sequence. Raise error if not exactly one."""
     for i, item in enumerate(sequence, 1):
         if i > 1:
-            raise ValueError(f"Expected exactly one item in the sequence.")
+            raise ValueError("Expected exactly one item in the sequence.")
     return item
 
 
@@ -496,12 +479,12 @@ def lcm(i, j) -> int:
     return i * j // gcd(i, j)
 
 
-def lcm_list(ii) -> int:
+def lcm_list(ll) -> int:
     "Least common multiple of a list of numbers"
-    l = ii[0]
-    for i in ii[1:]:
-        l = lcm(l, i)
-    return l
+    elem = ll[0]
+    for i in ll[1:]:
+        elem = lcm(elem, i)
+    return elem
 
 
 def union(sets) -> set:

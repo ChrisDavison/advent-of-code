@@ -2,7 +2,6 @@
 from argparse import ArgumentParser
 from datetime import date
 import requests
-import shutil
 
 today = date.today()
 
@@ -17,7 +16,7 @@ print(f"{args = :}")
 s = requests.Session()
 s.cookies.set(
     "session",
-    "***REMOVED***",
+    "**REMOVED**",
 )
 response = s.get(f"https://adventofcode.com/{args.year}/day/{args.day}/input")
 print(response.text)

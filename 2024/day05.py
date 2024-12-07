@@ -28,7 +28,6 @@ def check(rules, line):
         if num not in rules:
             continue
         rest = line[i + 1 :]
-        valid = True
         cont = [numrules.get(r, True) for r in rest]
         if not all(cont):
             all_valid = False
