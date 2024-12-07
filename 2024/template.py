@@ -1,24 +1,27 @@
 from collections import defaultdict
 import re
 from utility import *
+import sys
 
-SAMPLE = """ """
-DATA = open("input/DAYNUM2").read()
+year = YEAR
+day = DAY
+prefix = f"{year}.{day:02d}."
 
-P = []
-for line in SAMPLE.splitlines():
-    P.append(line)
+DATA = sys.stdin().read()
+
+data = []
+for line in DATA.splitlines():
+    data.append(line)
 
 
 def part1(data):
     res = None
-    print(f"Part1 {res}")
+    print(f"{prefix}1 -- {res}")
 
 
 def part2(data):
     res = None
-    print(f"Part2 {res}")
+    print(f"{prefix}2 -- {res}")
 
 
-print(part1(SAMPLE))
-print(part1(DATA))
+part1(data)

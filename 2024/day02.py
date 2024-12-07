@@ -1,13 +1,6 @@
-from collections import defaultdict
-import re
-from utility import *
+from utility import ints
 
-SAMPLE = """7 6 4 2 1
-1 2 7 8 9
-9 7 6 2 1
-1 3 2 4 5
-8 6 4 4 1
-1 3 6 7 9"""
+SAMPLE = """"""
 DATA = open("input/02").readlines()
 
 
@@ -38,6 +31,7 @@ for line in source:
     i = ints(line)
     for j in range(len(i)):
         subset = i[:j] + i[j + 1 :]
+        print(f"{subset = :}")
         d = [b - a for a, b in zip(subset, subset[1:])]
         if check(d):
             s += 1
