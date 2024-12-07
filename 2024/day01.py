@@ -1,22 +1,12 @@
 from utility import ints
+import sys
 import numpy as np
 import pyperclip
-from pathlib import Path
 from collections import Counter
 
-TEST_INPUT = """3   4
-4   3
-2   5
-1   3
-3   9
-3   3"""
-
-DATA = Path("input/01").read_text()
 
 l1, l2 = [], []
-source = DATA
-# source = TEST_INPUT
-for line in source.splitlines():
+for line in sys.stdin().readlines():
     d = ints(line)
     l1.append(d[0])
     l2.append(d[1])

@@ -1,27 +1,7 @@
-from collections import defaultdict
+import sys
 import re
-import pyperclip
-from utility import (
-    T,
-    minmax,
-    split_at,
-    quantify,
-    powerset,
-    batched,
-    sliding_window,
-    first,
-    last,
-    nth,
-    first_true,
-    as_grid,
-)
 
-SAMPLE = """xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))"""
-SAMPLE2 = (
-    """xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"""
-)
-DATA = open("input/03").read()
-source = DATA
+source = sys.stdin().readlines()
 
 P = []
 m = re.findall(r"mul\((\d+),(\d+)\)", source)

@@ -1,32 +1,5 @@
-from collections import defaultdict
-import numpy as np
+import sys
 import re
-from utility import (
-    T,
-    minmax,
-    split_at,
-    quantify,
-    powerset,
-    batched,
-    sliding_window,
-    first,
-    last,
-    nth,
-    first_true,
-    as_grid,
-)
-
-SAMPLE = """MMMSXXMASM
-MSAMXMSMSA
-AMXSXMAAMM
-MSAMASMSMX
-XMASAMXAMM
-XXAMMXXAMA
-SMSMSASXSS
-SAXAMASAAA
-MAMMMXMMMM
-MXMXAXMASX"""
-DATA = open("input/04").read()
 
 
 def part1(data):
@@ -55,15 +28,6 @@ def part1(data):
     return res
 
 
-sd = [list(line) for line in DATA.splitlines()]
-ss = [list(line) for line in SAMPLE.splitlines()]
-
-
-print(part1(ss))
-print(part1(sd))
-print()
-
-
 def part2(data):
     tot = 0
     want = ["SAM", "MAS"]
@@ -78,5 +42,6 @@ def part2(data):
     return tot
 
 
-print(part2(ss))
-print(part2(sd))
+data = [list(line) for line in sys.stdin().readlines()]
+print(part1(data))
+print(part2(data))

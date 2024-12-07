@@ -1,7 +1,5 @@
 from utility import ints
-
-SAMPLE = """"""
-DATA = open("input/02").readlines()
+import sys
 
 
 def check(levels):
@@ -11,11 +9,11 @@ def check(levels):
         return True
 
 
+data = sys.stdin().readlines()
+
 P = []
 s = 0
-source = DATA
-# source = SAMPLE.splitlines()
-for line in source:
+for line in data:
     i = ints(line)
     d = [b - a for a, b in zip(i, i[1:])]
     if check(d):
@@ -25,9 +23,7 @@ print(f"Part 1: {s}")
 
 P = []
 s = 0
-source = SAMPLE.splitlines()
-source = DATA
-for line in source:
+for line in data:
     i = ints(line)
     for j in range(len(i)):
         subset = i[:j] + i[j + 1 :]

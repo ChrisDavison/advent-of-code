@@ -1,36 +1,5 @@
-from collections import defaultdict
-import re
-from utility import *
-
-SAMPLE = """47|53
-97|13
-97|61
-97|47
-75|29
-61|13
-75|53
-29|13
-97|29
-53|29
-61|53
-97|53
-61|29
-47|13
-75|47
-97|75
-47|61
-75|61
-47|29
-75|13
-53|13
-
-75,47,61,53,29
-97,61,53,29,13
-75,29,13
-75,97,47,61,53
-61,13,29
-97,13,75,29,47"""
-DATA = open("input/05").read()
+from utility import paragraphs, atoms
+import sys
 
 
 def parse(data):
@@ -67,13 +36,6 @@ def check(rules, line):
     return all_valid
 
 
-def part1(data):
-    rules, manuals = parse(data)
-    valids = [m for m in manuals if check(rules, m)]
-    tot = sum(v[int(len(v) / 2)] for v in valids)
-    print(f"Part1 {tot}")
-
-
 def swap_till_valid(invalid, rules):
     invalid = list(invalid)
     while not check(rules, invalid):
@@ -95,6 +57,13 @@ def swap_till_valid(invalid, rules):
     return invalid
 
 
+def part1(data):
+    rules, manuals = parse(data)
+    valids = [m for m in manuals if check(rules, m)]
+    tot = sum(v[int(len(v) / 2)] for v in valids)
+    print(f"Part1 {tot}")
+
+
 def part2(data):
     rules, manuals = parse(data)
     invalids = [m for m in manuals if not check(rules, m)]
@@ -104,8 +73,6 @@ def part2(data):
     print(f"Part2 {tot}")
 
 
-# part1(SAMPLE)
-part1(DATA)
-
-# part2(SAMPLE)
-part2(DATA)
+data = sys.stdin().read()
+part1(data)
+part2(data)

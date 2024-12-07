@@ -1,4 +1,5 @@
 from typing import TypeAlias, Iterable
+import sys
 
 Vector: TypeAlias = tuple[int, int]
 Grid: TypeAlias = dict[Vector, str]
@@ -11,17 +12,7 @@ delta = {
     "<": (-1, 0),
 }
 
-SAMPLE = """....#.....
-.........#
-..........
-..#.......
-.......#..
-..........
-.#..^.....
-........#.
-#.........
-......#..."""
-DATA = open("input/06").read()
+data = sys.stdin().read()
 
 
 def parse_grid(data) -> tuple[Grid, Vector | None]:
@@ -143,10 +134,8 @@ def part2(lines: Iterable[str]) -> int:
 
 
 print("Part 1")
-print(part1(SAMPLE))
-print(part1(DATA))
+print(part1(data))
 
 
 print("\nPart 2")
-print(part2(SAMPLE))
-print(part2(DATA))
+print(part2(data))
