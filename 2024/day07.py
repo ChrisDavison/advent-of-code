@@ -2,6 +2,7 @@ import sys
 import functools as ft
 import re
 import math as m
+from typing import List
 
 year = 2024
 day = 7
@@ -27,15 +28,15 @@ def run(data):
 
 
 @ft.cache
-def scale(num):
+def scale(num: int) -> int:
     return int(m.log10(num)) + 1
 
 
-def concat(a, b):
+def concat(a: int, b: int) -> int:
     return a * 10 ** scale(b) + b
 
 
-def solve(target, ll, part2=False):
+def solve(target: int, ll: List[int], part2=False) -> bool:
     if len(ll) == 1:
         return target == ll[0]
 
