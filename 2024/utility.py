@@ -201,6 +201,9 @@ class Point2D:
         if data:
             self.data = data
 
+    def shift(self, dx, dy):
+        return Point2D(self.x + dx, self.y + dy)
+
     def up(self):
         return Point2D(self.x, self.y - 1)
 
