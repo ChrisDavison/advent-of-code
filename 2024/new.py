@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from argparse import ArgumentParser
 from datetime import date
+import os
 import requests
 
 today = date.today()
@@ -16,7 +17,7 @@ print(f"{args = :}")
 s = requests.Session()
 s.cookies.set(
     "session",
-    "**REMOVED**",
+    open(os.path.expanduser("~/.aoc_token")).read(),
 )
 response = s.get(f"https://adventofcode.com/{args.year}/day/{args.day}/input")
 print(response.text)
