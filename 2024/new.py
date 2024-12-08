@@ -17,7 +17,7 @@ print(f"{args = :}")
 s = requests.Session()
 s.cookies.set(
     "session",
-    open(os.path.expanduser("~/.aoc_token")).read(),
+    open(os.path.expanduser("~/.aoc_token")).read().strip(),
 )
 response = s.get(f"https://adventofcode.com/{args.year}/day/{args.day}/input")
 print(response.text)
