@@ -3,6 +3,8 @@ import sys
 from dataclasses import dataclass
 from simple_chalk import chalk
 import itertools as it
+import numpy as np
+from collections import namedtuple
 
 year = 2024
 day = 9
@@ -10,99 +12,72 @@ prefix = f"{year}.{day:02d}."
 DEBUG = False
 
 
-@dataclass
-class Segment:
-    num: int
-    id: int
-    size: int
-
-
-@dataclass
-class Gap:
-    size: int
-
-
-def parse(line):
-    segments = []
-    id = 0
-    for i, ch in enumerate(line):
-        ch = int(ch)
-        if i % 2 == 0:
-            segments.append(Segment(i, id, ch))
-            id += 1
-        else:
-            segments.append(Gap(ch))
-    return segments
-
-
 def part1(data):
-    segments = parse(data)
-    segment_str = ""
-    for s in segments:
-        if isinstance(s, Gap):
-            segment_str += s.size * "."
+    ss = []
+    gg = []
+    pos = 0
+    s_idx = 0
+    for i, ch in enumerate(data):
+        ch = int(ch)
+        if ch == 0:
+            continue
+        if i % 2 == 0:
+            for j in range(ch):
+                ss.append((pos, ch, s_idx))
+                pos += 1
+            s_idx += 1
         else:
-            segment_str += s.size * str(s.id)
+            for j in range(ch):
+                gg.append(pos)
+                pos += 1
 
-    last_digit = None
-    idx_last_digit = len(segment_str) - 1
-    print(f"{idx_last_digit = :}")
+    def displaystr(ss, gg, last_change=None):
+        maxpos = 0
+        for s in ss:
+            maxpos = max(maxpos, s[0])
+        for g in gg:
+            maxpos = max(maxpos, g)
+        disp = np.zeros(maxpos + 1, dtype=int)
+        for s in ss:
+            disp[s[0]] = s[2]
+        for g in gg:
+            disp[g] = -1
 
-    n_dots = sum(1 for ch in segment_str if ch == ".")
-    n_after_dots = sum(1 for ch in it.takewhile(lambda x: x == ".", segment_str[::-1]))
+        stuff = disp.astype(str).tolist()
+        if last_change:
+            a, b = last_change
+            stuff[a] = chalk.red("^")
+            stuff[b] = chalk.red(stuff[b])
+        output = "".join(stuff).replace("-1", ".")
+        return output
+
+    hole_idx = 0
+    segment_idx = len(ss) - 1
     if DEBUG:
-        print(f"{n_dots, n_after_dots = :} => {n_dots - n_after_dots}")
-        print("".join([s for s in segment_str]))
-
-    for i in range(len(segment_str)):
-        ch = segment_str[i]
-        if ch != ".":
-            continue
-        idx_last_digit = len(segment_str.rstrip(".")) - 1
-        last_digit = segment_str[idx_last_digit]
-
-        spaces = list(" " * len(segment_str))
-        spaces[i] = "v"
-        spaces[idx_last_digit] = "v"
-        if idx_last_digit < i:
+        print(displaystr(ss, gg))
+    while True:
+        if hole_idx >= len(gg) or segment_idx < 0:
             break
-        segment_str = (
-            segment_str[:i]
-            + last_digit
-            + segment_str[i + 1 : idx_last_digit]
-            + "."
-            + segment_str[idx_last_digit + 1 :]
+        if gg[hole_idx] > ss[segment_idx][0]:
+            break
+        gg[hole_idx], ss[segment_idx] = (
+            ss[segment_idx][0],
+            (gg[hole_idx], ss[segment_idx][1], ss[segment_idx][2]),
         )
-        # segment_str[idx_last_digit] = "."
-        idx_last_digit -= 1
         if DEBUG:
-            print("".join(spaces))
-            print(
-                "".join(
-                    [
-                        s if j not in [i, idx_last_digit + 1] else chalk.red(s)
-                        for j, s in enumerate(segment_str)
-                    ]
-                ),
-            )
-    if DEBUG:
-        print("".join(segment_str))
-    checksum = 0
-    for i, val in enumerate(segment_str):
-        if val == ".":
-            continue
-        checksum += i * int(val)
-    print(checksum)
+            print(displaystr(ss, gg, last_change=(gg[hole_idx], ss[segment_idx][0])))
+        hole_idx += 1
+        segment_idx -= 1
 
-
-def part2(data):
-    res = None
-    print(f"{prefix}2 -- {res}")
+    # print(f"{ss = :}")
+    ii = np.array(ss)[:, 0]
+    vv = np.array(ss)[:, 2]
+    checksum = np.sum(ii * vv)
+    print("part1", checksum)
 
 
 DEBUG = False
 if len(sys.argv) > 1:
-    print(f"{len(sys.argv) = :}")
     data = open(sys.argv[1]).read().strip()
 else:
     data = sys.stdin.read().strip()
