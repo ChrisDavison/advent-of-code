@@ -5,7 +5,7 @@ year = YEAR
 day = DAY
 prefix = f"{year}.{day:02d}."
 
-DATA = sys.stdin().read()
+DATA = sys.stdin.read()
 
 data = []
 for line in DATA.splitlines():
