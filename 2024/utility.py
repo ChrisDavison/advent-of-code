@@ -370,6 +370,10 @@ class Grid(dict):
         """The contents of the neighboring points."""
         return (self[p] for p in self.neighbors(point))
 
+    def neighbour_and_contents(self, point) -> Iterable:
+        """Point and contents of neighbours."""
+        return ((p, self[p]) for p in self.neighbors(point))
+
     def to_rows(self, xrange=None, yrange=None) -> List[List[object]]:
         """The contents of the grid, as a rectangular list of lists.
         You can define a window with an xrange and yrange; or they default to the whole grid.
@@ -398,6 +402,12 @@ def neighbors(point, directions=directions4) -> List[Point]:
     """Neighbors of this point, in the given directions.
     (This function can be used outside of a Grid class.)"""
     return [add(point, Δ) for Δ in directions]
+
+
+def neighbors2(point, directions=directions4) -> List[Point]:
+    """Neighbors of this point, in the given directions.
+    (This function can be used outside of a Grid class.)"""
+    return [add2(point, Δ) for Δ in directions]
 
 
 # =======
