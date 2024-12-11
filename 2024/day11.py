@@ -1,19 +1,11 @@
-from utility import ints
+from utility import ints, mapl
+from collections import Counter
 from pathlib import Path
 import numpy as np
 from math import log10
 import sys
-from functools import cache
-
-if len(sys.argv) > 1:
-    if Path(sys.argv[1]).is_file():
-        DATA = Path(sys.argv[1]).read_text()
-else:
-    DATA = input("Vals: ")
-
-data = np.array(ints(DATA), dtype=int)
-
-print(data)
+from functools import cache, cached_property
+from argparse import ArgumentParser
 
 
 @cache
@@ -25,30 +17,48 @@ def n_digits(d):
 def split_stone(d):
     s = str(d)
     n = int(n_digits(d) / 2)
-    l, r = s[:n], s[n:]
-    return int(l), int(r)
+    return int(s[:n]), int(s[n:])
 
 
-pos = 0
+@cache
+def transform(stone):
+    if stone == 0:
+        return [1]
+    elif (n_digits(stone) % 2) == 0:  # even number of digits
+        return split_stone(stone)
+    else:
+        return [stone * 2024]
 
-for i in range(75):
-    data2 = np.zeros(len(data) * 2 + 1, dtype=int) - 1
+
+if __name__ == "__main__":
+    parser = ArgumentParser()
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("-s", "--sample", action="store_true")
+    mode.add_argument("-d", "--data", action="store_true")
+    parser.add_argument("-n", default=25, type=int)
+    parser.add_argument("--debug", action="store_true", default=False)
+    parser.add_argument("nums", nargs="*")
+    pargs = parser.parse_args()
+
+    if pargs.sample:
+        nums = ints(Path("input/11s").read_text().strip())
+    elif pargs.data:
+        nums = ints(Path("input/11").read_text().strip())
+    elif pargs.nums:
+        nums = mapl(int, pargs.nums)
+    else:
+        nums = ints(input("ints: "))
+
     pos = 0
-    for d in data[data >= 0]:
-        if d == 0:
-            data2[pos] = 1
-        elif (n_digits(d) % 2) == 0:  # even number of digits
-            l, r = split_stone(d)
-            data2[pos] = l
-            pos += 1
-            data2[pos] = r
-        else:
-            data2[pos] = d * 2024
-            pos += 1
-        pos += 1
-    data = data2[data2 >= 0]
-    print(i, data.size)
-    # print(f"{i+1:<10}{data}")
-# print(data2)
-# print(np.sum([d for d in data2 if d > 0]))
-print(data.size)
+    n = pargs.n
+
+    numd = Counter(nums)
+
+    for i in range(n):
+        newd = Counter()
+        for stone, count in numd.items():
+            newstones = transform(stone)
+            for ns in newstones:
+                newd[ns] += count
+        numd = newd
+    print(sum(numd.values()))
