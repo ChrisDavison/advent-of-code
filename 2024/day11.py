@@ -21,10 +21,15 @@ def split_stone(d):
 
 
 @cache
+def even_digits(d):
+    return n_digits(stone) % 2 == 0
+
+
+@cache
 def transform(stone):
     if stone == 0:
         return [1]
-    elif (n_digits(stone) % 2) == 0:  # even number of digits
+    elif even_digits(stone):  # even number of digits
         return split_stone(stone)
     else:
         return [stone * 2024]
@@ -53,12 +58,12 @@ if __name__ == "__main__":
     n = pargs.n
 
     numd = Counter(nums)
+    newd = Counter()
 
     for i in range(n):
-        newd = Counter()
+        newd.clear()
         for stone, count in numd.items():
-            newstones = transform(stone)
-            for ns in newstones:
+            for ns in transform(stone):
                 newd[ns] += count
-        numd = newd
+        numd = newd.copy()
     print(sum(numd.values()))
