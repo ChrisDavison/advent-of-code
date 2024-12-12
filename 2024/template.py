@@ -1,25 +1,32 @@
-from utility import *
-import sys
-
-year = YEAR
-day = DAY
-prefix = f"{year}.{day:02d}."
-
-DATA = sys.stdin.read()
-
-data = []
-for line in DATA.splitlines():
-    data.append(line)
+import utility as u
+from pathlib import Path
+import click
 
 
-def part1(data):
-    res = None
-    print(f"{prefix}1 -- {res}")
+@click.group()
+@click.option("--debug/--no-debug", default=False)
+def cli(debug):
+    print(debug)
 
 
-def part2(data):
-    res = None
-    print(f"{prefix}2 -- {res}")
+@cli.command()
+def sample():
+    run(Path("input/DAYs").read_text().strip())
 
 
-part1(data)
+@cli.command()
+def full():
+    run(Path("input/DAY").read_text().strip())
+
+
+@cli.command()
+def stdin():
+    run(input("data: "))
+
+
+def run(data):
+    pass
+
+
+if __name__ == "__main__":
+    cli()
