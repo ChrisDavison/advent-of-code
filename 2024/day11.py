@@ -1,10 +1,8 @@
 from utility import ints, mapl
 from collections import Counter
 from pathlib import Path
-import numpy as np
 from math import log10
-import sys
-from functools import cache, cached_property
+from functools import cache
 from argparse import ArgumentParser
 
 
