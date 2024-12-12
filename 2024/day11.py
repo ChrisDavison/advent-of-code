@@ -5,6 +5,8 @@ from math import log10
 from functools import cache
 from argparse import ArgumentParser
 
+DAYNUM = ints(Path(__file__).stem)[0]
+
 
 @cache
 def n_digits(d):
@@ -50,7 +52,7 @@ if __name__ == "__main__":
     elif pargs.nums:
         nums = mapl(int, pargs.nums)
     else:
-        nums = ints(input("ints: "))
+        nums = ints(input())
 
     pos = 0
     n = pargs.n
