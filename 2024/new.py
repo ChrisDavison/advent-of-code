@@ -26,7 +26,12 @@ with open(f"input/{args.day:02d}", "w") as f:
     f.write(response.text)
 
 contents = open("template.py").read()
-contents = contents.replace("YEAR", str(args.year))
-contents = contents.replace("DAY", str(args.day))
 with open(f"day{args.day:02d}.py", "w") as f:
     f.write(contents)
+
+if args.sample_from_clipboard:
+    import pyperclip
+
+    sample = pyperclip.paste()
+    with open(f"input/{args.day:02d}s", "w") as f:
+        f.write(sample)
