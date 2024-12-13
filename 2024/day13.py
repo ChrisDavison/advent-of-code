@@ -2,28 +2,26 @@ import utility as u
 from pathlib import Path
 from argparse import ArgumentParser
 import numpy as np
+import tqdm
 
 
-def cost(a, b, prize, na, nb):
-    lhs = na * a + nb * b
-    if not np.all(lhs == prize):
-        return None
-    return (na * 3,)
-
-
-def solve(a, b, prize, prices=np.array([3, 1]), tokens=100):
+def solve(a, b, prize, part2=False):
     minprice = None
-    for na in range(tokens):
-        for nb in range(tokens):
-            lhs = na * a + nb * b
-            # print(f"{lhs}")
-            if not np.all(lhs == prize):
-                continue
-            price = na * prices[0] + nb * prices[1]
-            if minprice:
-                minprice = min(price, minprice)
-            else:
-                minprice = price
+    n_tokens = 100
+    prize += 10000000000000 if part2 else 0
+    maxa = n_tokens if not part2 else int(np.ceil(np.max(prize / a)))
+    print(f"a{a} b{b} p{prize} %{prize % a} /{prize/a}")
+    for na in range(maxa):
+        aa = max(na, 1) * a
+        pz = prize - aa
+        rem = pz / b
+        if rem[0] != rem[1] or rem[1]:
+            continue
+        price = 3 * na + rem[1]
+        if minprice:
+            minprice = min(price, minprice)
+        else:
+            minprice = price
     return minprice or 0
 
 
@@ -43,8 +41,11 @@ if __name__ == "__main__":
 
     # ---------------------------------------- Solution
     min_tokens = 0
-    for p in parsed:
-        n_tokens = solve(*p)
-        if n_tokens:
-            min_tokens += n_tokens
+    for i, p in tqdm.tqdm(enumerate(parsed)):
+        min_tokens += solve(*p)
     print(min_tokens)
+
+    min_tokens2 = 0
+    for i, p in enumerate(parsed):
+        min_tokens2 += solve(*p, part2=True)
+    print(min_tokens2)
