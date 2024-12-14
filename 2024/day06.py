@@ -1,18 +1,11 @@
 from typing import TypeAlias, Iterable
 import sys
 
+from argparse import ArgumentParser
+from pathlib import Path
+
 Vector: TypeAlias = tuple[int, int]
 Grid: TypeAlias = dict[Vector, str]
-
-
-delta = {
-    "^": (0, -1),
-    ">": (1, 0),
-    "v": (0, 1),
-    "<": (-1, 0),
-}
-
-data = sys.stdin().read()
 
 
 def parse_grid(data) -> tuple[Grid, Vector | None]:
@@ -133,9 +126,23 @@ def part2(lines: Iterable[str]) -> int:
     return total
 
 
-print("Part 1")
-print(part1(data))
+if __name__ == "__main__":
+    parser = ArgumentParser()
+    parser.add_argument("-d", "--debug", action="store_true", default=False)
+    parser.add_argument("file", type=Path, nargs=1)
+    args = parser.parse_args()
 
+    delta = {
+        "^": (0, -1),
+        ">": (1, 0),
+        "v": (0, 1),
+        "<": (-1, 0),
+    }
 
-print("\nPart 2")
-print(part2(data))
+    data = args.file[0].read_text()
+
+    print("Part 1")
+    print(part1(data))
+
+    print("\nPart 2")
+    print(part2(data))

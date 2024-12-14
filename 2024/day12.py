@@ -49,7 +49,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     DAYNUM = u.ints(Path(__file__).stem)[0]
-    data = args.file[0].read_text().strip()
+    data = args.file[0].readtext().strip()
 
     # ------------------------------------------------------------
     #                        generate graph

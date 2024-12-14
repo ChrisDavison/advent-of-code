@@ -1,17 +1,9 @@
-import sys
 import functools as ft
-import re
 import math as m
+import re
+from argparse import ArgumentParser
+from pathlib import Path
 from typing import List
-
-year = 2024
-day = 7
-prefix = f"{year}.{day:02d}."
-
-calibrations = []
-for line in sys.stdin.read().splitlines():
-    values = list(int(v) for v in re.findall(r"[0-9]+", line))
-    calibrations.append((values[0], list(values[1::])))
 
 
 def run(data):
@@ -23,8 +15,8 @@ def run(data):
         elif solve(answer, numbers, True):
             tot2 += answer
 
-    print(f"{prefix}1 -- {tot}")
-    print(f"{prefix}2 -- {tot+tot2}")
+    print(f"1 -- {tot}")
+    print(f"2 -- {tot+tot2}")
 
 
 @ft.cache
@@ -50,4 +42,15 @@ def solve(target: int, ll: List[int], part2=False) -> bool:
     return False
 
 
-run(calibrations)
+if __name__ == "__main__":
+    parser = ArgumentParser()
+    parser.add_argument("-d", "--debug", action="store_true", default=False)
+    parser.add_argument("file", type=Path, nargs=1)
+    args = parser.parse_args()
+
+    calibrations = []
+    for line in args.file[0].read_text().splitlines():
+        values = list(int(v) for v in re.findall(r"[0-9]+", line))
+        calibrations.append((values[0], list(values[1::])))
+
+    run(calibrations)

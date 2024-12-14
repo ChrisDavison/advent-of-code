@@ -45,7 +45,7 @@ def get_text(day_or_text: Union[int, str]) -> str:
         return day_or_text
     else:
         filename = f"input/{day_or_text:02d}"
-        return Path(filename).read_text()
+        return Path(filename).readtext()
 
 
 def show_items(source, items, show: int, hr="─" * 100):

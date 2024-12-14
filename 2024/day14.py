@@ -40,7 +40,7 @@ if __name__ == "__main__":
 
     DAYNUM = u.ints(Path(__file__).stem)[0]
     robots = []
-    for line in args.file[0].read_text().strip().splitlines():
+    for line in args.file[0].readtext().strip().splitlines():
         nums = u.ints(line)
         robots.append(
             Robot(xy=np.array([nums[1], nums[0]]), delta=np.array([nums[3], nums[2]]))

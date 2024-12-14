@@ -1,4 +1,7 @@
 import sys
+import re
+from argparse import ArgumentParser
+from pathlib import Path
 
 
 def part1(data):
@@ -41,6 +44,12 @@ def part2(data):
     return tot
 
 
-data = [list(line) for line in sys.stdin().readlines()]
-print(part1(data))
-print(part2(data))
+if __name__ == "__main__":
+    parser = ArgumentParser()
+    parser.add_argument("-d", "--debug", action="store_true", default=False)
+    parser.add_argument("file", type=Path, nargs=1)
+    args = parser.parse_args()
+
+    data = [list(line) for line in args.file[0].read_text().splitlines()]
+    print(part1(data))
+    print(part2(data))

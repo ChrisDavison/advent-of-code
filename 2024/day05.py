@@ -1,5 +1,7 @@
 from utility import paragraphs, atoms
 import sys
+from argparse import ArgumentParser
+from pathlib import Path
 
 
 def parse(data):
@@ -72,6 +74,12 @@ def part2(data):
     print(f"Part2 {tot}")
 
 
-data = sys.stdin().read()
-part1(data)
-part2(data)
+if __name__ == "__main__":
+    parser = ArgumentParser()
+    parser.add_argument("-d", "--debug", action="store_true", default=False)
+    parser.add_argument("file", type=Path, nargs=1)
+    args = parser.parse_args()
+
+    data = args.file[0].read_text()
+    part1(data)
+    part2(data)

@@ -27,7 +27,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     DAYNUM = u.ints(Path(__file__).stem)[0]
-    data = u.paragraphs(args.file[0].read_text().strip())
+    data = u.paragraphs(args.file[0].readtext().strip())
 
     parsed = [u.mapl(u.ints, chunk.splitlines()) for chunk in data]
 

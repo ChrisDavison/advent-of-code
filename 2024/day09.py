@@ -1,12 +1,10 @@
-import sys
 from dataclasses import dataclass
-from collections import deque
 from simple_chalk import chalk
 import numpy as np
+from argparse import ArgumentParser
+from pathlib import Path
 
-year = 2024
-day = 9
-prefix = f"{year}.{day:02d}."
+
 DEBUG = False
 
 
@@ -71,7 +69,7 @@ def part1(data):
 
     hole_idx = 0
     segment_idx = len(ss) - 1
-    if DEBUG:
+    if args.debug:
         print(displaystr(ss, gg))
     while True:
         if hole_idx >= len(gg) or segment_idx < 0:
@@ -82,7 +80,7 @@ def part1(data):
             Gap(ss[segment_idx].pos, gg[hole_idx].n),
             Segment(gg[hole_idx].pos, ss[segment_idx].n, ss[segment_idx].id),
         )
-        if DEBUG:
+        if args.debug:
             print(displaystr(ss, gg, last_change=(gg[hole_idx], ss[segment_idx].pos)))
         hole_idx += 1
         segment_idx -= 1
@@ -155,10 +153,13 @@ def part2(data):
     print("part2", check)
 
 
-DEBUG = False
-if len(sys.argv) > 1:
-    data = open(sys.argv[1]).read().strip()
-else:
-    data = sys.stdin.read().strip()
-part1(data)
-part2(data)
+if __name__ == "__main__":
+    parser = ArgumentParser()
+    parser.add_argument("-d", "--debug", action="store_true", default=False)
+    parser.add_argument("file", type=Path, nargs=1)
+    args = parser.parse_args()
+    DEBUG = args.debug
+
+    data = args.file[0].read_text().strip()
+    part1(data)
+    part2(data)

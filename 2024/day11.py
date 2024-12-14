@@ -46,9 +46,9 @@ if __name__ == "__main__":
     pargs = parser.parse_args()
 
     if pargs.sample:
-        nums = ints(Path("input/11s").read_text().strip())
+        nums = ints(Path("input/11s").readtext().strip())
     elif pargs.data:
-        nums = ints(Path("input/11").read_text().strip())
+        nums = ints(Path("input/11").readtext().strip())
     elif pargs.nums:
         nums = mapl(int, pargs.nums)
     else:
