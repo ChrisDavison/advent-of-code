@@ -6,23 +6,18 @@ import tqdm
 
 
 def solve(a, b, prize, part2=False):
-    minprice = None
-    n_tokens = 100
-    prize += 10000000000000 if part2 else 0
-    maxa = n_tokens if not part2 else int(np.ceil(np.max(prize / a)))
-    print(f"a{a} b{b} p{prize} %{prize % a} /{prize/a}")
-    for na in range(maxa):
-        aa = max(na, 1) * a
-        pz = prize - aa
-        rem = pz / b
-        if rem[0] != rem[1] or rem[1]:
-            continue
-        price = 3 * na + rem[1]
-        if minprice:
-            minprice = min(price, minprice)
-        else:
-            minprice = price
-    return minprice or 0
+    px, py = prize
+    if part2:
+        px += 10000000000000
+        py += 10000000000000
+    ax, ay = a
+    bx, by = b
+    denom = ax * by - ay * bx
+    A = (by * px - bx * py) / denom
+    B = (ax * py - ay * px) / denom
+    if A == int(A) and B == int(B):
+        return int(3 * A + B)
+    return 0
 
 
 if __name__ == "__main__":
@@ -34,10 +29,7 @@ if __name__ == "__main__":
     DAYNUM = u.ints(Path(__file__).stem)[0]
     data = u.paragraphs(args.file[0].read_text().strip())
 
-    parsed = [
-        u.mapl(lambda x: np.array(x, dtype=int), u.mapl(u.ints, chunk.splitlines()))
-        for chunk in data
-    ]
+    parsed = [u.mapl(u.ints, chunk.splitlines()) for chunk in data]
 
     # ---------------------------------------- Solution
     min_tokens = 0
