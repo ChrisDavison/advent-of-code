@@ -199,7 +199,7 @@ def move2(start, grid, direction):
     the two columns above that...if either of them, also need to check all of their columns (only
     till the minimum of the nearest wall.
     """
-    if direction in "^v":
+    if direction.data in "^v":
         start, grid = move_vertical(start, grid, direction)
     else:
         start, grid = move_horizontal(start, grid, direction)
@@ -232,8 +232,7 @@ def display(grid, highlights=None):
 
 
 def gps(x, y):
-    # print(f"{coord.real} {coord.imag}")
-    return 100 * y + x
+    return 100 * x + y
 
 
 def parse(filename, doublewide=False):
@@ -284,6 +283,8 @@ def run(grid, start, rules, part2=False):
         else:
             start, grid = move(start, grid, rule)
         # input()
+
+    display(grid, [(start, rule)])
     return grid
 
 
@@ -310,9 +311,9 @@ def part2(filename):
 
 DAYNUM = u.ints(Path(__file__).stem)[0]
 
-part1(f"input/{DAYNUM}s")
-part1(f"input/{DAYNUM}s2")
-part1(f"input/{DAYNUM}")
+# part1(f"input/{DAYNUM}s")
+# part1(f"input/{DAYNUM}s2")
+# part1(f"input/{DAYNUM}")
 
-# part2(f"input/{DAYNUM}s")
+part2(f"input/{DAYNUM}s")
 # part2(f"input/{DAYNUM}")
