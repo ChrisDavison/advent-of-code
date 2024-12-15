@@ -5,10 +5,10 @@ from simple_chalk import chalk
 import functools as ft
 
 
-North = u.Point2D(0, -1, data="^")
-South = u.Point2D(0, +1, data="v")
-East = u.Point2D(1, 0, data=">")
-West = u.Point2D(-1, 0, data="<")
+North = u.Point2D(-1, 0, data="^")
+South = u.Point2D(1, 0, data="v")
+East = u.Point2D(0, 1, data=">")
+West = u.Point2D(0, -1, data="<")
 dirmap = {"^": North, ">": East, "v": South, "<": West}
 
 WALL = "#"
@@ -20,12 +20,11 @@ SPACE = "."
 
 def move(start, grid, direction):
     until_wall = []
-    nx = start
-    print(f"{nx=} {direction=}")
+    nx = u.Point2D(start.x, start.y)
+    # print(f"{start=} + {direction} {direction.data}")
     rows, cols = len(grid), len(grid[0])
-    print(f"{direction=}")
     while True:
-        nx += direction
+        nx = nx + direction
         if nx.x < 0 or nx.x >= rows or nx.y < 0 or nx.y >= cols:
             print("out of bounds")
             break
@@ -34,15 +33,18 @@ def move(start, grid, direction):
         until_wall.append((nx, grid[nx.x][nx.y]))
         if grid[nx.x][nx.y] == SPACE:
             break
-    print(f"{until_wall=}")
+    # print(f"{until_wall=}")
     if any([ch == SPACE for pos, ch in until_wall]):
+        # print(f"have a space in until_wall: {until_wall}")
         if until_wall[0][1] == SPACE:
             # the thing beside us is a gap, so just walk
             start = until_wall[0][0]
         else:
             pos_gap = [i for i, thing in enumerate(until_wall) if thing[1] == SPACE][0]
             gap_coord = until_wall[pos_gap][0]
+            # print(f"{gap_coord=}")
             first_box_coord = until_wall[0][0]
+            # print(f"{first_box_coord=}")
             grid[gap_coord.x][gap_coord.y] = "O"
             grid[first_box_coord.x][first_box_coord.y] = SPACE
             start = first_box_coord
@@ -274,14 +276,14 @@ def parse(filename, doublewide=False):
 
 def run(grid, start, rules, part2=False):
     for rule in rules:
-        print(rule)
-        display(grid, [(start, rule)])
-        print()
+        # print(rule)
+        # display(grid, [(start, rule)])
+        # print()
         if part2:
             start, grid = move2(start, grid, rule)
         else:
             start, grid = move(start, grid, rule)
-        input()
+        # input()
     return grid
 
 
@@ -290,7 +292,7 @@ def score_grid(grid):
     for i, row in enumerate(grid):
         for j, ch in enumerate(row):
             if ch == "O":
-                tot += gps((i, j))
+                tot += gps(i, j)
     return int(tot)
 
 
@@ -308,9 +310,9 @@ def part2(filename):
 
 DAYNUM = u.ints(Path(__file__).stem)[0]
 
-# part1(f"input/{DAYNUM}s")
+part1(f"input/{DAYNUM}s")
 part1(f"input/{DAYNUM}s2")
-# part1(f"input/{DAYNUM}")
+part1(f"input/{DAYNUM}")
 
 # part2(f"input/{DAYNUM}s")
 # part2(f"input/{DAYNUM}")
