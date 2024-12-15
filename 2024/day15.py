@@ -51,19 +51,18 @@ def move(start, grid, direction):
     return start, grid
 
 
-@ft.cache
 def can_shove(point, grid, direction, step=0):
     spacing = step * 2 * " "
     next_point = point + direction
-    next_sym = grid[next_point]
-    nextpoint = grid[next_point] if next_point in grid else None
+    next_sym = grid[next_point.x][next_point.y]
+    nextpoint = grid[next_point.x][next_point.y]
     print(
-        f"{spacing}shove r{point.imag:.0f} c{point.real:.0f}? from {grid[point]} to {nextpoint}",
+        f"{spacing}shove {point} from {grid[point.x][point.y]} to {nextpoint}",
     )
     if next_sym == WALL:
         print(spacing + "FALSE")
         return False
-    if grid[next_point] == SPACE:
+    if grid[next_point.x][next_point.y] == SPACE:
         print(spacing + "TRUE")
         return True
 
@@ -96,17 +95,17 @@ def move_vertical(start, grid, direction):
     # print(f"{start}")
     above = []
     # print()
-    if not can_shove(start, grid, u.arrow_directions[direction]):
+    if not can_shove(start, grid, direction):
         return start, grid
     print("!!!!! SHOVE !!!!!")
     while not found_wall:
-        lhs += u.arrow_directions[direction]
-        rhs += u.arrow_directions[direction]
-        if grid[lhs] == WALL or grid[rhs] == WALL:
+        lhs += direction
+        rhs += direction
+        if grid[lhs.x][lhs.y] == WALL or grid[rhs.x][rhs.y] == WALL:
             break
-        if grid[lhs] == BOXR:
+        if grid[lhs.x][lhs.y] == BOXR:
             lhs -= 1
-        coldiff = int(rhs.real - lhs.real)
+        coldiff = int(rhs.y - lhs.y)
         # print(f"{lhs=} {rhs=} {coldiff=}")
         row = []
         for i in range(coldiff):
@@ -130,8 +129,8 @@ def move_vertical(start, grid, direction):
     if not above:
         return start, grid
     if above == [[]]:
-        step = start + u.arrow_directions[direction]
-        if grid[step] == SPACE:
+        step = start + direction
+        if grid[step.x][step.y] == SPACE:
             start = step
     elif any([ch == SPACE for p, ch in above[-1]]):
         above = above[::-1]
@@ -160,10 +159,10 @@ def move_horizontal(start, grid, direction):
     until_wall = deque()
     nx = start
     while True:
-        nx = nx + u.Point2D(*u.arrow_directions[direction])
+        nx = nx + u.Point2D(direction.x, direction.y)
         if grid[nx.y][nx.x] == WALL:
             break
-        until_wall.append((nx, grid[nx]))
+        until_wall.append((nx, grid[nx.x][nx.y]))
         if grid[nx.y][nx.x] == SPACE:
             break
 
