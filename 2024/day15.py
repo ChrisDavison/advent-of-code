@@ -1,15 +1,15 @@
 import utility as u
 from pathlib import Path
-import numpy as np
-from collections import defaultdict, deque
+from collections import deque
 from simple_chalk import chalk
-import copy
 import functools as ft
 
-DEBUG = False
-# u.arrow_directions = {"^": -1j, ">": 1, "v": 1j, "<": -1}
-u.arrow_directions = {"^": u.North, ">": u.East, "v": u.South, "<": u.West}
 
+North = u.Point2D(0, -1, data="^")
+South = u.Point2D(0, +1, data="v")
+East = u.Point2D(1, 0, data=">")
+West = u.Point2D(-1, 0, data="<")
+dirmap = {"^": North, ">": East, "v": South, "<": West}
 
 WALL = "#"
 BOX = "O"
@@ -18,19 +18,14 @@ BOXR = "]"
 SPACE = "."
 
 
-def dbg(msg):
-    global DEBUG
-    if DEBUG:
-        print(msg)
-
-
 def move(start, grid, direction):
     until_wall = []
     nx = start
     print(f"{nx=} {direction=}")
     rows, cols = len(grid), len(grid[0])
+    print(f"{direction=}")
     while True:
-        nx += u.Point2D(*u.arrow_directions[direction])
+        nx += direction
         if nx.x < 0 or nx.x >= rows or nx.y < 0 or nx.y >= cols:
             print("out of bounds")
             break
@@ -60,7 +55,7 @@ def can_shove(point, grid, direction, step=0):
     next_point = point + direction
     next_sym = grid[next_point]
     nextpoint = grid[next_point] if next_point in grid else None
-    dbg(
+    print(
         f"{spacing}shove r{point.imag:.0f} c{point.real:.0f}? from {grid[point]} to {nextpoint}",
     )
     if next_sym == WALL:
@@ -78,7 +73,7 @@ def can_shove(point, grid, direction, step=0):
         left = next_point - 1
         right = next_point
 
-    dbg(
+    print(
         f"{spacing}...[] pair -> row {left.imag:.0f}, {left.real:.0f}..{right.real:.0f}"
     )
     left_ok = can_shove(left, grid, direction, step + 1)
@@ -224,7 +219,10 @@ def display(grid, highlights=None):
     for h in highlights:
         if isinstance(h, list) or isinstance(h, tuple):
             h, c = h
-            c = chalk.red(c)
+            if isinstance(c, u.Point2D):
+                c = chalk.red(c.data)
+            else:
+                c = chalk.red(c)
         else:
             c = chalk.red(out[h.x][h.y])
         out[h.x][h.y] = c
@@ -239,7 +237,10 @@ def gps(x, y):
 def parse(filename, doublewide=False):
     data = Path(filename).read_text()
     map, rules = u.paragraphs(data)
-    rules = "".join([line.strip() for line in rules.splitlines()])
+    rules = [
+        dirmap[thing]
+        for thing in "".join([line.strip() for line in rules.splitlines()])
+    ]
     lines = map.splitlines()
     rows = len(lines)
     cols = len(lines[0])
@@ -271,48 +272,38 @@ def parse(filename, doublewide=False):
     return g, start, rules
 
 
-def part1(filename):
-    g, start, rules = parse(filename)
-    print(f"{start=} {len(rules)} steps")
-    print(f"{rules[:10]}")
-
+def run(grid, start, rules, part2=False):
     for rule in rules:
-        display(g, [(start, rule)])
+        print(rule)
+        display(grid, [(start, rule)])
         print()
-        start, grid = move(start, g, rule)
+        if part2:
+            start, grid = move2(start, grid, rule)
+        else:
+            start, grid = move(start, grid, rule)
         input()
+    return grid
 
+
+def score_grid(grid):
     tot = 0
     for i, row in enumerate(grid):
         for j, ch in enumerate(row):
             if ch == "O":
                 tot += gps((i, j))
+    return int(tot)
 
-    print(f"{int(tot)}")
+
+def part1(filename):
+    grid, start, rules = parse(filename)
+    grid = run(grid, start, rules)
+    print(score_grid(grid))
 
 
 def part2(filename):
     grid, start, rules = parse(filename, doublewide=True)
-    # rules = "^^^^^"
-    # start = start - 2 + 2j
-    # # display(start, grid, "@")
-    # # print()
-
-    for i, rule in enumerate(rules):
-        print(f"moving from {start} -- {rule} -- {i=}")
-        start, grid = move2(start, grid, rule)
-        print("after", rule)
-        display(grid, [(start, rule)])
-        input()
-        print("-" * 40)
-        # break
-
-    tot = 0
-    for b, ch in grid.items():
-        if ch == "O":
-            tot += gps(b)
-
-    print(f"{int(tot)}")
+    grid = run(grid, start, rules, part2=True)
+    print(score_grid(grid))
 
 
 DAYNUM = u.ints(Path(__file__).stem)[0]
