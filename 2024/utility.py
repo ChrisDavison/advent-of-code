@@ -228,6 +228,22 @@ class Point2D:
             yield self.down().left()
             yield self.left().up()
 
+    def __add__(self, other):
+        return Point2D(self.x + other.x, self.y + other.y)
+
+    def __iadd__(self, other):
+        self.x += other.x
+        self.y += other.y
+        return self
+
+    def __sub__(self, other):
+        return Point2D(self.x - other.x, self.y - other.y)
+
+    def __isub__(self, other):
+        self.x -= other.x
+        self.y -= other.y
+        return self
+
     def __str__(self):
         return f"({self.x},{self.y})"
 
@@ -272,7 +288,8 @@ def Zs(points) -> Tuple[int]:
 
 
 def add(p: Point, q: Point) -> Point:
-    return mapt(operator.add, p, q)
+    print(f"{p=} {q=} ")
+    return tuple(map(operator.add, [p, q]))
 
 
 def sub(p: Point, q: Point) -> Point:

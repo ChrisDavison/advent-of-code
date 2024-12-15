@@ -1,101 +1,325 @@
 import utility as u
 from pathlib import Path
-from collections import defaultdict
+import numpy as np
+from collections import defaultdict, deque
 from simple_chalk import chalk
+import copy
+import functools as ft
 
-DAYNUM = u.ints(Path(__file__).stem)[0]
-# data = Path(f"input/{DAYNUM}s").read_text()
-# data = Path(f"input/15s2").read_text()
-data = Path(f"input/{DAYNUM}").read_text()
-
-map, rules = u.paragraphs(data)
-rules = "".join([line.strip() for line in rules.splitlines()])
-boxes = defaultdict()
-walls = set()
-start = None
-for rownum, row in enumerate(map.splitlines()):
-    for colnum, ch in enumerate(row):
-        coord = colnum + 1j * rownum
-        if ch == "@":
-            start = coord
-            # also include starting position in floor tiles
-            boxes[coord] = "."
-        elif ch == "#":
-            walls.add(coord)
-        else:
-            boxes[coord] = ch
+DEBUG = False
+# u.arrow_directions = {"^": -1j, ">": 1, "v": 1j, "<": -1}
+u.arrow_directions = {"^": u.North, ">": u.East, "v": u.South, "<": u.West}
 
 
-def move(start, walls, boxes, direction):
-    dirs = {"^": -1j, ">": 1, "v": 1j, "<": -1}
+WALL = "#"
+BOX = "O"
+BOXL = "["
+BOXR = "]"
+SPACE = "."
+
+
+def dbg(msg):
+    global DEBUG
+    if DEBUG:
+        print(msg)
+
+
+def move(start, grid, direction):
     until_wall = []
     nx = start
+    print(f"{nx=} {direction=}")
+    rows, cols = len(grid), len(grid[0])
     while True:
-        nx += dirs[direction]
-        if nx in walls:
+        nx += u.Point2D(*u.arrow_directions[direction])
+        if nx.x < 0 or nx.x >= rows or nx.y < 0 or nx.y >= cols:
+            print("out of bounds")
             break
-        until_wall.append((nx, boxes[nx]))
-        if boxes[nx] == ".":
+        if grid[nx.x][nx.y] == WALL:
             break
-    if any([ch == "." for pos, ch in until_wall]):
-        if until_wall[0][1] == ".":
+        until_wall.append((nx, grid[nx.x][nx.y]))
+        if grid[nx.x][nx.y] == SPACE:
+            break
+    print(f"{until_wall=}")
+    if any([ch == SPACE for pos, ch in until_wall]):
+        if until_wall[0][1] == SPACE:
             # the thing beside us is a gap, so just walk
             start = until_wall[0][0]
         else:
-            # we need to shove boxes
-            # want    @ 0 0 .
-            # become  . @ 0 0
-
-            # because of the way I'm doing this, I'm only ever going to have
-            # either a single gap, or a sequence of O into a gap (i use gap or wall as loop's break)
-            # so I just need to set the gap's ch to box, and the first box's ch to '.'
-            # then set start to the first box's position
-            pos_gap = [i for i, thing in enumerate(until_wall) if thing[1] == "."][0]
+            pos_gap = [i for i, thing in enumerate(until_wall) if thing[1] == SPACE][0]
             gap_coord = until_wall[pos_gap][0]
             first_box_coord = until_wall[0][0]
-            boxes[gap_coord] = "O"
-            boxes[first_box_coord] = "."
+            grid[gap_coord.x][gap_coord.y] = "O"
+            grid[first_box_coord.x][first_box_coord.y] = SPACE
             start = first_box_coord
-    return start, walls, boxes
+    return start, grid
 
 
-def display(robot, walls, boxes, last_move):
-    rows = int(max([pos.imag for pos in walls])) + 1
-    cols = int(max([pos.real for pos in walls])) + 1
-    grid = [[" " for _ in range(cols)] for _ in range(rows)]
-    for pos in walls:
-        row = int(pos.imag)
-        col = int(pos.real)
-        grid[row][col] = chalk.blue("#")
-    for pos, ch in boxes.items():
-        row = int(pos.imag)
-        col = int(pos.real)
-        if ch == ".":
-            grid[row][col] = ch
+@ft.cache
+def can_shove(point, grid, direction, step=0):
+    spacing = step * 2 * " "
+    next_point = point + direction
+    next_sym = grid[next_point]
+    nextpoint = grid[next_point] if next_point in grid else None
+    dbg(
+        f"{spacing}shove r{point.imag:.0f} c{point.real:.0f}? from {grid[point]} to {nextpoint}",
+    )
+    if next_sym == WALL:
+        print(spacing + "FALSE")
+        return False
+    if grid[next_point] == SPACE:
+        print(spacing + "TRUE")
+        return True
+
+    if grid[next_point] == BOXL:
+        left = next_point
+        right = next_point + 1
+
+    else:
+        left = next_point - 1
+        right = next_point
+
+    dbg(
+        f"{spacing}...[] pair -> row {left.imag:.0f}, {left.real:.0f}..{right.real:.0f}"
+    )
+    left_ok = can_shove(left, grid, direction, step + 1)
+    right_ok = can_shove(right, grid, direction, step + 1)
+    print(spacing, (left_ok and right_ok))
+    return left_ok and right_ok
+
+
+def move_vertical(start, grid, direction):
+    global DEBUG
+    # double-wide
+    u.arrow_directions = {"^": -1j, ">": 1, "v": 1j, "<": -1}
+    above = deque()
+    lhs, rhs = start, start
+    found_wall = False
+
+    # print("=" * 20 + " VERTICAL")
+    # print(f"{start}")
+    above = []
+    # print()
+    if not can_shove(start, grid, u.arrow_directions[direction]):
+        return start, grid
+    print("!!!!! SHOVE !!!!!")
+    while not found_wall:
+        lhs += u.arrow_directions[direction]
+        rhs += u.arrow_directions[direction]
+        if grid[lhs] == WALL or grid[rhs] == WALL:
+            break
+        if grid[lhs] == BOXR:
+            lhs -= 1
+        coldiff = int(rhs.real - lhs.real)
+        # print(f"{lhs=} {rhs=} {coldiff=}")
+        row = []
+        for i in range(coldiff):
+            point1 = lhs + i
+            point2 = rhs + i
+            if grid[point1] == WALL or grid[point2] == WALL:
+                found_wall = True
+                break
+            if i == 0 and grid[point1] == BOXR:
+                lhs -= 1
+                row.append((point1 - 1, BOXL))
+            if i == coldiff - 1 and grid[point2] == BOXL:
+                rhs += 1
+                row.append((point2 + 1, BOXR))
+            row.append((point1, grid[point1]))
+            row.append((point2, grid[point2]))
+        # print(f"{row}")
+        above.append(row)
+        if all([ch == SPACE for p, ch in row]):
+            break
+    if not above:
+        return start, grid
+    if above == [[]]:
+        step = start + u.arrow_directions[direction]
+        if grid[step] == SPACE:
+            start = step
+    elif any([ch == SPACE for p, ch in above[-1]]):
+        above = above[::-1]
+        for row in above[:-1]:
+            row = sorted(row, key=lambda x: x[0].real)
+            for p, ch in row:
+                direc = u.arrow_directions[direction]
+                nextp = p - direc
+                if grid[p] == SPACE and nextp in grid:
+                    if grid[nextp] == BOXL:
+                        if can_shove(p, grid, direc) and can_shove(p + 1, grid, direc):
+                            grid[p] = grid[p - direc]
+                            grid[p - direc] = SPACE
+                    elif grid[nextp] == BOXR:
+                        if can_shove(p, grid, direc) and can_shove(p - 1, grid, direc):
+                            grid[p] = grid[p - direc]
+                            grid[p - direc] = SPACE
+                    else:  # '.'
+                        grid[p] = grid[p - direc]
+                        grid[p - direc] = SPACE
+        start += u.arrow_directions[direction]
+    return start, grid
+
+
+def move_horizontal(start, grid, direction):
+    until_wall = deque()
+    nx = start
+    while True:
+        nx = nx + u.Point2D(*u.arrow_directions[direction])
+        if grid[nx.y][nx.x] == WALL:
+            break
+        until_wall.append((nx, grid[nx]))
+        if grid[nx.y][nx.x] == SPACE:
+            break
+
+    if any([ch == SPACE for pos, ch in until_wall]):
+        # print(f"{until_wall=}")
+        until_wall_s = deque([s for p, s in until_wall])
+        until_wall_p = deque([p for p, s in until_wall])
+        until_wall_s.rotate()
+        # print(f"{until_wall_p}")
+        # print(f"{until_wall_s}")
+        for p, s in zip(until_wall_p, until_wall_s):
+            grid[p] = s
+        start = until_wall_p[0]
+    return start, grid
+
+
+def move2(start, grid, direction):
+    """This time, grid can be 2x wide (but not 2x tall)
+
+    For shoving <>, now need to actually move grid as i'm not doing a single symbol-switch.
+    For a top/bottom push, now need to potentially do MANY columns of manipulation...
+
+            #[]    <- ignore
+            []     <- ignore
+            ..     <- shove to here
+           []      <- shove
+        [][]       <- shove
+         []        <- shove
+         @
+
+    For every direction upwards, need to check (until the nearest wall) if I'm hitting a box
+    If I hit the box, then need to fan-out from that area. Every tim ei touch a box, need to check
+    the two columns above that...if either of them, also need to check all of their columns (only
+    till the minimum of the nearest wall.
+    """
+    if direction in "^v":
+        start, grid = move_vertical(start, grid, direction)
+    else:
+        start, grid = move_horizontal(start, grid, direction)
+    return start, grid
+
+
+def display(grid, highlights=None):
+    out = []
+    for i, row in enumerate(grid):
+        rowout = []
+        for j, sym in enumerate(row):
+            if sym == "#":
+                rowout.append(chalk.blue(sym))
+            elif sym in [BOXL, BOXR, BOX]:
+                rowout.append(chalk.magenta(sym))
+            else:
+                rowout.append(sym)
+        out.append(rowout)
+    for h in highlights:
+        if isinstance(h, list) or isinstance(h, tuple):
+            h, c = h
+            c = chalk.red(c)
         else:
-            grid[row][col] = chalk.magenta(ch)
-    grid[int(robot.imag)][int(robot.real)] = chalk.bold.red("@")
-    print(f"MOVE {last_move}")
-    print("\n".join("".join(row) for row in grid))
+            c = chalk.red(out[h.x][h.y])
+        out[h.x][h.y] = c
+    print("\n".join("".join(row) for row in out))
 
 
-print("START")
-display(start, walls, boxes, "")
-
-for rule in rules:
-    start, walls, boxes = move(start, walls, boxes, rule)
-    # display(start, walls, boxes, rule)
-    # input()
-
-
-def gps(coord):
+def gps(x, y):
     # print(f"{coord.real} {coord.imag}")
-    return 100 * coord.imag + coord.real
+    return 100 * y + x
 
 
-tot = 0
-for b, ch in boxes.items():
-    if ch == "O":
-        tot += gps(b)
+def parse(filename, doublewide=False):
+    data = Path(filename).read_text()
+    map, rules = u.paragraphs(data)
+    rules = "".join([line.strip() for line in rules.splitlines()])
+    lines = map.splitlines()
+    rows = len(lines)
+    cols = len(lines[0])
+    step = 2 if doublewide else 1
+    g = [["." for _ in range(cols * step)] for _ in range(rows)]
+    for rownum, row in enumerate(map.splitlines()):
+        colnum = 0
+        for ch in row:
+            if ch == "@":
+                start = u.Point2D(rownum, colnum)
+                # also include starting position in floor tiles
+                g[rownum][colnum] = SPACE
+                if doublewide:
+                    g[rownum][colnum + 1] = SPACE
+            elif ch == WALL:
+                g[rownum][colnum] = WALL
+                if doublewide:
+                    g[rownum][colnum + 1] = WALL
+            elif ch == SPACE:
+                g[rownum][colnum] = SPACE
+                if doublewide:
+                    g[rownum][colnum + 1] = SPACE
+            else:
+                g[rownum][colnum] = BOXL if doublewide else BOX
+                if doublewide:
+                    g[rownum][colnum + 1] = BOXR
+            colnum += step
+    print(start)
+    return g, start, rules
 
-print(f"{tot}")
+
+def part1(filename):
+    g, start, rules = parse(filename)
+    print(f"{start=} {len(rules)} steps")
+    print(f"{rules[:10]}")
+
+    for rule in rules:
+        display(g, [(start, rule)])
+        print()
+        start, grid = move(start, g, rule)
+        input()
+
+    tot = 0
+    for i, row in enumerate(grid):
+        for j, ch in enumerate(row):
+            if ch == "O":
+                tot += gps((i, j))
+
+    print(f"{int(tot)}")
+
+
+def part2(filename):
+    grid, start, rules = parse(filename, doublewide=True)
+    # rules = "^^^^^"
+    # start = start - 2 + 2j
+    # # display(start, grid, "@")
+    # # print()
+
+    for i, rule in enumerate(rules):
+        print(f"moving from {start} -- {rule} -- {i=}")
+        start, grid = move2(start, grid, rule)
+        print("after", rule)
+        display(grid, [(start, rule)])
+        input()
+        print("-" * 40)
+        # break
+
+    tot = 0
+    for b, ch in grid.items():
+        if ch == "O":
+            tot += gps(b)
+
+    print(f"{int(tot)}")
+
+
+DAYNUM = u.ints(Path(__file__).stem)[0]
+
+# part1(f"input/{DAYNUM}s")
+part1(f"input/{DAYNUM}s2")
+# part1(f"input/{DAYNUM}")
+
+# part2(f"input/{DAYNUM}s")
+# part2(f"input/{DAYNUM}")
