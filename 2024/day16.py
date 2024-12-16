@@ -7,7 +7,7 @@ from simple_chalk import chalk
 
 DAYNUM = u.ints(Path(__file__).stem)[0]
 data = Path(f"input/{DAYNUM}s").read_text()
-# data = Path(f"input/{DAYNUM}s2").read_text()
+data = Path(f"input/{DAYNUM}s2").read_text()
 # data = Path(f"input/{DAYNUM}").read_text()
 
 grid = dict()
@@ -44,9 +44,10 @@ def dfs(graph, start, end, direction, cost, visited=None):
 
     min_score = None
     # print(f"{direction}")
+    movecost = 0
     for neighbour in graph[start]:
         delta = u.Point2D(*neighbour) - u.Point2D(*start)
-        # print(f"{delta} {type(delta)}")
+        # print(f"{delta} {direction}")
         if delta != u.Point2D(*direction):
             movecost = 1000 + 1
         else:
@@ -64,11 +65,11 @@ def dfs(graph, start, end, direction, cost, visited=None):
                 min_score = min(score, min_score)
             else:
                 min_score = score
-            # max_score = max(score, max_score)
+            print(score, min_score)
     # if we don't remove start, we also include dead ends
     del visited[start]
 
-    return min_score, visited.keys(), False
+    return min_score, visited, False
 
 
 score, path, final = dfs(graph, start, end, u.East, 0)
