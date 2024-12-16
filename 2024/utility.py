@@ -288,7 +288,6 @@ def Zs(points) -> Tuple[int]:
 
 
 def add(p: Point, q: Point) -> Point:
-    print(f"{p=} {q=} ")
     return tuple(map(operator.add, [p, q]))
 
 
@@ -723,7 +722,7 @@ def char_indices(line, ch, reverse=False):
 
 def enumerated_grid(data):
     for y, line in enumerate(data):
-        for x, ch in enumerate(line):
+        for x, ch in enumerate(line.strip()):
             yield (x, y), ch
 
 
