@@ -4,6 +4,7 @@ from collections import defaultdict
 
 DAYNUM = ints(Path(__file__).stem)[0]
 fsample = Path(f"input/{DAYNUM}s")
+fsample2 = Path(f"input/{DAYNUM}s2")
 fdata = Path(f"input/{DAYNUM}")
 
 
@@ -13,6 +14,7 @@ class Program:
         self.registers = registers
         self.pointer = 0
         self.output = []
+        self.state = None
 
     @staticmethod
     def from_file(filename):
@@ -122,6 +124,8 @@ class Program:
             return 7
 
     def execute(self, step=False, part2=False):
+        if not self.state:
+            self.state = set()
         while True:
             if self.pointer >= len(self.instructions):
                 break
@@ -151,7 +155,7 @@ class Program:
                 self.pointer += 2
             if step:
                 input()
-            print()
+                print()
         return ",".join(map(str, self.output)), False
 
 
@@ -161,10 +165,12 @@ def part1(filename):
 
 def part2(filename):
     newa = 0
+    raise Exception("Brute force doesn't work. Reimplement.")
     while True:
+        print("Trying state:", newa)
         p = Program.from_file(filename)
         p.A = newa
-        if p.execute(step=True, part2=True)[1]:
+        if p.execute(step=False, part2=True)[1]:
             break
         newa += 1
     print(newa)
