@@ -7,22 +7,22 @@ fsample = Path(f"input/{DAYNUM}s")
 fdata = Path(f"input/{DAYNUM}")
 
 
-def parse(filename):
-    registerstr, program = paragraphs(filename.read_text())
-    registers = defaultdict(int)
-    for line in registerstr.splitlines():
-        lhs, rhs = line.split(":", 1)
-        registers[lhs.split(" ", 1)[1]] = int(rhs.strip())
-    program = list(ints(program))
-    return program, registers
-
-
 class Program:
     def __init__(self, instructions, registers):
         self.instructions = instructions
         self.registers = registers
         self.pointer = 0
         self.output = []
+
+    @staticmethod
+    def from_file(filename):
+        registerstr, program = paragraphs(filename.read_text())
+        registers = defaultdict(int)
+        for line in registerstr.splitlines():
+            lhs, rhs = line.split(":", 1)
+            registers[lhs.split(" ", 1)[1]] = int(rhs.strip())
+        program = list(ints(program))
+        return Program(program, registers)
 
     def __str__(self):
         outs = []
@@ -121,7 +121,7 @@ class Program:
         elif self.v == 7:
             return 7
 
-    def execute(self, step=False):
+    def execute(self, step=False, part2=False):
         while True:
             if self.pointer >= len(self.instructions):
                 break
@@ -152,7 +152,19 @@ class Program:
             if step:
                 input()
             print()
-        return ",".join(map(str, self.output))
+        return ",".join(map(str, self.output)), False
 
 
-# execute([2, 6], {"C": 9})
+def part1(filename):
+    print(Program.from_file(filename).execute()[0])
+
+
+def part2(filename):
+    newa = 0
+    while True:
+        p = Program.from_file(filename)
+        p.A = newa
+        if p.execute(step=True, part2=True)[1]:
+            break
+        newa += 1
+    print(newa)
