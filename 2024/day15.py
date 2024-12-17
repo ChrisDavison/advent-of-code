@@ -5,6 +5,9 @@ from collections import deque
 from simple_chalk import chalk
 
 
+DEBUG = False
+
+
 North = u.Point2D(-1, 0, data="^")
 South = u.Point2D(1, 0, data="v")
 East = u.Point2D(0, 1, data=">")
@@ -73,9 +76,6 @@ class WarehouseBot:
     def highlight(self, highlights):
         self.highlights = highlights
 
-    def clear_highlights(self):
-        self.highlights = []
-
     def __repr__(self):
         return self.__str__()
 
@@ -90,7 +90,6 @@ class WarehouseBot:
         until_wall = []
         direction = self.rules[self.ruleidx]
         nx = u.Point2D(self.start.x, self.start.y)
-        # print(f"{self.start=} + {direction} {direction.data}")
         rows, cols = len(self.grid), len(self.grid[0])
         while True:
             nx = nx + direction
@@ -102,9 +101,7 @@ class WarehouseBot:
             until_wall.append((nx, self.grid[nx.x][nx.y]))
             if self.grid[nx.x][nx.y] == SPACE:
                 break
-        # print(f"{until_wall=}")
         if any([ch == SPACE for pos, ch in until_wall]):
-            # print(f"have a space in until_wall: {until_wall}")
             if until_wall[0][1] == SPACE:
                 # the thing beside us is a gap, so just walk
                 self.start = until_wall[0][0]
@@ -113,16 +110,12 @@ class WarehouseBot:
                     i for i, thing in enumerate(until_wall) if thing[1] == SPACE
                 ][0]
                 gap_coord = until_wall[pos_gap][0]
-                # print(f"{gap_coord=}")
                 first_box_coord = until_wall[0][0]
-                # print(f"{first_box_coord=}")
                 self.grid[gap_coord.x][gap_coord.y] = "O"
                 self.grid[first_box_coord.x][first_box_coord.y] = SPACE
                 self.start = first_box_coord
 
     def can_shove(self, points, step=0):
-        spacing = step * 2 * " "
-        # print(spacing, points)
         direction = self.rules[self.ruleidx]
         next_pairs = set()
         for p in points:
@@ -136,35 +129,18 @@ class WarehouseBot:
             else:
                 next_pairs.add((p + direction, ch))
         if all(map(lambda x: x[1] == ".", next_pairs)):
-            # print(spacing, "ALL SPACES")
-            # print(self)
-            # print("...to...")
-            # print(f"{next_pairs}")
-            # for p, ch in next_pairs:
-            #     prev = p - direction
-            #     print(f"shoving {prev} into {p}")
-            #     self.grid[p.x][p.y] = self.grid[prev.x][prev.y]
-            #     self.grid[prev.x][prev.y] = "."
-            #     print(self)
-            #     input()
-            # self.grid[p.x][p.y] = "."
             return True
 
         if any(map(lambda x: x[1] == "#", next_pairs)):
-            # print(spacing, "WALL")
             return False
         next_points = [p for p, ch in next_pairs if ch != "."]
         if self.can_shove(next_points, step + 1):
-            # print(spacing, "some boxes")
-            # print(self)
-            # print("...to...")
             for p, ch in next_pairs:
                 prev = p - direction
-                # print(f"shoving {prev} into {p}")
-                self.grid[p.x][p.y] = self.grid[prev.x][prev.y]
-                self.grid[prev.x][prev.y] = "."
-                # print(self)
-                # input()
+                cur = self.grid[p.x][p.y]
+                if cur == ".":
+                    self.grid[p.x][p.y] = self.grid[prev.x][prev.y]
+                    self.grid[prev.x][prev.y] = "."
             return True
         return False
 
@@ -180,9 +156,7 @@ class WarehouseBot:
             points = [nextp]
 
         if not self.can_shove(points):
-            # print("NO SHOVE")
             return self.start, self.grid
-        # print("!!!!! SHOVE !!!!!")
         self.start = self.start + direction
         return self.start, self.grid
         # raise Exception("Fix vertical shove logic")
@@ -197,29 +171,21 @@ class WarehouseBot:
         def in_bounds(point):
             return point.x >= 0 and point.x < rows and point.y >= 0 and point.y < cols
 
-        # print(f"H{nx} {direction.data} {direction}")
         while True:
             nx = nx + u.Point2D(direction.x, direction.y)
-            # print(f"{nx=} {self.grid[nx.x][nx.y]}")
             if not in_bounds(nx):
                 break
             if self.grid[nx.x][nx.y] == WALL:
-                # print(f"{WALL}")
                 break
             until_wall.append((nx, self.grid[nx.x][nx.y]))
             if self.grid[nx.x][nx.y] == SPACE:
                 break
 
-        # print(f"{until_wall=}")
         if any([ch == SPACE for pos, ch in until_wall]):
-            # print(f"{until_wall=}")
             until_wall_s = deque([s for p, s in until_wall])
             until_wall_p = deque([p for p, s in until_wall])
             until_wall_s.rotate()
-            # print(f"{until_wall_p}")
-            # print(f"{until_wall_s}")
             for p, s in zip(until_wall_p, until_wall_s):
-                # print(f"{p, s}")
                 self.grid[p.x][p.y] = s
             self.start = until_wall_p[0]
         return self.start, self.grid
@@ -251,14 +217,11 @@ class WarehouseBot:
 
     def score(self):
         tot = 0
-        tot2 = 0
         for i, row in enumerate(self.grid):
             for j, ch in enumerate(row):
-                if ch == "O":
+                if ch in ["O", BOXL]:
                     tot += 100 * i + j
-                if ch == "[":
-                    tot2 += 100 * i + j
-        return int(tot), int(tot2)
+        return int(tot)
 
 
 def parse(filename, doublewide=False):
@@ -295,27 +258,32 @@ def parse(filename, doublewide=False):
                 if doublewide:
                     g[rownum][colnum + 1] = BOXR
             colnum += step
-    # print(start)
     return g, start, rules
 
 
 def part1(filename):
+    global DEBUG
     grid, start, rules = parse(filename)
     bot = WarehouseBot(grid, start, rules)
-    for move in bot:
-        print(bot)
-        # input()
+    for i, move in enumerate(bot):
+        if DEBUG:
+            print(bot)
+            print(i)
+            input()
+            os.system("clear")
     print(bot.score())
 
 
 def part2(filename):
+    global DEBUG
     grid, start, rules = parse(filename, doublewide=True)
     bot = WarehouseBot(grid, start, rules, v2=True)
-    print(bot)
-    for move in bot:
-        print(bot)
-        input()
-        os.system("clear")
+    for i, move in enumerate(bot):
+        if DEBUG:
+            print(bot)
+            print(i)
+            input()
+            os.system("clear")
     print(bot.score())
 
 
@@ -323,9 +291,7 @@ if __name__ == "__main__":
     DAYNUM = u.ints(Path(__file__).stem)[0]
 
     # part1(f"input/{DAYNUM}s")
-    # part1(f"input/{DAYNUM}s2")
-    # part1(f"input/{DAYNUM}")
+    part1(f"input/{DAYNUM}")
 
-    # part2(f"input/{DAYNUM}s2")
     # part2(f"input/{DAYNUM}s")
     part2(f"input/{DAYNUM}")
