@@ -1,10 +1,8 @@
-import os
-import time
+import utility as u
 from pathlib import Path
-
+from collections import deque
 from simple_chalk import chalk
 
-import utility as u
 
 North = u.Point2D(-1, 0, data="^")
 South = u.Point2D(1, 0, data="v")
@@ -27,16 +25,12 @@ class WarehouseBot:
         self.ruleidx = 0
         self.oldgrid = grid[:]
         self.oldstart = start
-        self.highlights = [(start, rules[0].data)]
+        self.highlights = []
         self.v2 = v2
-        self.show_old = False
-        self.rows = len(grid)
-        self.cols = len(grid[0])
 
     def fwd(self):
         self.oldgrid = self.grid[:]
         self.oldstart = self.start
-
         if self.ruleidx == len(self.rules):
             raise StopIteration
         if self.v2:
@@ -46,23 +40,22 @@ class WarehouseBot:
         self.highlight([(self.start, self.rules[self.ruleidx].data)])
         self.ruleidx += 1
 
-    def __str__(self, highlights=None):
-        return self.__display_str(old=False)
+    def undo(self):
+        self.grid = self.oldgrid[:]
+        self.start = self.oldstart
+        self.ruleidx -= 1
 
-    def __display_str(self, old=False):
+    def __str__(self, highlights=None):
         out = []
-        source = self.grid
-        if old:
-            source = self.oldgrid
-        for i, row in enumerate(source):
+        for i, row in enumerate(self.grid):
             rowout = []
             for j, sym in enumerate(row):
                 if sym == "#":
                     rowout.append(chalk.blue(sym))
                 elif sym in [BOXL, BOXR, BOX]:
-                    rowout.append(chalk.yellow(sym))
+                    rowout.append(chalk.magenta(sym))
                 else:
-                    rowout.append(chalk.gray(sym))
+                    rowout.append(sym)
             out.append(rowout)
         for h in self.highlights:
             if isinstance(h, list) or isinstance(h, tuple):
@@ -76,17 +69,6 @@ class WarehouseBot:
             out[h.x][h.y] = c
         return "\n".join("".join(row) for row in out)
 
-    def show_before_move(self):
-        self.show_old = True
-        return self
-
-    def show_old_and_new(self):
-        lhs = self.__display_str(old=True)
-        rhs = self.__display_str(old=False)
-        return "\n".join(
-            lhs + "  " + rhs for lhs, rhs in zip(lhs.splitlines(), rhs.splitlines())
-        )
-
     def highlight(self, highlights):
         self.highlights = highlights
 
@@ -96,22 +78,12 @@ class WarehouseBot:
     def __repr__(self):
         return self.__str__()
 
-    def run(self, show=False, pause=0):
-        print("STARTING")
-        print(self)
-        print("-" * 40)
-        n_rules = len(self.rules)
-        for i, rule in enumerate(self.rules):
-            self.fwd()
-            if show and i > -1:
-                print(f"{i+1} of {n_rules} {self.rules[i].data}")
-                print(self)
-                time.sleep(pause)
-                input()
-                # os.system("clear")
-        # print("AFTER")
-        # print(self)
-        print(f"Score: {self.score()}")
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.fwd()
+        return self.start, self.rules[self.ruleidx - 1]
 
     def move(self):
         until_wall = []
@@ -147,97 +119,146 @@ class WarehouseBot:
                 self.grid[first_box_coord.x][first_box_coord.y] = SPACE
                 self.start = first_box_coord
 
-    def shove_horizontal(self, point, direction):
-        ch = self.grid[point.x][point.y]
-        if ch == "#":
-            # If we reach a wall, we can't shove
+    def can_shove(self, point, step=0):
+        spacing = step * 2 * " "
+        direction = self.rules[self.ruleidx]
+        print(f"can_shove {point} {direction}")
+        input()
+        next_point = point + direction
+        next_sym = self.grid[next_point.x][next_point.y]
+        nextpoint = self.grid[next_point.x][next_point.y]
+        print(
+            f"{spacing}shove {point} from {self.grid[point.x][point.y]} to {nextpoint}",
+        )
+        if next_sym == WALL:
+            print(spacing + "FALSE")
             return False
-        elif ch == ".":
-            # If we reach a space, something can be shoved into this space
+        if self.grid[next_point.x][next_point.y] == SPACE:
+            print(spacing + "TRUE")
             return True
-        elif ch == "O":
-            # If we're in part1 and hit a box, only shove if the thing AFTER it can be shoved
-            after = point + direction
-            ax, ay = after.x, after.y
-            can = self.shove_horizontal(after, direction)
-            if can:
-                self.grid[ax][ay] = ch
-                return True
-            else:
-                return False
+
+        if self.grid[next_point.x][next_point.y] == BOXL:
+            left = next_point
+            right = next_point + u.Point2D(1, 0)
+
         else:
-            if self.shove_horizontal(point + direction, direction):
-                after = point + direction
-                ax, ay = after.x, after.y
-                self.grid[ax][ay] = ch
-                return True
-            else:
-                return False
+            left = next_point - u.Point2D(1, 0)
+            right = next_point
 
-    def can_shove_vertical(self, points, direction):
-        next_points = set()
-        spaces = 0
-        print(f"test shoving {points}")
-        for point in points:
-            ch = self.grid[point.x][point.y]
-            np = point + direction
-            # If anything in this layer is
-            if ch == "#" or self.grid[np.x][np.y] == "#":
-                # If we reach a wall, we can't shove
-                return False
-            elif ch == ".":
-                # If we reach a space, something can be shoved into this space
-                spaces += 1
-            elif ch == "O":
-                # If we're in part1 and hit a box, only shove if the thing AFTER it can be shoved
-                # ax, ay = after.x, after.y
-                next_points.add(point + direction)
-                # can = self.shove_vertical(after, direction)
-                # if can:
-                #     self.grid[ax][ay] = ch
-                #     self.grid[point.x][point.y] = "."
-                #     return True
-                # else:
-                #     return False
-            else:
-                if ch == "]":
-                    left = point + West
-                    right = point
-                elif ch == "[":
-                    left = point
-                    right = point + East
-                else:
-                    raise Exception(f"Unknown character when shoving {ch}")
-                # ln = left + direction
-                # rn = right + direction
-                next_points.add(left + direction)
-                next_points.add(right + direction)
-                # if self.grid[ln.x][ln.y] == WALL or self.grid[rn.x][rn.y] == "WALL":
-                #     return False
-                # canl = self.shove_vertical(left + direction, direction, dryrun=True)
-                # if not canl:
-                #     return False
-                # canr = self.shove_vertical(right + direction, direction, dryrun=True)
-                # if not canr:
-                #     return False
-                # canl = self.shove_vertical(left + direction, direction, dryrun=False)
-                # canr = self.shove_vertical(right + direction, direction, dryrun=False)
-                # if not dryrun:
-                #     left_after = left + direction
-                #     right_after = right + direction
-                #     self.grid[left_after.x][left_after.y] = "["
-                #     self.grid[right_after.x][right_after.y] = "]"
+        print(f"{spacing}...[] pair -> row {left.y:.0f}, {left.x:.0f}..{right.x:.0f}")
+        left_ok = self.can_shove(left, step + 1)
+        right_ok = self.can_shove(right, step + 1)
+        print(spacing, (left_ok and right_ok))
+        return left_ok and right_ok
 
-                #     self.grid[left.x][left.y] = "."
-                #     self.grid[right.x][right.y] = "."
-                # return True
+    def move_vertical(self):
+        global DEBUG
+        # double-wide
+        direction = self.rules[self.ruleidx]
+        u.arrow_directions = {"^": -1j, ">": 1, "v": 1j, "<": -1}
+        above = deque()
+        lhs, rhs = self.start, self.start
+        found_wall = False
 
-    def shove_vertical(self, points, direction):
-        if all(self.shove_vertical(points, direction)):
-            for p in points:
-                np = p + direction
-                self.grid[np.x][np.y] = self.grid[p.x][p.y]
-                self.grid[p.x][p.y] = "."
+        # print("=" * 20 + " VERTICAL")
+        # print(f"{self.start}")
+        above = []
+        # print()
+        if not self.can_shove(self.start):
+            return
+        print("!!!!! SHOVE !!!!!")
+        while not found_wall:
+            lhs += direction
+            rhs += direction
+            if self.grid[lhs.x][lhs.y] == WALL or self.grid[rhs.x][rhs.y] == WALL:
+                break
+            if self.grid[lhs.x][lhs.y] == BOXR:
+                lhs -= 1
+            coldiff = int(rhs.y - lhs.y)
+            # print(f"{lhs=} {rhs=} {coldiff=}")
+            row = []
+            for i in range(coldiff):
+                point1 = lhs + i
+                point2 = rhs + i
+                if self.grid[point1] == WALL or self.grid[point2] == WALL:
+                    found_wall = True
+                    break
+                if i == 0 and self.grid[point1] == BOXR:
+                    lhs -= 1
+                    row.append((point1 - 1, BOXL))
+                if i == coldiff - 1 and self.grid[point2] == BOXL:
+                    rhs += 1
+                    row.append((point2 + 1, BOXR))
+                row.append((point1, self.grid[point1]))
+                row.append((point2, self.grid[point2]))
+            # print(f"{row}")
+            above.append(row)
+            if all([ch == SPACE for p, ch in row]):
+                break
+        if not above:
+            return self.start, self.grid
+        if above == [[]]:
+            step = self.start + direction
+            if self.grid[step.x][step.y] == SPACE:
+                self.start = step
+        elif any([ch == SPACE for p, ch in above[-1]]):
+            above = above[::-1]
+            for row in above[:-1]:
+                row = sorted(row, key=lambda x: x[0].real)
+                for p, ch in row:
+                    direc = u.arrow_directions[direction]
+                    nextp = p - direc
+                    if self.grid[p] == SPACE and nextp in self.grid:
+                        if self.grid[nextp] == BOXL:
+                            if self.can_shove(p) and self.can_shove(p + 1):
+                                self.grid[p] = self.grid[p - direc]
+                                self.grid[p - direc] = SPACE
+                        elif self.grid[nextp] == BOXR:
+                            if self.can_shove(p) and self.can_shove(p - 1):
+                                self.grid[p] = self.grid[p - direc]
+                                self.grid[p - direc] = SPACE
+                        else:  # '.'
+                            self.grid[p] = self.grid[p - direc]
+                            self.grid[p - direc] = SPACE
+            self.start += u.arrow_directions[direction]
+        return self.start, self.grid
+
+    def move_horizontal(self):
+        direction = self.rules[self.ruleidx]
+        until_wall = deque()
+        nx = self.start
+        cols = len(self.grid[0])
+        rows = len(self.grid)
+
+        def in_bounds(point):
+            return point.x >= 0 and point.x < rows and point.y >= 0 and point.y < cols
+
+        print(f"H{nx} {direction.data} {direction}")
+        while True:
+            nx = nx + u.Point2D(direction.x, direction.y)
+            # print(f"{nx=} {self.grid[nx.x][nx.y]}")
+            if not in_bounds(nx):
+                break
+            if self.grid[nx.x][nx.y] == WALL:
+                # print(f"{WALL}")
+                break
+            until_wall.append((nx, self.grid[nx.x][nx.y]))
+            if self.grid[nx.x][nx.y] == SPACE:
+                break
+
+        print(f"{until_wall=}")
+        if any([ch == SPACE for pos, ch in until_wall]):
+            # print(f"{until_wall=}")
+            until_wall_s = deque([s for p, s in until_wall])
+            until_wall_p = deque([p for p, s in until_wall])
+            until_wall_s.rotate()
+            # print(f"{until_wall_p}")
+            # print(f"{until_wall_s}")
+            for p, s in zip(until_wall_p, until_wall_s):
+                print(f"{p, s}")
+                self.grid[p.x][p.y] = s
+            self.start = until_wall_p[0]
+        return self.start, self.grid
 
     def move_v2(self):
         """This time, grid can be 2x wide (but not 2x tall)
@@ -258,22 +279,17 @@ class WarehouseBot:
         the two columns above that...if either of them, also need to check all of their columns (only
         till the minimum of the nearest wall.
         """
-        direction = self.rules[self.ruleidx]
-        if direction.data in "^v":
-            shoved = self.shove_vertical([self.start + direction], direction)
+        if self.rules[self.ruleidx].data in "^v":
+            start, grid = self.move_vertical()
         else:
-            shoved = self.shove_horizontal(self.start + direction, direction)
-
-        if shoved:
-            self.start = self.start + direction
-            self.grid[self.start.x][self.start.y] = "."
-        return self.start, self.grid
+            start, grid = self.move_horizontal()
+        return start, grid
 
     def score(self):
         tot = 0
         for i, row in enumerate(self.grid):
             for j, ch in enumerate(row):
-                if ch in [BOX, BOXL]:
+                if ch == "O":
                     tot += 100 * i + j
         return int(tot)
 
@@ -319,13 +335,19 @@ def parse(filename, doublewide=False):
 def part1(filename):
     grid, start, rules = parse(filename)
     bot = WarehouseBot(grid, start, rules)
-    bot.run(show=True, pause=0.1)
+    for move in bot:
+        print(bot)
+        input()
+    print(bot.score())
 
 
 def part2(filename):
     grid, start, rules = parse(filename, doublewide=True)
     bot = WarehouseBot(grid, start, rules, v2=True)
-    bot.run(show=True)
+    for move in bot:
+        print(bot)
+        input()
+    print(bot.score())
 
 
 if __name__ == "__main__":
