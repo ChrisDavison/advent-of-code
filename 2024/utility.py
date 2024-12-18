@@ -395,13 +395,22 @@ class Grid(dict):
             self, directions=self.directions, skip=self.skip, default=self.default
         )
 
-    def neighbors(self, point) -> List[Point]:
+    def neighbors(self, point, excluding=None) -> List[Point]:
         """Points on the grid that neighbor `point`."""
-        return [
-            add2(point, Δ)
-            for Δ in self.directions
-            if add2(point, Δ) in self or self.default not in (KeyError, None)
+        if excluding is None:
+            excluding = set()
+        # print(f"{excluding=}")
+        points = [add2(point, Δ) for Δ in self.directions]
+        # self.print(highlight=[point])
+        # print(f"{points=}")
+        valid = [
+            p
+            for p in points
+            if (p in self or self.default not in (KeyError, None))
+            and p not in excluding
         ]
+
+        return valid
 
     def neighbor_contents(self, point) -> Iterable:
         """The contents of the neighboring points."""
@@ -419,10 +428,25 @@ class Grid(dict):
         default = " " if self.default in (KeyError, None) else self.default
         return [[self.get((x, y), default) for x in xrange] for y in yrange]
 
-    def print(self, sep="", xrange=None, yrange=None):
+    def print(self, sep="", xrange=None, yrange=None, highlight=None, block=None):
         """Print a representation of the grid."""
-        for row in self.to_rows(xrange, yrange):
-            print(*row, sep=sep)
+        if highlight:
+            from simple_chalk import chalk
+        else:
+            highlight = []
+        if block is None:
+            block = ""
+
+        for j, row in enumerate(self.to_rows(xrange, yrange)):
+            rowhi = []
+            for i, thing in enumerate(row):
+                if (i, j) in highlight:
+                    rowhi.append(chalk.bgRed(chalk.bold.whiteBright(thing)))
+                elif thing in block:
+                    rowhi.append(chalk.gray(thing))
+                else:
+                    rowhi.append(thing)
+            print(sep.join(rowhi))
 
     def __str__(self):
         return cat(self.to_rows())
@@ -494,6 +518,13 @@ def cover(*integers) -> range:
     if len(integers) == 1:
         integers = the(integers)
     return range(min(integers), max(integers) + 1)
+
+
+def only(sequence) -> object:
+    """Return the one item in a sequence. Raise error if not exactly one.
+
+    Alias for `the`"""
+    return the(sequence)
 
 
 def the(sequence) -> object:
