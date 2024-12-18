@@ -8,7 +8,7 @@ from itertools import chain, combinations, islice
 from math import gcd, inf
 from pathlib import Path
 from time import time_ns
-from typing import Callable, Iterable, List, Optional, Sequence, Set, Tuple, Union
+from typing import *
 
 import pyperclip
 
@@ -344,16 +344,22 @@ def taxi_distance(p: Point, q: Point) -> int:
 class Grid(dict):
     """A 2D grid, implemented as a mapping of {(x, y): cell_contents}."""
 
-    def __init__(self, grid=(), directions=directions4, skip=(), default=KeyError):
-        """Initialize with either (e.g.) `Grid({(0, 0): '#', (1, 0): '.', ...})`, or
-        `Grid(["#..", "..#"]) or `Grid("#..\n..#")`."""
+    def __init__(self, grid=(), directions=directions4, skip=(), default=None):
+        """Initialize one of four ways:
+        `Grid({(0, 0): '#', (1, 0): '.', ...})`
+        `Grid(another_grid)
+        `Grid(["#..", "..#"])
+        `Grid("#..\n..#")`."""
         self.directions = directions
+        self.skip = skip
         self.default = default
         if isinstance(grid, abc.Mapping):
             self.update(grid)
+            self.size = (len(cover(Xs(self))), len(cover(Ys(self))))
         else:
             if isinstance(grid, str):
                 grid = grid.splitlines()
+            self.size = (max(map(len, grid)), len(grid))
             self.update(
                 {
                     (x, y): val
@@ -362,43 +368,55 @@ class Grid(dict):
                     if val not in skip
                 }
             )
-        self.n_rows = len(grid)
-        self.n_cols = len(grid[0])
-        self.dim = (self.n_rows, self.n_cols)
+
+    @staticmethod
+    def from_dimensions(x, y):
+        grid = [["." for _ in range(y)] for _ in range(x)]
+        return Grid(grid)
 
     def __missing__(self, point):
         """If asked for a point off the grid, either return default or raise error."""
-        if self.default is KeyError:
+        if self.default == KeyError:
             raise KeyError(point)
         else:
             return self.default
 
+    def in_range(self, point) -> bool:
+        """Is the point within the range of the grid's size?"""
+        return 0 <= X_(point) < X_(self.size) and 0 <= Y_(point) < Y_(self.size)
+
+    def follow_line(self, start: Point, direction: Vector) -> Iterable[Point]:
+        while self.in_range(start):
+            yield start
+            start = add2(start, direction)
+
     def copy(self):
-        return Grid(self, directions=self.directions, default=self.default)
+        return Grid(
+            self, directions=self.directions, skip=self.skip, default=self.default
+        )
 
     def neighbors(self, point) -> List[Point]:
         """Points on the grid that neighbor `point`."""
         return [
             add2(point, Δ)
             for Δ in self.directions
-            if add2(point, Δ) in self or self.default is not KeyError
+            if add2(point, Δ) in self or self.default not in (KeyError, None)
         ]
 
     def neighbor_contents(self, point) -> Iterable:
         """The contents of the neighboring points."""
         return (self[p] for p in self.neighbors(point))
 
-    def neighbour_and_contents(self, point) -> Iterable:
-        """Point and contents of neighbours."""
-        return ((p, self[p]) for p in self.neighbors(point))
+    def findall(self, contents: Collection) -> List[Point]:
+        """All points that contain one of the given contents, e.g. grid.findall('#')."""
+        return [p for p in self if self[p] in contents]
 
     def to_rows(self, xrange=None, yrange=None) -> List[List[object]]:
         """The contents of the grid, as a rectangular list of lists.
-        You can define a window with an xrange and yrange; or they default to the whole grid.
-        """
+        You can define a window with an xrange and yrange; or they default to the whole grid."""
         xrange = xrange or cover(Xs(self))
         yrange = yrange or cover(Ys(self))
-        default = " " if self.default is KeyError else self.default
+        default = " " if self.default in (KeyError, None) else self.default
         return [[self.get((x, y), default) for x in xrange] for y in yrange]
 
     def print(self, sep="", xrange=None, yrange=None):
@@ -406,10 +424,11 @@ class Grid(dict):
         for row in self.to_rows(xrange, yrange):
             print(*row, sep=sep)
 
+    def __str__(self):
+        return cat(self.to_rows())
+
     def plot(self, markers={"#": "s", ".": ","}, figsize=(14, 14), **kwds):
         """Plot a representation of the grid."""
-        import matplotlib.pyplot as plt
-
         plt.figure(figsize=figsize)
         plt.gca().invert_yaxis()
         for m in markers:
