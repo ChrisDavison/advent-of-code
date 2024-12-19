@@ -1,36 +1,39 @@
-from utility import paragraphs, ints
-from pathlib import Path
-from collections import defaultdict
+from utility import paragraphs, ints, parse, atoms
 
-DAYNUM = ints(Path(__file__).stem)[0]
-fsample = Path(f"input/{DAYNUM}s")
-fsample2 = Path(f"input/{DAYNUM}s2")
-fdata = Path(f"input/{DAYNUM}")
+DEBUG = False
 
 
 class Program:
-    def __init__(self, instructions, registers):
+    def __init__(self, a, b, c, instructions):
         self.instructions = instructions
-        self.registers = registers
+        self.a = a
+        self.b = b
+        self.c = c
         self.pointer = 0
         self.output = []
-        self.state = None
 
     @staticmethod
     def from_file(filename):
-        registerstr, program = paragraphs(filename.read_text())
-        registers = defaultdict(int)
-        for line in registerstr.splitlines():
-            lhs, rhs = line.split(":", 1)
-            registers[lhs.split(" ", 1)[1]] = int(rhs.strip())
-        program = list(ints(program))
-        return Program(program, registers)
+        parsed = parse(filename, atoms, show=0)
+        a = b = c = 0
+        instructions = []
+        for line in parsed:
+            match line:
+                case ["Register", "A", val]:
+                    a = val
+                case ["Register", "B", val]:
+                    b = val
+                case ["Register", "C", val]:
+                    c = val
+                case ["Program", *vals]:
+                    instructions = vals
+        return Program(a, b, c, instructions)
 
     def __str__(self):
         outs = []
         outs.append("    " + " " * (2 * self.pointer) + "v")
         outs.append("PRG " + ",".join(map(str, self.instructions)))
-        register = " ".join(k + str(v) for k, v in self.registers.items())
+        register = f"a{self.a} b{self.b} c{self.c}"
         outs.append(f"VAL {self.instructions[self.pointer+1]} (CV {self.cv})")
         outs.append(f"REG {register}")
         outputstr = " ".join(map(str, self.output))
@@ -41,70 +44,58 @@ class Program:
         # adv. div register['A'] by v
         # truncate to integer
         # store in A
-        print(f"OP: A / 2**cv -> {self.A} / {2**self.cv} = {self.A /2**self.cv}")
-        self.A = int(self.A / (2**self.cv))
+        if DEBUG:
+            print(f"OP: A / 2**cv -> {self.a} / {2**self.cv} = {self.a /2**self.cv}")
+        self.a = int(self.a / (2**self.cv))
 
     def bxl(self):  # opcode 1
         # bitwise XOR of B and self.v
         # stored in B
-        print(f"OP: B XOR v -> {self.B} ^ {self.v} = {self.B ^ self.v}")
-        self.B = self.B ^ self.v
+        if DEBUG:
+            print(f"OP: B XOR v -> {self.b} ^ {self.v} = {self.b ^ self.v}")
+        self.b = self.b ^ self.v
 
     def bst(self):  # opcode 2
         # self.v % 8, stored into B
-        print(f"OP: cv % 8 -> {self.cv} % 8 = {self.cv % 8}")
-        self.B = self.cv % 8
+        if DEBUG:
+            print(f"OP: cv % 8 -> {self.cv} % 8 = {self.cv % 8}")
+        self.b = self.cv % 8
 
     def jnz(self):  # opcode 3
         # if A is 0, nothing
         # else jump to position self.v
-        print(f"OP: jnz A, jump to v -> {self.A}? {self.v}")
-        if self.A != 0:
+        if DEBUG:
+            print(f"OP: jnz A, jump to v -> {self.a}? {self.v}")
+        if self.a != 0:
             self.pointer = self.v
             return True
 
     def bxc(self):  # opcode 4
         # bitwise XOR of B and C, stored in B
         # ignors self.v
-        print(f"OP: B = B ^ C -> {self.B} ^ {self.C} = {self.B^self.C}")
-        self.B = self.B ^ self.C
+        if DEBUG:
+            print(f"OP: B = B ^ C -> {self.b} ^ {self.c} = {self.b^self.c}")
+        self.b = self.b ^ self.c
 
     def out(self):  # opcode 5
         # self.v % 8, output self.v (append, or insert?)
-        print(f"OP: output cv % 8 -> {self.cv} % 8 = {self.cv % 8}")
+        if DEBUG:
+            print(f"OP: output cv % 8 -> {self.cv} % 8 = {self.cv % 8}")
         self.output.append(self.cv % 8)
 
     def bdv(self):  # opcode 6
-        print(f"OP: B = A / 2**cv -> {self.A} / {2**self.cv} = {self.A / 2**self.cv}")
-        self.B = int(self.A / (2**self.cv))
+        if DEBUG:
+            print(
+                f"OP: B = A / 2**cv -> {self.a} / {2**self.cv} = {self.a / 2**self.cv}"
+            )
+        self.b = int(self.a / (2**self.cv))
 
     def cdv(self):  # opcode 7
-        print(f"OP: C = A / 2**cv -> {self.A} / {2**self.cv} = {self.A / 2**self.cv}")
-        self.C = int(self.A / (2**self.cv))
-
-    @property
-    def A(self):
-        return self.registers["A"]
-
-    @A.setter
-    def A(self, value):
-        self.registers["A"] = value
-
-    @property
-    def B(self):
-        return self.registers["B"]
-
-    @B.setter
-    def B(self, value):
-        self.registers["B"] = value
-
-    @property
-    def C(self):
-        return self.registers["C"]
-
-    @C.setter
-    def C(self, value):
-        self.registers["C"] = value
+        if DEBUG:
+            print(
+                f"OP: C = A / 2**cv -> {self.a} / {2**self.cv} = {self.a / 2**self.cv}"
+            )
+        self.c = int(self.a / (2**self.cv))
 
     @property
     def v(self):
@@ -112,25 +103,23 @@ class Program:
 
     @property
     def cv(self):
-        if self.v in [0, 1, 2, 3]:
-            return self.v
-        elif self.v == 4:
-            return self.registers["A"]
-        elif self.v == 5:
-            return self.registers["B"]
-        elif self.v == 6:
-            return self.registers["C"]
-        elif self.v == 7:
-            return 7
+        match self.v:
+            case 0 | 1 | 2 | 3 | 7:
+                return self.v
+            case 4:
+                return self.a
+            case 5:
+                return self.b
+            case 6:
+                return self.c
 
     def execute(self, step=False, part2=False):
-        if not self.state:
-            self.state = set()
         while True:
             if self.pointer >= len(self.instructions):
                 break
             self.value = self.instructions[self.pointer + 1]
-            print(self)
+            if step:
+                print(self)
 
             jumped = False
             match self.instructions[self.pointer]:
@@ -160,17 +149,65 @@ class Program:
 
 
 def part1(filename):
-    print(Program.from_file(filename).execute()[0])
+    p = Program.from_file(filename)
+    print(f"part1 (file {filename})", p.execute()[0])
 
 
-def part2(filename):
-    newa = 0
-    raise Exception("Brute force doesn't work. Reimplement.")
-    while True:
-        print("Trying state:", newa)
-        p = Program.from_file(filename)
-        p.A = newa
-        if p.execute(step=False, part2=True)[1]:
-            break
-        newa += 1
-    print(newa)
+def part2sample():
+    """The program is bespoke and needs decompiling
+
+    while a != 0:
+        a = a / 2**3
+        out a
+        break
+    """
+    a = b = c = 0
+    out = []
+    while a != 0:
+        b = (a % 8) ** 2
+        c = a >> b
+        a = a >> a
+        b ^= 7 ^ c
+        out.append(b)
+        break
+
+
+def part2():
+    """The program is bespoke and needs decompiling
+
+    Mine breaks down to...
+    b = a%7
+    b = b^2
+    c = a/2^b
+    a = a/2^a
+    b = b^7
+    b = b^c
+    out b
+    if not a, break
+
+    ...simplified
+    b = (a%8)^2
+    c = a >> b
+    a = a >> a
+    b ^= 7 ^ c
+    out b
+    if not a, break
+    """
+    a = b = c = 0
+    out = []
+    _, instructions = parse("17", ints, show=0, section_by=paragraphs)
+    instructions = list(instructions)
+    print(f"{instructions=}")
+    return
+    while a != 0:
+        b = (a % 8) ** 2
+        c = a >> b
+        a = a >> a
+        b ^= 7 ^ c
+        out.append(b)
+        break
+
+
+part1("17s")
+part1("17")
+part2()
