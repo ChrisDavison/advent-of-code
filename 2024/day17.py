@@ -195,17 +195,25 @@ def part2():
     """
     a = b = c = 0
     out = []
-    _, instructions = parse("17", ints, show=0, section_by=paragraphs)
-    instructions = list(instructions)
+    p = Program.from_file("17")
+    instructions = list(p.instructions)
     print(f"{instructions=}")
-    return
-    while a != 0:
+    a = p.a
+    while True:
         b = (a % 8) ** 2
         c = a >> b
         a = a >> a
         b ^= 7 ^ c
         out.append(b)
+        if instructions[: len(out)] != out:
+            print("INVALID A")
+            a += 1
+            b = c = 0
+        else:
+            required_bits = a % 8
         break
+        if not a:
+            break
 
 
 part1("17s")
