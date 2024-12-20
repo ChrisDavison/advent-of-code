@@ -1,4 +1,4 @@
-from utility import PriorityQueue, ints, parse, Grid, only
+from utility import East, PriorityQueue, ints, parse, Grid, only
 from collections import namedtuple
 from pathlib import Path
 
@@ -6,9 +6,9 @@ from pathlib import Path
 State = namedtuple("State", "pos, facing")
 
 
-def bfs(graph, start, end):
+def bfs(graph, start, end, facing=East):
     visited = set()
-    q = PriorityQueue([[start]])
+    q = PriorityQueue([[(start, facing)]])
     # print(f"{graph=}")
     excludes = graph.findall("#")
     # print(f"{excludes=}")
@@ -19,7 +19,7 @@ def bfs(graph, start, end):
         # print(f"{node=} {graph[node]=} ")
         if node not in visited:
             assert graph[node] != "#", "Shouldn't be on a wall..."
-            for neighbour in graph.neighbors(node, excluding=excludes):
+            for i, neighbour in enumerate(graph.neighbors(node, excluding=excludes)):
                 if graph[neighbour] == "#":
                     # print("skipping")
                     continue
@@ -48,4 +48,3 @@ graph.print(highlight=[start, end], block="#")
 print()
 route = bfs(graph, start, end)
 graph.print(highlight=route, block="#")
-# bfs(graph, start, end, East)

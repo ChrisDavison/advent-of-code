@@ -10,9 +10,6 @@ from pathlib import Path
 from time import time_ns
 from typing import *
 
-import pyperclip
-
-T_START = None
 T_NOW = None
 lines = str.splitlines  # By default, split input text into lines
 
@@ -798,6 +795,8 @@ def timer(msg=None, reset=False):
 
 def clip(val):
     input("Enter to copy to clipboard.")
+    import pyperclip
+
     pyperclip.copy(val)
     timer(reset=True)
 
