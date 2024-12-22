@@ -51,7 +51,7 @@ for i, L in enumerate(lines):
 # generate the default path through the grid
 path = []
 current_cell = start
-print(start)
+# print(start)
 path.append(start)
 grid[current_cell] = 0
 while current_cell != end:
@@ -68,6 +68,7 @@ while current_cell != end:
         path.append((r + 1, c))
     current_cell = path[-1]
     grid[current_cell] = len(path) - 1
+print(f"{len(path)}")
 
 # calculate path length for cheats, organized first by
 # start location of cheat then by end location
@@ -90,7 +91,7 @@ for p in path:
 
 # total savings from cheats
 total = 0
-print(f"{cheats=}")
+# print(f"{cheats=}")
 for c in cheats.keys():
     if cheats[c] >= 100:
         # print(c)
