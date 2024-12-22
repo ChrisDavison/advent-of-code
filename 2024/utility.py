@@ -9,6 +9,7 @@ from math import gcd, inf
 from pathlib import Path
 from time import time_ns
 from typing import *
+from simple_chalk import chalk
 
 T_NOW = None
 lines = str.splitlines  # By default, split input text into lines
@@ -427,23 +428,41 @@ class Grid(dict):
 
     def print(self, sep="", xrange=None, yrange=None, highlight=None, block=None):
         """Print a representation of the grid."""
-        if highlight:
-            from simple_chalk import chalk
-        else:
+        print(
+            "\n".join(
+                "".join(row)
+                for row in self.printstr(sep, xrange, yrange, highlight, block)
+            )
+        )
+
+    def printstr(self, sep="", xrange=None, yrange=None, highlight=None, block=None):
+        """Return a representation of the grid."""
+        if not highlight:
             highlight = []
         if block is None:
             block = ""
 
+        out = []
         for j, row in enumerate(self.to_rows(xrange, yrange)):
             rowhi = []
             for i, thing in enumerate(row):
-                if (i, j) in highlight:
-                    rowhi.append(chalk.bgRed(chalk.bold.whiteBright(thing)))
-                elif thing in block:
-                    rowhi.append(chalk.gray(thing))
-                else:
-                    rowhi.append(thing)
-            print(sep.join(rowhi))
+                highlighted = False
+                for h in highlight:
+                    if (i, j) == h:
+                        rowhi.append(chalk.bgRed(chalk.bold.whiteBright(thing)))
+                        highlighted = True
+                        break
+                    if (i, j) == h[0]:
+                        rowhi.append(h[1](thing))
+                        highlighted = True
+                        break
+                if not highlighted:
+                    if thing in block:
+                        rowhi.append(chalk.gray(thing))
+                    else:
+                        rowhi.append(thing)
+            out.append(rowhi)
+        return out
 
     def __str__(self):
         return cat(self.to_rows())

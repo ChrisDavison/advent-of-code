@@ -69,6 +69,9 @@ def part2(computer):
     aa = {0}
     for i in reversed(range(len(instructions))):
         tail = instructions[i:]
+        # For each number we've confirmed, shift it and then add 0..8
+        # e.g. if we have '5', aa becomes {50 51 52 53....58}
+        # then whatever works (say 53 and 57), we bump again .. {530 531...538, 570...578}
         aa = {(A << 3) + i for A in aa for i in range(8)}
         # Find which octal digits give the right output
         # Every time we get a new digit, 'attach' it to the old one

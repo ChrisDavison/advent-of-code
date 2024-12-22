@@ -7,8 +7,8 @@ import requests
 today = date.today()
 
 parser = ArgumentParser()
-parser.add_argument("--year", default=today.year)
-parser.add_argument("--day", default=today.day)
+parser.add_argument("--year", default=today.year, type=int)
+parser.add_argument("--day", default=today.day, type=int)
 parser.add_argument("-s", "--sample-from-clipboard", action="store_true", default=False)
 args = parser.parse_args()
 print(f"{args = :}")
