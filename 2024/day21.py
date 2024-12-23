@@ -1,6 +1,3 @@
-import utility as u
-from pathlib import Path
+from utility import *
 
-DAYNUM = u.ints(Path(__file__).stem)[0]
-data = Path(f"input/{DAYNUM}s").read_text()
-# data = Path(f"input/{DAYNUM}").read_text()
+data = parse("21s")
