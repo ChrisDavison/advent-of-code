@@ -11,9 +11,10 @@ parser.add_argument("--year", default=today.year, type=int)
 parser.add_argument("--day", default=today.day, type=int)
 parser.add_argument("-s", "--sample-from-clipboard", action="store_true", default=False)
 args = parser.parse_args()
-print(f"{args = :}")
 
-
+# ------------------------------------------------------------
+#                           get data
+# ------------------------------------------------------------
 s = requests.Session()
 s.cookies.set(
     "session",
@@ -25,13 +26,23 @@ print(response.text)
 with open(f"input/{args.day:02d}", "w") as f:
     f.write(response.text)
 
-contents = open("template.py").read()
-with open(f"day{args.day:02d}.py", "w") as f:
-    f.write(contents)
-
+# ------------------------------------------------------------
+#                     save clipboard sample
+# ------------------------------------------------------------
 if args.sample_from_clipboard:
     import pyperclip
 
     sample = pyperclip.paste()
     with open(f"input/{args.day:02d}s", "w") as f:
         f.write(sample)
+
+# ------------------------------------------------------------
+#                        write template
+# ------------------------------------------------------------
+template = f"""from utility import *
+
+data = parse("{args.day:02d}s")
+#data = parse("{args.day:02d}")
+"""
+with open(f"day{args.day:02d}.py", "w") as f:
+    f.write(template)
