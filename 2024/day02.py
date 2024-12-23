@@ -1,6 +1,5 @@
-from utility import ints
-from argparse import ArgumentParser
-from pathlib import Path
+from utility import *
+import sys
 
 
 def check(levels):
@@ -10,28 +9,21 @@ def check(levels):
 
 
 if __name__ == "__main__":
-    parser = ArgumentParser()
-    parser.add_argument("-d", "--debug", action="store_true", default=False)
-    parser.add_argument("file", type=Path, nargs=1)
-    args = parser.parse_args()
-
-    data = args.file[0].read_text().splitlines()
+    data = parse(sys.argv[1], ints)
 
     P = []
     s = 0
-    for line in data:
-        i = ints(line)
-        d = [b - a for a, b in zip(i, i[1:])]
+    for nums in data:
+        d = [b - a for a, b in zip(nums, nums[1:])]
         if check(d):
             s += 1
     print(f"Part 1: {s}")
 
     P = []
     s = 0
-    for line in data:
-        i = ints(line)
-        for j in range(len(i)):
-            subset = i[:j] + i[j + 1 :]
+    for nums in data:
+        for j in range(len(nums)):
+            subset = nums[:j] + nums[j + 1 :]
             d = [b - a for a, b in zip(subset, subset[1:])]
             if check(d):
                 s += 1

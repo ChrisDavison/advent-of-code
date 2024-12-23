@@ -1,15 +1,10 @@
 import re
-from argparse import ArgumentParser
-from pathlib import Path
+import sys
+from utility import *
 
 
 if __name__ == "__main__":
-    parser = ArgumentParser()
-    parser.add_argument("-d", "--debug", action="store_true", default=False)
-    parser.add_argument("file", type=Path, nargs=1)
-    args = parser.parse_args()
-
-    source = args.file[0].read_text()
+    source = the(parse(sys.argv[1], section_by=paragraphs))
 
     P = []
     m = re.findall(r"mul\((\d+),(\d+)\)", source)

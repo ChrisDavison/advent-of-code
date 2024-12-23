@@ -1,12 +1,10 @@
-from utility import paragraphs, atoms
+from utility import paragraphs, atoms, parse
 import sys
-from argparse import ArgumentParser
-from pathlib import Path
 
 
-def parse(data):
+def parse_ruleset(filename):
     rules = dict()
-    rulestr, manual = paragraphs(data)
+    rulestr, manual = parse(filename, show=0, section_by=paragraphs)
     for line in rulestr.splitlines():
         a, b = atoms(line)
         if a in rules:
@@ -58,15 +56,13 @@ def swap_till_valid(invalid, rules):
     return invalid
 
 
-def part1(data):
-    rules, manuals = parse(data)
+def part1(rules, manuals):
     valids = [m for m in manuals if check(rules, m)]
     tot = sum(v[int(len(v) / 2)] for v in valids)
     print(f"Part1 {tot}")
 
 
-def part2(data):
-    rules, manuals = parse(data)
+def part2(rules, manuals):
     invalids = [m for m in manuals if not check(rules, m)]
     tot = sum(v[int(len(v) / 2)] for v in invalids)
     valids = [swap_till_valid(invalid, rules) for invalid in invalids]
@@ -75,11 +71,5 @@ def part2(data):
 
 
 if __name__ == "__main__":
-    parser = ArgumentParser()
-    parser.add_argument("-d", "--debug", action="store_true", default=False)
-    parser.add_argument("file", type=Path, nargs=1)
-    args = parser.parse_args()
-
-    data = args.file[0].read_text()
-    part1(data)
-    part2(data)
+    part1(*parse_ruleset(sys.argv[1]))
+    part2(*parse_ruleset(sys.argv[1]))
