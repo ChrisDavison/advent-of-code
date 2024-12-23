@@ -27,12 +27,13 @@ def part2(filename):
     G = nx.Graph()
     G.add_edges_from(data)
 
-    longest = max(nx.enumerate_all_cliques(G), key=len)
+    longest, _ = nx.max_weight_clique(G, weight=None)
     password = ",".join(sorted(longest))
     print(f"part2 {filename}: {password}")
 
 
-part1("23s")
-part1("23")
-part2("23s2")
-part2("23")
+if __name__ == "__main__":
+    part1("23s")
+    part1("23")
+    part2("23s2")
+    part2("23")
