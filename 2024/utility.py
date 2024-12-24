@@ -39,12 +39,11 @@ def parse(
 def get_text(day_or_text: Union[int, str]) -> str:
     """The text used as input to the puzzle: either a string or the day number,
     which denotes the file 'AOC/year/input{day}.txt'."""
-    if isinstance(day_or_text, int):
-        filename = Path(f"input/{day_or_text:02d}")
+    try:
+        filename = Path(f"input/{day_or_text}")
         return filename.read_text()
-    filename = Path(f"input/{day_or_text}")
-    if filename.exists():
-        return filename.read_text()
+    except OSError:
+        pass
     return day_or_text
 
 
