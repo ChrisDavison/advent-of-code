@@ -17,46 +17,28 @@ def part1(data):
 
 def part2(data):
     vals = [(row[0], int(row[1:])) for row in data]
-    start = 50
     part2 = 0
+    start = 50
     for dir, val in vals:
         sign = 1
+        clicks = 0
         if dir == 'L':
             sign = -1
         for _ in range(val):
             start += sign
             start %= 100
             if start == 0:
-                part2 += 1
-        print(start)
+                clicks += 1
+        part2 += clicks
     print(f"{part2 = }")
-
-def part2_2(data):
-    vals = [(row[0], int(row[1:])) for row in data]
-    start = 50
-    part2 = 0
-    for dir, val in vals:
-        delta = (100 - start) if dir == 'R' else start
-        rem = val - delta
-        if val > delta:
-            part2 += 1 + int(rem/100)
-            rem2 = rem - (int(rem / 100) * rem)
-            start = rem2 if dir == 'R' else 100 - rem2
-        print(start)
-    print(f"b {part2 = }")
-
 
 ds = parse("01s", show=False)
 d = parse("01", show=False)
 
-# part1(ds)
-# part1(d)
+part1(ds)
+part1(d)
 
 print()
 
 part2(ds)
-# part2(d)
-
-print()
-part2_2(ds)
-# part2(d)
+part2(d)
