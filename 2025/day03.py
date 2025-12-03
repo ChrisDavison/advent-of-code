@@ -19,6 +19,9 @@ def part1(data):
     print("part1", chalk.red(part1))
 
 
+def part1b(data):
+    tot = sum(max_noncontiguous_sequence(line, None, 2) for line in data)
+    print("part1b", chalk.red(tot))
 
 
 def to_num(digits):
@@ -61,6 +64,10 @@ def part2(data):
 
 part1(ds)
 part1(dd)
+
+
+part1b(ds)
+part1b(dd)
 
 print(chalk.green("·" * 80))
 
