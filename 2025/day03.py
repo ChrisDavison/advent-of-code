@@ -8,18 +8,6 @@ dd = parse("03", digits, show=False)
 
 
 def part1(data):
-    part1 = 0
-    for line in data:
-        linemax = 0
-        for i, dig in enumerate(line[:-1]):
-            num = dig * 10 + max(line[i + 1 :])
-            if num > linemax:
-                linemax = num
-        part1 += linemax
-    print("part1", chalk.red(part1))
-
-
-def part1b(data):
     tot = sum(max_noncontiguous_sequence(line, None, 2) for line in data)
     print("part1b", chalk.red(tot))
 
@@ -64,10 +52,6 @@ def part2(data):
 
 part1(ds)
 part1(dd)
-
-
-part1b(ds)
-part1b(dd)
 
 print(chalk.green("·" * 80))
 
