@@ -30,9 +30,9 @@ def part2(grid):
                 removals += 1
                 grid[point] = '.'
                 changed = True
-                # grid.print(highlight=[point])
-                # print()
-                break
+                grid.print(highlight=[point])
+                print()
+                # break
     print(removals)
 
 
