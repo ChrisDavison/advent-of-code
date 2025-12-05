@@ -10,6 +10,7 @@ from pathlib import Path
 from time import time_ns
 from typing import *
 from simple_chalk import chalk
+from dataclasses import dataclass
 
 T_NOW = None
 lines = str.splitlines  # By default, split input text into lines
@@ -942,3 +943,41 @@ def path_states(node):
     if node in (search_failure, None):
         return []
     return path_states(node.parent) + [node.state]
+
+@dataclass
+class Interval:
+    start: int
+    end: int
+
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+
+    @staticmethod
+    def from_first_and_last(first, last):
+        return Interval(first, last)
+
+    @staticmethod
+    def from_first_and_length(first, length):
+        return Interval(first, first+length)
+
+    def union(self, other):
+        assert self.intersect(other), "Intervals do not intersect"
+        if other.start<self.start:
+            return other.union(self)
+        return Interval(self.start, max(self.end,other.end))
+
+    def intersect(self, other):
+        if other.start<self.start:
+            return other.intersect(self)
+        return other.start<=self.end
+
+    def is_superset(self, other):
+        return self.union(other) == self
+
+    def is_subset(self, other):
+        return self.union(other) == other
+
+    def contains(self, value):
+        return self.start <= value <= self.end
+
