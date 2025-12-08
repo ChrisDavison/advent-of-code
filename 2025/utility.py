@@ -153,6 +153,11 @@ def atoms(text: str) -> Tuple[Atom]:
     return mapt(atom, re.findall(r"[+-]?\d+\.?\d*|\w+", text))
 
 
+def nonwhite(text: str) -> Tuple[Atom]:
+    """A tuple of all the atoms (numbers or identifiers) in text. Skip punctuation."""
+    return mapt(atom, re.findall(r"[+-]?\d+\.?\d*|\w+|[^\s]+", text))
+
+
 def atom(text: str) -> Atom:
     """Parse text into a single float or int or str."""
     try:
