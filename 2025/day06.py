@@ -18,7 +18,7 @@ def part1(data, sym):
                     out[col] *= val
             else:
                 out[col] += val
-    print(sum(out))
+    print(f"part1: {chalk.red(sum(out))}")
 
 
 def change_endian(values):
@@ -56,7 +56,7 @@ def part2(fname):
         else:
             val = sum(t)
         tot += val
-    print(tot)
+    print(f"part2: {chalk.red(tot)}")
 
 ds, dss = pparse("06s")
 dd, dds = pparse("06")
