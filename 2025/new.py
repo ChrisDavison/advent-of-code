@@ -41,15 +41,25 @@ if args.sample_from_clipboard:
 # ------------------------------------------------------------
 template = f"""from utility import *
 
-ds = parse("{args.day:02d}s")
 
 def part1(data):
-    pass
+    result = 0
+    return result
 
 def part2(data):
-    pass
+    result = 0
+    return result
 
-part1(ds)
+ds = parse("{args.day:02d}s")
+dd = parse("{args.day:02d}s", show=False)
+
+header({args.day}, 1)
+print(part1(ds))
+print(part1(dd))
+
+header({args.day}, 2)
+print(part2(ds))
+print(part2(dd))
 """
 with open(f"day{args.day:02d}.py", "w") as f:
     f.write(template)

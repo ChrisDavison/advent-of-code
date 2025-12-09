@@ -1,7 +1,11 @@
 from utility import *
 
+
 def parser(inp):
-    ds = [[positive_ints(line) for line in chunk.splitlines()] for chunk in open(inp).read().split("\n\n")]
+    ds = [
+        [positive_ints(line) for line in chunk.splitlines()]
+        for chunk in open(inp).read().split("\n\n")
+    ]
     ranges = [Interval(d[0], d[1]) for d in ds[0]]
     vals = [x[0] for x in ds[1]]
     return simplify_ranges(ranges), vals
@@ -24,7 +28,6 @@ def simplify_ranges(ranges):
     return simplified
 
 
-
 def part1(inp):
     ranges, vals = parser(inp)
     tot = 0
@@ -34,6 +37,7 @@ def part1(inp):
                 tot += 1
                 break
     print(tot)
+
 
 def part2(inp):
     ranges, _vals = parser(inp)
@@ -48,4 +52,3 @@ part1("input/05")
 
 part2("input/05s")
 part2("input/05")
-

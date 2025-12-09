@@ -4,16 +4,24 @@ import heapq
 import operator
 import re
 from collections import Counter, abc, defaultdict
+from dataclasses import dataclass
 from itertools import chain, combinations, islice
 from math import gcd, inf
 from pathlib import Path
 from time import time_ns
 from typing import *
+
 from simple_chalk import chalk
-from dataclasses import dataclass
 
 T_NOW = None
 lines = str.splitlines  # By default, split input text into lines
+
+def header(day, part, extra=None):
+    extra = "" if not extra else " " + chalk.green(extra)
+    day = chalk.red(f"Day {day}")
+    part = chalk.red(f"Part {part}")
+    line = chalk.red("=====")
+    print(f"{line} {day} {part}{extra} {line}")
 
 
 def paragraphs(text):
@@ -425,7 +433,8 @@ class Grid(dict):
 
     def to_rows(self, xrange=None, yrange=None) -> List[List[object]]:
         """The contents of the grid, as a rectangular list of lists.
-        You can define a window with an xrange and yrange; or they default to the whole grid."""
+        You can define a window with an xrange and yrange; or they default to the whole grid.
+        """
         xrange = xrange or cover(Xs(self))
         yrange = yrange or cover(Ys(self))
         default = " " if self.default in (KeyError, None) else self.default
@@ -949,6 +958,7 @@ def path_states(node):
         return []
     return path_states(node.parent) + [node.state]
 
+
 @dataclass
 class Interval:
     start: int
@@ -964,18 +974,18 @@ class Interval:
 
     @staticmethod
     def from_first_and_length(first, length):
-        return Interval(first, first+length)
+        return Interval(first, first + length)
 
     def union(self, other):
         assert self.intersect(other), "Intervals do not intersect"
-        if other.start<self.start:
+        if other.start < self.start:
             return other.union(self)
-        return Interval(self.start, max(self.end,other.end))
+        return Interval(self.start, max(self.end, other.end))
 
     def intersect(self, other):
-        if other.start<self.start:
+        if other.start < self.start:
             return other.intersect(self)
-        return other.start<=self.end
+        return other.start <= self.end
 
     def is_superset(self, other):
         return self.union(other) == self
@@ -985,4 +995,3 @@ class Interval:
 
     def contains(self, value):
         return self.start <= value <= self.end
-

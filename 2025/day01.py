@@ -35,10 +35,10 @@ def part2(data):
 ds = parse("01s", show=False)
 d = parse("01", show=False)
 
+header(1, 1)
 part1(ds)
 part1(d)
 
-print()
-
+header(1, 2)
 part2(ds)
 part2(d)

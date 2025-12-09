@@ -18,6 +18,8 @@ def part1(data):
     print(f"part1: {chalk.red(a)}")
 
 def part2(data):
+    # Need to calculate the 'outer hull', and then only calculate the max
+    # contiguous region within this.
     pass
 
 part1(ds)
