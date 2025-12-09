@@ -1,3 +1,4 @@
+from functools import lru_cache
 from utility import *
 
 
@@ -46,21 +47,22 @@ def p1r(beams, splitters, final_row, splits=0):
 def part2(filename):
     splitters, start = pparse(filename)
     maxrow = max(s.y for s in splitters)
+    splitters = tuple(splitters)
     res = part2r(start+down, splitters, endrow=maxrow)
     print(f"{res = }")
 
+@lru_cache
 def part2r(beam, splitters, endrow=None):
     if beam.y >= endrow:
         return 1
 
     nb = beam + down
-    next_splitters = {s for s in splitters if s.y >= nb.y}
-    print(f"{len(splitters) = }")
+    # print(f"{len(splitters) = }")
     if nb in splitters:
         l = nb + left
         r = nb + right
-        return part2r(l, next_splitters, endrow=endrow) + part2r(r, next_splitters, endrow=endrow)
-    return part2r(nb, next_splitters, endrow=endrow)
+        return part2r(l, splitters, endrow=endrow) + part2r(r, splitters, endrow=endrow)
+    return part2r(nb, splitters, endrow=endrow)
 
 
 part1("input/07s")
