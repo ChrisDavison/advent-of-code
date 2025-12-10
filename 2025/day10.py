@@ -2,9 +2,8 @@ from functools import lru_cache, partial, reduce
 from utility import *
 from pprint import pprint as pp
 from itertools import product
-
-
-pp = partial(pp, indent=2)
+import numpy as np
+from z3 import *
 
 
 def pparse(filename):
@@ -30,16 +29,6 @@ def apply(mask, sw):
     out = [s for n, s in zip(mask, sw) for _ in range(n)]
     return reduce(lambda x, acc: x ^ acc, out, 0)
 
-@lru_cache
-def apply2(mask, sw, target):
-    out = [0] * len(target)
-    for m, s in zip(mask, sw):
-        for col in s:
-            out[col] += m
-            if out[col] > target[col]:
-                return tuple(out)
-    return tuple(out)
-
 def bitmask_to_indices(bm):
     indices = tuple([i for i, b in enumerate(bm) if b])
     return indices
@@ -59,28 +48,31 @@ def part1(target, switches):
 
 
 def part2(switches, voltages):
-    switch_max = [0] * len(switches)
-    switches = tuple([bitmask_to_indices(sw) for sw in switches])
-    for i, sw in enumerate(switches):
-        switch_max[i] = min([voltages[j] for j, s in enumerate(sw)
-                         if voltages[j] and s])
+    switches = [bitmask_to_indices(s) for s in switches]
+    n = len(voltages)
+    X = IntVector('x', len(switches))
 
-    presses = sum(switch_max)
-    print("N variants", reduce(lambda x, acc: x * acc, switch_max, 1))
-    # CANNOT DO THIS
-    # have 1E18 variants for the first entry...and ~200 entries
-    for variant in product(*[list(range(n+1)) for n in switch_max]):
-        sv = sum(variant)
-        if sv > presses:
-            continue
-        if sv < max(voltages):
-            continue
-        res = apply2(variant, switches, voltages)
-        if res == voltages:
-            presses = min(presses, sv)
+    s = Optimize()
+    for k in range(len(switches)):
+        s.add([x >= 0 for x in X])
 
-    return presses
+    A = []
+    for button in switches:
+        row = [0 for _ in range(n)]
+        for w in button:
+            row[w] = 1
+        A.append(row)
 
+    for i in range(n):
+        s.add(Sum(X[k]*A[k][i] for k in range(len(switches))) == voltages[i])
+    s.minimize(Sum(X))
+
+    # Check for satisfiability and get the model
+    if s.check() == sat:
+        model = s.model()
+        return sum(model[k].as_long() for k in model)
+    else:
+        print("No solution found.")
 
 data = pparse("10s")
 data = pparse("10")
@@ -94,9 +86,9 @@ print(result)
 print("-" * 40)
 
 data = pparse("10s")
-# data = pparse("10")
+data = pparse("10")
 result = 0
 for _, switches, voltages in data:
-    steps = part2(switches, voltages)
-    result += steps
+    result += part2(switches, voltages)
+    # break
 print(result)
