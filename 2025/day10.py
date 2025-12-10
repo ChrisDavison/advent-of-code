@@ -67,6 +67,8 @@ def part2(switches, voltages):
 
     presses = sum(switch_max)
     print("N variants", reduce(lambda x, acc: x * acc, switch_max, 1))
+    # CANNOT DO THIS
+    # have 1E18 variants for the first entry...and ~200 entries
     for variant in product(*[list(range(n+1)) for n in switch_max]):
         sv = sum(variant)
         if sv > presses:
