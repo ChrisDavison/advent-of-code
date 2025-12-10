@@ -17,10 +17,21 @@ def part1(data):
         a = max(ar, a)
     print(f"part1: {chalk.red(a)}")
 
+
+def find_squares(data):
+    def is_valid(xy):
+        return xy
+
+    corners = sorted(combinations(data, 2), key=lambda x: area(*x), reverse=True)
+    valid = map(is_valid, corners)
+    return area(*next(valid))
+
 def part2(data):
-    # Need to calculate the 'outer hull', and then only calculate the max
-    # contiguous region within this.
-    pass
+    a = 0
+    print(find_squares(data))
 
 part1(ds)
 part1(dd)
+
+part2(ds)
+# part2(dd)
