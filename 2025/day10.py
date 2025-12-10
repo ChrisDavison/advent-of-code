@@ -1,51 +1,54 @@
 from collections import namedtuple
+from functools import lru_cache, partial, reduce
 from utility import *
+from numpy import array, zeros_like
+from pprint import pprint as pp
 
-dtype = namedtuple('Day10', 'diagram switches voltages')
+
+pp = partial(pp, indent=2)
+
 
 def pparse(filename):
     parsed = []
+    m = {".": "0", "#": "1"}
     for line in open("input/" + filename).read().splitlines():
-        diagram, rest = line.split(' ', 1)
-        diagram = [False if c == '.' else True for c in diagram[1:-1]]
+        dstr, rest = line.split(" ", 1)
+        dstr = dstr[1:-1]
+        diagram = int("".join([m[c] for c in dstr]), 2)
         vstart = rest.find("{")
-        voltages = tuple(int(v) for v in rest[vstart+1:-1].split(','))
-        triggers = [tuple(map(int, chunk[1:-1].split(','))) for chunk in rest[:vstart-1].split(' ')]
-        parsed.append(dtype(diagram,  triggers, voltages))
+        voltages = tuple([int(v) for v in rest[vstart + 1 : -1].split(",")])
+        triggers = []
+        for chunk in rest[: vstart - 1].split(" "):
+            z = ["0"] * len(dstr)
+            for col in chunk[1:-1].split(","):
+                z[int(col)] = "1"
+            triggers.append(int("".join(z), 2))
+        parsed.append((diagram, tuple(triggers), voltages))
     return parsed
 
 
-def trigger(diagram, switches):
-    nd = diagram
-    for switch in switches:
-        nd[switch] = not nd[switch]
-    return nd
+def apply(nsw):
+    out = [s for n, s in nsw for _ in range(n) ]
+    return reduce(lambda x, acc: x ^ acc, out, 0)
 
-def p(diagram):
-    print(''.join('░' if not c else '▒' for c in diagram))
+def step(target, switches):
+    m = None
+    for v in range(1, 2**len(switches)):
+        mask = [int(c) for c in bin(v)[2:].rjust(len(switches), '0')]
+        fin = apply(zip(mask, switches))
+        if fin != target:
+            continue
+        if not m or sum(mask) < m:
+            m = sum(mask)
+    return m
 
 
-def solve_triggers(diagram, switches):
-    start = [False] * len(diagram)
-    pass
+data = pparse("10s")
+data = pparse("10")
 
-def part1(data):
-    result = 0
-    p(data[0].diagram)
-    p(trigger(data[0].diagram, data[0].switches[0]))
-    return result
+result = 0
+for diagram, switches, _ in data:
+    steps = step(diagram, switches)
+    result += steps
 
-def part2(data):
-    result = 0
-    return result
-
-ds = pparse("10s")
-dd = pparse("10")
-
-header(10, 1)
-print(part1(ds))
-# print(part1(dd))
-
-# header(10, 2)
-# print(part2(ds))
-# print(part2(dd))
+print(result)
