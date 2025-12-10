@@ -1,8 +1,7 @@
-from collections import namedtuple
 from functools import lru_cache, partial, reduce
 from utility import *
-from numpy import array, zeros_like
 from pprint import pprint as pp
+from itertools import product
 
 
 pp = partial(pp, indent=2)
@@ -31,12 +30,15 @@ def apply(mask, sw):
     out = [s for n, s in zip(mask, sw) for _ in range(n)]
     return reduce(lambda x, acc: x ^ acc, out, 0)
 
-def apply2(mask, sw, width):
-    out = [0] * width
+@lru_cache
+def apply2(mask, sw, target):
+    out = [0] * len(target)
     for m, s in zip(mask, sw):
         for col in s:
             out[col] += m
-    return out
+            if out[col] > target[col]:
+                return tuple(out)
+    return tuple(out)
 
 def bitmask_to_indices(bm):
     indices = tuple([i for i, b in enumerate(bm) if b])
@@ -56,45 +58,24 @@ def part1(target, switches):
     return m
 
 
-def yield_permutations(switch_max):
-    fields_to_consider = [i for i, m in switch_max if m > 0]
-
-
 def part2(switches, voltages):
     switch_max = [0] * len(switches)
-    switches = [bitmask_to_indices(sw) for sw in switches]
+    switches = tuple([bitmask_to_indices(sw) for sw in switches])
     for i, sw in enumerate(switches):
-        mp = None
-        for s in sw:
-            if not s or not voltages[s]:
-                continue
-            mult = int(voltages[s] / s)
-            if not mp:
-                mp = mult
-            else:
-                mp = min(mult, mp)
-        switch_max[i] = mp
+        switch_max[i] = min([voltages[j] for j, s in enumerate(sw)
+                         if voltages[j] and s])
 
-    N = len(voltages)
-    print("apply2", apply2([0] * (N-1) + [1], switches, N))
-    while any(s > 0 for s in switch_max):
-        # TODO fix
-        # this works partially, but need to run through _ALL_ variants of every column
-        # e.g. [2, 2, 5]
-        #      [1, 2, 5]
-        #      [0, 2, 5]
-        #      [2, 1, 5]
-        #      [2, 0, 5]
-        #      [1, 1, 5]
-        #      [1, 0, 5]
-        #      [0, 0, 5]
-        # .... and so on
-        print(f"{switch_max = }")
-        res = apply2(switch_max, switches, N)
+    presses = sum(switch_max)
+    print("N variants", reduce(lambda x, acc: x * acc, switch_max, 1))
+    for variant in product(*[list(range(n+1)) for n in switch_max]):
+        sv = sum(variant)
+        if sv > presses:
+            continue
+        if sv < max(voltages):
+            continue
+        res = apply2(variant, switches, voltages)
         if res == voltages:
-            presses = sum(switch_max)
-        first_non_zero = [i for i, v in enumerate(switch_max) if v > 0][0]
-        switch_max[first_non_zero] -= 1
+            presses = min(presses, sv)
 
     return presses
 
@@ -114,8 +95,6 @@ data = pparse("10s")
 # data = pparse("10")
 result = 0
 for _, switches, voltages in data:
-    print(f"{switches = }")
     steps = part2(switches, voltages)
     result += steps
-    break
 print(result)
