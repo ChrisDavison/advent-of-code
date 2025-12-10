@@ -48,6 +48,7 @@ def part1(target, switches):
 
 
 def part2(switches, voltages):
+    # TODO review Integer Programming and think how I would implement it myself
     switches = [bitmask_to_indices(s) for s in switches]
     n = len(voltages)
     X = IntVector('x', len(switches))

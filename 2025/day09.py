@@ -36,6 +36,7 @@ def find_squares(data):
     return area(*n)
 
 def part2(data):
+    # TODO review this and figure out my own 'polygon' and 'contains' methods
     def area(edge) -> int:
         ((x1, y1), (x2, y2)) = edge
         return (abs(x2 - x1) + 1) * (abs(y2 - y1) + 1)
