@@ -12,13 +12,11 @@ def part1(data, lim):
         # print(f"{boxes = }")
         top = None
         for _, l, r in distances:
-            if any(l in bb and r in bb for bb in boxes):
-                continue
-            else:
+            if not any(l in bb and r in bb for bb in boxes):
                 top = (l, r)
                 break
         l_in = r_in = -1
-        print(f"{top = }")
+        # print(f"{top = }")
         assert top is not None
         for i, b in enumerate(boxes):
             # print(f"{b = }")
@@ -28,11 +26,12 @@ def part1(data, lim):
             if top[1] in b:
                 r_in = i
 
-        print(f"{l_in = } {r_in = }")
-        print(f"{boxes = }")
+        # print(f"{l_in = } {r_in = }")
+        # print(f"{boxes = }")
+        # print(f"{len(boxes) = }")
         if l_in >=0 and r_in >= 0:
-            jb = boxes.pop(r_in)
-            boxes[l_in].extend(jb)
+            boxes[l_in].extend(boxes[r_in])
+            del boxes[r_in]
         elif l_in >= 0:
             boxes[l_in].append(top[1])
         elif r_in >= 0:
@@ -53,5 +52,5 @@ def part2(data):
     pass
 
 part1(ds, lim=9)
-# part1(dd, lim=999)
+part1(dd, lim=999)
 
