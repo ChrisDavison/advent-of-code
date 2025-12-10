@@ -31,8 +31,8 @@ def apply(nsw):
     out = [s for n, s in nsw for _ in range(n) ]
     return reduce(lambda x, acc: x ^ acc, out, 0)
 
-def step(target, switches):
-    m = None
+def part1(target, switches):
+    m = 0
     for v in range(1, 2**len(switches)):
         mask = [int(c) for c in bin(v)[2:].rjust(len(switches), '0')]
         fin = apply(zip(mask, switches))
@@ -48,7 +48,6 @@ data = pparse("10")
 
 result = 0
 for diagram, switches, _ in data:
-    steps = step(diagram, switches)
+    steps = part1(diagram, switches)
     result += steps
-
 print(result)
