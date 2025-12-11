@@ -41,25 +41,31 @@ if args.sample_from_clipboard:
 # ------------------------------------------------------------
 template = f"""from utility import *
 
+def pparse(filename):
+    return None
 
-def part1(data):
+
+def p1(filename):
     result = 0
-    return result
+    data = pparse(filename)
+    col = chalk.red if "s" not in filename else chalk.green
+    print(col(f"part1 {{result}}")
 
-def part2(data):
+
+def p2(filename):
     result = 0
-    return result
+    data = pparse(filename)
+    col = chalk.red if "s" not in filename else chalk.green
+    print(col(f"part1 {{result}}")
 
-ds = parse("{args.day:02d}s")
-dd = parse("{args.day:02d}s", show=False)
 
-header({args.day}, 1)
-print(part1(ds))
-print(part1(dd))
+print(pparse("input/{args.day}s"))
 
-header({args.day}, 2)
-print(part2(ds))
-print(part2(dd))
+p1("input/{args.day}s")
+# p1("input/{args.day}")
+
+# p2("input/{args.day}s")
+# p2("input/{args.day}")
 """
 with open(f"day{args.day:02d}.py", "w") as f:
     f.write(template)

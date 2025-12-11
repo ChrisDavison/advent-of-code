@@ -1,9 +1,7 @@
 from functools import lru_cache, partial, reduce
 from utility import *
-from pprint import pprint as pp
 from itertools import product
-import numpy as np
-from z3 import *
+from z3 import IntVector, Optimize, Sum, sat
 
 
 def pparse(filename):
@@ -74,22 +72,28 @@ def part2(switches, voltages):
         return sum(model[k].as_long() for k in model)
     else:
         print("No solution found.")
+        return 0
 
-data = pparse("10s")
-data = pparse("10")
+def p1(filename):
+    data = pparse(filename)
+    col = chalk.red if "s" not in filename else chalk.green
+    result = 0
+    for diagram, switches, _ in data:
+        steps = part1(diagram, switches)
+        result += steps
+    print(col(f"part1 {result}"))
 
-result = 0
-for diagram, switches, _ in data:
-    steps = part1(diagram, switches)
-    result += steps
-print(result)
+def p2(filename):
+    data = pparse(filename)
+    col = chalk.red if "s" not in filename else chalk.green
+    result = 0
+    for _, switches, voltages in data:
+        result += part2(switches, voltages)
+        # break
+    print(col(f"part2 {result}"))
 
-print("-" * 40)
+p1("10s")
+p1("10")
 
-data = pparse("10s")
-data = pparse("10")
-result = 0
-for _, switches, voltages in data:
-    result += part2(switches, voltages)
-    # break
-print(result)
+p2("10s")
+p2("10")
