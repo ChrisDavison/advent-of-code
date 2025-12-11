@@ -1,29 +1,26 @@
 from utility import *
 import networkx as nx
 
-fname = "input/11"
-
-G = nx.DiGraph()
-con = defaultdict(list)
-for line in open(fname).read().splitlines():
-    frm, to = line.split(":")
-    to = to.strip().split(" ")
-    con[frm].extend(to)
-    for t in to:
-        G.add_edge(frm, t)
-# print(list(nx.all_pairs_all_shortest_paths(G)))
+def read_graph(filename):
+    G = nx.DiGraph()
+    con = defaultdict(list)
+    for line in open(filename).read().splitlines():
+        frm, to = line.split(":")
+        to = to.strip().split(" ")
+        con[frm].extend(to)
+        for t in to:
+            G.add_edge(frm, t)
+    return G
 
 c = 0
-for p in nx.all_simple_paths(G, "you", "out"):
-    print(f"{p = }")
+for p in nx.all_simple_paths(read_graph("input/11"), "you", "out"):
     c += 1
 print("part1", c)
 
-
-# print(tracepath("you", "bbb"))
-#
-# print(tracepath("you", "eee"))
-#
-# ds = parse("11s")
-# dd = parse("11s", show=False)
+# Part 2 is too slow to just use basic NetworkX
+c = 0
+for p in nx.all_simple_paths(read_graph("input/11s2"), "svr", "out"):
+    if "fft" in p and "dac" in p:
+        c += 1
+print("part2", c)
 
