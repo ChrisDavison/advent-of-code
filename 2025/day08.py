@@ -28,7 +28,7 @@ def part1(data, lim):
             boxes.append([l, r])
     
     lens = sorted([len(b) for b in boxes])
-    print(reduce(lambda acc, x: x * acc, lens[-3:], 1))
+    print(product(lens[-3:]))
 
 def part2(data):
     distances = sorted([(distance(p1, p2), i, j) for (i, p1), (j, p2) in combinations(data, 2)])

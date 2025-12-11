@@ -647,6 +647,10 @@ cache = functools.lru_cache(None)
 Ø = frozenset()  # empty set
 
 
+def product(iterable):
+    return functools.reduce(lambda x, acc: x * acc, iterable, 1)
+
+
 def quantify(iterable, pred=bool) -> int:
     """Count the number of items in iterable for which pred is true."""
     return sum(1 for item in iterable if pred(item))

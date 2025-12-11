@@ -32,7 +32,7 @@ def part1(fname):
     for col, s in yield_column(lines):
         t = mapt(int, col)
         if s == "*":
-            tot += reduce(lambda acc, x: acc * x, t[1:], t[0])
+            tot += product(t)
         else:
             tot += sum(t)
     return tot
@@ -49,7 +49,7 @@ def part2(fname):
                 t[i] += val[i]
         t = list(map(int, t))
         if s == "*":
-            val = reduce(lambda acc, x: acc * x, t[1:], t[0])
+            val = product(t)
         else:
             val = sum(t)
         tot += val
